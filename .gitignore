@@ -1,3 +1,30 @@
+# Environment
 .env
+.env.*
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-error.log
+.npm
+dist/
+build/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+venv/
+.venv/
+.pytest_cache/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# Project specific
 *.mp3
 *.pcm
+
