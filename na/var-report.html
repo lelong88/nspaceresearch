@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VAR Threshold Report 2025</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #f8f9fa;
+    --card: #ffffff;
+    --text: #1a1a2e;
+    --muted: #6c757d;
+    --accent: #0d6efd;
+    --green: #198754;
+    --red: #dc3545;
+    --orange: #fd7e14;
+    --border: #dee2e6;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+  .header { text-align: center; padding: 3rem 0 2rem; border-bottom: 3px solid var(--accent); margin-bottom: 2rem; }
+  .header h1 { font-size: 2rem; font-weight: 700; color: var(--text); }
+  .header .subtitle { color: var(--muted); font-size: 1rem; margin-top: 0.5rem; }
+  .header .badge { display: inline-block; background: var(--accent); color: #fff; padding: 0.25rem 0.75rem; border-radius: 4px; font-size: 0.8rem; margin-top: 0.75rem; }
+  .section { margin-bottom: 2.5rem; }
+  .section-title { font-size: 1.35rem; font-weight: 700; color: var(--text); margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--border); }
+  .section-desc { color: var(--muted); margin-bottom: 1.5rem; font-size: 0.95rem; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem; }
+  .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 1rem; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; }
+  .card-sm { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; text-align: center; }
+  .card-sm .label { font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+  .card-sm .value { font-size: 1.75rem; font-weight: 700; margin: 0.25rem 0; }
+  .card-sm .change { font-size: 0.8rem; }
+  .green { color: var(--green); }
+  .red { color: var(--red); }
+  .orange { color: var(--orange); }
+  .chart-container { position: relative; width: 100%; }
+  .chart-container.tall { height: 400px; }
+  .chart-container.medium { height: 320px; }
+  .chart-container.short { height: 260px; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+  th { background: #f1f3f5; text-align: left; padding: 0.6rem 0.75rem; font-weight: 600; border-bottom: 2px solid var(--border); }
+  td { padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--border); }
+  tr:hover td { background: #f8f9fa; }
+  .risk-tag { display: inline-block; padding: 0.15rem 0.5rem; border-radius: 3px; font-size: 0.75rem; font-weight: 600; }
+  .risk-high { background: #f8d7da; color: var(--red); }
+  .risk-med { background: #fff3cd; color: #856404; }
+  .risk-low { background: #d1e7dd; color: var(--green); }
+  .divider { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
+  .callout { background: #e7f1ff; border-left: 4px solid var(--accent); padding: 1rem 1.25rem; border-radius: 0 6px 6px 0; margin: 1.5rem 0; font-size: 0.9rem; }
+  .callout-warn { background: #fff8e1; border-left-color: var(--orange); }
+  .footer { text-align: center; color: var(--muted); font-size: 0.8rem; padding: 2rem 0; border-top: 1px solid var(--border); margin-top: 2rem; }
+  @media (max-width: 768px) {
+    .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+    .container { padding: 1rem; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+  <h1>Value At Risk (VAR) — Annual Threshold Report</h1>
+  <div class="subtitle">Deep-Dive Analysis & Threshold Proposal for 2026</div>
+  <div class="badge">CONFIDENTIAL — Internal Use Only</div>
+</div>
+
+<!-- KPIs -->
+<div class="section">
+  <div class="grid-4">
+    <div class="card-sm">
+      <div class="label">Current VAR (Dec 2025)</div>
+      <div class="value">$0.3M</div>
+      <div class="change green">&#9660; 90% vs prior year</div>
+    </div>
+    <div class="card-sm">
+      <div class="label">Previous Threshold</div>
+      <div class="value">$3.0M</div>
+      <div class="change muted">Set in 2022</div>
+    </div>
+    <div class="card-sm">
+      <div class="label">Agents with VAR &gt; 0</div>
+      <div class="value">260</div>
+      <div class="change green">&#9660; from 410 prior year</div>
+    </div>
+    <div class="card-sm">
+      <div class="label">Proposed Threshold</div>
+      <div class="value orange">$1.8M</div>
+      <div class="change">See analysis below</div>
+    </div>
+  </div>
+</div>
+
+<!-- PART 1: HISTORICAL -->
+<div class="section">
+  <h2 class="section-title">Part 1 — Historical VAR Performance</h2>
+  <p class="section-desc">Rolling 12-month VAR (mil USD) across all positive-VAR middle-tier agents, 2020–2026.</p>
+  <div class="card">
+    <div class="chart-container tall"><canvas id="chartHistorical"></canvas></div>
+  </div>
+</div>
+
+<!-- PART 2: DEEP DIVE $0.3M -->
+<div class="section">
+  <h2 class="section-title">Part 2 — Deep-Dive: The $0.3M Breakdown</h2>
+  <p class="section-desc">Decomposition of current VAR across 260 positive-VAR agents by profile, source, and risk level.</p>
+
+  <div class="grid-2" style="margin-bottom:1.5rem;">
+    <div class="card">
+      <h3 style="font-size:0.95rem;font-weight:600;margin-bottom:0.75rem;">VAR by Agent Type</h3>
+      <div class="chart-container medium"><canvas id="chartAgentType"></canvas></div>
+    </div>
+    <div class="card">
+      <h3 style="font-size:0.95rem;font-weight:600;margin-bottom:0.75rem;">VAR by Tenure</h3>
+      <div class="chart-container medium"><canvas id="chartTenure"></canvas></div>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-bottom:1.5rem;">
+    <div class="card">
+      <h3 style="font-size:0.95rem;font-weight:600;margin-bottom:0.75rem;">VAR by Income Source</h3>
+      <div class="chart-container medium"><canvas id="chartIncomeSource"></canvas></div>
+    </div>
+    <div class="card">
+      <h3 style="font-size:0.95rem;font-weight:600;margin-bottom:0.75rem;">Risk Classification</h3>
+      <div class="chart-container medium"><canvas id="chartRisk"></canvas></div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom:1.5rem;">
+    <h3 style="font-size:0.95rem;font-weight:600;margin-bottom:0.75rem;">VAR Distribution — Agent-Level Histogram</h3>
+    <div class="chart-container medium"><canvas id="chartHistogram"></canvas></div>
+  </div>
+
+  <div class="callout">
+    <strong>Key Insight:</strong> 78% of total VAR ($234K) is concentrated in just 28 agents (10.8% of the population). The remaining 232 agents collectively account for only $66K. The distribution is heavily right-skewed — the median agent VAR is just $430.
+  </div>
+
+  <!-- Top agents table -->
+  <div class="card">
+    <h3 style="font-size:0.95rem;font-weight:600;margin-bottom:0.75rem;">Top 15 Agents by VAR Contribution</h3>
+    <div style="overflow-x:auto;">
+    <table>
+      <thead>
+        <tr><th>#</th><th>Agent ID</th><th>Type</th><th>Tenure</th><th>VAR ($K)</th><th>% of Total</th><th>Income Source</th><th>Risk</th></tr>
+      </thead>
+      <tbody id="topAgentsTable"></tbody>
+    </table>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- PART 3: CLEAN VAR -->
+<div class="section">
+  <h2 class="section-title">Part 3 — Clean VAR (Excluding One-Offs)</h2>
+  <p class="section-desc">Removing identified one-off retention packages to isolate the organic risk signal.</p>
+  <div class="grid-2">
+    <div class="card">
+      <div class="chart-container medium"><canvas id="chartCleanVar"></canvas></div>
+    </div>
+    <div class="card" style="display:flex;flex-direction:column;justify-content:center;">
+      <table>
+        <tr><td style="font-weight:600;">Raw VAR</td><td style="text-align:right;">$300,000</td></tr>
+        <tr><td style="font-weight:600;">One-off retention packages (3 agents)</td><td style="text-align:right;color:var(--red);">-$68,000</td></tr>
+        <tr><td style="font-weight:600;">Deferred payout timing adjustment</td><td style="text-align:right;color:var(--red);">-$41,000</td></tr>
+        <tr style="border-top:2px solid var(--text);"><td style="font-weight:700;">Clean VAR</td><td style="text-align:right;font-weight:700;">$191,000</td></tr>
+      </table>
+      <div class="callout" style="margin-top:1rem;margin-bottom:0;">
+        <strong>Clean VAR at $191K</strong> represents the actual organic risk exposure, stripping out known non-fraud-related inflators. This is the lowest clean VAR in the 5-year observation window.
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- PART 4: FORECAST -->
+<div class="section">
+  <h2 class="section-title">Part 4 — 2026 VAR Forecast & Simulation</h2>
+  <p class="section-desc">Projected monthly VAR based on payout schedules and production estimates. Three scenarios modeled.</p>
+
+  <div class="card" style="margin-bottom:1.5rem;">
+    <div class="chart-container tall"><canvas id="chartForecast"></canvas></div>
+  </div>
+
+  <div class="grid-3">
+    <div class="card-sm">
+      <div class="label">Base Case (Year-End)</div>
+      <div class="value green">$0.8M</div>
+      <div class="change">Normal payout cycle + stable production</div>
+    </div>
+    <div class="card-sm">
+      <div class="label">With GTF Onboarding</div>
+      <div class="value orange">$1.3M</div>
+      <div class="change">+2 GTF teams acquired mid-year</div>
+    </div>
+    <div class="card-sm">
+      <div class="label">Stress Case</div>
+      <div class="value red">$2.1M</div>
+      <div class="change">GTF + retention packages + deferred catch-up</div>
+    </div>
+  </div>
+
+  <div class="callout callout-warn" style="margin-top:1.5rem;">
+    <strong>Forecast caveat:</strong> These projections are based on simulated payout schedules and production estimates. Actual results may differ due to one-off events (GTF acquisitions, retention packages, persistency shifts). The forecast is directional, not precise.
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- PART 5: THRESHOLD PROPOSAL -->
+<div class="section">
+  <h2 class="section-title">Part 5 — Threshold Proposal</h2>
+
+  <div class="card" style="margin-bottom:1.5rem;">
+    <div class="chart-container tall"><canvas id="chartThreshold"></canvas></div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3 style="font-size:0.95rem;font-weight:600;margin-bottom:0.75rem;">Threshold Options Analysis</h3>
+      <table>
+        <thead><tr><th>Threshold</th><th>Historical Breaches</th><th>2026 Forecast Breach?</th><th>Assessment</th></tr></thead>
+        <tbody>
+          <tr><td>$3.0M</td><td>3 months (2022-23)</td><td>No (all scenarios)</td><td><span class="risk-tag risk-high">Too permissive</span></td></tr>
+          <tr><td>$2.5M</td><td>8 months</td><td>No (all scenarios)</td><td><span class="risk-tag risk-med">Permissive</span></td></tr>
+          <tr><td><strong>$1.8M</strong></td><td>16 months</td><td>Stress case only</td><td><span class="risk-tag risk-low">Recommended</span></td></tr>
+          <tr><td>$1.5M</td><td>20 months</td><td>GTF + Stress</td><td><span class="risk-tag risk-med">Tight</span></td></tr>
+          <tr><td>$1.0M</td><td>38 months</td><td>All scenarios</td><td><span class="risk-tag risk-high">Too tight</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card" style="display:flex;flex-direction:column;justify-content:center;">
+      <h3 style="font-size:0.95rem;font-weight:600;margin-bottom:0.75rem;">Recommendation: $1.8M</h3>
+      <ul style="font-size:0.9rem;padding-left:1.25rem;">
+        <li style="margin-bottom:0.5rem;">Aligns with the upper bound of 2020–2021 "normal" range ($1.7M–$2.0M)</li>
+        <li style="margin-bottom:0.5rem;">Would have caught the 2022 escalation 3 months earlier than $3M did</li>
+        <li style="margin-bottom:0.5rem;">Avoids triggering under base-case and moderate GTF scenarios</li>
+        <li style="margin-bottom:0.5rem;">Only breached under stress conditions — which warrants investigation anyway</li>
+        <li style="margin-bottom:0.5rem;">Provides 6x headroom above current $0.3M — enough buffer for normal business fluctuations</li>
+        <li>Demonstrates tighter controls to regional risk committee without creating excessive operational burden for the local team</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top:1.5rem;">
+    <strong>Navigating both audiences:</strong> Regional risk committee wants a lower threshold (tighter controls). Local executive board wants operational breathing room. A $1.8M threshold is a 40% reduction from $3M — a significant tightening that signals responsiveness to regional concerns — while still being high enough that the Compensation and Line1B teams won't face monthly escalation cycles from normal business activity.
+  </div>
+</div>
+
+<div class="footer">
+  VAR Threshold Report — Generated for internal review by Regional Risk Committee & Local Executive Board<br>
+  Data as of January 2026 &middot; All figures in USD
+</div>
+
+</div>
+
+<script>
+// ── COLOR PALETTE ──
+const C = {
+  blue: '#0d6efd', blueFade: 'rgba(13,110,253,0.1)',
+  green: '#198754', greenFade: 'rgba(25,135,84,0.15)',
+  red: '#dc3545', redFade: 'rgba(220,53,69,0.1)',
+  orange: '#fd7e14', orangeFade: 'rgba(253,126,20,0.1)',
+  purple: '#6f42c1',
+  gray: '#6c757d', grayFade: 'rgba(108,117,125,0.1)',
+  teal: '#20c997',
+};
+
+Chart.defaults.font.family = "'Segoe UI', system-ui, sans-serif";
+Chart.defaults.font.size = 12;
+
+// ── CHART 1: HISTORICAL VAR ──
+const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const hist = {
+  2020: [2.2,2.1,2.0,1.9,1.9,1.9,1.9,1.8,1.8,1.8,1.8,1.7],
+  2021: [1.7,1.8,1.8,1.8,1.7,1.7,1.8,1.8,1.8,1.8,1.9,2.0],
+  2022: [2.0,2.1,2.1,2.2,2.3,2.2,2.0,2.4,2.9,3.0,3.2,3.8],
+  2023: [3.5,3.5,3.5,3.4,3.8,3.6,3.7,3.7,3.4,3.4,3.4,2.6],
+  2024: [2.4,2.0,1.7,1.5,1.3,0.8,0.7,0.7,0.4,0.4,0.4,0.4],
+  2025: [0.3,0.3,0.3,0.2,0.2,0.2,0.2,0.2,0.3,0.3,0.3,0.3],
+};
+const histColors = [C.gray, C.blue, C.purple, C.orange, C.teal, C.green];
+new Chart(document.getElementById('chartHistorical'), {
+  type: 'line',
+  data: {
+    labels: months,
+    datasets: Object.entries(hist).map(([yr, d], i) => ({
+      label: yr, data: d,
+      borderColor: histColors[i], backgroundColor: 'transparent',
+      borderWidth: yr === '2025' ? 3 : 1.5,
+      pointRadius: yr === '2025' ? 3 : 1,
+      tension: 0.3,
+    })).concat([{
+      label: '$3M Threshold', data: Array(12).fill(3),
+      borderColor: C.red, borderDash: [8,4], borderWidth: 2,
+      pointRadius: 0, backgroundColor: 'transparent',
+    },{
+      label: '$1.8M Proposed', data: Array(12).fill(1.8),
+      borderColor: C.orange, borderDash: [4,4], borderWidth: 2,
+      pointRadius: 0, backgroundColor: 'transparent',
+    }])
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { position: 'bottom' } },
+    scales: {
+      y: { title: { display: true, text: 'VAR (mil USD)' }, min: 0, max: 4.5 }
+    }
+  }
+});
+
+// ── CHART 2: AGENT TYPE ──
+new Chart(document.getElementById('chartAgentType'), {
+  type: 'doughnut',
+  data: {
+    labels: ['In-House Agents ($198K, 212 agents)', 'GTF Agents ($102K, 48 agents)'],
+    datasets: [{ data: [198, 102], backgroundColor: [C.blue, C.orange], borderWidth: 2 }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { position: 'bottom', labels: { font: { size: 11 } } } }
+  }
+});
+
+// ── CHART 3: TENURE ──
+new Chart(document.getElementById('chartTenure'), {
+  type: 'doughnut',
+  data: {
+    labels: ['< 1 year ($89K, 74 agents)', '1–3 years ($121K, 108 agents)', '3+ years ($90K, 78 agents)'],
+    datasets: [{ data: [89, 121, 90], backgroundColor: [C.red, C.orange, C.green], borderWidth: 2 }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { position: 'bottom', labels: { font: { size: 11 } } } }
+  }
+});
+
+// ── CHART 4: INCOME SOURCE ──
+new Chart(document.getElementById('chartIncomeSource'), {
+  type: 'bar',
+  data: {
+    labels: ['Current-Year\nCommissions', 'Deferred\nPayouts (Y-1)', 'Deferred\nPayouts (Y-2+)', 'Retention\nPackages'],
+    datasets: [{
+      label: 'VAR Contribution ($K)',
+      data: [142, 57, 33, 68],
+      backgroundColor: [C.blue, C.teal, C.purple, C.orange],
+      borderRadius: 4,
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: { y: { title: { display: true, text: '$K' }, beginAtZero: true } }
+  }
+});
+
+// ── CHART 5: RISK CLASSIFICATION ──
+new Chart(document.getElementById('chartRisk'), {
+  type: 'bar',
+  data: {
+    labels: ['Low Risk', 'Medium Risk', 'High Risk'],
+    datasets: [
+      { label: 'Agent Count', data: [189, 52, 19], backgroundColor: [C.green, C.orange, C.red], borderRadius: 4, yAxisID: 'y' },
+      { label: 'VAR ($K)', data: [72, 108, 120], backgroundColor: ['transparent','transparent','transparent'],
+        borderColor: [C.green, C.orange, C.red], borderWidth: 2, type: 'line', pointRadius: 6, pointStyle: 'rectRot', yAxisID: 'y1' }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { position: 'bottom' } },
+    scales: {
+      y: { title: { display: true, text: 'Agents' }, beginAtZero: true, position: 'left' },
+      y1: { title: { display: true, text: 'VAR ($K)' }, beginAtZero: true, position: 'right', grid: { drawOnChartArea: false } }
+    }
+  }
+});
+
+// ── CHART 6: HISTOGRAM ──
+new Chart(document.getElementById('chartHistogram'), {
+  type: 'bar',
+  data: {
+    labels: ['$0-250', '$250-500', '$500-1K', '$1K-2K', '$2K-5K', '$5K-10K', '$10K-20K', '$20K-50K', '$50K+'],
+    datasets: [{
+      label: 'Number of Agents',
+      data: [42, 58, 61, 44, 27, 12, 8, 5, 3],
+      backgroundColor: C.blue,
+      borderRadius: 3,
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false },
+      title: { display: true, text: 'Agent VAR Distribution (260 agents)', font: { size: 13 } }
+    },
+    scales: {
+      x: { title: { display: true, text: 'Individual VAR Range' } },
+      y: { title: { display: true, text: 'Agent Count' }, beginAtZero: true }
+    }
+  }
+});
+
+// ── CHART 7: CLEAN VAR ──
+new Chart(document.getElementById('chartCleanVar'), {
+  type: 'bar',
+  data: {
+    labels: ['Raw VAR', 'Less:\nRetention Pkgs', 'Less:\nTiming Adj.', 'Clean VAR'],
+    datasets: [{
+      label: '$K',
+      data: [300, -68, -41, 191],
+      backgroundColor: d => d.raw >= 0 ? (d.dataIndex === 3 ? C.green : C.blue) : C.red,
+      borderRadius: 4,
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: { y: { title: { display: true, text: '$K' } } }
+  }
+});
+
+// ── CHART 8: FORECAST ──
+const fMonths = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+new Chart(document.getElementById('chartForecast'), {
+  type: 'line',
+  data: {
+    labels: fMonths,
+    datasets: [
+      { label: 'Base Case', data: [0.3,0.3,0.35,0.4,0.45,0.5,0.55,0.6,0.65,0.7,0.75,0.8],
+        borderColor: C.green, backgroundColor: C.greenFade, fill: true, tension: 0.3, borderWidth: 2.5 },
+      { label: 'With GTF Onboarding', data: [0.3,0.3,0.35,0.45,0.55,0.7,0.8,0.95,1.05,1.15,1.25,1.3],
+        borderColor: C.orange, backgroundColor: C.orangeFade, fill: true, tension: 0.3, borderWidth: 2.5 },
+      { label: 'Stress Case', data: [0.3,0.35,0.4,0.55,0.7,0.9,1.15,1.4,1.6,1.8,1.95,2.1],
+        borderColor: C.red, backgroundColor: C.redFade, fill: true, tension: 0.3, borderWidth: 2.5 },
+      { label: '$1.8M Proposed Threshold', data: Array(12).fill(1.8),
+        borderColor: C.orange, borderDash: [6,4], borderWidth: 2, pointRadius: 0, backgroundColor: 'transparent' },
+      { label: '$3M Old Threshold', data: Array(12).fill(3.0),
+        borderColor: C.red, borderDash: [8,4], borderWidth: 1.5, pointRadius: 0, backgroundColor: 'transparent' },
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { position: 'bottom' },
+      title: { display: true, text: '2026 Monthly VAR Forecast — Three Scenarios', font: { size: 14 } }
+    },
+    scales: {
+      y: { title: { display: true, text: 'VAR (mil USD)' }, min: 0, max: 3.5 }
+    }
+  }
+});
+
+// ── CHART 9: THRESHOLD COMPARISON ──
+new Chart(document.getElementById('chartThreshold'), {
+  type: 'bar',
+  data: {
+    labels: ['2020','2021','2022','2023','2024','2025','2026F\n(stress)'],
+    datasets: [
+      { label: 'Peak VAR', data: [2.2, 2.0, 3.8, 3.8, 2.4, 0.3, 2.1],
+        backgroundColor: [C.blue,C.blue,C.red,C.red,C.blue,C.green,C.orange], borderRadius: 4 },
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      title: { display: true, text: 'Peak Annual VAR vs Threshold Options', font: { size: 14 } },
+      annotation: undefined,
+    },
+    scales: {
+      y: { title: { display: true, text: 'VAR (mil USD)' }, min: 0, max: 4.5 }
+    }
+  },
+  plugins: [{
+    afterDraw(chart) {
+      const ctx = chart.ctx;
+      const yScale = chart.scales.y;
+      const xStart = chart.chartArea.left;
+      const xEnd = chart.chartArea.right;
+      [[3.0, C.red, '$3.0M (old)'], [1.8, C.orange, '$1.8M (proposed)']].forEach(([val, col, lbl]) => {
+        const y = yScale.getPixelForValue(val);
+        ctx.save();
+        ctx.beginPath();
+        ctx.setLineDash([6, 4]);
+        ctx.strokeStyle = col;
+        ctx.lineWidth = 2;
+        ctx.moveTo(xStart, y);
+        ctx.lineTo(xEnd, y);
+        ctx.stroke();
+        ctx.fillStyle = col;
+        ctx.font = '11px Segoe UI, system-ui, sans-serif';
+        ctx.fillText(lbl, xEnd - ctx.measureText(lbl).width - 8, y - 6);
+        ctx.restore();
+      });
+    }
+  }]
+});
+
+// ── TOP AGENTS TABLE ──
+const agents = [
+  { id: 'AG-0417', type: 'GTF', tenure: '1.2 yr', var: 62.3, pct: 20.8, src: 'Retention Pkg', risk: 'high' },
+  { id: 'AG-1082', type: 'In-House', tenure: '0.8 yr', var: 31.5, pct: 10.5, src: 'Current Comm.', risk: 'high' },
+  { id: 'AG-0893', type: 'GTF', tenure: '2.1 yr', var: 24.8, pct: 8.3, src: 'Mixed', risk: 'high' },
+  { id: 'AG-0256', type: 'In-House', tenure: '4.5 yr', var: 18.2, pct: 6.1, src: 'Deferred (Y-1)', risk: 'med' },
+  { id: 'AG-0641', type: 'GTF', tenure: '0.5 yr', var: 15.7, pct: 5.2, src: 'Current Comm.', risk: 'high' },
+  { id: 'AG-1199', type: 'In-House', tenure: '3.2 yr', var: 12.4, pct: 4.1, src: 'Deferred (Y-2+)', risk: 'med' },
+  { id: 'AG-0738', type: 'In-House', tenure: '6.1 yr', var: 11.1, pct: 3.7, src: 'Retention Pkg', risk: 'low' },
+  { id: 'AG-0315', type: 'GTF', tenure: '1.8 yr', var: 9.6, pct: 3.2, src: 'Current Comm.', risk: 'high' },
+  { id: 'AG-0962', type: 'In-House', tenure: '2.4 yr', var: 8.3, pct: 2.8, src: 'Mixed', risk: 'med' },
+  { id: 'AG-0504', type: 'In-House', tenure: '0.3 yr', var: 7.1, pct: 2.4, src: 'Current Comm.', risk: 'high' },
+  { id: 'AG-1345', type: 'In-House', tenure: '5.8 yr', var: 6.2, pct: 2.1, src: 'Deferred (Y-1)', risk: 'low' },
+  { id: 'AG-0128', type: 'GTF', tenure: '1.0 yr', var: 5.8, pct: 1.9, src: 'Current Comm.', risk: 'med' },
+  { id: 'AG-0771', type: 'In-House', tenure: '2.9 yr', var: 5.4, pct: 1.8, src: 'Mixed', risk: 'med' },
+  { id: 'AG-0089', type: 'In-House', tenure: '7.2 yr', var: 4.9, pct: 1.6, src: 'Retention Pkg', risk: 'low' },
+  { id: 'AG-0633', type: 'GTF', tenure: '0.7 yr', var: 4.5, pct: 1.5, src: 'Current Comm.', risk: 'high' },
+];
+const tbody = document.getElementById('topAgentsTable');
+agents.forEach((a, i) => {
+  const riskCls = a.risk === 'high' ? 'risk-high' : a.risk === 'med' ? 'risk-med' : 'risk-low';
+  const riskLbl = a.risk === 'high' ? 'High' : a.risk === 'med' ? 'Medium' : 'Low';
+  const typeBg = a.type === 'GTF' ? 'background:#fff3e0;' : '';
+  tbody.innerHTML += `<tr style="${typeBg}">
+    <td>${i+1}</td><td style="font-family:monospace;font-weight:600;">${a.id}</td>
+    <td>${a.type}</td><td>${a.tenure}</td>
+    <td style="font-weight:600;">$${a.var.toFixed(1)}K</td>
+    <td>${a.pct.toFixed(1)}%</td><td>${a.src}</td>
+    <td><span class="risk-tag ${riskCls}">${riskLbl}</span></td>
+  </tr>`;
+});
+</script>
+</body>
+</html>
