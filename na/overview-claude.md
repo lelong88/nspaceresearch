@@ -34,7 +34,7 @@ Several factors make the number noisy:
 
 - **Deferred payouts**: Commissions paid on a lag (sometimes more than 1 year) mean this year's VAR partially reflects last year's sales activity, and next year's VAR will partially reflect this year's. The payout schedule artificially lowers VAR in the current year but artificially raises it the next. The number doesn't cleanly map to a single performance period.
 - **One-off retention packages**: A single $500K-$1M talent retention payment to a key agent can spike their individual VAR without any fraud signal. These are known, approved expenses with a different risk profile — but they inflate the aggregate VAR figure. VAR is meant for mass monitoring, not capturing these one-off decisions.
-- **Revenue growth paradox**: A genuine surge in new business (real customers, real policies) also raises VAR in the short term because payouts on new sales come before the revenue fully materializes in the persistency data. High VAR can indicate good business, not just risk — as long as the underlying customer value is real and long-term.
+- **Revenue growth paradox**: Strong revenue growth in a single year will push VAR up because top-performers perform even better and new recruits come in large quantity. Both of these could mean good business — though not always. The point is that high VAR doesn't automatically signal risk; it can reflect genuine commercial momentum.
 
 ### Salesforce Complexity
 
@@ -54,32 +54,32 @@ Two main sections:
 
 ---
 
-## Questions for Your Input
+## Q&A
 
 ### On Scope and Data
 
-1. **Do we have a breakdown of VAR by agent tier?** Specifically, can we isolate the middle-layer agents you mentioned from the top leaders and the bottom ranks? This would strengthen the deep-dive section significantly.
+1. **Do we have a breakdown of VAR by agent tier?** — **Yes.** The data already only considers the relevant middle-layer group.
 
-2. **Can we identify and separately tag the one-off retention packages in the data?** If so, we could present a "clean VAR" (excluding known one-offs) alongside the raw number, which would make the threshold proposal much more defensible.
+2. **Can we identify and separately tag the one-off retention packages?** — **Yes.** This means we can present a "clean VAR" (excluding known one-offs) alongside the raw number, making the threshold proposal more defensible.
 
-3. **Do we have historical VAR numbers beyond just last year?** Even 2-3 years of trend data would help contextualize $0.3M vs $3M and anchor the new threshold in historical patterns rather than a single data point.
+3. **Do we have historical VAR numbers?** — **Yes, last 5 years.** See summary.jpg for the data. This gives us strong trend context to anchor the new threshold.
 
-4. **Is there data on the deferred payout schedule?** Knowing how much of last year's $0.3M was actually attributable to prior-year activity (and how much of this year's payouts are already locked in from last year's sales) would let us build a timing-adjusted VAR estimate.
+4. **Is there data on the deferred payout schedule?** — **Yes.** We can build a timing-adjusted VAR estimate.
 
 ### On the Threshold Proposal
 
-5. **What's your instinct on the right range?** You said between $0.3M and $3M — are you leaning toward the higher end (say $1.5M-$2.5M) or the middle? This helps me calibrate the argumentation.
+5. **What's your instinct on the right range?** — **No strong lean yet.** The threshold number needs to emerge from the analysis rather than a pre-set target.
 
-6. **How many times was the $3M threshold breached or approached in prior years?** Understanding whether $3M was always comfortable headroom or occasionally tested changes how aggressively we can argue for a lower replacement.
+6. **How many times was the $3M threshold breached or approached?** — **See summary.jpg** for historical data.
 
-7. **Should the proposal include any structural changes to how VAR is calculated?** For example: excluding known retention packages, adjusting for payout timing lags, or segmenting by agent tier. Or do you want to keep the metric definition unchanged and only adjust the threshold number?
+7. **Should the proposal include structural changes to how VAR is calculated?** — **No.** Too much additional work. Keep the metric definition unchanged, only adjust the threshold number.
 
-8. **Is there appetite from leadership for a tiered threshold** (e.g., different thresholds for middle-layer agents vs GTF vs aggregate), or does the report need to land on a single number?
+8. **Is there appetite for a tiered threshold?** — **No.** Too much additional work. The report needs to land on a single number.
 
 ### On Positioning and Audience
 
-9. **Who exactly reviews and approves the threshold?** Understanding whether this goes to a risk committee, a C-suite sponsor, or a board-level audience affects the tone and depth of the report.
+9. **Who reviews and approves the threshold?** — **Regional risk committee and local executive board.**
 
-10. **Is there any political context I should know about?** For example — was the $3M threshold set by someone still in the room? Is there pressure to lower the threshold (tighter controls) or raise it (less operational friction)? Both directions have stakeholders.
+10. **Political context?** — **Regional risk wants to lower the threshold** (tighter controls). **Local wants higher** (less operational friction). The report needs to navigate both audiences.
 
-11. **What happens operationally when the protocol triggers?** Understanding the downstream consequences (investigation scope, resource cost, business disruption) helps me frame the argument for why a higher threshold is responsible rather than careless.
+11. **What happens when the protocol triggers?** — The local team (Compensation and Line1B — front risk sales) has to alert and provide deep-dive analysis, possibly on a monthly basis, to the regional team. Line1B already has monthly protocols for other risk controls — this is not the only item they manage.
