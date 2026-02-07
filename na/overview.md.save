@@ -1,0 +1,33 @@
+# PROJECT CONCEPT
+- I need to write a detailed-report to explain a specific business metrics from last year and simultaneously propose a threshold for this year
+- When the metrics overshoot the threshold at any given month this coming year, an internal risk-controlled protocol will be triggered.
+- This report should both be quantified and persuasive to leadership, while at the same time the prososed threshold should be justifiably high so the protocol won't be triggered offen, causing issues for me to resolve, especially when it's false alarm.
+;fdsmsncjnnmcnncbbcbcn ncjxxjhjhs a 
+
+VAR (Value At Risk, calculated per insurance agent) = total income - total production FYP
+
+Groups with biggest risk:
+middle-manager UM,
+GTF (Growth-Task Force)
+
+Only positive VAR is under consideration
+
+
+How much and what it means? last year - $3M
+
+$0.3M
+
+Rolling last 12-month
+
+Lagging indicator of income
+
+Deferred payments + One-off expenses
+
+Scenarios $0.3M may grow significantly to $1M - $2M
+
+
+1. Performance VAR deep-dive
+2. Deferred payments analysis
+
+Objective: persuade + explain (VAR Number no risk => quantify to buffer the proposed VAR number), buffer sensitivity (business grow => VAR goes up, might not be an issue)
+Audience: value details
