@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VAR Threshold Analysis Report — Manulife Vietnam Agency</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--ml-green:#00a758;--ml-dark:#1a1a2e;--ml-gray:#f4f5f7;--ml-accent:#0073cf;--ml-red:#e63946;--ml-orange:#f4a261;--ml-light:#ffffff;--slide-w:1200px;--slide-h:675px}
+body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#e8e8e8;color:#222;overflow-x:hidden}
+.slide{width:var(--slide-w);min-height:var(--slide-h);margin:40px auto;background:var(--ml-light);border-radius:8px;box-shadow:0 8px 32px rgba(0,0,0,.12);padding:48px 56px 40px;position:relative;overflow:hidden;page-break-after:always}
+.slide::before{content:'';position:absolute;top:0;left:0;right:0;height:6px;background:linear-gradient(90deg,var(--ml-green),var(--ml-accent))}
+.slide-num{position:absolute;bottom:16px;right:24px;font-size:12px;color:#999}
+.brand{position:absolute;bottom:16px;left:24px;font-size:11px;color:#999;letter-spacing:1px}
+.brand span{color:var(--ml-green);font-weight:700}
+h1{font-size:32px;font-weight:700;color:var(--ml-dark);margin-bottom:8px}
+h2{font-size:24px;font-weight:600;color:var(--ml-dark);margin-bottom:16px}
+h3{font-size:18px;font-weight:600;color:var(--ml-accent);margin-bottom:10px}
+.subtitle{font-size:16px;color:#666;margin-bottom:24px}
+.tag{display:inline-block;padding:3px 12px;border-radius:20px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;margin-right:6px}
+.tag-green{background:#e6f7ef;color:var(--ml-green)}
+.tag-blue{background:#e0f0ff;color:var(--ml-accent)}
+.tag-red{background:#fde8ea;color:var(--ml-red)}
+.tag-orange{background:#fff3e0;color:#e67e22}
+.kpi-row{display:flex;gap:20px;margin:20px 0}
+.kpi{flex:1;background:var(--ml-gray);border-radius:8px;padding:20px;text-align:center;border-left:4px solid var(--ml-green)}
+.kpi.red{border-left-color:var(--ml-red)}
+.kpi.blue{border-left-color:var(--ml-accent)}
+.kpi.orange{border-left-color:var(--ml-orange)}
+.kpi-val{font-size:36px;font-weight:700;color:var(--ml-dark)}
+.kpi-label{font-size:12px;color:#666;margin-top:4px;text-transform:uppercase;letter-spacing:.5px}
+.chart-container{position:relative;width:100%;max-height:320px;margin:16px 0}
+table{width:100%;border-collapse:collapse;font-size:13px;margin:12px 0}
+th{background:var(--ml-dark);color:#fff;padding:8px 10px;text-align:center;font-weight:600}
+td{padding:7px 10px;text-align:center;border-bottom:1px solid #eee}
+tr:nth-child(even){background:#fafbfc}
+.highlight-cell{background:#fff3cd;font-weight:700}
+.two-col{display:flex;gap:32px}
+.two-col>div{flex:1}
+.citation{font-size:10px;color:#999;margin-top:4px;font-style:italic}
+.callout{background:linear-gradient(135deg,#e6f7ef,#e0f0ff);border-radius:8px;padding:16px 20px;margin:16px 0;border-left:4px solid var(--ml-green)}
+.callout-warn{background:linear-gradient(135deg,#fff3e0,#fde8ea);border-left-color:var(--ml-orange)}
+.callout h3{margin-bottom:6px;font-size:15px}
+.callout p,.callout li{font-size:13px;line-height:1.6}
+ul{padding-left:20px}
+li{margin-bottom:6px;font-size:14px;line-height:1.5}
+.footer-cite{font-size:10px;color:#aaa;position:absolute;bottom:32px;left:56px;right:56px;border-top:1px solid #eee;padding-top:6px}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+.card{background:var(--ml-gray);border-radius:8px;padding:16px;border-top:3px solid var(--ml-green)}
+.card.warn{border-top-color:var(--ml-orange)}
+.card.danger{border-top-color:var(--ml-red)}
+.card h4{font-size:14px;margin-bottom:6px;color:var(--ml-dark)}
+.card p{font-size:12px;color:#555;line-height:1.5}
+.timeline{display:flex;gap:0;margin:20px 0}
+.timeline-item{flex:1;text-align:center;position:relative;padding:16px 8px}
+.timeline-item::after{content:'→';position:absolute;right:-8px;top:50%;transform:translateY(-50%);font-size:20px;color:var(--ml-green)}
+.timeline-item:last-child::after{display:none}
+.timeline-dot{width:12px;height:12px;border-radius:50%;background:var(--ml-green);margin:0 auto 8px}
+.timeline-item h4{font-size:13px;color:var(--ml-dark)}
+.timeline-item p{font-size:11px;color:#666}
+.watermark{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-30deg);font-size:80px;color:rgba(0,0,0,.03);font-weight:900;pointer-events:none;white-space:nowrap}
+@media print{body{background:#fff}.slide{box-shadow:none;margin:0;page-break-after:always}}
+</style>
+</head>
+<body>
+
+<!-- SLIDE 1: TITLE -->
+<div class="slide" style="display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 100%);color:#fff">
+<div style="position:absolute;top:0;left:0;right:0;height:6px;background:linear-gradient(90deg,#00a758,#0073cf)"></div>
+<div style="font-size:13px;letter-spacing:3px;text-transform:uppercase;color:#00a758;margin-bottom:16px">Confidential — Internal Use Only</div>
+<h1 style="font-size:42px;color:#fff;margin-bottom:12px">Agency VAR Threshold<br>Analysis &amp; Proposal</h1>
+<div style="width:80px;height:3px;background:var(--ml-green);margin:16px auto"></div>
+<p style="font-size:16px;color:#aab;max-width:700px;line-height:1.6;margin-bottom:24px">Comprehensive review of Value-at-Risk exposure for the agency salesforce, historical trend analysis, and proposed threshold recalibration for 2026</p>
+<div style="display:flex;gap:12px;margin-top:8px">
+<span class="tag tag-green">VAR Deep-Dive</span>
+<span class="tag tag-blue">Threshold Proposal</span>
+<span class="tag tag-orange">Risk Framework</span>
+</div>
+<p style="font-size:12px;color:#667;margin-top:32px">Agency Risk &amp; Compensation Review &nbsp;|&nbsp; February 2026</p>
+<div class="slide-num" style="color:#556">1</div>
+</div>
+
+<!-- SLIDE 2: EXECUTIVE SUMMARY -->
+<div class="slide">
+<span class="tag tag-green">Executive Summary</span>
+<h2 style="margin-top:8px">Key Findings at a Glance</h2>
+<div class="kpi-row">
+<div class="kpi"><div class="kpi-val">$0.3M</div><div class="kpi-label">Current VAR (2025 Actual)</div></div>
+<div class="kpi blue"><div class="kpi-val">$3.0M</div><div class="kpi-label">Approved Trigger (Legacy)</div></div>
+<div class="kpi orange"><div class="kpi-val">$1.3M</div><div class="kpi-label">Forecast VAR 2026</div></div>
+<div class="kpi red"><div class="kpi-val">$2.0M</div><div class="kpi-label">Proposed Trigger Point</div></div>
+</div>
+<div class="two-col" style="margin-top:20px">
+<div>
+<h3>Why VAR Was Low in 2025</h3>
+<ul>
+<li>Conduct reviews and risk assessments cleaned out high-risk teams (e.g., policy churning, mass cancellations), leaving a healthier salesforce <span class="citation">[Ref: var-report-feedback-on-draft.md §Risk exposure]</span></li>
+<li>Business downturn: recruitment declined ~60% in H1 2024 vs 2023, reducing bonus qualifiers; high persistency kept FYP strong <span class="citation">[Ref: slides-var/IMG_20260209_174126.md; overview-claude.md]</span></li>
+<li>After excluding timing-gap cases (deferred payments, indirect-team payouts), clean VAR ≈ $0.24M <span class="citation">[Ref: slides-var/IMG_20260209_174129.md]</span></li>
+</ul>
+</div>
+<div>
+<h3>Why the Threshold Matters</h3>
+<ul>
+<li>Breaching the threshold triggers a mandatory risk protocol — deep-dive analysis and escalation <span class="citation">[Ref: overview-claude.md §Political Context]</span></li>
+<li>New compensation scheme (2026) increases UM+ income significantly, pushing VAR from $0.3M → ~$1.3M <span class="citation">[Ref: meeting-notes-10-feb-2026-2.md §VAR Evolution]</span></li>
+</ul>
+</div>
+</div>
+<div class="footer-cite">Sources: overview-claude.md; slides-var/IMG_20260209_174126.md; slides-var/IMG_20260209_174129.md; meeting-notes-10-feb-2026-2.md</div>
+<span class="brand"><span>III</span> Manulife</span><span class="slide-num">2</span>
+</div>
+
+<!-- SLIDE 3: VAR METHODOLOGY -->
+<div class="slide">
+<span class="tag tag-blue">Methodology</span>
+<h2 style="margin-top:8px">How VAR Is Calculated</h2>
+<div style="background:var(--ml-dark);color:#fff;border-radius:8px;padding:20px 28px;text-align:center;font-size:22px;font-weight:700;margin:16px 0">
+VAR<sub>agent</sub> = Σ Total Payout (L12M) &minus; Σ Total FYP (L12M)
+</div>
+<div class="grid-3" style="margin-top:20px">
+<div class="card">
+<h4>📊 Rolling 12 Months</h4>
+<p>Sum of payout per month over last 12 months. Reflects full sales cycle and mitigates impact of late payments post free-look period (21 days).</p>
+</div>
+<div class="card">
+<h4>👥 Direct Team Scope</h4>
+<p>VAR Direct Team of UM = Σ payout L12M − Σ FYP of all FA direct reports &amp; UM. Only counted at months where agent holds UM+ rank.</p>
+</div>
+<div class="card">
+<h4>✅ Agency Aggregation</h4>
+<p>Only UM+ with VAR &gt; 0 are counted (negative-VAR teams are zeroed). Agency VAR = Σ all positive direct-team VARs.</p>
+</div>
+</div>
+<div class="two-col" style="margin-top:20px">
+<div>
+<h3>Payout Includes</h3>
+<ul>
+<li>First Year Commission (FYC) + rider bonus</li>
+<li>Agent compensation (monthly, quarterly, yearly bonuses)</li>
+<li>UM+ compensation (overrides, activation, development)</li>
+<li>Contests, campaigns, financing schemes, benefits</li>
+<li>GTF subsidy payments</li>
+</ul>
+</div>
+<div>
+<h3>Exclusions</h3>
+<ul>
+<li>CSV first year (only ~0.4% of FYP due to high allocation charge)</li>
+<li>PSM+ income — monitored separately by local team on monthly basis</li>
+<li>Tax support scheme, cash advance (loan), retirement funds</li>
+</ul>
+</div>
+</div>
+<div class="footer-cite">Sources: slides-var/IMG_20260209_174122.md (VAR Methodology); slides-var/IMG_20260209_174403.md (Agency Structure); slides-var/IMG_20260209_174407.md & IMG_20260209_174409.md (Data Specification)</div>
+<span class="brand"><span>III</span> Manulife</span><span class="slide-num">3</span>
+</div>
+
+<!-- SLIDE 4: HISTORICAL VAR TREND -->
+<div class="slide">
+<span class="tag tag-green">Historical Analysis</span>
+<h2 style="margin-top:8px">VAR Trend: 5-Year Rolling L12M ($ Million USD)</h2>
+<div class="chart-container" style="max-height:300px">
+<canvas id="chartVarTrend"></canvas>
+</div>
+<div class="two-col" style="margin-top:12px">
+<div class="callout">
+<h3>📈 2020–2022: Stable Period (~$1.8–2.0M)</h3>
+<p>Mass recruitment era. Agency FYP ~$200M+/year. New agents contributed ~50% of business. VAR remained stable around $2.0M.</p>
+<p class="citation">[Ref: slides-var/IMG_20260209_174126.md — "VaR amount remained stable ~2.0mil USD"]</p>
+</div>
+<div class="callout callout-warn">
+<h3>⚠️ 2022–2023: Spike to ~$3.5M</h3>
+<p>Peak driven by two compounding factors: (1) deferred payments from 2022 peak production year flowing into 2023 payouts, and (2) special retention schemes for PSM/UM/RH that paid income without requiring production. Business also shifted from new agents to core agents with richer compensation. Peak VAR hit $3.8M in Dec 2022.</p>
+<p class="citation">[Ref: slides-var/IMG_20260209_174126.md; var-report-feedback-on-draft.md §VAR 2023 peak]</p>
+</div>
+</div>
+<div class="footer-cite">Data: slides-var/summary.md (VAR DT Agency L12M table); slides-var/IMG_20260209_174126.md (Historical narrative); slides-var/IMG_20260209_174129.md (2025 data)</div>
+<span class="brand"><span>III</span> Manulife</span><span class="slide-num">4</span>
+</div>
+
+<!-- SLIDE 5: VAR AS % OF FYP -->
+<div class="slide">
+<span class="tag tag-blue">Ratio Analysis</span>
+<h2 style="margin-top:8px">VAR as % of Agency FYP — Intensity Heatmap</h2>
+<div class="chart-container" style="max-height:280px">
+<canvas id="chartVarPct"></canvas>
+</div>
+<table style="margin-top:16px;font-size:12px">
+<tr><th>Year</th><th>Agency FYP (USD M)</th><th>Avg VAR (USD M)</th><th>Avg %VAR/FYP</th><th>Peak %VAR/FYP</th></tr>
+<tr><td>2020</td><td>222</td><td>1.9</td><td>1.0%</td><td>1.3% (Jan)</td></tr>
+<tr><td>2021</td><td>241</td><td>1.8</td><td>0.7%</td><td>0.8% (Dec)</td></tr>
+<tr><td>2022</td><td>204</td><td>2.5</td><td>1.2%</td><td>1.9% (Dec)</td></tr>
+<tr><td>2023</td><td>72</td><td>3.5</td><td>2.7%</td><td>4.0% (Nov)</td></tr>
+<tr><td>2024</td><td>45</td><td>1.1</td><td>1.8%</td><td>3.6% (Jan)</td></tr>
+<tr style="background:#e6f7ef;font-weight:700"><td>2025</td><td>~55*</td><td>0.3</td><td>0.5%</td><td>0.6% (Jan/Dec)</td></tr>
+</table>
+<p style="font-size:11px;color:#999;margin-top:4px">*2025 FYP estimated from %VAR/FYP ratio and absolute VAR. 2026 FYP target: 1,787 bn VND (~$71M USD).</p>
+<div class="callout">
+<h3>Key Insight</h3>
+<p>2023 was the outlier year — VAR/FYP peaked at 4.0% when business volume collapsed to $72M (from $204M in 2022) while compensation structures remained unchanged. The 2025 ratio of 0.5% is the lowest in 6 years, driven by high persistency and reduced manpower.</p>
+</div>
+<div class="footer-cite">Sources: slides-var/summary.md (%VAR/FYP Agency L12M table); slides-var/IMG_20260209_174126.md (Agency FYP actuals); slides-var/IMG_20260209_174129.md</div>
+<span class="brand"><span>III</span> Manulife</span><span class="slide-num">5</span>
+</div>
+
+<!-- SLIDE 6: WHY $0.3M WAS SO LOW -->
+<div class="slide">
+<span class="tag tag-green">Deep Dive</span>
+<h2 style="margin-top:8px">Deconstructing the $0.3M: Why 2025 VAR Was Historically Low</h2>
+<div class="kpi-row">
+<div class="kpi"><div class="kpi-val">$0.3M</div><div class="kpi-label">Total VAR (Gross)</div></div>
+<div class="kpi blue"><div class="kpi-val">$0.05M</div><div class="kpi-label">Timing-Gap Cases</div></div>
+<div class="kpi"><div class="kpi-val">$0.24M</div><div class="kpi-label">Clean VAR (Net)</div></div>
+<div class="kpi orange"><div class="kpi-val">260</div><div class="kpi-label">Units with VAR &gt; 0</div></div>
+</div>
+<div class="grid-3" style="margin-top:16px">
+<div class="card">
+<h4>🔄 Deferred Payments ($0.05M)</h4>
+<p>NAB and MLY agent payments from late-2024 production paid in early 2025. Contest payouts also lag past the 21-day free-look period. These create artificial VAR without fraud signal.</p>
+<p class="citation">[Ref: var-notes.md §Three causes]</p>
+</div>
+<div class="card">
+<h4>📉 Reduced Manpower</h4>
+<p>H1 2024 recruitment declined ~60% vs 2023. Fewer bonus qualifiers = fewer agents generating positive VAR. Total units with VAR &gt; 0 dropped to 260.</p>
+<p class="citation">[Ref: IMG_20260209_174126.md]</p>
+</div>
+<div class="card">
+<h4>📊 High Persistency</h4>
+<p>Unusually high policy renewal rates in 2025 kept FYP revenue strong. Fewer cancellations meant the denominator of the risk equation held up, suppressing VAR.</p>
+<p class="citation">[Ref: overview-claude.md §Why $0.3M Was So Low]</p>
+</div>
+</div>
+<div class="callout callout-warn" style="margin-top:16px">
+<h3>⚠️ Critical Context: This Is a Good-Year Artifact</h3>
+<p>The $0.3M figure reflects favorable market conditions, not a structural reduction in risk exposure. With 2026 targeting 30%+ FYP growth and a new compensation scheme that significantly increases UM+ income, VAR is expected to revert upward. The back-test of 2025 data under the new scheme already shows VAR tripling to ~$1.0M.</p>
+<p class="citation">[Ref: meeting-notes-10-feb-2026-2.md §VAR Evolution; overview-claude.md §Good Year Artifact]</p>
+</div>
+<div class="footer-cite">Sources: slides-var/IMG_20260209_174129.md; var-notes.md; overview-claude.md; meeting-notes-10-feb-2026-2.md</div>
+<span class="brand"><span>III</span> Manulife</span><span class="slide-num">6</span>
+</div>
+
+<!-- SLIDE 7: BONUS CONTRIBUTION BREAKDOWN -->
+<div class="slide">
+<span class="tag tag-blue">Composition Analysis</span>
+<h2 style="margin-top:8px">Bonus Contribution Breakdown — Units with VAR &gt; 0</h2>
+<div class="two-col">
+<div>
+<div class="chart-container" style="max-height:260px">
+<canvas id="chartBonusMix"></canvas>
+</div>
+</div>
+<div>
+<table style="font-size:12px">
+<tr><th>Component</th><th>Amount (USD K)</th><th>% of Total</th></tr>
+<tr><td style="text-align:left;font-weight:600">Total Payout</td><td>1,214</td><td>100%</td></tr>
+<tr><td style="text-align:left">1) FYC</td><td>305</td><td>25%</td></tr>
+<tr><td style="text-align:left">2) Agent Income</td><td>392</td><td>32%</td></tr>
+<tr><td style="text-align:left;padding-left:20px">Agent Compensation</td><td>192</td><td>16%</td></tr>
+<tr><td style="text-align:left;padding-left:20px">Agent Contest</td><td>107+</td><td>~15%</td></tr>
+<tr><td style="text-align:left;font-weight:600">3) UM+ Income</td><td>517</td><td>43%</td></tr>
+<tr><td style="text-align:left;padding-left:20px">UM+ Compensation</td><td>372</td><td>31%</td></tr>
+<tr><td style="text-align:left;padding-left:20px">GTF Subsidy</td><td>~45</td><td>~4%</td></tr>
+<tr><td style="text-align:left;padding-left:20px">UM+ Contest</td><td>85</td><td>7%</td></tr>
+</table>
+<p class="citation" style="margin-top:8px">[Ref: slides-var/IMG_20260209_173106.md; IMG_20260209_173114.md]</p>
+</div>
+</div>
+<div class="callout" style="margin-top:12px">
+<h3>Key Finding: UM+ Income Dominates VAR Exposure (43%)</h3>
+<p>Manager-level compensation — particularly leader overrides ($225K, 19%) and leader activation ($125K, 10%) — is the largest contributor to positive-VAR units. This aligns with the structural observation that arbitrage risk is most likely at the UM+ layer where managers can influence their sub-tree's production patterns.</p>
+</div>
+<div class="footer-cite">Sources: slides-var/IMG_20260209_173106.md (All units); IMG_20260209_173114.md (FYP>0 & Payout>0 subset); IMG_20260209_173117.md (FYP=0 cases); IMG_20260209_173121.md (FYP<0 cases)</div>
+<span class="brand"><span>III</span> Manulife</span><span class="slide-num">7</span>
+</div>
+
+<!-- SLIDE 8: ZERO-FYP AND NEGATIVE-FYP CASES -->
+<div class="slide">
+<span class="tag tag-red">Risk Segments</span>
+<h2 style="margin-top:8px">High-Risk Segments: Zero-FYP &amp; Negative-FYP Units</h2>
+<div class="two-col">
+<div>
+<h3>FYP = 0 &amp; Payout &gt; 0 (8 units, $36.6K VAR)</h3>
+<table style="font-size:11px">
+<tr><th>Component</th><th>Amount</th><th>%</th></tr>
+<tr><td style="text-align:left">Total VAR / Payout</td><td>$36.6K</td><td>100%</td></tr>
+<tr><td style="text-align:left">FYC</td><td>$0.1K</td><td>0%</td></tr>
+<tr><td style="text-align:left">Agent Income</td><td>$19.3K</td><td>53%</td></tr>
+<tr><td style="text-align:left;padding-left:12px">Agent Contest</td><td>$15.0K</td><td>41%</td></tr>
+<tr><td style="text-align:left">UM+ Income</td><td>$17.1K</td><td>47%</td></tr>
+<tr><td style="text-align:left;padding-left:12px;font-weight:600;color:var(--ml-red)">GTF Subsidy</td><td>$8.1K</td><td>22%</td></tr>
+</table>
+<p class="citation">[Ref: IMG_20260209_173117.md]</p>
+</div>
+<div>
+<h3>FYP &lt; 0 &amp; Payout &gt; 0 (7 units, $10.9K VAR)</h3>
+<table style="font-size:11px">
+<tr><th>Component</th><th>Amount</th><th>%</th></tr>
+<tr><td style="text-align:left">Total VAR</td><td>$10.9K</td><td>—</td></tr>
+<tr><td style="text-align:left">Total Payout</td><td>$5.4K</td><td>100%</td></tr>
+<tr><td style="text-align:left">FYC (negative)</td><td>($2.0K)</td><td>-36%</td></tr>
+<tr><td style="text-align:left">Agent Income</td><td>$4.2K</td><td>77%</td></tr>
+<tr><td style="text-align:left;padding-left:12px">Agent Contest</td><td>$3.2K</td><td>59%</td></tr>
+<tr><td style="text-align:left">UM+ Income</td><td>$3.2K</td><td>60%</td></tr>
+</table>
+<p class="citation">[Ref: IMG_20260209_173121.md]</p>
+</div>
+</div>
+<div class="callout callout-warn" style="margin-top:16px">
+<h3>🚨 GTF Subsidy: Risk Component — With Claw-Back</h3>
+<p>GTF subsidy accounts for 22% of VAR in zero-FYP units ($8.1K of $36.6K). Key risk characteristics:</p>
+<ul>
+<li>GTF subsidy is calculated on <strong>net production</strong> — does not require passing the free-look period</li>
+<li><strong>Claw-back mechanism exists:</strong> if a GTF terminates within 12–18 months, they must repay the full subsidy received <span class="citation">[Ref: var-report-feedback-on-draft.md §GTF claw back]</span></li>
+<li>Residual risk: submit-cancel-resubmit loops can still generate recurring bonus within the claw-back window if the GTF remains active</li>
+</ul>
+<p class="citation">[Ref: var-notes.md §GTF subsidy risk; var-report-feedback-on-draft.md §GTF claw back period: 12-18 months]</p>
+</div>
+<div class="footer-cite">Sources: slides-var/IMG_20260209_173117.md; IMG_20260209_173121.md; IMG_20260209_173124.md; var-notes.md</div>
+<span class="brand"><span>III</span> Manulife</span><span class="slide-num">8</span>
+</div>
+
+
+<!-- SLIDE 9 REMOVED: PSM+ analysis excluded per stakeholder feedback -->
+
+<!-- SLIDE 10: BACK-TEST & FORECAST -->
+<div class="slide">
+<span class="tag tag-orange">Forward-Looking</span>
+<h2 style="margin-top:8px">2026 Compensation Impact: Back-Test &amp; Forecast</h2>
+<div class="kpi-row">
+<div class="kpi"><div class="kpi-val">$0.3M</div><div class="kpi-label">2025 Actual (Old Scheme)</div></div>
+<div class="kpi orange"><div class="kpi-val">$1.05M</div><div class="kpi-label">2025 Back-Test (New Scheme)</div></div>
+<div class="kpi red"><div class="kpi-val">$1.29M</div><div class="kpi-label">2026 Forecast (New Scheme)</div></div>
+<div class="kpi blue"><div class="kpi-val">+35%</div><div class="kpi-label">FYP Growth Target</div></div>
+</div>
+<div class="two-col" style="margin-top:16px">
+<div>
+<h3>Back-Test 2025 (New Scheme on Actual Data)</h3>
+<table style="font-size:11px">
+<tr><th>Segment</th><th>Non-MBA</th><th>Silver</th><th>Gold</th><th>Platinum</th><th>Total</th></tr>
+<tr><td style="text-align:left">VAR (USD K)</td><td>860</td><td>138</td><td>31</td><td>21</td><td>1,049</td></tr>
+<tr><td style="text-align:left"># Units VAR&gt;0</td><td>374</td><td>11</td><td>3</td><td>3</td><td>391</td></tr>
+<tr><td style="text-align:left;padding-left:12px">GTF</td><td>102</td><td>2</td><td>1</td><td>—</td><td>105</td></tr>
+<tr><td style="text-align:left;padding-left:12px">Non-GTF</td><td>272</td><td>9</td><td>2</td><td>3</td><td>286</td></tr>
+</table>
+<p class="citation">[Ref: slides-var/IMG_20260210_104837.md]</p>
+</div>
+<div>
+<h3>Forecast 2026 (New Scheme + Growth)</h3>
+<table style="font-size:11px">
+<tr><th>Segment</th><th>Non-MBA</th><th>Silver</th><th>Gold</th><th>Platinum</th><th>Total</th></tr>
+<tr><td style="text-align:left">VAR (USD K)</td><td>694</td><td>284</td><td>142</td><td>172</td><td>1,292</td></tr>
+<tr><td style="text-align:left"># Units VAR&gt;0</td><td>260</td><td>18</td><td>15</td><td>13</td><td>306</td></tr>
+<tr><td style="text-align:left;padding-left:12px">GTF</td><td>119</td><td>—</td><td>4</td><td>1</td><td>124</td></tr>
+<tr><td style="text-align:left;padding-left:12px">Non-GTF</td><td>141</td><td>14</td><td>15</td><td>12</td><td>182</td></tr>
+</table>
+<p class="citation">[Ref: slides-var/IMG_20260210_104837.md]</p>
+</div>
+</div>
+<div class="callout callout-warn" style="margin-top:12px">
+<h3>⚠️ Divergent Trends by Segment</h3>
+<ul>
+<li><strong>Non-MBA Pro VAR drops 19%</strong> ($860K → $694K): new scheme only increases their income ~3% while FYP grows 35% → VAR/FYP ratio improves <span class="citation">[Ref: meeting-notes-10-feb-2026-2.md]</span></li>
+<li><strong>MBA Pro VAR surges 3.2×</strong> ($190K → $598K): new scheme significantly boosts top-performer compensation <span class="citation">[Ref: meeting-notes-10-feb-2026-2.md]</span></li>
+<li><strong>GTF units with VAR&gt;0 increase 18%</strong> (105 → 124) despite total units declining 22% — anomaly under investigation <span class="citation">[Ref: meeting-notes-10-feb-2026-1.md §GTF anomaly]</span></li>
+</ul>
+</div>
+<div class="footer-cite">Sources: slides-var/IMG_20260210_104837.md; meeting-notes-10-feb-2026-1.md; meeting-notes-10-feb-2026-2.md</div>
+<span class="brand"><span>III</span> Manulife</span><span class="slide-num">9</span>
+</div>
+
+<!-- SLIDE 11: NOISE FACTORS -->
+<div class="slide">
+<span class="tag tag-orange">Calibration Challenges</span>
+<h2 style="margin-top:8px">Why the Threshold Number Is Noisy</h2>
+<div class="grid-3">
+<div class="card warn">
+<h4>⏱️ Deferred Payouts</h4>
+<p>Commissions paid on a lag (sometimes &gt;1 year) mean this year's VAR partially reflects last year's sales. The payout schedule artificially lowers VAR in the current year but raises it the next. The number doesn't cleanly map to a single performance period.</p>
+<p class="citation">[Ref: overview-claude.md §Deferred payouts]</p>
+</div>
+<div class="card warn">
+<h4>💰 One-Off Retention Packages</h4>
+<p>A single $500K–$1M talent retention payment to a key agent can spike individual VAR without any fraud signal. These are known, approved expenses — but they inflate aggregate VAR. VAR is designed for mass monitoring, not capturing these one-off decisions.</p>
+<p class="citation">[Ref: overview-claude.md §One-off retention]</p>
+</div>
+<div class="card warn">
+<h4>📈 Revenue Growth Paradox</h4>
+<p>Strong revenue growth pushes VAR up because top-performers perform even better and new recruits come in large quantity. High VAR can reflect genuine commercial momentum, not just risk. The 2026 growth target of +35% FYP will mechanically increase VAR.</p>
+<p class="citation">[Ref: overview-claude.md §Revenue growth paradox]</p>
+</div>
+</div>
+<div style="margin-top:20px">
+<h3>Formula Mismatch: Income vs. FYP Scope</h3>
+<div class="callout">
+<p>A structural asymmetry exists in the VAR formula: <strong>Income includes earnings from the entire team hierarchy</strong> (overrides on indirect downlines), but <strong>FYP only captures direct-team production</strong>. This means a UM+ with a large indirect team can show positive VAR even when the broader team is profitable — because their income reflects a wider scope than the FYP offset.</p>
+<p class="citation">[Ref: var-notes.md §Formula mismatch; slides-var/IMG_20260209_174403.md §Note on income scope]</p>
+</div>
+</div>
+<div class="footer-cite">Sources: overview-claude.md §Noise Factors; var-notes.md; slides-var/IMG_20260209_174403.md</div>
+<span class="brand"><span>III</span> Manulife</span><span class="slide-num">10</span>
+</div>
+
+<!-- SLIDE 11: THRESHOLD PROPOSAL -->
+<div class="slide" style="background:linear-gradient(180deg,#fff 0%,#f0faf5 100%)">
+<span class="tag tag-green">Proposal</span>
+<h2 style="margin-top:8px">Proposed Threshold: $2.0M Trigger Point</h2>
+<div style="text-align:center;margin:20px 0">
+<div style="display:inline-block;background:var(--ml-dark);color:#fff;border-radius:12px;padding:24px 48px;font-size:48px;font-weight:700">$2.0M</div>
+<div style="font-size:14px;color:#666;margin-top:8px">Recommended Trigger Point &nbsp;|&nbsp; Reduced from legacy $3.0M</div>
+</div>
+<div class="two-col">
+<div>
+<h3>Rationale for $2.0M</h3>
+<ul>
+<li><strong>Tighter than legacy:</strong> Reduces the trigger from $3.0M to $2.0M — a 33% reduction demonstrating proactive risk tightening <span class="citation">[Ref: var-report-feedback-on-draft.md §Threshold adjustment]</span></li>
+<li><strong>Sufficient buffer:</strong> 2026 forecast VAR is $1.29M — the $2.0M threshold provides a 1.55× buffer, enough to absorb normal monthly fluctuations without false triggers <span class="citation">[Ref: IMG_20260210_104837.md]</span></li>
+<li><strong>Compensation scheme impact absorbed:</strong> New scheme triples VAR from $0.3M to ~$1.0M on same production. Even with 35% FYP growth, forecast stays well below $2.0M <span class="citation">[Ref: meeting-notes-10-feb-2026-2.md]</span></li>
+<li><strong>Cleaner salesforce:</strong> Conduct reviews and high-risk team removals in 2024–2025 structurally reduced risk exposure, justifying a lower threshold than the 2023 peak era <span class="citation">[Ref: var-report-feedback-on-draft.md §Risk exposure]</span></li>
+<li><strong>2023 peak was anomalous:</strong> The $3.5M peak was driven by deferred payments from 2022 production + one-off retention schemes — conditions that no longer apply <span class="citation">[Ref: var-report-feedback-on-draft.md §VAR 2023 peak]</span></li>
+</ul>
+</div>
+<div>
+<h3>Scenario Analysis</h3>
+<table style="font-size:12px">
+<tr><th>Scenario</th><th>Est. VAR</th><th>Triggers?</th></tr>
+<tr><td style="text-align:left">Base case (2026 forecast)</td><td>$1.3M</td><td style="color:var(--ml-green)">✗ No</td></tr>
+<tr><td style="text-align:left">+50% stress on forecast</td><td>$1.9M</td><td style="color:var(--ml-green)">✗ No</td></tr>
+<tr><td style="text-align:left">Return to 2023 levels</td><td>$3.5M</td><td style="color:var(--ml-red)">✓ Yes</td></tr>
+<tr><td style="text-align:left">One-off retention ($0.5M)</td><td>$1.8M</td><td style="color:var(--ml-green)">✗ No</td></tr>
+<tr><td style="text-align:left">Recruitment surge + abuse</td><td>$2.0M+</td><td style="color:var(--ml-red)">✓ Yes</td></tr>
+</table>
+<div class="callout" style="margin-top:12px">
+<h3>Threshold Positioning</h3>
+<p>The $2.0M trigger is a 33% reduction from the legacy $3.0M — demonstrating tighter controls while providing sufficient headroom above the $1.3M forecast to avoid false-alarm protocol activations from normal business growth.</p>
+</div>
+</div>
+</div>
+<div class="footer-cite">Sources: var-report-feedback-on-draft.md; slides-var/IMG_20260209_174126.md; IMG_20260210_104837.md; meeting-notes-10-feb-2026-2.md</div>
+<span class="brand"><span>III</span> Manulife</span><span class="slide-num">11</span>
+</div>
+
+<!-- SLIDE 12: MONITORING FRAMEWORK -->
+<div class="slide">
+<span class="tag tag-blue">Governance</span>
+<h2 style="margin-top:8px">VAR Monitoring &amp; Control Framework</h2>
+<table style="font-size:12px;margin-top:16px">
+<tr><th style="text-align:left;width:40%">Action Item</th><th>Owner</th><th>Frequency</th><th>Timeline</th></tr>
+<tr><td style="text-align:left">Dashboard Channel VaR report development</td><td>ASBD</td><td>—</td><td>2025 Q1</td></tr>
+<tr><td style="text-align:left">Monitor total payout incl. PSM+ for significant fluctuations; coordinate with Line1B</td><td>ASBD</td><td>Monthly</td><td>Ongoing</td></tr>
+<tr><td style="text-align:left">Review VaR monitoring tool for enhancement</td><td>ASBD</td><td>Quarterly</td><td>Ongoing</td></tr>
+<tr><td style="text-align:left">Deep-dive payout data: compensation components, agency segments (new agents, top-tier, industrial hire)</td><td>ASBD</td><td>Monthly</td><td>From Mar '25</td></tr>
+<tr><td style="text-align:left">Red-flag investigation at Location/Unit/Agent level using multi-indicator screening (persistency, sale patterns, phone/bank sharing, welcome call rates, signature forgery, undeclared relatives)</td><td>Line1B</td><td>Monthly</td><td>Already in place</td></tr>
+<tr><td style="text-align:left">Update tracking in Local Agency Risk Committee; escalate to ARC/RCSC when threshold breached</td><td>Line1B</td><td>Monthly</td><td>From Mar '25</td></tr>
+<tr><td style="text-align:left">Embed VAR impact review in annual compensation review</td><td>ASBD</td><td>Annual</td><td>2025 Q4</td></tr>
+</table>
+<div class="callout" style="margin-top:16px">
+<h3>Escalation Protocol When Threshold Is Breached</h3>
+<p>When monthly VAR exceeds $2.0M, the local Compensation team and Line1B (front risk sales) must provide a deep-dive analysis. Line1B already manages monthly protocols for other risk controls — this is integrated into existing workflows, not a new standalone process.</p>
+<p class="citation">[Ref: overview-claude.md §What happens when the protocol triggers]</p>
+</div>
+<div class="footer-cite">Sources: slides-var/IMG_20260209_174133.md (Monitoring Framework); overview-claude.md §Q11 (Protocol details)</div>
+<span class="brand"><span>III</span> Manulife</span><span class="slide-num">12</span>
+</div>
+
+<!-- SLIDE 13: OPEN QUESTIONS & RISKS -->
+<div class="slide">
+<span class="tag tag-red">Open Items</span>
+<h2 style="margin-top:8px">Outstanding Questions &amp; Risk Considerations</h2>
+<div class="two-col">
+<div>
+<h3>Unresolved Questions from Analysis</h3>
+<div class="card danger" style="margin-bottom:12px">
+<h4>1. GTF Unit Anomaly</h4>
+<p>GTF units with VAR &gt; 0 increase 18% (105 → 124) in 2026 forecast despite total units declining 22%. GTF compensation scheme is unchanged and FYP grows 35% — logically VAR/FYP should decrease. Root cause under investigation: possible tier-jump effects or team-size changes.</p>
+<p class="citation">[Ref: meeting-notes-10-feb-2026-1.md §Anomaly]</p>
+</div>
+<div class="card danger" style="margin-bottom:12px">
+<h4>2. GTF Subsidy Abuse Risk</h4>
+<p>GTF subsidy has no claw-back mechanism and is calculated on net production (no free-look requirement). Submit-cancel-resubmit loops can generate recurring bonus without genuine sales. Should this risk be explicitly addressed in the proposal?</p>
+<p class="citation">[Ref: var-notes.md §GTF subsidy risk]</p>
+</div>
+<div class="card warn">
+<h4>3. MBA Pro Concentration</h4>
+<p>MBA Pro VAR surges 3.2× under new scheme. Is the increased exposure to top-performer compensation acceptable given the business growth objectives?</p>
+<p class="citation">[Ref: meeting-notes-10-feb-2026-2.md]</p>
+</div>
+</div>
+<div>
+<h3>Risk Mitigation Already in Place</h3>
+<ul style="font-size:13px">
+<li><strong>Monthly bi-conduct screening:</strong> Compensation payout ratios cross-referenced with other risk indicators to identify suspicious cases <span class="citation">[Ref: IMG_20260209_174129.md]</span></li>
+<li><strong>Payment suspension authority:</strong> High-risk cases can have compensation suspended pending investigation completion <span class="citation">[Ref: IMG_20260209_174129.md]</span></li>
+<li><strong>Claw-back clauses:</strong> High-reward scheme agreements include claw-back provisions for violations <span class="citation">[Ref: IMG_20260209_174131.md]</span></li>
+<li><strong>Campaign enrollment suspension:</strong> Violating agents/UMs can be blocked from big campaigns <span class="citation">[Ref: IMG_20260209_174131.md]</span></li>
+<li><strong>Contract termination:</strong> Ultimate sanction for confirmed fraud cases <span class="citation">[Ref: IMG_20260209_174131.md]</span></li>
+</ul>
+<h3 style="margin-top:16px">Recommended Next Steps</h3>
+<ul style="font-size:13px">
+<li>Complete deep-dive on 119 non-MBA GTF units to explain the anomalous increase</li>
+<li>Quantify GTF subsidy contribution to total VAR exposure</li>
+<li>Validate 30%+ FYP growth assumption underlying the forecast</li>
+<li>Assess whether GTF subsidy claw-back mechanism should be introduced</li>
+</ul>
+</div>
+</div>
+<div class="footer-cite">Sources: meeting-notes-10-feb-2026-1.md; meeting-notes-10-feb-2026-2.md; var-notes.md; slides-var/IMG_20260209_174129.md; IMG_20260209_174131.md</div>
+<span class="brand"><span>III</span> Manulife</span><span class="slide-num">13</span>
+</div>
+
+<!-- SLIDE 14: SUMMARY -->
+<div class="slide" style="background:linear-gradient(135deg,#1a1a2e 0%,#16213e 100%);color:#fff">
+<div style="position:absolute;top:0;left:0;right:0;height:6px;background:linear-gradient(90deg,#00a758,#0073cf)"></div>
+<span class="tag" style="background:rgba(255,255,255,.15);color:#fff">Summary</span>
+<h2 style="margin-top:8px;color:#fff">Conclusion &amp; Recommendation</h2>
+<div style="display:flex;gap:24px;margin-top:24px">
+<div style="flex:1;background:rgba(255,255,255,.08);border-radius:8px;padding:20px;border-left:4px solid #00a758">
+<h3 style="color:#00a758;font-size:16px">Current State</h3>
+<p style="font-size:28px;font-weight:700;margin:8px 0">$0.3M</p>
+<p style="font-size:13px;color:#aab">2025 actual VAR — historically low due to high persistency, reduced manpower, and business downtrend. This is a good-year artifact, not structural improvement.</p>
+</div>
+<div style="flex:1;background:rgba(255,255,255,.08);border-radius:8px;padding:20px;border-left:4px solid #f4a261">
+<h3 style="color:#f4a261;font-size:16px">Expected State</h3>
+<p style="font-size:28px;font-weight:700;margin:8px 0">$1.3M</p>
+<p style="font-size:13px;color:#aab">2026 forecast under new compensation scheme with 35% FYP growth. New scheme triples VAR on same production; growth adds further upward pressure.</p>
+</div>
+<div style="flex:1;background:rgba(255,255,255,.08);border-radius:8px;padding:20px;border-left:4px solid #0073cf">
+<h3 style="color:#0073cf;font-size:16px">Proposed Trigger</h3>
+<p style="font-size:28px;font-weight:700;margin:8px 0">$2.0M</p>
+<p style="font-size:13px;color:#aab">Reduced from legacy $3.0M — a 33% tightening. Provides 1.55× buffer above forecast. Reflects cleaner salesforce post-conduct reviews. Catches genuine risk events while avoiding false triggers.</p>
+</div>
+</div>
+<div style="margin-top:24px;background:rgba(0,167,88,.15);border-radius:8px;padding:16px 20px;border-left:4px solid #00a758">
+<p style="font-size:14px;line-height:1.7;color:#dde">The $2.0M trigger point represents a proactive 33% tightening from the legacy $3.0M threshold, demonstrating strengthened risk controls. It is calibrated against the 2026 forecast ($1.29M), stress-tested under the new compensation scheme, and supported by a structurally cleaner salesforce following 2024–2025 conduct reviews. The comprehensive monthly monitoring framework with multi-indicator screening remains in place regardless of threshold level.</p>
+</div>
+<div style="margin-top:20px;text-align:center">
+<p style="font-size:12px;color:#667">Full source references available in appendix &nbsp;|&nbsp; All data as of January 2026</p>
+</div>
+<span class="brand"><span>III</span> Manulife</span><span class="slide-num" style="color:#556">14</span>
+</div>
+
+<!-- SLIDE 16: SOURCE REFERENCES -->
+<div class="slide">
+<span class="tag tag-blue">Appendix</span>
+<h2 style="margin-top:8px">Source References &amp; Citations Index</h2>
+<table style="font-size:11px">
+<tr><th style="text-align:left;width:8%">Ref #</th><th style="text-align:left;width:35%">Source File</th><th style="text-align:left">Description</th><th style="width:12%">Used In Slides</th></tr>
+<tr><td>S1</td><td>overview-claude.md</td><td>Strategic overview: VAR definition, threshold calibration rationale, noise factors, political context, Q&A with stakeholders</td><td>2, 6, 10</td></tr>
+<tr><td>S2</td><td>slides-var/summary.md</td><td>Historical VAR data tables (2020–2026): absolute VAR, %VAR/FYP DT, %VAR/FYP Agency — rolling L12M monthly</td><td>4, 5</td></tr>
+<tr><td>S3</td><td>slides-var/IMG_20260209_174122.md</td><td>VAR methodology: formula definition, payout inclusions/exclusions, rolling 12-month logic, aggregation rules</td><td>3</td></tr>
+<tr><td>S4</td><td>slides-var/IMG_20260209_174126.md</td><td>VAR historical narrative (2019–2024): business model changes, mass recruitment era</td><td>2, 4, 5</td></tr>
+<tr><td>S5</td><td>slides-var/IMG_20260209_174129.md</td><td>VAR analysis 2025: $0.3M breakdown, timing-gap cases ($0.05M), clean VAR ($0.24M), monthly monitoring controls</td><td>2, 6, 13</td></tr>
+<tr><td>S6</td><td>slides-var/IMG_20260209_174133.md</td><td>Monitoring framework: action items, owners (ASBD/Line1B), timelines, deep-dive requirements</td><td>12</td></tr>
+<tr><td>S7</td><td>slides-var/IMG_20260209_173106.md</td><td>Bonus contribution of all units with VAR &gt; 0: 260 units, $1,214K total payout breakdown by component</td><td>7</td></tr>
+<tr><td>S8</td><td>slides-var/IMG_20260209_173114.md</td><td>Bonus contribution: FYP &gt; 0 &amp; Payout &gt; 0 subset (241 units, $1,175K payout)</td><td>7</td></tr>
+<tr><td>S9</td><td>slides-var/IMG_20260209_173117.md</td><td>Bonus contribution: FYP = 0 &amp; Payout &gt; 0 (8 units, $36.6K VAR) — GTF subsidy = 22%</td><td>8</td></tr>
+<tr><td>S10</td><td>slides-var/IMG_20260209_173121.md</td><td>Bonus contribution: FYP &lt; 0 &amp; Payout &gt; 0 (7 units, $10.9K VAR)</td><td>8</td></tr>
+<tr><td>S11</td><td>slides-var/IMG_20260209_173124.md</td><td>Bonus contribution: FYP &lt; 0 &amp; Payout &lt; 0 (6 units, negative payout)</td><td>8</td></tr>
+<tr><td>S12</td><td>slides-var/IMG_20260210_104837.md</td><td>Back-test 2025 &amp; Forecast 2026: VAR by MBA tier, GTF vs Non-GTF unit counts</td><td>9, 11</td></tr>
+<tr><td>S13</td><td>slides-var/IMG_20260209_174403.md</td><td>Agency structure illustration: direct team definition, income vs FYP scope mismatch</td><td>3, 10</td></tr>
+<tr><td>S14</td><td>slides-var/IMG_20260209_174407.md &amp; 174409.md</td><td>Data specification: all income items included in VAR dashboard, sources, frequencies</td><td>3</td></tr>
+<tr><td>M1</td><td>meeting-notes-10-feb-2026-1.md</td><td>Meeting: GTF unit anomaly analysis (105→124), back-test vs forecast comparison, action items</td><td>9, 13</td></tr>
+<tr><td>M2</td><td>meeting-notes-10-feb-2026-2.md</td><td>Meeting: VAR evolution ($0.3M→$1.05M→$1.29M), Non-MBA vs MBA Pro divergence, FYP growth assumptions</td><td>2, 9, 11, 13</td></tr>
+<tr><td>M3</td><td>var-notes.md</td><td>Meeting: GTF subsidy risk, deferred payment analysis, formula mismatch discussion</td><td>6, 8, 10, 13</td></tr>
+<tr><td>M4</td><td>var-report-feedback-on-draft.md</td><td>Stakeholder feedback: threshold reduced to $2.0M, remove PSM+ analysis, GTF claw-back confirmed (12-18 months), 2023 peak context</td><td>2, 4, 6, 8, 11</td></tr>
+</table>
+<div class="footer-cite">This report was compiled from 19 source documents including slide transcriptions, meeting transcript summaries, strategic analysis notes, and stakeholder feedback.</div>
+<span class="brand"><span>III</span> Manulife</span><span class="slide-num">15</span>
+</div>
+
+<script>
+// Chart 1: VAR Trend Line Chart
+const ctx1 = document.getElementById('chartVarTrend').getContext('2d');
+new Chart(ctx1, {
+  type: 'line',
+  data: {
+    labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+    datasets: [
+      {label:'2020',data:[2.2,2.1,2.0,1.9,1.9,1.9,1.9,1.8,1.8,1.8,1.8,1.7],borderColor:'#adb5bd',borderWidth:1.5,pointRadius:2,tension:.3,fill:false},
+      {label:'2021',data:[1.7,1.8,1.8,1.8,1.7,1.7,1.8,1.8,1.8,1.8,1.9,2.0],borderColor:'#6c757d',borderWidth:1.5,pointRadius:2,tension:.3,fill:false},
+      {label:'2022',data:[2.0,2.1,2.1,2.1,2.3,2.2,2.0,2.4,2.9,3.0,3.2,3.8],borderColor:'#0073cf',borderWidth:2,pointRadius:3,tension:.3,fill:false},
+      {label:'2023',data:[3.5,3.5,3.5,3.4,3.8,3.6,3.7,3.6,3.3,3.3,3.4,2.6],borderColor:'#e63946',borderWidth:2.5,pointRadius:3,tension:.3,fill:false},
+      {label:'2024',data:[2.4,2.0,1.7,1.5,1.3,0.8,0.7,0.7,0.4,0.4,0.4,0.4],borderColor:'#f4a261',borderWidth:2,pointRadius:3,tension:.3,fill:false},
+      {label:'2025',data:[0.3,0.3,0.3,0.2,0.2,0.2,0.2,0.2,0.3,0.3,0.3,0.3],borderColor:'#00a758',borderWidth:2.5,pointRadius:4,tension:.3,fill:false}
+    ]
+  },
+  options: {
+    responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{position:'top',labels:{font:{size:11},usePointStyle:true,pointStyle:'line'}}},
+    scales:{
+      y:{title:{display:true,text:'VAR ($ Million USD)',font:{size:11}},min:0,max:4.5,ticks:{stepSize:0.5}},
+      x:{grid:{display:false}}
+    },
+    annotation:{annotations:{threshold:{type:'line',yMin:3.0,yMax:3.0,borderColor:'rgba(230,57,70,.5)',borderWidth:2,borderDash:[6,4],label:{display:true,content:'Trigger: $3.0M',position:'end',font:{size:10}}}}}
+  }
+});
+
+// Chart 2: VAR/FYP % bar chart
+const ctx2 = document.getElementById('chartVarPct').getContext('2d');
+new Chart(ctx2, {
+  type: 'bar',
+  data: {
+    labels: ['2020','2021','2022','2023','2024','2025'],
+    datasets: [{
+      label: 'Avg %VAR/FYP Agency L12M',
+      data: [1.0, 0.7, 1.2, 2.7, 1.8, 0.5],
+      backgroundColor: ['#adb5bd','#6c757d','#0073cf','#e63946','#f4a261','#00a758'],
+      borderRadius: 4
+    }]
+  },
+  options: {
+    responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false}},
+    scales:{y:{title:{display:true,text:'%VAR / Agency FYP',font:{size:11}},max:4,ticks:{callback:v=>v+'%'}},x:{grid:{display:false}}}
+  }
+});
+
+// Chart 3: Bonus Mix Donut
+const ctx3 = document.getElementById('chartBonusMix').getContext('2d');
+new Chart(ctx3, {
+  type: 'doughnut',
+  data: {
+    labels: ['FYC (25%)','Agent Compensation (16%)','Agent Contest (15%)','UM+ Compensation (31%)','GTF Subsidy (4%)','UM+ Contest (7%)','Other (2%)'],
+    datasets: [{
+      data: [305, 192, 179, 372, 45, 85, 36],
+      backgroundColor: ['#00a758','#2d9cdb','#56ccf2','#1a1a2e','#e63946','#f4a261','#ddd'],
+      borderWidth: 2,
+      borderColor: '#fff'
+    }]
+  },
+  options: {
+    responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{position:'right',labels:{font:{size:10},padding:8,usePointStyle:true}}}
+  }
+});
+
+</script>
+</body>
+</html>
