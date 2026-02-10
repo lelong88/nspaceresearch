@@ -210,3 +210,9 @@ Bảng thuật ngữ hỗ trợ speech-to-text cho audio song ngữ Việt-Anh.
 
 Các tỉnh/thành phố xuất hiện trong tài liệu:
 Hanoi, Ho Chi Minh City (HCMC), Hai Phong, Da Nang, Nghe An, Thanh Hoa, Quang Ninh, Lam Dong, Can Tho, Yen Bai, Hung Yen, Phu Tho, Vinh Phuc, Quy Nhon, Pleiku, Tra Vinh, Cam Pha, Thu Duc, Ecopark, Dien Chau, Vi Thanh, Da Teh, Quang Yen, Dan Phuong, Pho Noi, Thanh Son
+
+
+# OTHERS
+LUMA - training program
+Steiner - education method
+Rose/THorn/Bud - reflection framework

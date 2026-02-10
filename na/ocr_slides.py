@@ -10,8 +10,7 @@ API_URL = os.environ["OPENAI_COMPATIBLE_URL"]
 API_KEY = os.environ["OPENAI_KEY"]
 MODEL = "sonnet"
 
-IMAGES_DIR = Path("images-var")
-SLIDES_DIR = Path("slides-var")
+BASE_DIR = Path("slides")
 
 CONTEXT = Path("summary-mac.md").read_text()
 
@@ -68,29 +67,30 @@ def ocr_image(img_path):
         raise Exception(f"{resp.status_code}: {resp.text[:300]}")
     return resp.json()["choices"][0]["message"]["content"]
 
-def get_todo():
-    """Compare source images dir to target slides dir to find unprocessed files."""
-    done = {f.stem for f in SLIDES_DIR.glob("*.md")}
-    return sorted(f for f in IMAGES_DIR.glob("*.jpg") if f.stem not in done)
-
 def main():
-    all_imgs = sorted(IMAGES_DIR.glob("*.jpg"))
-    todo = get_todo()
-    done = len(all_imgs) - len(todo)
-    print(f"Total: {len(all_imgs)}, Done: {done}, Todo: {len(todo)}")
+    for project in sorted(BASE_DIR.iterdir()):
+        if not project.is_dir():
+            continue
+        images_dir = project / "images"
+        md_dir = project / "md"
+        if not images_dir.exists():
+            continue
+        md_dir.mkdir(parents=True, exist_ok=True)
+        all_imgs = sorted(images_dir.glob("*.jpg"))
+        done_stems = {f.stem for f in md_dir.glob("*.md")}
+        todo = [f for f in all_imgs if f.stem not in done_stems]
+        print(f"\n=== {project.name} === Total: {len(all_imgs)}, Done: {len(all_imgs) - len(todo)}, Todo: {len(todo)}")
+        for img_path in todo:
+            md_path = md_dir / (img_path.stem + ".md")
+            print(f"Processing {img_path.name}...", end=" ", flush=True)
+            try:
+                content = ocr_image(img_path)
+                md_path.write_text(content + "\n")
+                print(f"OK ({len(content)} chars)")
+            except Exception as e:
+                print(f"ERROR: {e}")
 
-    for img_path in todo:
-        md_path = SLIDES_DIR / (img_path.stem + ".md")
-        print(f"Processing {img_path.name}...", end=" ", flush=True)
-        try:
-            content = ocr_image(img_path)
-            md_path.write_text(content + "\n")
-            print(f"OK ({len(content)} chars)")
-        except Exception as e:
-            print(f"ERROR: {e}")
-
-    done = len(all_imgs) - len(get_todo())
-    print(f"\nFinished. Done: {done}/{len(all_imgs)}")
+    print("\nDone.")
 
 if __name__ == "__main__":
     main()

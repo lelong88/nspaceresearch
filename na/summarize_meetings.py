@@ -9,9 +9,7 @@ API_URL = os.environ["OPENAI_COMPATIBLE_URL"]
 API_KEY = os.environ["OPENAI_KEY"]
 MODEL = "sonnet"
 
-IN_DIR = Path("meeting-audio-transcripts-var")
-OUT_DIR = Path("meeting-audio-transcript-summaries-var")
-OUT_DIR.mkdir(exist_ok=True)
+BASE_DIR = Path("meeting-audios")
 
 CONTEXT = Path("summary-mac.md").read_text()
 GLOSSARY = Path("glossary.md").read_text()
@@ -55,25 +53,31 @@ def summarize(transcript: str) -> str:
 
 
 def main():
-    files = sorted(IN_DIR.glob("*.txt"))
-    if not files:
-        print("No transcripts found in meeting-audio-transcripts/")
-        return
-
-    print(f"Found {len(files)} transcript(s)")
-    for txt_path in files:
-        out_path = OUT_DIR / (txt_path.stem + ".md")
-        if out_path.exists():
-            print(f"Skipping {txt_path.name} (already summarized)")
+    for project in sorted(BASE_DIR.iterdir()):
+        if not project.is_dir():
             continue
-        print(f"Summarizing {txt_path.name}...", end=" ", flush=True)
-        try:
-            transcript = txt_path.read_text()
-            summary = summarize(transcript)
-            out_path.write_text(summary + "\n")
-            print(f"OK ({len(summary)} chars)")
-        except Exception as e:
-            print(f"ERROR: {e}")
+        in_dir = project / "transcripts"
+        out_dir = project / "summaries"
+        if not in_dir.exists():
+            continue
+        out_dir.mkdir(parents=True, exist_ok=True)
+        files = sorted(in_dir.glob("*.txt"))
+        if not files:
+            continue
+        print(f"\n=== {project.name} === ({len(files)} transcript(s))")
+        for txt_path in files:
+            out_path = out_dir / (txt_path.stem + ".md")
+            if out_path.exists():
+                print(f"Skipping {txt_path.name} (already summarized)")
+                continue
+            print(f"Summarizing {txt_path.name}...", end=" ", flush=True)
+            try:
+                transcript = txt_path.read_text()
+                summary = summarize(transcript)
+                out_path.write_text(summary + "\n")
+                print(f"OK ({len(summary)} chars)")
+            except Exception as e:
+                print(f"ERROR: {e}")
 
     print("Done.")
 

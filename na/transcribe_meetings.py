@@ -9,9 +9,7 @@ API = "https://api.soniox.com"
 KEY = os.environ["SONIOX_API_KEY"]
 HDR = {"Authorization": f"Bearer {KEY}"}
 
-AUDIO_DIR = Path("meeting-audios-var")
-OUT_DIR = Path("meeting-audio-transcripts-var")
-OUT_DIR.mkdir(exist_ok=True)
+BASE_DIR = Path("meeting-audios")
 
 CONTEXT_TEXT = Path("summary-mac.md").read_text()
 
@@ -131,23 +129,29 @@ def transcribe(audio_path: Path) -> str:
 
 
 def main():
-    files = sorted(f for f in AUDIO_DIR.iterdir() if f.suffix.lower() in EXTENSIONS)
-    if not files:
-        print("No audio files found in meeting-audios/")
-        return
-
-    print(f"Found {len(files)} audio file(s)")
-    for audio_path in files:
-        out_path = OUT_DIR / (audio_path.stem + ".txt")
-        if out_path.exists():
-            print(f"Skipping {audio_path.name} (already transcribed)")
+    for project in sorted(BASE_DIR.iterdir()):
+        if not project.is_dir():
             continue
-        try:
-            text = transcribe(audio_path)
-            out_path.write_text(text)
-            print(f"[{audio_path.stem}] Saved ({len(text)} chars)")
-        except Exception as e:
-            print(f"[{audio_path.stem}] ERROR: {e}")
+        audio_dir = project / "files"
+        out_dir = project / "transcripts"
+        if not audio_dir.exists():
+            continue
+        out_dir.mkdir(parents=True, exist_ok=True)
+        files = sorted(f for f in audio_dir.iterdir() if f.suffix.lower() in EXTENSIONS)
+        if not files:
+            continue
+        print(f"\n=== {project.name} === ({len(files)} audio file(s))")
+        for audio_path in files:
+            out_path = out_dir / (audio_path.stem + ".txt")
+            if out_path.exists():
+                print(f"Skipping {audio_path.name} (already transcribed)")
+                continue
+            try:
+                text = transcribe(audio_path)
+                out_path.write_text(text)
+                print(f"[{audio_path.stem}] Saved ({len(text)} chars)")
+            except Exception as e:
+                print(f"[{audio_path.stem}] ERROR: {e}")
 
     print("\nDone.")
 
