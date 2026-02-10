@@ -1,1 +1,0 @@
-files that have "*dont-edit*" in filenames **MUST NOT** be edited. i wrote them for your reference only. these files should remain in my ownership
