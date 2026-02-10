@@ -23,7 +23,7 @@ CONTEXT_TERMS = [
     "CSV", "Cash Surrender Value", "net production",
     # Agency Hierarchy
     "FA", "Financial Advisor", "UM", "UM+", "Unit Manager",
-    "SUM", "DM", "SDM", "BM", "AM",
+    "SUM", "Senior Unit Manager", "DM", "SDM", "BM", "Branch Manager", "AM", "Area Manager",
     "SM", "SSM", "Sales Manager", "Senior Sales Manager",
     "PSM", "PSM+", "DRD", "SRD", "RD", "Regional Director",
     "AVP", "SAVP", "VP", "RH", "Regional Head",
@@ -65,14 +65,23 @@ CONTEXT_TERMS = [
     "inorganic growth", "inorganic recruitment", "organic", "spin-off",
     # Direct Team & VAR Calculation
     "direct team", "NTT", "indirect team", "VAR DT",
-    "VAR DT Agency L12M", "FYP DT L12M", "rolling 12 months", "zeroize",
+    "VAR DT Agency L12M", "FYP DT L12M", "%VAR DT/FYP DT", "%VAR/FYP Agency",
+    "rolling 12 months", "zeroize",
     # Competitors
-    "Pru", "Prudential", "Chubb", "Generali", "FWD", "ICO", "GA", "GAD",
-    "franchise model", "poaching",
+    "Pru", "Prudential", "Chubb", "Chubb Life", "Generali", "Gen", "FWD",
+    "ICO", "GA", "GAD", "franchise model", "poaching",
     # Vietnamese terms mixed with English
-    "tỷ", "tỉ", "triệu", "sạch sẽ", "nộp-hủy-nộp lại",
+    "tỷ", "tỉ", "triệu", "mil", "sạch sẽ", "nộp-hủy-nộp lại",
     "chức danh", "hợp đồng", "khách hàng", "đại lý", "chi nhánh",
     "tuyển dụng", "duy trì", "giữ chân", "trợ cấp", "nghiệm thu", "lũy kế",
+    # Geographic references
+    "Hanoi", "Ho Chi Minh City", "HCMC", "Hai Phong", "Da Nang", "Nghe An",
+    "Thanh Hoa", "Quang Ninh", "Lam Dong", "Can Tho", "Yen Bai", "Hung Yen",
+    "Phu Tho", "Vinh Phuc", "Quy Nhon", "Pleiku", "Tra Vinh", "Cam Pha",
+    "Thu Duc", "Ecopark", "Dien Chau", "Vi Thanh", "Da Teh", "Quang Yen",
+    "Dan Phuong", "Pho Noi", "Thanh Son",
+    # Others
+    "LUMA", "Steiner", "Rose/Thorn/Bud",
 ]
 
 EXTENSIONS = {".m4a", ".mp3", ".mp4", ".wav", ".flac", ".ogg", ".aac", ".webm", ".amr", ".aiff", ".asf"}

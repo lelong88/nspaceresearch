@@ -1,1 +1,3 @@
-files that have "*dont-edit*" in filenames **MUST NOT** be edited. i wrote them for your reference only. these files should remain in my ownership
+your generated files should be put in "output" folder under the right subfolder.
+ignore "files" and "transcripts" and "images" folders. these are raw files.
+use the "summaries" and "md" folders.
