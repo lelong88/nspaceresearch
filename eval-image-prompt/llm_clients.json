@@ -1,0 +1,6 @@
+
+# openai-compatible url
+# base url: https://litellm.meomap.blog/vi
+# api key: os.environ['MEOMAP_API_KEY']
+# model: `opus`
+

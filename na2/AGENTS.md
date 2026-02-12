@@ -1,0 +1,1 @@
+**DO NOT READ** following folders: "images", "archive", "meeting-audios", "meeting-audio-transcripts"
