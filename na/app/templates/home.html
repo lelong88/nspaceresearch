@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}Home — Meeting Audio{% endblock %}
+
+{% block extra_style %}
+<style>
+    .project-grid { display: grid; gap: 1rem; margin-top: 1rem; }
+    .project-card {
+        background: #fff; padding: 1.25rem; border-radius: 6px;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+        display: flex; align-items: center; justify-content: space-between;
+    }
+    .project-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.12); }
+    .project-info h2 { margin: 0 0 0.25rem; }
+    .project-info h2 a { text-decoration: none; color: #2c3e50; }
+    .project-info h2 a:hover { color: #2980b9; }
+    .counts { font-size: 0.85rem; color: #7f8c8d; }
+    .counts span { margin-right: 1rem; }
+    .btn {
+        display: inline-block; padding: 0.4rem 0.9rem; border-radius: 4px;
+        font-size: 0.85rem; border: none; cursor: pointer; text-decoration: none;
+    }
+    .btn-primary { background: #2980b9; color: #fff; }
+    .btn-primary:hover { background: #1a6da0; color: #fff; }
+    .empty { color: #95a5a6; margin-top: 1rem; }
+</style>
+{% endblock %}
+
+{% block content %}
+<h1>Projects</h1>
+
+{% if projects %}
+<div class="project-grid">
+    {% for p in projects %}
+    <div class="project-card">
+        <div class="project-info">
+            <h2><a href="/project/{{ p.name }}">{{ p.name }}</a></h2>
+            <div class="counts">
+                <span>🎧 {{ p.audio_count }} audio</span>
+                <span>📝 {{ p.transcript_count }} transcripts</span>
+                <span>📋 {{ p.summary_count }} summaries</span>
+            </div>
+        </div>
+        <form method="post" action="/pipeline/{{ p.name }}">
+            <button type="submit" class="btn btn-primary">Run Pipeline</button>
+        </form>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<p class="empty">No projects yet. <a href="/upload">Upload an audio file</a> to get started.</p>
+{% endif %}
+{% endblock %}

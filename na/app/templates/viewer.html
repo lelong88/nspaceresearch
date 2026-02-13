@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}{{ filename }} — {{ project_name }}{% endblock %}
+
+{% block extra_style %}
+<style>
+    .viewer-header { margin-bottom: 1rem; }
+    .viewer-header .back { font-size: 0.9rem; }
+    .viewer-header .meta { color: #7f8c8d; font-size: 0.85rem; margin-top: 0.25rem; }
+    .content-box {
+        background: #fff; padding: 1.5rem; border-radius: 6px;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    }
+    .content-box pre {
+        white-space: pre-wrap; word-wrap: break-word;
+        font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+        font-size: 0.9rem; line-height: 1.7; margin: 0;
+    }
+    .content-box h1, .content-box h2, .content-box h3 { margin-top: 1rem; margin-bottom: 0.5rem; }
+    .content-box p { margin-bottom: 0.75rem; }
+    .content-box ul, .content-box ol { margin-bottom: 0.75rem; padding-left: 1.5rem; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="viewer-header">
+    <a class="back" href="/project/{{ project_name }}">← Back to {{ project_name }}</a>
+    <h1>{{ filename }}</h1>
+    <p class="meta">{{ content_type | capitalize }}</p>
+</div>
+
+<div class="content-box">
+    {% if content_type == "transcript" %}
+    <pre>{{ content }}</pre>
+    {% else %}
+    {{ content | safe }}
+    {% endif %}
+</div>
+{% endblock %}

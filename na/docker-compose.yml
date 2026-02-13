@@ -1,0 +1,12 @@
+services:
+  web:
+    build: .
+    ports:
+      - "6006:6006"
+    env_file:
+      - .env
+    volumes:
+      - ./meeting-audios:/app/meeting-audios
+      - ./summary-mac.md:/app/summary-mac.md:ro
+      - ./glossary.md:/app/glossary.md:ro
+    restart: unless-stopped

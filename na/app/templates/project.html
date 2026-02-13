@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}{{ project.name }} — Meeting Audio{% endblock %}
+
+{% block extra_style %}
+<style>
+    .section { background: #fff; padding: 1.25rem; border-radius: 6px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); margin-bottom: 1rem; }
+    .section ul { list-style: none; padding: 0; }
+    .section li { padding: 0.4rem 0; border-bottom: 1px solid #eee; }
+    .section li:last-child { border-bottom: none; }
+    .section li a { text-decoration: none; }
+    .section li a:hover { text-decoration: underline; }
+    .actions { display: flex; gap: 0.75rem; align-items: center; margin-bottom: 1.25rem; }
+    .btn {
+        display: inline-block; padding: 0.4rem 0.9rem; border-radius: 4px;
+        font-size: 0.85rem; border: none; cursor: pointer; text-decoration: none;
+    }
+    .btn-primary { background: #2980b9; color: #fff; }
+    .btn-primary:hover { background: #1a6da0; color: #fff; }
+    .btn-secondary { background: #ecf0f1; color: #2c3e50; }
+    .btn-secondary:hover { background: #d5dbdb; color: #2c3e50; }
+    .empty-note { color: #95a5a6; font-size: 0.9rem; }
+</style>
+{% endblock %}
+
+{% block content %}
+<h1>{{ project.name }}</h1>
+
+<div class="actions">
+    <form method="post" action="/pipeline/{{ project.name }}">
+        <button type="submit" class="btn btn-primary">Run Pipeline</button>
+    </form>
+    <a href="/" class="btn btn-secondary">← Back to Home</a>
+</div>
+
+<div class="section">
+    <h2>Summaries</h2>
+    {% if project.summaries %}
+    <ul>
+        {% for f in project.summaries %}
+        <li><a href="/project/{{ project.name }}/summary/{{ f }}">{{ f }}</a></li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p class="empty-note">No summaries yet.</p>
+    {% endif %}
+</div>
+
+<div class="section">
+    <h2>Transcripts</h2>
+    {% if project.transcripts %}
+    <ul>
+        {% for f in project.transcripts %}
+        <li><a href="/project/{{ project.name }}/transcript/{{ f }}">{{ f }}</a></li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p class="empty-note">No transcripts yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

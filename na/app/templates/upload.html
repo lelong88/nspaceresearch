@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}Upload — Meeting Audio{% endblock %}
+
+{% block extra_style %}
+<style>
+    .upload-form {
+        background: #fff; padding: 1.5rem; border-radius: 6px;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.08); max-width: 480px;
+    }
+    .field { margin-bottom: 1rem; }
+    .field label { display: block; font-weight: 600; margin-bottom: 0.3rem; font-size: 0.9rem; color: #34495e; }
+    .field select, .field input[type="text"] {
+        width: 100%; padding: 0.5rem 0.6rem; border: 1px solid #ccc;
+        border-radius: 4px; font-size: 0.95rem;
+    }
+    .field input[type="file"] { font-size: 0.95rem; }
+    .field .hint { font-size: 0.8rem; color: #95a5a6; margin-top: 0.2rem; }
+    .btn {
+        display: inline-block; padding: 0.5rem 1.2rem; border-radius: 4px;
+        font-size: 0.95rem; border: none; cursor: pointer;
+    }
+    .btn-primary { background: #2980b9; color: #fff; }
+    .btn-primary:hover { background: #1a6da0; }
+    .error { color: #c0392b; margin-bottom: 1rem; font-size: 0.9rem; padding: 0.5rem; background: #fdecea; border-radius: 4px; }
+</style>
+{% endblock %}
+
+{% block content %}
+<h1>Upload Audio</h1>
+
+{% if error %}
+<p class="error">{{ error }}</p>
+{% endif %}
+
+<form class="upload-form" method="post" action="/upload" enctype="multipart/form-data">
+    <div class="field">
+        <label for="project">Existing project</label>
+        <select name="project" id="project">
+            {% for p in projects %}
+            <option value="{{ p.name }}">{{ p.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="field">
+        <label for="new_project">Or create new project</label>
+        <input type="text" name="new_project" id="new_project" placeholder="New project name">
+        <p class="hint">Leave blank to use the selected project above.</p>
+    </div>
+
+    <div class="field">
+        <label for="file">Audio file</label>
+        <input type="file" name="file" id="file" accept=".m4a,.mp3,.mp4,.wav,.flac,.ogg,.aac,.webm,.amr,.aiff,.asf" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Upload</button>
+</form>
+{% endblock %}

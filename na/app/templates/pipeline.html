@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block title %}Pipeline — {{ project }}{% endblock %}
+
+{% block extra_style %}
+<style>
+    .progress-box {
+        background: #fff; padding: 1.25rem; border-radius: 6px;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+        max-height: 70vh; overflow-y: auto; margin-top: 1rem;
+    }
+    .msg { padding: 0.4rem 0.6rem; margin-bottom: 0.3rem; border-radius: 4px; font-size: 0.9rem; }
+    .msg-progress { background: #eaf2f8; color: #2471a3; }
+    .msg-error { background: #fdecea; color: #c0392b; }
+    .msg-complete { background: #e8f8f5; color: #1e8449; }
+    .done-link { display: inline-block; margin-top: 1rem; }
+    .spinner { display: inline-block; margin-left: 0.5rem; }
+    .spinner::after { content: "⏳"; }
+    .hidden { display: none; }
+</style>
+{% endblock %}
+
+{% block content %}
+<h1>Pipeline: {{ project }}</h1>
+<p>Processing audio files…<span id="spinner" class="spinner"></span></p>
+
+<div id="progress" class="progress-box"></div>
+<a id="done-link" class="done-link hidden" href="/project/{{ project }}">← View project results</a>
+
+<script>
+(function() {
+    var box = document.getElementById("progress");
+    var doneLink = document.getElementById("done-link");
+    var spinner = document.getElementById("spinner");
+    var source = new EventSource("/pipeline/{{ project }}/stream");
+
+    source.onmessage = function(e) {
+        var data = JSON.parse(e.data);
+        var div = document.createElement("div");
+        div.classList.add("msg");
+
+        if (data.event_type === "error") {
+            div.classList.add("msg-error");
+        } else if (data.event_type === "complete") {
+            div.classList.add("msg-complete");
+        } else {
+            div.classList.add("msg-progress");
+        }
+
+        div.textContent = data.message;
+        box.appendChild(div);
+        box.scrollTop = box.scrollHeight;
+
+        if (data.event_type === "complete") {
+            source.close();
+            spinner.classList.add("hidden");
+            doneLink.classList.remove("hidden");
+        }
+    };
+
+    source.onerror = function() {
+        source.close();
+        spinner.classList.add("hidden");
+        var div = document.createElement("div");
+        div.classList.add("msg", "msg-error");
+        div.textContent = "Connection lost. Check the project page for results.";
+        box.appendChild(div);
+        doneLink.classList.remove("hidden");
+    };
+})();
+</script>
+{% endblock %}
