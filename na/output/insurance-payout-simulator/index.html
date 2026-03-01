@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mô Phỏng Chi Trả Bảo Hiểm — Xanh Tương Lai</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Mô Phỏng Chi Trả Bảo Hiểm</h1>
+    <p>Sản phẩm Xanh Tương Lai — Manulife Việt Nam</p>
+  </header>
+
+  <main>
+    <section id="input-panel">
+      <h2>Thông tin khách hàng</h2>
+
+      <div class="form-group">
+        <label for="age">Tuổi</label>
+        <input type="number" id="age" name="age" value="30" min="18" max="60" step="1">
+        <span id="age-error" class="error-message"></span>
+      </div>
+
+      <div class="form-group">
+        <label for="gender">Giới tính</label>
+        <select id="gender" name="gender">
+          <option value="female" selected>Nữ</option>
+          <option value="male">Nam</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="basic-premium">Phí bảo hiểm cơ bản (VND)</label>
+        <input type="number" id="basic-premium" name="basic-premium" value="28570000" min="20000000" step="1000">
+        <span id="premium-error" class="error-message"></span>
+      </div>
+
+      <div class="form-group">
+        <label for="payment-years">Thời hạn đóng phí</label>
+        <select id="payment-years" name="payment-years">
+          <option value="3">3 năm</option>
+          <option value="5" selected>5 năm</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="fund">Quỹ đầu tư</label>
+        <select id="fund" name="fund">
+          <option value="bao-toan">Bảo Toàn</option>
+          <option value="tich-luy">Tích Lũy</option>
+          <option value="on-dinh">Ổn Định</option>
+          <option value="can-bang" selected>Cân Bằng</option>
+          <option value="phat-trien">Phát Triển</option>
+          <option value="tang-truong">Tăng Trưởng</option>
+          <option value="hung-thinh-2035">Hưng Thịnh 2035</option>
+          <option value="hung-thinh-2040">Hưng Thịnh 2040</option>
+          <option value="hung-thinh-2045">Hưng Thịnh 2045</option>
+        </select>
+      </div>
+    </section>
+
+    <section id="results-panel">
+      <div id="results-placeholder">Vui lòng nhập thông tin hợp lệ để xem kết quả mô phỏng.</div>
+
+      <div id="projection-section" style="display:none">
+        <h2>Bảng dự phóng</h2>
+        <div id="projection-table-container"></div>
+      </div>
+
+      <div id="chart-section" style="display:none">
+        <h2>Giá trị tài khoản</h2>
+        <canvas id="account-chart"></canvas>
+      </div>
+
+      <div id="fee-section" style="display:none">
+        <h2>Cấu trúc phí</h2>
+        <div id="fee-chart-container"></div>
+      </div>
+
+      <div id="benefits-section" style="display:none">
+        <h2>Quyền lợi bảo hiểm</h2>
+        <h3>Sản phẩm bổ trợ</h3>
+        <div id="benefits-container"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Lưu ý: Đây là công cụ mô phỏng, kết quả chỉ mang tính tham khảo và không phải cam kết của Manulife Việt Nam. Lợi nhuận thực tế có thể khác biệt so với các kịch bản mô phỏng.</p>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
