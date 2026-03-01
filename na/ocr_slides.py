@@ -8,7 +8,7 @@ load_dotenv()
 
 API_URL = os.environ["OPENAI_COMPATIBLE_URL"]
 API_KEY = os.environ["OPENAI_KEY"]
-MODEL = "sonnet"
+MODEL = "opus"
 
 BASE_DIR = Path("slides")
 
@@ -35,6 +35,8 @@ MAX_BYTES = 4_500_000  # stay under 5MB
 
 def encode_image(path):
     img = Image.open(path)
+    if img.mode in ("RGBA", "P", "LA"):
+        img = img.convert("RGB")
     # Resize if needed
     max_dim = 1600
     if max(img.size) > max_dim:
@@ -76,7 +78,7 @@ def main():
         if not images_dir.exists():
             continue
         md_dir.mkdir(parents=True, exist_ok=True)
-        all_imgs = sorted(images_dir.glob("*.jpg"))
+        all_imgs = sorted([f for ext in ("*.jpg", "*.png") for f in images_dir.glob(ext)])
         done_stems = {f.stem for f in md_dir.glob("*.md")}
         todo = [f for f in all_imgs if f.stem not in done_stems]
         print(f"\n=== {project.name} === Total: {len(all_imgs)}, Done: {len(all_imgs) - len(todo)}, Todo: {len(todo)}")
