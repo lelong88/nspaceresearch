@@ -7,6 +7,8 @@ services:
       - .env
     volumes:
       - ./meeting-audios:/app/meeting-audios
+      - ./slides:/app/slides
+      - ./output:/app/output
       - ./summary-mac.md:/app/summary-mac.md:ro
       - ./glossary.md:/app/glossary.md:ro
     restart: unless-stopped

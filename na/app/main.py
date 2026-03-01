@@ -5,6 +5,7 @@ from fastapi.responses import RedirectResponse
 from fastapi.staticfiles import StaticFiles
 
 from app.routes import NotAuthenticated, router
+from app.routes_qa_prep import qa_prep_router
 from app.templating import templates  # noqa: F401 — re-export for convenience
 
 APP_DIR = Path(__file__).resolve().parent
@@ -20,6 +21,7 @@ def create_app() -> FastAPI:
     )
 
     application.include_router(router)
+    application.include_router(qa_prep_router)
 
     @application.exception_handler(NotAuthenticated)
     async def not_authenticated_handler(request, exc):

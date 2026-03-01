@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Q&A Prep — Select Deck{% endblock %}
+
+{% block extra_style %}
+<style>
+    .deck-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; margin-top: 1rem; }
+    .deck-card {
+        background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 1.25rem;
+        text-decoration: none; color: #333; transition: box-shadow .15s, border-color .15s;
+    }
+    .deck-card:hover { border-color: #2980b9; box-shadow: 0 2px 8px rgba(0,0,0,.1); }
+    .deck-card h3 { margin: 0; font-size: 1.1rem; color: #2c3e50; }
+    .empty-msg { margin-top: 2rem; color: #777; }
+</style>
+{% endblock %}
+
+{% block content %}
+<h1>Q&amp;A Prep</h1>
+<p>Select a slide deck to start preparing for Q&amp;A.</p>
+
+{% if decks %}
+<div class="deck-grid">
+    {% for deck in decks %}
+    <a class="deck-card" href="/qa-prep/{{ deck }}">
+        <h3>{{ deck }}</h3>
+    </a>
+    {% endfor %}
+</div>
+{% else %}
+<p class="empty-msg">No slide decks found. Add slide decks under <code>slides/&lt;project&gt;/md/</code> to get started.</p>
+{% endif %}
+{% endblock %}

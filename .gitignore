@@ -1,5 +1,5 @@
-output
 *.png
+*.mp3
 # Environment
 .env
 .env.*

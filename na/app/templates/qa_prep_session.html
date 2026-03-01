@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% block title %}Q&A Prep — {{ project }}{% endblock %}
+
+{% block extra_style %}
+<style>
+    .progress-bar { background: #ecf0f1; border-radius: 6px; padding: 0.75rem 1rem; margin-bottom: 1.5rem; display: flex; gap: 2rem; }
+    .progress-bar span { font-size: 0.9rem; color: #555; }
+    .progress-bar strong { color: #2c3e50; }
+    .error-msg { background: #fdecea; color: #c0392b; padding: 0.75rem 1rem; border-radius: 6px; margin-bottom: 1rem; }
+    .gen-btn { display: inline-block; margin-bottom: 1.5rem; }
+    .gen-btn button {
+        background: #2980b9; color: #fff; border: none; padding: 0.6rem 1.2rem;
+        border-radius: 6px; cursor: pointer; font-size: 0.95rem;
+    }
+    .gen-btn button:hover { background: #1a6da0; }
+    .question-card {
+        background: #fff; border: 1px solid #ddd; border-radius: 8px;
+        padding: 1rem 1.25rem; margin-bottom: 1rem;
+    }
+    .question-card h3 { margin: 0 0 0.5rem; font-size: 1rem; color: #2c3e50; }
+    .badges { display: flex; gap: 0.4rem; margin-bottom: 0.5rem; }
+    .badge {
+        font-size: 0.75rem; padding: 0.15rem 0.5rem; border-radius: 10px;
+        color: #fff; display: inline-block;
+    }
+    .badge-audio { background: #3498db; }
+    .badge-transcript { background: #27ae60; }
+    .badge-feedback { background: #8e44ad; }
+</style>
+{% endblock %}
+
+{% block content %}
+<h1>Q&amp;A Prep: {{ project }}</h1>
+
+{% if error %}
+<div class="error-msg">{{ error }}</div>
+{% endif %}
+
+{% if state.total_questions > 0 %}
+<div class="progress-bar">
+    <span>Answered: <strong>{{ state.answered_count }} / {{ state.total_questions }}</strong></span>
+    <span>Feedback: <strong>{{ state.feedback_count }} / {{ state.total_questions }}</strong></span>
+</div>
+{% endif %}
+
+<form class="gen-btn" action="/qa-prep/{{ project }}/generate" method="post">
+    <button type="submit">
+        {% if state.total_questions > 0 %}Regenerate Questions{% else %}Generate Questions{% endif %}
+    </button>
+</form>
+
+{% if state.questions %}
+{% for qs in state.questions %}
+<div class="question-card">
+    <h3>Q{{ qs.number }}. {{ qs.text }}</h3>
+
+    <div class="badges">
+        {% if qs.attempts %}
+            <span class="badge badge-audio">{{ qs.attempts|length }} response{{ 's' if qs.attempts|length > 1 else '' }}</span>
+        {% endif %}
+        {% if qs.attempts|selectattr('transcript')|list %}
+            <span class="badge badge-transcript">transcribed</span>
+        {% endif %}
+        {% if qs.attempts|selectattr('feedback')|list %}
+            <span class="badge badge-feedback">feedback</span>
+        {% endif %}
+    </div>
+
+    <form action="/qa-prep/{{ project }}/upload/{{ qs.number }}" method="post" enctype="multipart/form-data" style="margin-bottom:0.75rem;">
+        <input type="file" name="file" accept=".m4a,.mp3,.mp4,.wav,.flac,.ogg,.aac,.webm,.amr,.aiff,.asf" required>
+        <button type="submit" style="margin-left:0.5rem; padding:0.3rem 0.8rem; cursor:pointer;">Upload</button>
+    </form>
+
+    {% if qs.attempts %}
+    <details>
+        <summary style="cursor:pointer; color:#2980b9; font-size:0.9rem;">Show attempts ({{ qs.attempts|length }})</summary>
+        {% for attempt in qs.attempts %}
+        <div style="background:#f9f9f9; border:1px solid #eee; border-radius:6px; padding:0.75rem; margin-top:0.5rem;">
+            <div style="font-size:0.85rem; color:#777; margin-bottom:0.4rem;">
+                {{ attempt.audio_file }}
+            </div>
+            {% if attempt.transcript %}
+            <div style="margin-bottom:0.5rem;">
+                <strong style="font-size:0.85rem;">Transcript:</strong>
+                <p style="font-size:0.9rem; white-space:pre-wrap; margin:0.25rem 0 0;">{{ attempt.transcript }}</p>
+            </div>
+            {% endif %}
+            {% if attempt.feedback %}
+            <div>
+                <strong style="font-size:0.85rem;">Feedback:</strong>
+                <div style="font-size:0.9rem; margin-top:0.25rem;">{{ attempt.feedback | safe }}</div>
+            </div>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </details>
+    {% endif %}
+</div>
+{% endfor %}
+{% elif state.total_questions == 0 %}
+<p style="color:#777; margin-top:1rem;">No questions generated yet. Click "Generate Questions" to start.</p>
+{% endif %}
+{% endblock %}
