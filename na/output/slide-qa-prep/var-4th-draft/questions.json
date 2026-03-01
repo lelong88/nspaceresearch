@@ -1,0 +1,16 @@
+{
+  "project": "var-4th-draft",
+  "generated_at": "2026-03-01T07:05:14.089214+00:00",
+  "questions": [
+    "VaR dropped dramatically from $3.8 million in 2022 to $0.4 million in 2024. How much of that reduction is attributable to genuine risk mitigation versus simply the collapse in business volume from $204 million to $50 million in Agency FYP?",
+    "The 2023 VaR/FYP ratio peaked at 4.0%, which you attribute to business volume collapse while compensation structures remained unchanged. Why wasn't the commission rate adjusted sooner rather than waiting until H2 2024 to reduce it from ~32% to ~26%?",
+    "You highlight that 5 high-VaR units (\u2265$4K) have elevated VaR primarily due to calculation gaps between direct team FYP and direct report team FYP. Given that the average direct team FYP is only $1.68K versus $18.95K for direct report teams, does this indicate a structural flaw in how VaR is calculated, and should the methodology be revised?",
+    "Agency FYP has declined from $222 million in 2020 to $53 million in 2025, and active agent count dropped from 53,600 to 13,600. What is the strategic plan to stabilize or grow the agency channel, and at what point does the shrinking scale itself become a risk to the business?",
+    "The 13-month persistency improved dramatically from ~52-55% in 2023-2024 to 84.3% in 2025. What specific actions drove this improvement, and how confident are you that this level is sustainable given the significantly smaller book of business?",
+    "Of the 260 units with positive VaR, 92 are classified as 'calculation-gap cases' contributing $52K. If these are genuinely timing or methodology artifacts rather than real risk, why aren't they excluded from the VaR reporting entirely to provide a cleaner risk picture?",
+    "The monitoring framework relies heavily on Line1B conducting monthly screening with multi-indicator analysis. What is the current staffing and capacity of Line1B, and is it sufficient to conduct meaningful deep-dive reviews across all 260 positive-VaR units plus broader agent population monitoring?",
+    "You mention a pre-defined trigger threshold of $3 million USD for VaR. Given that current VaR is $0.29 million \u2014 less than 10% of the threshold \u2014 is this threshold still appropriate, or should it be recalibrated downward to reflect the dramatically smaller business scale?",
+    "All 5 deep-dive units with VaR \u2265$4K and no P13 yet are GTF leaders, and 4 of 5 are MBA Pro. With 88% of their payout coming from UM+ compensation and GTF subsidies rather than direct production, how do you ensure the GTF subsidy program isn't creating perverse incentives that encourage building indirect team structures primarily to capture override income?",
+    "The number of MDRT qualifiers dropped from 1,664 in 2020 to 280 in 2025, and UM+ leaders fell from over 9,000 to 2,010. With this level of talent attrition, what is the risk that the remaining agent force becomes increasingly dependent on compensation structures that could drive VaR back up if business conditions change?"
+  ]
+}
