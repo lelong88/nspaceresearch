@@ -63,6 +63,60 @@
     <section id="results-panel">
       <div id="results-placeholder">Vui lòng nhập thông tin hợp lệ để xem kết quả mô phỏng.</div>
 
+      <div id="story-section" style="display:none">
+        <div class="story-header">
+          <span class="story-header-icon">✨</span>
+          <div>
+            <h2>Câu chuyện bảo hiểm của bạn</h2>
+            <p class="story-subtitle">Chọn một kịch bản để xem hành trình bảo hiểm qua từng giai đoạn cuộc đời</p>
+          </div>
+        </div>
+
+        <div id="scenario-buttons">
+          <button class="scenario-btn" data-scenario="early-death" aria-label="Kịch bản tử vong sớm">
+            <span class="scenario-icon">🛡️</span>
+            <span class="scenario-label">Tử vong năm thứ 3</span>
+            <span class="scenario-desc">Gia đình được bảo vệ ngay từ đầu</span>
+          </button>
+          <button class="scenario-btn" data-scenario="mid-death" aria-label="Kịch bản tử vong giữa kỳ">
+            <span class="scenario-icon">💚</span>
+            <span class="scenario-label">Tử vong năm thứ 15</span>
+            <span class="scenario-desc">Tài khoản đã tích lũy đáng kể</span>
+          </button>
+          <button class="scenario-btn" data-scenario="critical-illness" aria-label="Kịch bản bệnh hiểm nghèo">
+            <span class="scenario-icon">🏥</span>
+            <span class="scenario-label">Bệnh hiểm nghèo năm thứ 10</span>
+            <span class="scenario-desc">Quyền lợi sản phẩm bổ trợ</span>
+          </button>
+          <button class="scenario-btn" data-scenario="long-term" aria-label="Kịch bản duy trì dài hạn">
+            <span class="scenario-icon">🌱</span>
+            <span class="scenario-label">Duy trì đến năm thứ 30</span>
+            <span class="scenario-desc">Sức mạnh của lãi kép</span>
+          </button>
+          <button class="scenario-btn" data-scenario="lapse" aria-label="Kịch bản hợp đồng mất hiệu lực">
+            <span class="scenario-icon">⚠️</span>
+            <span class="scenario-label">Hợp đồng mất hiệu lực</span>
+            <span class="scenario-desc">Khi phí vượt quá giá trị tài khoản</span>
+          </button>
+        </div>
+
+        <div id="story-player" style="display:none">
+          <div id="story-progress-bar"><div id="story-progress-fill"></div></div>
+          <div id="story-slide">
+            <div id="story-slide-icon"></div>
+            <div id="story-slide-title"></div>
+            <div id="story-slide-body"></div>
+            <div id="story-slide-number"></div>
+          </div>
+          <div id="story-controls">
+            <button id="story-prev" aria-label="Slide trước">◀ Trước</button>
+            <button id="story-pause" aria-label="Tạm dừng">⏸ Tạm dừng</button>
+            <button id="story-next" aria-label="Slide tiếp">Tiếp ▶</button>
+          </div>
+          <button id="story-close" aria-label="Đóng">✕ Đóng</button>
+        </div>
+      </div>
+
       <div id="projection-section" style="display:none">
         <h2>Bảng dự phóng</h2>
         <div id="projection-table-container"></div>

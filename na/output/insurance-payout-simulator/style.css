@@ -297,3 +297,219 @@ footer {
   font-size: 0.8rem;
   color: #777;
 }
+
+/* === Story Animation Section === */
+#story-section {
+  background: linear-gradient(135deg, #e8f5e9 0%, #f1f8e9 50%, #fff8e1 100%);
+  border: 2px solid var(--brand-green);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.story-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.story-header-icon {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+#story-section h2 {
+  font-size: 1.15rem;
+  color: var(--brand-dark);
+  margin-bottom: 0;
+}
+
+.story-subtitle {
+  color: #666;
+  font-size: 0.85rem;
+  margin-top: 0.15rem;
+}
+
+#scenario-buttons {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+}
+
+.scenario-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.85rem 0.5rem;
+  background: rgba(255,255,255,0.85);
+  border: 1.5px solid #c8e6c9;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s, background 0.2s;
+  text-align: center;
+  backdrop-filter: blur(4px);
+}
+
+.scenario-btn:hover {
+  border-color: var(--brand-green);
+  background: rgba(255,255,255,1);
+  box-shadow: 0 3px 14px rgba(0,167,88,0.18);
+  transform: translateY(-2px);
+}
+
+.scenario-btn.active {
+  border-color: var(--brand-green);
+  background: var(--white);
+  box-shadow: 0 0 0 3px rgba(0,167,88,0.15);
+}
+
+.scenario-icon {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.scenario-label {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--brand-dark);
+}
+
+.scenario-desc {
+  font-size: 0.78rem;
+  color: #888;
+}
+
+/* Story Player */
+#story-player {
+  background: var(--white);
+  border-radius: 12px;
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.1);
+  border: 1px solid #c8e6c9;
+}
+
+#story-progress-bar {
+  height: 4px;
+  background: #e0e0e0;
+  width: 100%;
+}
+
+#story-progress-fill {
+  height: 100%;
+  background: var(--brand-green);
+  width: 0%;
+  transition: width 0.3s linear;
+}
+
+#story-slide {
+  padding: 2.5rem 2rem 1.5rem;
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+#story-slide-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  animation: fadeSlideUp 0.5s ease;
+}
+
+#story-slide-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--brand-dark);
+  margin-bottom: 0.75rem;
+  animation: fadeSlideUp 0.5s ease 0.1s both;
+}
+
+#story-slide-body {
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.7;
+  max-width: 600px;
+  animation: fadeSlideUp 0.5s ease 0.2s both;
+}
+
+#story-slide-number {
+  margin-top: 1.25rem;
+  font-size: 0.8rem;
+  color: #aaa;
+}
+
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+#story-controls {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 0 2rem 1.5rem;
+}
+
+#story-controls button {
+  padding: 0.5rem 1.25rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: var(--white);
+  cursor: pointer;
+  font-size: 0.85rem;
+  color: var(--brand-dark);
+  transition: background 0.15s, border-color 0.15s;
+}
+
+#story-controls button:hover {
+  background: var(--brand-light);
+  border-color: var(--brand-green);
+}
+
+#story-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: none;
+  border: none;
+  font-size: 0.85rem;
+  color: #999;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+}
+
+#story-close:hover {
+  color: var(--brand-dark);
+}
+
+.story-highlight {
+  color: var(--brand-green);
+  font-weight: 700;
+}
+
+.story-warn {
+  color: var(--error-red);
+  font-weight: 700;
+}
+
+.story-amount {
+  font-size: 1.15em;
+  font-weight: 700;
+  color: var(--brand-dark);
+}
+
+@media (max-width: 768px) {
+  #scenario-buttons {
+    grid-template-columns: 1fr;
+  }
+  #story-slide {
+    padding: 2rem 1.25rem 1.25rem;
+    min-height: 240px;
+  }
+}

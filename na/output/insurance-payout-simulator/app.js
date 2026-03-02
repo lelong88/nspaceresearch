@@ -667,6 +667,7 @@ function recalculate() {
   var chartSection = document.getElementById('chart-section');
   var feeSection = document.getElementById('fee-section');
   var benefitsSection = document.getElementById('benefits-section');
+  var storySection = document.getElementById('story-section');
 
   if (!validation.valid) {
     // Show error messages
@@ -696,6 +697,7 @@ function recalculate() {
     if (chartSection) chartSection.style.display = 'none';
     if (feeSection) feeSection.style.display = 'none';
     if (benefitsSection) benefitsSection.style.display = 'none';
+    if (storySection) storySection.style.display = 'none';
     return;
   }
 
@@ -711,6 +713,7 @@ function recalculate() {
   if (chartSection) chartSection.style.display = 'block';
   if (feeSection) feeSection.style.display = 'block';
   if (benefitsSection) benefitsSection.style.display = 'block';
+  if (storySection) storySection.style.display = 'block';
 
   // Run projection and render
   var result = projectAccountValue(params);
@@ -737,6 +740,179 @@ if (typeof document !== 'undefined') {
     });
     // Initial calculation on page load
     recalculate();
+    // Initialize story player
+    initStoryPlayer();
+  });
+}
+
+// ─── Story Animation Engine ─────────────────────────────────────────────────
+
+function buildScenarios() {
+  // Use current input params for dynamic numbers
+  var params;
+  try { params = collectInputs(); } catch(e) {
+    params = { age: DEFAULTS.age, gender: DEFAULTS.gender, basicPremium: DEFAULTS.basicPremium,
+      totalPremium: DEFAULTS.totalPremium, paymentYears: DEFAULTS.paymentYears, fundId: DEFAULTS.fundId,
+      highRate: 0.07, lowRate: 0.013 };
+  }
+  var result = projectAccountValue(params);
+  var rows = result.rows;
+
+  function rowAt(y) { return rows[y - 1] || rows[rows.length - 1]; }
+  function vnd(n) { return formatVND(Math.round(n)); }
+
+  var r3 = rowAt(3);
+  var r10 = rowAt(10);
+  var r15 = rowAt(15);
+  var r20 = rowAt(20);
+  var r30 = rowAt(30);
+  var rLast = rows[rows.length - 1];
+
+  var scenarios = {
+    'early-death': [
+      { icon: '👨‍👩‍👧‍👦', title: 'Khởi đầu hành trình', body: 'Bạn ' + params.age + ' tuổi, quyết định bảo vệ gia đình với Xanh Tương Lai.<br>Phí bảo hiểm cơ bản: <span class="story-amount">' + vnd(params.basicPremium) + '</span>/năm trong ' + params.paymentYears + ' năm.' },
+      { icon: '📋', title: 'Năm thứ 1 — Hợp đồng bắt đầu', body: 'Số tiền bảo hiểm ban đầu: <span class="story-amount">' + vnd(rows[0].sumAssured) + '</span><br>Giá trị tài khoản cuối năm 1: ' + vnd(rows[0].accountValueHigh) + ' (kịch bản cao)' },
+      { icon: '⏳', title: 'Năm thứ 2–3 — Tích lũy dần', body: 'Số tiền bảo hiểm tăng 10% mỗi năm.<br>Năm thứ 3, STBH đã là: <span class="story-amount">' + vnd(r3.sumAssured) + '</span><br>Giá trị tài khoản: ' + vnd(r3.accountValueHigh) },
+      { icon: '💔', title: 'Biến cố — Tử vong năm thứ 3', body: 'Điều không ai mong muốn xảy ra. Nhưng gia đình bạn được bảo vệ.' },
+      { icon: '🛡️', title: 'Quyền lợi tử vong', body: 'Gia đình nhận được số tiền lớn hơn giữa giá trị tài khoản và số tiền bảo hiểm:<br><span class="story-highlight story-amount">' + vnd(r3.deathBenefitHigh) + '</span><br><br>Đây là lá chắn tài chính cho những người bạn yêu thương.' },
+      { icon: '🏥', title: 'Thêm quyền lợi bổ trợ', body: 'Nếu tử vong do bệnh hiểm nghèo, gia đình còn nhận thêm:<br>• Lá Chắn Xanh: <span class="story-highlight">200 triệu VND</span> (giai đoạn muộn)<br>• Tổng quyền lợi có thể lên đến <span class="story-amount">' + vnd(r3.deathBenefitHigh + 200000000) + '</span>' },
+      { icon: '💚', title: 'Ý nghĩa', body: 'Chỉ sau <span class="story-highlight">3 năm đóng phí</span>, tổng phí đã đóng là ' + vnd(params.basicPremium * 3) + '.<br><br>Nhưng gia đình nhận được <span class="story-amount">' + vnd(r3.deathBenefitHigh) + '</span>.<br>Bảo hiểm không phải chi phí — đó là tình yêu được lượng hóa.' },
+    ],
+    'mid-death': [
+      { icon: '🌿', title: 'Hành trình 15 năm', body: 'Bạn bắt đầu ở tuổi ' + params.age + '. Sau 15 năm kiên trì, tài khoản đã tích lũy đáng kể.' },
+      { icon: '📈', title: 'Tài khoản tăng trưởng', body: 'Giá trị tài khoản năm thứ 15:<br>Kịch bản cao: <span class="story-amount">' + vnd(r15.accountValueHigh) + '</span><br>Kịch bản thấp: ' + vnd(r15.accountValueLow) },
+      { icon: '🎁', title: 'Thưởng duy trì năm thứ 10', body: 'Vì duy trì hợp đồng đến năm thứ 10, bạn đã nhận thưởng:<br><span class="story-highlight">' + vnd(calcLoyaltyBonus(10, params.age + 9, params.basicPremium)) + '</span><br>(= tuổi ' + (params.age + 9) + ' / 100 × phí năm đầu)' },
+      { icon: '🎁', title: 'Thưởng duy trì năm thứ 15', body: 'Tiếp tục nhận thưởng tại mốc 15 năm:<br><span class="story-highlight">' + vnd(calcLoyaltyBonus(15, params.age + 14, params.basicPremium)) + '</span><br>Tổng thưởng duy trì đã nhận: <span class="story-amount">' + vnd(calcLoyaltyBonus(10, params.age + 9, params.basicPremium) + calcLoyaltyBonus(15, params.age + 14, params.basicPremium)) + '</span>' },
+      { icon: '💔', title: 'Biến cố — Tử vong năm thứ 15', body: 'Ở tuổi ' + r15.age + ', điều không may xảy ra.' },
+      { icon: '🛡️', title: 'Quyền lợi cho gia đình', body: 'Quyền lợi tử vong = max(Giá trị tài khoản, Số tiền bảo hiểm):<br><span class="story-highlight story-amount">' + vnd(r15.deathBenefitHigh) + '</span><br><br>Sau 15 năm, giá trị tài khoản đã vượt xa số tiền bảo hiểm ban đầu.' },
+      { icon: '💚', title: 'Tổng kết', body: 'Tổng phí đã đóng (' + params.paymentYears + ' năm): <span class="story-amount">' + vnd(params.basicPremium * params.paymentYears) + '</span><br>Gia đình nhận: <span class="story-highlight story-amount">' + vnd(r15.deathBenefitHigh) + '</span><br><br>Thời gian và lãi kép đã nhân giá trị bảo vệ lên nhiều lần.' },
+    ],
+    'critical-illness': [
+      { icon: '💪', title: '10 năm khỏe mạnh', body: 'Bạn đóng phí đầy đủ ' + params.paymentYears + ' năm và duy trì hợp đồng.<br>Năm thứ 10, giá trị tài khoản: <span class="story-amount">' + vnd(r10.accountValueHigh) + '</span>' },
+      { icon: '🏥', title: 'Phát hiện bệnh hiểm nghèo', body: 'Năm thứ 10, ở tuổi ' + r10.age + ', bạn được chẩn đoán bệnh hiểm nghèo giai đoạn muộn.' },
+      { icon: '🛡️', title: 'Lá Chắn Xanh kích hoạt', body: 'Quyền lợi bệnh hiểm nghèo giai đoạn muộn:<br><span class="story-highlight story-amount">200.000.000 VND</span><br><br>Số tiền này giúp bạn trang trải chi phí điều trị ngay lập tức.' },
+      { icon: '🏨', title: 'Nằm viện điều trị', body: 'Dự Phòng Xanh hỗ trợ thêm:<br><span class="story-highlight">200.000 VND/ngày</span> nằm viện<br><br>30 ngày nằm viện = <span class="story-amount">6.000.000 VND</span> hỗ trợ thêm.' },
+      { icon: '📊', title: 'Hợp đồng chính vẫn duy trì', body: 'Giá trị tài khoản vẫn tiếp tục tăng trưởng.<br>Quyền lợi tử vong vẫn được bảo vệ: <span class="story-amount">' + vnd(r10.deathBenefitHigh) + '</span><br><br>Bảo hiểm chính không bị ảnh hưởng bởi quyền lợi bổ trợ.' },
+      { icon: '💚', title: 'Tổng quyền lợi đã nhận', body: 'Bệnh hiểm nghèo: <span class="story-highlight">200 triệu VND</span><br>Hỗ trợ nằm viện: 6 triệu VND<br>Thưởng duy trì năm 10: ' + vnd(calcLoyaltyBonus(10, params.age + 9, params.basicPremium)) + '<br><br>Và hợp đồng chính vẫn bảo vệ gia đình bạn.' },
+    ],
+    'long-term': [
+      { icon: '🌱', title: 'Sức mạnh của thời gian', body: 'Hãy xem điều gì xảy ra khi bạn kiên trì duy trì hợp đồng trong 30 năm.' },
+      { icon: '💰', title: 'Giai đoạn đóng phí', body: 'Bạn đóng phí ' + params.paymentYears + ' năm, tổng: <span class="story-amount">' + vnd(params.basicPremium * params.paymentYears) + '</span><br><br>Sau đó, tài khoản tự tăng trưởng nhờ lãi đầu tư.' },
+      { icon: '🎁', title: 'Ba lần thưởng duy trì', body: 'Năm 10: <span class="story-highlight">' + vnd(calcLoyaltyBonus(10, params.age + 9, params.basicPremium)) + '</span><br>Năm 15: <span class="story-highlight">' + vnd(calcLoyaltyBonus(15, params.age + 14, params.basicPremium)) + '</span><br>Năm 20: <span class="story-highlight">' + vnd(calcLoyaltyBonus(20, params.age + 19, params.basicPremium)) + '</span>' },
+      { icon: '📈', title: 'Năm thứ 20', body: 'Giá trị tài khoản:<br>Kịch bản cao: <span class="story-amount">' + vnd(r20.accountValueHigh) + '</span><br>Kịch bản thấp: ' + vnd(r20.accountValueLow) + '<br><br>Tuổi: ' + r20.age },
+      { icon: '🚀', title: 'Năm thứ 30', body: 'Giá trị tài khoản:<br>Kịch bản cao: <span class="story-highlight story-amount">' + vnd(r30.accountValueHigh) + '</span><br>Kịch bản thấp: ' + vnd(r30.accountValueLow) + '<br><br>Tuổi: ' + r30.age },
+      { icon: '🛡️', title: 'Quyền lợi bảo vệ', body: 'Quyền lợi tử vong năm 30: <span class="story-amount">' + vnd(r30.deathBenefitHigh) + '</span>' + (r30.tpdBenefitHigh !== null ? '<br>Quyền lợi thương tật: ' + vnd(r30.tpdBenefitHigh) : '<br>Quyền lợi thương tật: Không áp dụng (tuổi > 75)') },
+      { icon: '💚', title: 'Kết luận', body: 'Tổng phí đã đóng: <span class="story-amount">' + vnd(params.basicPremium * params.paymentYears) + '</span><br>Giá trị tài khoản sau 30 năm: <span class="story-highlight story-amount">' + vnd(r30.accountValueHigh) + '</span><br><br>Lãi kép biến khoản phí nhỏ thành tài sản lớn.' },
+    ],
+    'lapse': [
+      { icon: '⚠️', title: 'Khi nào hợp đồng mất hiệu lực?', body: 'Hợp đồng mất hiệu lực khi giá trị tài khoản không đủ trả phí rủi ro và phí quản lý.' },
+      { icon: '📉', title: 'Yếu tố ảnh hưởng', body: '• <span class="story-warn">Tuổi cao</span> → phí rủi ro tăng mạnh<br>• <span class="story-warn">Phí đóng thấp</span> → tích lũy ít<br>• <span class="story-warn">Thời hạn đóng ngắn</span> → ít năm nạp tiền<br>• <span class="story-warn">Lợi nhuận thấp</span> → tăng trưởng chậm' },
+      { icon: '📊', title: 'Với thông số hiện tại', body: (result.lapseYearLow !== null ? 'Kịch bản thấp: Hợp đồng <span class="story-warn">mất hiệu lực năm thứ ' + result.lapseYearLow + '</span> (tuổi ' + (params.age + result.lapseYearLow - 1) + ')' : 'Kịch bản thấp: <span class="story-highlight">Hợp đồng duy trì 40 năm</span>') + '<br><br>' + (result.lapseYearHigh !== null ? 'Kịch bản cao: Mất hiệu lực năm thứ ' + result.lapseYearHigh : 'Kịch bản cao: <span class="story-highlight">Hợp đồng duy trì 40 năm</span>') },
+      { icon: '💡', title: 'Cách tránh mất hiệu lực', body: '• Đóng phí cao hơn để tích lũy nhiều hơn<br>• Chọn quỹ có lợi nhuận kỳ vọng cao hơn<br>• Đóng phí 5 năm thay vì 3 năm<br>• Bắt đầu sớm khi phí rủi ro còn thấp' },
+      { icon: '🔍', title: 'So sánh phí rủi ro', body: 'Phí rủi ro tăng theo tuổi:<br>Tuổi 30: ' + vnd(calcRiskFee(30, params.gender, rows[0].sumAssured)) + '/năm<br>Tuổi 50: ' + vnd(calcRiskFee(50, params.gender, rows[0].sumAssured * 1.5)) + '/năm<br>Tuổi 70: ' + vnd(calcRiskFee(70, params.gender, rows[0].sumAssured * 1.5)) + '/năm<br><br>Đây là lý do hợp đồng có thể mất hiệu lực ở tuổi cao.' },
+      { icon: '💚', title: 'Lời khuyên', body: 'Hãy thử thay đổi các thông số ở bảng trên để xem ảnh hưởng đến thời điểm mất hiệu lực.<br><br>Một kế hoạch tài chính tốt bắt đầu từ việc hiểu rõ sản phẩm.' },
+    ],
+  };
+  return scenarios;
+}
+
+function initStoryPlayer() {
+  var player = document.getElementById('story-player');
+  var buttons = document.getElementById('scenario-buttons');
+  if (!player || !buttons) return;
+
+  var slides = [];
+  var currentSlide = 0;
+  var autoTimer = null;
+  var paused = false;
+  var AUTO_INTERVAL = 6000;
+
+  var slideIcon = document.getElementById('story-slide-icon');
+  var slideTitle = document.getElementById('story-slide-title');
+  var slideBody = document.getElementById('story-slide-body');
+  var slideNum = document.getElementById('story-slide-number');
+  var progressFill = document.getElementById('story-progress-fill');
+  var prevBtn = document.getElementById('story-prev');
+  var pauseBtn = document.getElementById('story-pause');
+  var nextBtn = document.getElementById('story-next');
+  var closeBtn = document.getElementById('story-close');
+
+  function showSlide(idx) {
+    if (idx < 0 || idx >= slides.length) return;
+    currentSlide = idx;
+    var s = slides[idx];
+
+    // Re-trigger animation by cloning
+    slideIcon.style.animation = 'none';
+    slideTitle.style.animation = 'none';
+    slideBody.style.animation = 'none';
+    void slideIcon.offsetHeight;
+    slideIcon.style.animation = '';
+    slideTitle.style.animation = '';
+    slideBody.style.animation = '';
+
+    slideIcon.textContent = s.icon;
+    slideTitle.textContent = s.title;
+    slideBody.innerHTML = s.body;
+    slideNum.textContent = (idx + 1) + ' / ' + slides.length;
+    progressFill.style.width = ((idx + 1) / slides.length * 100) + '%';
+
+    prevBtn.disabled = idx === 0;
+  }
+
+  function startAuto() {
+    stopAuto();
+    paused = false;
+    pauseBtn.textContent = '⏸ Tạm dừng';
+    autoTimer = setInterval(function() {
+      if (currentSlide < slides.length - 1) {
+        showSlide(currentSlide + 1);
+      } else {
+        stopAuto();
+      }
+    }, AUTO_INTERVAL);
+  }
+
+  function stopAuto() {
+    if (autoTimer) { clearInterval(autoTimer); autoTimer = null; }
+  }
+
+  function playScenario(scenarioId) {
+    var scenarios = buildScenarios();
+    slides = scenarios[scenarioId] || [];
+    if (slides.length === 0) return;
+
+    // Highlight active button
+    var allBtns = buttons.querySelectorAll('.scenario-btn');
+    for (var i = 0; i < allBtns.length; i++) {
+      allBtns[i].classList.toggle('active', allBtns[i].getAttribute('data-scenario') === scenarioId);
+    }
+
+    player.style.display = 'block';
+    showSlide(0);
+    startAuto();
+    player.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  // Scenario button clicks
+  var scenarioBtns = buttons.querySelectorAll('.scenario-btn');
+  for (var i = 0; i < scenarioBtns.length; i++) {
+    scenarioBtns[i].addEventListener('click', function() {
+      playScenario(this.getAttribute('data-scenario'));
+    });
+  }
+
+  prevBtn.addEventListener('click', function() { stopAuto(); showSlide(currentSlide - 1); });
+  nextBtn.addEventListener('click', function() { stopAuto(); showSlide(currentSlide + 1); });
+  pauseBtn.addEventListener('click', function() {
+    if (paused) { startAuto(); }
+    else { stopAuto(); paused = true; pauseBtn.textContent = '▶ Tiếp tục'; }
+  });
+  closeBtn.addEventListener('click', function() {
+    stopAuto();
+    player.style.display = 'none';
+    var allBtns = buttons.querySelectorAll('.scenario-btn');
+    for (var j = 0; j < allBtns.length; j++) { allBtns[j].classList.remove('active'); }
   });
 }
 
