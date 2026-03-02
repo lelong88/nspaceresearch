@@ -159,23 +159,12 @@ Dưới đây là ví dụ cách các bài tập viết trên có thể được
         "description": "Viết đoạn văn 4-6 câu sử dụng ít nhất 4 trong 6 từ vựng buổi 1",
         "practiceMinutes": 10,
         "data": {
-            "exerciseType": "paragraph",
-            "instructions": "Chọn một trong hai đề bài sau. Viết 4-6 câu bằng tiếng Anh. Sử dụng ít nhất 4 trong 6 từ vựng đã học.",
+            "instructions": "Chọn một trong các đề bài sau. Viết 4-6 câu bằng tiếng Anh. Sử dụng ít nhất 4 trong 6 từ vựng đã học.",
             "vocabList": ["lifespan", "healthspan", "longevity", "chronic disease", "vitality", "mortality"],
-            "minVocabRequired": 4,
-            "minSentences": 4,
-            "maxSentences": 6,
-            "lessonUniqueId": "dgu21mdp",
             "imageId": "8dd7a2db-52fb-4674-72ed-6ad905765700",
             "prompts": [
-                {
-                    "promptId": "1c-option1",
-                    "promptEn": "Describe someone you know (or have heard of) who lived a long life. Did they have a long lifespan, a long healthspan, or both? What was the difference?"
-                },
-                {
-                    "promptId": "1c-option2",
-                    "promptEn": "Do you think people today focus more on lifespan or healthspan? Why?"
-                }
+                "Describe someone you know (or have heard of) who lived a long life. Did they have a long lifespan, a long healthspan, or both? What was the difference?",
+                "Do you think people today focus more on lifespan or healthspan? Why?"
             ],
             "rubric": [
                 "Correctly uses at least 4 out of 6 vocabulary words",
