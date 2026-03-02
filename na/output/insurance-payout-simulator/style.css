@@ -27,16 +27,26 @@ header {
   background: var(--brand-green);
   color: var(--white);
   text-align: center;
-  padding: 1rem;
+  padding: 0;
+  overflow: hidden;
+}
+
+.header-banner {
+  width: 100%;
+  max-height: 220px;
+  object-fit: cover;
+  display: block;
 }
 
 header h1 {
   font-size: 1.4rem;
+  padding-top: 0.75rem;
 }
 
 header p {
   font-size: 0.9rem;
   opacity: 0.9;
+  padding-bottom: 0.75rem;
 }
 
 /* === Main Layout === */
