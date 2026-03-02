@@ -1,0 +1,2122 @@
+{
+    "title": "Outlive: Healthspan vs. Lifespan – The Art of Living Better, Not Just Longer",
+    "description": "Chương trình này giúp bạn nắm vững 18 từ vựng tiếng Anh về sự khác biệt cốt lõi giữa 'healthspan' (tuổi thọ khỏe mạnh) và 'lifespan' (tuổi thọ) – lấy cảm hứng từ cuốn sách 'Outlive' của Peter Attia – thông qua các bài đọc sâu sắc về lý do sống lâu không đồng nghĩa với sống khỏe, cách y học hiện đại kéo dài tuổi thọ nhưng thường bỏ quên chất lượng sống, và triết lý mới về việc bảo tồn sức sống thay vì chỉ trì hoãn cái chết. Bạn sẽ xây dựng vốn từ vựng vững chắc và đọc thành thạo một đoạn văn hoàn chỉnh về nghệ thuật sống lâu mà vẫn sống khỏe.",
+    "preview": {
+        "text": "Trong thế giới y học hiện đại, chúng ta đã rất giỏi trong việc kéo dài tuổi thọ (lifespan). Nhưng Peter Attia đặt ra câu hỏi quan trọng hơn: liệu sống lâu có ý nghĩa gì nếu những năm cuối đời đầy bệnh tật và suy yếu? Đó chính là sự khác biệt giữa 'lifespan' và 'healthspan' – tuổi thọ khỏe mạnh. Bài học này lồng ghép 18 từ vựng thực tế vào ba bài đọc sâu sắc: từ khái niệm nền tảng về healthspan và lifespan, đến thực trạng y học hiện đại chỉ tập trung trì hoãn cái chết (delaying death), và cuối cùng là tầm nhìn mới về việc bảo tồn sức sống (preserving vitality) trong thập kỷ cuối đời. Bạn sẽ không học vẹt, mà thẩm thấu ngôn ngữ qua từng tầng ý nghĩa, để tự tin diễn đạt những ý tưởng sâu sắc này bằng tiếng Anh.",
+        "mp3Url": "https://nspacesing.s3.ap-southeast-1.amazonaws.com/audio/intro/20260228T082146_JLE.mp3"
+    },
+    "learningSessions": [
+        {
+            "title": "Buổi 1: Healthspan vs. Lifespan – Hai khái niệm nền tảng",
+            "activities": [
+                {
+                    "activityType": "introAudio",
+                    "title": "Giới thiệu bài học",
+                    "description": "Nghe giới thiệu về sự khác biệt giữa healthspan và lifespan và bối cảnh bài học",
+                    "practiceMinutes": 1,
+                    "data": {
+                        "text": "Chào bạn, chào mừng đến với bài học về sự khác biệt giữa 'healthspan' và 'lifespan' – tuổi thọ khỏe mạnh và tuổi thọ. Đây là ý tưởng cốt lõi trong cuốn sách 'Outlive' của bác sĩ Peter Attia. Ý tưởng rất đơn giản nhưng sâu sắc: lifespan là tổng số năm bạn sống, còn healthspan là số năm bạn sống khỏe mạnh, minh mẫn, và tự chủ. Y học hiện đại rất giỏi trong việc kéo dài lifespan (extending lifespan), nhưng thường bỏ quên healthspan. Peter Attia cho rằng mục tiêu thực sự không phải là sống lâu nhất có thể, mà là sống khỏe mạnh đến tận những năm cuối đời. Trong buổi đầu tiên, chúng ta sẽ học các từ vựng nền tảng về hai khái niệm quan trọng này.",
+                        "mp3Url": "https://nspacesing.s3.ap-southeast-1.amazonaws.com/audio/intro/20260228T082228_FFL.mp3",
+                        "whiteboardItems": [
+                            {
+                                "headline": "Healthspan vs Lifespan",
+                                "subtitle": "Tuổi thọ khỏe mạnh vs Tuổi thọ – sự khác biệt cốt lõi",
+                                "secondsFromStart": 0
+                            },
+                            {
+                                "headline": "Outlive – Peter Attia",
+                                "subtitle": "Cuốn sách của bác sĩ Peter Attia về sống khỏe mạnh lâu dài",
+                                "secondsFromStart": 9
+                            },
+                            {
+                                "headline": "Lifespan",
+                                "subtitle": "Tổng số năm bạn sống",
+                                "secondsFromStart": 18
+                            },
+                            {
+                                "headline": "Healthspan",
+                                "subtitle": "Số năm bạn sống khỏe mạnh, minh mẫn và tự chủ",
+                                "secondsFromStart": 21
+                            },
+                            {
+                                "headline": "Y học hiện đại kéo dài Lifespan",
+                                "subtitle": "Y học giỏi kéo dài tuổi thọ nhưng thường bỏ quên healthspan",
+                                "secondsFromStart": 26
+                            },
+                            {
+                                "headline": "Mục tiêu thực sự",
+                                "subtitle": "Sống khỏe mạnh đến tận những năm cuối đời, không chỉ sống lâu",
+                                "secondsFromStart": 32
+                            }
+                        ],
+                        "chapterBookmarks": [
+                            {
+                                "title": "Giới thiệu: Healthspan và Lifespan",
+                                "secondsFromStart": 0
+                            },
+                            {
+                                "title": "Định nghĩa Lifespan và Healthspan",
+                                "secondsFromStart": 15
+                            },
+                            {
+                                "title": "Vấn đề của y học hiện đại và quan điểm của Peter Attia",
+                                "secondsFromStart": 26
+                            },
+                            {
+                                "title": "Mục tiêu bài học",
+                                "secondsFromStart": 40
+                            }
+                        ]
+                    }
+                },
+                {
+                    "activityType": "introAudio",
+                    "title": "Giới thiệu từ vựng",
+                    "description": "Nghe giới thiệu về các từ vựng trong bài và cách dùng",
+                    "practiceMinutes": 3,
+                    "data": {
+                        "text": "Chúng ta sẽ học 6 từ vựng cực kỳ hữu ích nhé! Từ đầu tiên là 'lifespan' – nghĩa là 'tuổi thọ, khoảng đời sống'. Đây là tổng số năm một người sống từ lúc sinh đến lúc mất. Ví dụ: 'The average human lifespan has increased dramatically over the past century.' – Tuổi thọ trung bình của con người đã tăng đáng kể trong thế kỷ qua. Tiếp theo là 'healthspan' – 'tuổi thọ khỏe mạnh'. Đây là số năm bạn sống mà không bị bệnh mãn tính hoặc suy giảm chức năng nghiêm trọng. Ví dụ: 'What good is a long lifespan if your healthspan ends at sixty?' – Sống lâu có ích gì nếu tuổi thọ khỏe mạnh kết thúc ở tuổi sáu mươi? 'Longevity' – 'sự trường thọ, sống lâu'. Khái niệm rộng hơn về việc sống lâu và chất lượng cuộc sống. Ví dụ: 'True longevity means both living long and living well.' – Trường thọ thực sự nghĩa là vừa sống lâu vừa sống khỏe. 'Chronic disease' – 'bệnh mãn tính'. Những bệnh kéo dài như tiểu đường, tim mạch, ung thư. Ví dụ: 'Chronic diseases are the leading cause of death worldwide.' – Bệnh mãn tính là nguyên nhân gây tử vong hàng đầu trên thế giới. 'Vitality' – 'sức sống, sinh lực'. Trạng thái tràn đầy năng lượng và sức khỏe. Ví dụ: 'She maintained her vitality well into her eighties.' – Bà ấy duy trì sức sống tốt đến tận tuổi tám mươi. Cuối cùng là 'mortality' – 'tỷ lệ tử vong, sự chết'. Liên quan đến cái chết và xác suất tử vong. Ví dụ: 'Modern medicine has reduced infant mortality significantly.' – Y học hiện đại đã giảm đáng kể tỷ lệ tử vong ở trẻ sơ sinh.",
+                        "mp3Url": "https://nspacesing.s3.ap-southeast-1.amazonaws.com/audio/intro/20260228T082446_NCX.mp3",
+                        "whiteboardItems": [
+                            {
+                                "headline": "Lifespan",
+                                "subtitle": "Tuổi thọ, khoảng đời sống – tổng số năm một người sống từ lúc sinh đến lúc mất",
+                                "secondsFromStart": 3
+                            },
+                            {
+                                "headline": "Healthspan",
+                                "subtitle": "Tuổi thọ khỏe mạnh – số năm sống mà không bị bệnh mãn tính hoặc suy giảm chức năng nghiêm trọng",
+                                "secondsFromStart": 21
+                            },
+                            {
+                                "headline": "Longevity",
+                                "subtitle": "Sự trường thọ, sống lâu – khái niệm rộng hơn về việc sống lâu và chất lượng cuộc sống",
+                                "secondsFromStart": 40
+                            },
+                            {
+                                "headline": "Chronic disease",
+                                "subtitle": "Bệnh mãn tính – những bệnh kéo dài như tiểu đường, tim mạch, ung thư",
+                                "secondsFromStart": 57
+                            },
+                            {
+                                "headline": "Vitality",
+                                "subtitle": "Sức sống, sinh lực – trạng thái tràn đầy năng lượng và sức khỏe",
+                                "secondsFromStart": 72
+                            },
+                            {
+                                "headline": "Mortality",
+                                "subtitle": "Tỷ lệ tử vong, sự chết – liên quan đến cái chết và xác suất tử vong",
+                                "secondsFromStart": 86
+                            }
+                        ],
+                        "chapterBookmarks": [
+                            {
+                                "title": "Giới thiệu bài học từ vựng",
+                                "secondsFromStart": 0
+                            },
+                            {
+                                "title": "Lifespan – Tuổi thọ, khoảng đời sống",
+                                "secondsFromStart": 3
+                            },
+                            {
+                                "title": "Healthspan – Tuổi thọ khỏe mạnh",
+                                "secondsFromStart": 21
+                            },
+                            {
+                                "title": "Longevity – Sự trường thọ, sống lâu",
+                                "secondsFromStart": 40
+                            },
+                            {
+                                "title": "Chronic disease – Bệnh mãn tính",
+                                "secondsFromStart": 56
+                            },
+                            {
+                                "title": "Vitality – Sức sống, sinh lực",
+                                "secondsFromStart": 72
+                            },
+                            {
+                                "title": "Mortality – Tỷ lệ tử vong, sự chết",
+                                "secondsFromStart": 86
+                            }
+                        ]
+                    }
+                },
+                {
+                    "activityType": "viewFlashcards",
+                    "title": "Từ vựng: Khái niệm nền tảng",
+                    "description": "Học các từ: lifespan, healthspan, longevity, chronic disease, vitality, mortality",
+                    "practiceMinutes": 3,
+                    "data": {
+                        "vocabList": [
+                            "lifespan",
+                            "healthspan",
+                            "longevity",
+                            "chronic disease",
+                            "vitality",
+                            "mortality"
+                        ],
+                        "lessonUniqueId": "dgu21mdp",
+                        "imageId": "8dd7a2db-52fb-4674-72ed-6ad905765700"
+                    }
+                },
+                {
+                    "activityType": "speakFlashcards",
+                    "title": "Tập nói từ vựng: Khái niệm nền tảng",
+                    "description": "Tập nói các từ: lifespan, healthspan, longevity, chronic disease, vitality, mortality",
+                    "practiceMinutes": 3,
+                    "data": {
+                        "vocabList": [
+                            "lifespan",
+                            "healthspan",
+                            "longevity",
+                            "chronic disease",
+                            "vitality",
+                            "mortality"
+                        ],
+                        "lessonUniqueId": "dgu21mdp",
+                        "imageId": "8dd7a2db-52fb-4674-72ed-6ad905765700"
+                    }
+                },
+                {
+                    "activityType": "vocabLevel1",
+                    "title": "Bài tập nhận biết: Khái niệm nền tảng",
+                    "description": "Chọn nghĩa đúng cho các từ vựng vừa học",
+                    "practiceMinutes": 5,
+                    "data": {
+                        "vocabList": [
+                            "lifespan",
+                            "healthspan",
+                            "longevity",
+                            "chronic disease",
+                            "vitality",
+                            "mortality"
+                        ],
+                        "lessonUniqueId": "dgu21mdp",
+                        "imageId": "8dd7a2db-52fb-4674-72ed-6ad905765700"
+                    }
+                },
+                {
+                    "activityType": "vocabLevel2",
+                    "title": "Bài tập nhớ lại chủ động: Khái niệm nền tảng",
+                    "description": "Điền từ thích hợp vào chỗ trống mà không có gợi ý",
+                    "practiceMinutes": 5,
+                    "data": {
+                        "vocabList": [
+                            "lifespan",
+                            "healthspan",
+                            "longevity",
+                            "chronic disease",
+                            "vitality",
+                            "mortality"
+                        ],
+                        "lessonUniqueId": "dgu21mdp",
+                        "imageId": "8dd7a2db-52fb-4674-72ed-6ad905765700"
+                    }
+                },
+                {
+                    "activityType": "introAudio",
+                    "title": "Giải thích ngữ pháp buổi 1",
+                    "description": "Nghe giải thích các điểm ngữ pháp và cách dùng từ trong ngữ cảnh",
+                    "practiceMinutes": 3,
+                    "data": {
+                        "text": "Chào bạn, trước khi đọc đoạn văn, chúng mình cùng tìm hiểu một vài điểm quan trọng nhé. Điểm đầu tiên là sự khác biệt giữa 'lifespan' và 'healthspan'. Cả hai đều là danh từ ghép. 'Lifespan' – life cộng span – nghĩa đen là 'khoảng thời gian sống'. 'Healthspan' – health cộng span – là 'khoảng thời gian khỏe mạnh'. Hai từ này thường đi cùng nhau trong các cuộc thảo luận về tuổi thọ. Ví dụ: 'The gap between lifespan and healthspan is growing.' – Khoảng cách giữa tuổi thọ và tuổi thọ khỏe mạnh đang tăng lên. Điểm thứ hai là 'longevity' và 'lifespan'. 'Lifespan' mang tính kỹ thuật hơn – đo bằng số năm cụ thể. 'Longevity' rộng hơn – bao gồm cả khái niệm sống lâu và sống khỏe. Ví dụ: 'Longevity research focuses on both lifespan and healthspan.' – Nghiên cứu trường thọ tập trung vào cả tuổi thọ và tuổi thọ khỏe mạnh. Điểm cuối cùng là 'chronic disease' – đây là cụm danh từ. 'Chronic' là tính từ nghĩa 'mãn tính, kéo dài'. Trái nghĩa là 'acute' – cấp tính, xảy ra nhanh và ngắn. Ví dụ: 'Chronic diseases develop slowly over decades, unlike acute illnesses.' – Bệnh mãn tính phát triển chậm qua hàng thập kỷ, khác với bệnh cấp tính.",
+                        "mp3Url": "https://nspacesing.s3.ap-southeast-1.amazonaws.com/audio/intro/20260228T082828_3P5.mp3",
+                        "whiteboardItems": [
+                            {
+                                "headline": "Lifespan vs. Healthspan",
+                                "subtitle": "Lifespan (life + span) = khoảng thời gian sống; Healthspan (health + span) = khoảng thời gian khỏe mạnh. Cả hai đều là danh từ ghép.",
+                                "secondsFromStart": 5
+                            },
+                            {
+                                "headline": "The gap between lifespan and healthspan is growing.",
+                                "subtitle": "Khoảng cách giữa tuổi thọ và tuổi thọ khỏe mạnh đang tăng lên.",
+                                "secondsFromStart": 27
+                            },
+                            {
+                                "headline": "Longevity vs. Lifespan",
+                                "subtitle": "Lifespan mang tính kỹ thuật hơn, đo bằng số năm cụ thể. Longevity rộng hơn, bao gồm cả khái niệm sống lâu và sống khỏe.",
+                                "secondsFromStart": 35
+                            },
+                            {
+                                "headline": "Longevity research focuses on both lifespan and healthspan.",
+                                "subtitle": "Nghiên cứu trường thọ tập trung vào cả tuổi thọ và tuổi thọ khỏe mạnh.",
+                                "secondsFromStart": 48
+                            },
+                            {
+                                "headline": "Chronic disease",
+                                "subtitle": "Cụm danh từ. Chronic (tính từ) = mãn tính, kéo dài. Trái nghĩa: acute = cấp tính, xảy ra nhanh và ngắn.",
+                                "secondsFromStart": 58
+                            },
+                            {
+                                "headline": "Chronic diseases develop slowly over decades, unlike acute illnesses.",
+                                "subtitle": "Bệnh mãn tính phát triển chậm qua hàng thập kỷ, khác với bệnh cấp tính.",
+                                "secondsFromStart": 72
+                            }
+                        ],
+                        "chapterBookmarks": [
+                            {
+                                "title": "Giới thiệu bài học",
+                                "secondsFromStart": 0
+                            },
+                            {
+                                "title": "Điểm 1: Sự khác biệt giữa Lifespan và Healthspan",
+                                "secondsFromStart": 5
+                            },
+                            {
+                                "title": "Điểm 2: Longevity và Lifespan",
+                                "secondsFromStart": 35
+                            },
+                            {
+                                "title": "Điểm 3: Chronic disease – Bệnh mãn tính",
+                                "secondsFromStart": 58
+                            }
+                        ]
+                    }
+                },
+                {
+                    "activityType": "reading",
+                    "title": "Đọc ngắn: Sống lâu chưa chắc đã sống khỏe",
+                    "description": "Đọc đoạn văn ngắn chứa từ vựng buổi 1",
+                    "practiceMinutes": 5,
+                    "data": {
+                        "text": "Over the past century, modern medicine has achieved something remarkable: it has dramatically extended the average human lifespan. People are living longer than ever before. But there is a troubling truth hidden behind these numbers. While lifespan has increased, healthspan has not kept pace. Many people spend their final years battling chronic diseases — heart disease, diabetes, cancer, and dementia. They are alive, but they have lost their vitality. Peter Attia argues that true longevity is not just about reducing mortality. It is about preserving the quality of life for as long as possible. The real question is not \"How long can you live?\" but \"How well can you live?\"",
+                        "userReadingId": "9e5uwq6m",
+                        "imageId": "f09211b9-3d8e-494a-3a2f-9879c18b6500"
+                    }
+                },
+                {
+                    "activityType": "speakReading",
+                    "title": "Luyện nói theo: Sống lâu chưa chắc đã sống khỏe",
+                    "description": "Tập phát âm đoạn văn bằng cách lặp lại",
+                    "practiceMinutes": 5,
+                    "data": {
+                        "text": "Over the past century, modern medicine has achieved something remarkable: it has dramatically extended the average human lifespan. People are living longer than ever before. But there is a troubling truth hidden behind these numbers. While lifespan has increased, healthspan has not kept pace. Many people spend their final years battling chronic diseases — heart disease, diabetes, cancer, and dementia. They are alive, but they have lost their vitality. Peter Attia argues that true longevity is not just about reducing mortality. It is about preserving the quality of life for as long as possible. The real question is not \"How long can you live?\" but \"How well can you live?\"",
+                        "userReadingId": "awapfxch",
+                        "imageId": "f09211b9-3d8e-494a-3a2f-9879c18b6500"
+                    }
+                },
+                {
+                    "activityType": "readAlong",
+                    "title": "Nghe bài đọc: Sống lâu chưa chắc đã sống khỏe",
+                    "description": "Nghe nội dung bài đọc ngắn buổi 1",
+                    "practiceMinutes": 2,
+                    "data": {
+                        "text": "Over the past century, modern medicine has achieved something remarkable: it has dramatically extended the average human lifespan. People are living longer than ever before. But there is a troubling truth hidden behind these numbers. While lifespan has increased, healthspan has not kept pace. Many people spend their final years battling chronic diseases — heart disease, diabetes, cancer, and dementia. They are alive, but they have lost their vitality. Peter Attia argues that true longevity is not just about reducing mortality. It is about preserving the quality of life for as long as possible. The real question is not \"How long can you live?\" but \"How well can you live?\"",
+                        "mp3Url": "https://nspacesing.s3.ap-southeast-1.amazonaws.com/audio/intro/20260228T083047_KVK.mp3",
+                        "segments": [
+                            {
+                                "text": "Over the past century,",
+                                "startTime": 0.23,
+                                "endTime": 1.55
+                            },
+                            {
+                                "text": "modern medicine has achieved something",
+                                "startTime": 1.55,
+                                "endTime": 3.85
+                            },
+                            {
+                                "text": "remarkable. It has dramatically extended",
+                                "startTime": 3.85,
+                                "endTime": 6.27
+                            },
+                            {
+                                "text": "the average human lifespan.",
+                                "startTime": 6.27,
+                                "endTime": 7.9
+                            },
+                            {
+                                "text": "People are living longer than",
+                                "startTime": 8.42,
+                                "endTime": 10.28
+                            },
+                            {
+                                "text": "ever before.",
+                                "startTime": 10.28,
+                                "endTime": 11.05
+                            },
+                            {
+                                "text": "But there is a troubling",
+                                "startTime": 11.41,
+                                "endTime": 12.71
+                            },
+                            {
+                                "text": "truth hidden behind these numbers.",
+                                "startTime": 12.71,
+                                "endTime": 14.55
+                            },
+                            {
+                                "text": "While lifespan has increased,",
+                                "startTime": 14.94,
+                                "endTime": 16.85
+                            },
+                            {
+                                "text": "health span has not kept pace.",
+                                "startTime": 16.85,
+                                "endTime": 18.84
+                            },
+                            {
+                                "text": "Many people spend their final",
+                                "startTime": 19.34,
+                                "endTime": 21.24
+                            },
+                            {
+                                "text": "years battling chronic diseases,",
+                                "startTime": 21.24,
+                                "endTime": 23.35
+                            },
+                            {
+                                "text": "heart disease, diabetes,",
+                                "startTime": 23.35,
+                                "endTime": 24.93
+                            },
+                            {
+                                "text": "cancer, and dementia.",
+                                "startTime": 24.93,
+                                "endTime": 26.31
+                            },
+                            {
+                                "text": "They are alive,",
+                                "startTime": 26.66,
+                                "endTime": 27.62
+                            },
+                            {
+                                "text": "but they have lost their vitality.",
+                                "startTime": 27.62,
+                                "endTime": 29.81
+                            },
+                            {
+                                "text": "Gider Attiya argues",
+                                "startTime": 30.46,
+                                "endTime": 31.67
+                            },
+                            {
+                                "text": "that true longevity is not",
+                                "startTime": 31.67,
+                                "endTime": 33.34
+                            },
+                            {
+                                "text": "just about reducing mortality. It",
+                                "startTime": 33.34,
+                                "endTime": 35.46
+                            },
+                            {
+                                "text": "is about preserving the quality",
+                                "startTime": 35.46,
+                                "endTime": 37.45
+                            },
+                            {
+                                "text": "of life for as long",
+                                "startTime": 37.45,
+                                "endTime": 38.67
+                            },
+                            {
+                                "text": "as possible.",
+                                "startTime": 38.67,
+                                "endTime": 39.44
+                            },
+                            {
+                                "text": "The real question is not",
+                                "startTime": 39.89,
+                                "endTime": 41.47
+                            },
+                            {
+                                "text": "how long can you live,",
+                                "startTime": 41.47,
+                                "endTime": 42.93
+                            },
+                            {
+                                "text": "but how well can you live?",
+                                "startTime": 43.286,
+                                "endTime": 44.916
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "title": "Buổi 2: Y học hiện đại và 'thập kỷ cuối đời'",
+            "activities": [
+                {
+                    "activityType": "introAudio",
+                    "title": "Dẫn nhập phần 2",
+                    "description": "Nghe tóm tắt phần trước và giới thiệu chủ đề y học hiện đại và thập kỷ cuối đời",
+                    "practiceMinutes": 1,
+                    "data": {
+                        "text": "Chào mừng bạn quay lại! Ở buổi trước, chúng ta đã học về hai khái niệm nền tảng: lifespan, healthspan, longevity, chronic disease, vitality, và mortality. Hôm nay, chúng ta sẽ đi sâu hơn vào cách y học hiện đại hoạt động và khái niệm 'thập kỷ cuối đời' (marginal decade) – những năm cuối cùng của cuộc đời mà chất lượng sống thường suy giảm nghiêm trọng. Peter Attia gọi đây là giai đoạn mà sự khác biệt giữa lifespan và healthspan trở nên rõ ràng nhất. Cùng khám phá những từ vựng mới nhé.",
+                        "mp3Url": "https://nspacesing.s3.ap-southeast-1.amazonaws.com/audio/intro/20260228T083156_5MF.mp3",
+                        "whiteboardItems": [
+                            {
+                                "headline": "Lifespan",
+                                "subtitle": "Tuổi thọ – số năm sống của một người",
+                                "secondsFromStart": 5
+                            },
+                            {
+                                "headline": "Healthspan",
+                                "subtitle": "Khoảng thời gian sống khỏe mạnh, không bệnh tật",
+                                "secondsFromStart": 7
+                            },
+                            {
+                                "headline": "Longevity",
+                                "subtitle": "Sự trường thọ, sống lâu",
+                                "secondsFromStart": 8
+                            },
+                            {
+                                "headline": "Chronic disease",
+                                "subtitle": "Bệnh mãn tính – bệnh kéo dài và khó chữa khỏi hoàn toàn",
+                                "secondsFromStart": 9
+                            },
+                            {
+                                "headline": "Vitality",
+                                "subtitle": "Sức sống, năng lượng sống",
+                                "secondsFromStart": 11
+                            },
+                            {
+                                "headline": "Mortality",
+                                "subtitle": "Tỷ lệ tử vong, sự chết",
+                                "secondsFromStart": 11
+                            },
+                            {
+                                "headline": "Y học hiện đại",
+                                "subtitle": "Cách y học hiện đại hoạt động trong việc điều trị và phòng bệnh",
+                                "secondsFromStart": 15
+                            },
+                            {
+                                "headline": "Marginal decade",
+                                "subtitle": "Thập kỷ cuối đời – những năm cuối cùng mà chất lượng sống suy giảm nghiêm trọng",
+                                "secondsFromStart": 21
+                            },
+                            {
+                                "headline": "Lifespan vs Healthspan",
+                                "subtitle": "Sự khác biệt giữa tuổi thọ và khoảng thời gian sống khỏe mạnh, rõ ràng nhất ở giai đoạn cuối đời",
+                                "secondsFromStart": 30
+                            }
+                        ],
+                        "chapterBookmarks": [
+                            {
+                                "title": "Ôn tập các khái niệm buổi trước",
+                                "secondsFromStart": 0
+                            },
+                            {
+                                "title": "Giới thiệu chủ đề hôm nay: y học hiện đại và thập kỷ cuối đời",
+                                "secondsFromStart": 14
+                            }
+                        ]
+                    }
+                },
+                {
+                    "activityType": "introAudio",
+                    "title": "Giới thiệu từ vựng",
+                    "description": "Nghe giới thiệu về các từ vựng trong bài và cách dùng",
+                    "practiceMinutes": 3,
+                    "data": {
+                        "text": "Chúng ta sẽ học 6 từ vựng mới trong buổi học hôm nay! Từ đầu tiên là 'cognitive decline' – 'suy giảm nhận thức'. Đây là quá trình mất dần khả năng tư duy, trí nhớ, và sự tập trung, thường xảy ra khi già đi. Ví dụ: 'Cognitive decline is one of the greatest threats to healthspan.' – Suy giảm nhận thức là một trong những mối đe dọa lớn nhất đối với tuổi thọ khỏe mạnh. Tiếp theo là 'degenerative' – 'thoái hóa'. Mô tả quá trình suy yếu dần của cơ thể hoặc cơ quan theo thời gian. Ví dụ: 'Degenerative diseases slowly rob people of their independence.' – Bệnh thoái hóa từ từ cướp đi sự tự lập của con người. 'Morbidity' – 'tỷ lệ mắc bệnh, tình trạng bệnh tật'. Khác với mortality (tỷ lệ tử vong), morbidity nói về việc sống với bệnh tật. 'Attia focuses not just on mortality, but on morbidity — the burden of living with disease.' – Attia không chỉ tập trung vào tỷ lệ tử vong, mà còn vào tình trạng bệnh tật – gánh nặng của việc sống với bệnh. 'Preventive' – 'mang tính phòng ngừa'. Hành động được thực hiện trước khi bệnh xảy ra để ngăn ngừa. 'Preventive medicine aims to stop disease before it starts.' – Y học phòng ngừa nhắm đến việc ngăn bệnh trước khi nó bắt đầu. 'Metabolic health' – 'sức khỏe chuyển hóa'. Khả năng cơ thể xử lý năng lượng, đường huyết, và chất béo một cách hiệu quả. 'Poor metabolic health is the root of many chronic diseases.' – Sức khỏe chuyển hóa kém là gốc rễ của nhiều bệnh mãn tính. Cuối cùng là 'functional capacity' – 'năng lực chức năng'. Khả năng thực hiện các hoạt động thể chất và tinh thần hàng ngày. 'Maintaining functional capacity in old age is the key to healthspan.' – Duy trì năng lực chức năng khi về già là chìa khóa của tuổi thọ khỏe mạnh.",
+                        "mp3Url": "https://nspacesing.s3.ap-southeast-1.amazonaws.com/audio/intro/20260228T083336_IOG.mp3",
+                        "whiteboardItems": [
+                            {
+                                "headline": "Cognitive decline",
+                                "subtitle": "Suy giảm nhận thức – quá trình mất dần khả năng tư duy, trí nhớ và sự tập trung",
+                                "secondsFromStart": 3
+                            },
+                            {
+                                "headline": "Degenerative",
+                                "subtitle": "Thoái hóa – quá trình suy yếu dần của cơ thể hoặc cơ quan theo thời gian",
+                                "secondsFromStart": 24
+                            },
+                            {
+                                "headline": "Morbidity",
+                                "subtitle": "Tỷ lệ mắc bệnh, tình trạng bệnh tật – khác với mortality (tỷ lệ tử vong)",
+                                "secondsFromStart": 42
+                            },
+                            {
+                                "headline": "Preventive",
+                                "subtitle": "Mang tính phòng ngừa – hành động được thực hiện trước khi bệnh xảy ra để ngăn ngừa",
+                                "secondsFromStart": 67
+                            },
+                            {
+                                "headline": "Metabolic health",
+                                "subtitle": "Sức khỏe chuyển hóa – khả năng cơ thể xử lý năng lượng, đường huyết và chất béo hiệu quả",
+                                "secondsFromStart": 82
+                            },
+                            {
+                                "headline": "Functional capacity",
+                                "subtitle": "Năng lực chức năng – khả năng thực hiện các hoạt động thể chất và tinh thần hàng ngày",
+                                "secondsFromStart": 99
+                            }
+                        ],
+                        "chapterBookmarks": [
+                            {
+                                "title": "Giới thiệu buổi học từ vựng",
+                                "secondsFromStart": 0
+                            },
+                            {
+                                "title": "Cognitive decline – Suy giảm nhận thức",
+                                "secondsFromStart": 3
+                            },
+                            {
+                                "title": "Degenerative – Thoái hóa",
+                                "secondsFromStart": 24
+                            },
+                            {
+                                "title": "Morbidity – Tỷ lệ mắc bệnh",
+                                "secondsFromStart": 41
+                            },
+                            {
+                                "title": "Preventive – Mang tính phòng ngừa",
+                                "secondsFromStart": 66
+                            },
+                            {
+                                "title": "Metabolic health – Sức khỏe chuyển hóa",
+                                "secondsFromStart": 82
+                            },
+                            {
+                                "title": "Functional capacity – Năng lực chức năng",
+                                "secondsFromStart": 98
+                            }
+                        ]
+                    }
+                },
+                {
+                    "activityType": "viewFlashcards",
+                    "title": "Từ vựng: Y học & Thập kỷ cuối đời",
+                    "description": "Học các từ: cognitive decline, degenerative, morbidity, preventive, metabolic health, functional capacity",
+                    "practiceMinutes": 3,
+                    "data": {
+                        "vocabList": [
+                            "cognitive decline",
+                            "degenerative",
+                            "morbidity",
+                            "preventive",
+                            "metabolic health",
+                            "functional capacity"
+                        ],
+                        "lessonUniqueId": "81z3nnbw",
+                        "imageId": "0b413e18-0c12-4117-a2f7-9e1979b80400"
+                    }
+                },
+                {
+                    "activityType": "speakFlashcards",
+                    "title": "Tập nói từ vựng: Y học & Thập kỷ cuối đời",
+                    "description": "Tập nói các từ: cognitive decline, degenerative, morbidity, preventive, metabolic health, functional capacity",
+                    "practiceMinutes": 3,
+                    "data": {
+                        "vocabList": [
+                            "cognitive decline",
+                            "degenerative",
+                            "morbidity",
+                            "preventive",
+                            "metabolic health",
+                            "functional capacity"
+                        ],
+                        "lessonUniqueId": "81z3nnbw",
+                        "imageId": "0b413e18-0c12-4117-a2f7-9e1979b80400"
+                    }
+                },
+                {
+                    "activityType": "vocabLevel1",
+                    "title": "Bài tập nhận biết: Y học & Thập kỷ cuối đời",
+                    "description": "Chọn nghĩa đúng cho các từ vựng vừa học",
+                    "practiceMinutes": 5,
+                    "data": {
+                        "vocabList": [
+                            "cognitive decline",
+                            "degenerative",
+                            "morbidity",
+                            "preventive",
+                            "metabolic health",
+                            "functional capacity"
+                        ],
+                        "lessonUniqueId": "81z3nnbw",
+                        "imageId": "0b413e18-0c12-4117-a2f7-9e1979b80400"
+                    }
+                },
+                {
+                    "activityType": "vocabLevel2",
+                    "title": "Bài tập nhớ lại chủ động: Y học & Thập kỷ cuối đời",
+                    "description": "Điền từ thích hợp vào chỗ trống mà không có gợi ý",
+                    "practiceMinutes": 5,
+                    "data": {
+                        "vocabList": [
+                            "cognitive decline",
+                            "degenerative",
+                            "morbidity",
+                            "preventive",
+                            "metabolic health",
+                            "functional capacity"
+                        ],
+                        "lessonUniqueId": "81z3nnbw",
+                        "imageId": "0b413e18-0c12-4117-a2f7-9e1979b80400"
+                    }
+                },
+                {
+                    "activityType": "introAudio",
+                    "title": "Giải thích ngữ pháp buổi 2",
+                    "description": "Nghe giải thích các điểm ngữ pháp liên quan đến từ vựng và đoạn văn buổi 2",
+                    "practiceMinutes": 3,
+                    "data": {
+                        "text": "Chào bạn, trong buổi học hôm nay chúng mình cần nắm vững ba điểm quan trọng nhé. Điểm đầu tiên là sự khác biệt giữa 'mortality' và 'morbidity'. 'Mortality' là tỷ lệ tử vong – liên quan đến cái chết. 'Morbidity' là tỷ lệ mắc bệnh – liên quan đến việc sống với bệnh tật. Hai từ này thường đi cùng nhau trong y học. Ví dụ: 'The goal of Medicine 3.0 is to reduce both mortality and morbidity.' – Mục tiêu của Y học 3.0 là giảm cả tỷ lệ tử vong lẫn tình trạng bệnh tật. Điểm thứ hai là 'cognitive decline'. Đây là cụm danh từ. 'Cognitive' là tính từ nghĩa 'thuộc về nhận thức' – liên quan đến tư duy, trí nhớ, và khả năng suy luận. 'Decline' là danh từ nghĩa 'sự suy giảm'. Cụm từ phổ biến: 'age-related cognitive decline' – suy giảm nhận thức do tuổi tác. Ví dụ: 'Exercise has been shown to slow age-related cognitive decline.' – Tập thể dục đã được chứng minh là làm chậm suy giảm nhận thức do tuổi tác. Điểm cuối cùng là 'preventive' và 'preventative'. Hai từ này gần như giống nhau về nghĩa – đều là 'mang tính phòng ngừa'. 'Preventive' phổ biến hơn trong ngữ cảnh y học. Cụm từ phổ biến: 'preventive medicine', 'preventive measures', 'preventive care'. Ví dụ: 'Preventive care is cheaper and more effective than treating disease after it appears.' – Chăm sóc phòng ngừa rẻ hơn và hiệu quả hơn so với điều trị bệnh sau khi nó xuất hiện.",
+                        "mp3Url": "https://nspacesing.s3.ap-southeast-1.amazonaws.com/audio/intro/20260228T083743_7DU.mp3",
+                        "whiteboardItems": [
+                            {
+                                "headline": "Mortality vs Morbidity",
+                                "subtitle": "Mortality: tỷ lệ tử vong (cái chết) – Morbidity: tỷ lệ mắc bệnh (sống với bệnh tật)",
+                                "secondsFromStart": 6
+                            },
+                            {
+                                "headline": "The goal of Medicine 3.0 is to reduce both mortality and morbidity",
+                                "subtitle": "Mục tiêu của Y học 3.0 là giảm cả tỷ lệ tử vong lẫn tình trạng bệnh tật",
+                                "secondsFromStart": 24
+                            },
+                            {
+                                "headline": "Cognitive Decline",
+                                "subtitle": "Suy giảm nhận thức – cognitive (thuộc về nhận thức) + decline (sự suy giảm)",
+                                "secondsFromStart": 37
+                            },
+                            {
+                                "headline": "Age-related cognitive decline",
+                                "subtitle": "Suy giảm nhận thức do tuổi tác – cụm từ phổ biến trong y học",
+                                "secondsFromStart": 55
+                            },
+                            {
+                                "headline": "Exercise has been shown to slow age-related cognitive decline",
+                                "subtitle": "Tập thể dục đã được chứng minh là làm chậm suy giảm nhận thức do tuổi tác",
+                                "secondsFromStart": 61
+                            },
+                            {
+                                "headline": "Preventive vs Preventative",
+                                "subtitle": "Gần như giống nhau về nghĩa – đều là 'mang tính phòng ngừa', preventive phổ biến hơn trong y học",
+                                "secondsFromStart": 71
+                            },
+                            {
+                                "headline": "Preventive medicine / measures / care",
+                                "subtitle": "Cụm từ phổ biến: y học phòng ngừa, biện pháp phòng ngừa, chăm sóc phòng ngừa",
+                                "secondsFromStart": 84
+                            },
+                            {
+                                "headline": "Preventive care is cheaper and more effective than treating disease after it appears",
+                                "subtitle": "Chăm sóc phòng ngừa rẻ hơn và hiệu quả hơn so với điều trị bệnh sau khi nó xuất hiện",
+                                "secondsFromStart": 90
+                            }
+                        ],
+                        "chapterBookmarks": [
+                            {
+                                "title": "Giới thiệu buổi học",
+                                "secondsFromStart": 0
+                            },
+                            {
+                                "title": "Mortality và Morbidity – Tỷ lệ tử vong và tỷ lệ mắc bệnh",
+                                "secondsFromStart": 5
+                            },
+                            {
+                                "title": "Cognitive Decline – Suy giảm nhận thức",
+                                "secondsFromStart": 36
+                            },
+                            {
+                                "title": "Preventive và Preventative – Mang tính phòng ngừa",
+                                "secondsFromStart": 71
+                            }
+                        ]
+                    }
+                },
+                {
+                    "activityType": "reading",
+                    "title": "Đọc ngắn: Thập kỷ cuối đời và sự thất bại của y học hiện đại",
+                    "description": "Đọc đoạn văn ngắn chứa từ vựng buổi 2",
+                    "practiceMinutes": 5,
+                    "data": {
+                        "text": "Modern medicine operates in reactive mode. It waits for chronic diseases to appear and then fights them. But by that point, degenerative damage has already been done. Cognitive decline has already begun. Metabolic health has already deteriorated. Peter Attia calls this approach \"Medicine 2.0\" — a system focused on reducing mortality but largely ignoring morbidity. The result is what he calls the \"marginal decade\" — the final years of life spent in a state of declining functional capacity, dependence, and suffering. People are alive, but they can no longer do the things that make life worth living. The alternative, Attia argues, is preventive action: intervening decades before disease strikes, protecting the body and mind while they are still strong.",
+                        "userReadingId": "7slvwwgu",
+                        "imageId": "c77a73b5-3732-49fb-4de2-0fc0e34a1100"
+                    }
+                },
+                {
+                    "activityType": "speakReading",
+                    "title": "Luyện nói theo: Thập kỷ cuối đời và sự thất bại của y học hiện đại",
+                    "description": "Tập phát âm đoạn văn bằng cách lặp lại",
+                    "practiceMinutes": 5,
+                    "data": {
+                        "text": "Modern medicine operates in reactive mode. It waits for chronic diseases to appear and then fights them. But by that point, degenerative damage has already been done. Cognitive decline has already begun. Metabolic health has already deteriorated. Peter Attia calls this approach \"Medicine 2.0\" — a system focused on reducing mortality but largely ignoring morbidity. The result is what he calls the \"marginal decade\" — the final years of life spent in a state of declining functional capacity, dependence, and suffering. People are alive, but they can no longer do the things that make life worth living. The alternative, Attia argues, is preventive action: intervening decades before disease strikes, protecting the body and mind while they are still strong.",
+                        "userReadingId": "xtewqywg",
+                        "imageId": "c77a73b5-3732-49fb-4de2-0fc0e34a1100"
+                    }
+                },
+                {
+                    "activityType": "readAlong",
+                    "title": "Nghe bài đọc: Thập kỷ cuối đời và sự thất bại của y học hiện đại",
+                    "description": "Nghe nội dung bài đọc ngắn buổi 2",
+                    "practiceMinutes": 2,
+                    "data": {
+                        "text": "Modern medicine operates in reactive mode. It waits for chronic diseases to appear and then fights them. But by that point, degenerative damage has already been done. Cognitive decline has already begun. Metabolic health has already deteriorated. Peter Attia calls this approach \"Medicine 2.0\" — a system focused on reducing mortality but largely ignoring morbidity. The result is what he calls the \"marginal decade\" — the final years of life spent in a state of declining functional capacity, dependence, and suffering. People are alive, but they can no longer do the things that make life worth living. The alternative, Attia argues, is preventive action: intervening decades before disease strikes, protecting the body and mind while they are still strong.",
+                        "mp3Url": "https://nspacesing.s3.ap-southeast-1.amazonaws.com/audio/intro/20260228T084016_YAV.mp3",
+                        "segments": [
+                            {
+                                "text": "Modern medicine operates",
+                                "startTime": 0.47,
+                                "endTime": 1.95
+                            },
+                            {
+                                "text": "in reactive mode. It waits",
+                                "startTime": 1.95,
+                                "endTime": 3.57
+                            },
+                            {
+                                "text": "for chronic diseases",
+                                "startTime": 3.57,
+                                "endTime": 4.8
+                            },
+                            {
+                                "text": "to appear and then fights them.",
+                                "startTime": 4.8,
+                                "endTime": 6.73
+                            },
+                            {
+                                "text": "But by that point,",
+                                "startTime": 7.09,
+                                "endTime": 8.11
+                            },
+                            {
+                                "text": "degenerative damage has already been done.",
+                                "startTime": 8.11,
+                                "endTime": 10.5
+                            },
+                            {
+                                "text": "Cognitive decline has already begun.",
+                                "startTime": 10.826,
+                                "endTime": 13.006
+                            },
+                            {
+                                "text": "Metabolic health has already deteriorated.",
+                                "startTime": 13.346,
+                                "endTime": 15.906
+                            },
+                            {
+                                "text": "Peter Atia calls this approach",
+                                "startTime": 16.25,
+                                "endTime": 18.43
+                            },
+                            {
+                                "text": "medicine 2.0, a system focused",
+                                "startTime": 18.43,
+                                "endTime": 20.62
+                            },
+                            {
+                                "text": "on reducing mortality,",
+                                "startTime": 20.62,
+                                "endTime": 22.22
+                            },
+                            {
+                                "text": "but largely ignoring morbidity.",
+                                "startTime": 22.22,
+                                "endTime": 24.48
+                            },
+                            {
+                                "text": "The result is what he",
+                                "startTime": 24.85,
+                                "endTime": 26.03
+                            },
+                            {
+                                "text": "calls the marginal decade,",
+                                "startTime": 26.03,
+                                "endTime": 27.5
+                            },
+                            {
+                                "text": "the final years",
+                                "startTime": 27.82,
+                                "endTime": 28.69
+                            },
+                            {
+                                "text": "of life spent",
+                                "startTime": 28.69,
+                                "endTime": 29.44
+                            },
+                            {
+                                "text": "in a state",
+                                "startTime": 29.44,
+                                "endTime": 30.03
+                            },
+                            {
+                                "text": "of declining functional capacity,",
+                                "startTime": 30.03,
+                                "endTime": 31.95
+                            },
+                            {
+                                "text": "dependence, and suffering.",
+                                "startTime": 32.316,
+                                "endTime": 33.676
+                            },
+                            {
+                                "text": "People are alive,",
+                                "startTime": 34.17,
+                                "endTime": 35.06
+                            },
+                            {
+                                "text": "but they can no longer",
+                                "startTime": 35.06,
+                                "endTime": 36.21
+                            },
+                            {
+                                "text": "do the things",
+                                "startTime": 36.21,
+                                "endTime": 36.9
+                            },
+                            {
+                                "text": "that make life worth living.",
+                                "startTime": 36.9,
+                                "endTime": 38.37
+                            },
+                            {
+                                "text": "The alternative, Atea argues,",
+                                "startTime": 38.89,
+                                "endTime": 40.74
+                            },
+                            {
+                                "text": "is preventative action,",
+                                "startTime": 40.74,
+                                "endTime": 42.21
+                            },
+                            {
+                                "text": "intervening decades before disease strikes,",
+                                "startTime": 42.526,
+                                "endTime": 45.156
+                            },
+                            {
+                                "text": "protecting the body",
+                                "startTime": 45.47,
+                                "endTime": 46.27
+                            },
+                            {
+                                "text": "and mind while they are",
+                                "startTime": 46.27,
+                                "endTime": 47.25
+                            },
+                            {
+                                "text": "still strong.",
+                                "startTime": 47.25,
+                                "endTime": 47.81
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "title": "Buổi 3: Bảo tồn sức sống – Tầm nhìn mới về y học",
+            "activities": [
+                {
+                    "activityType": "introAudio",
+                    "title": "Dẫn nhập phần 3",
+                    "description": "Nghe tóm tắt phần trước và giới thiệu chủ đề bảo tồn sức sống",
+                    "practiceMinutes": 1,
+                    "data": {
+                        "text": "Chào bạn! Bạn còn nhớ buổi trước chúng ta đã học về cognitive decline, degenerative, morbidity, và cách preventive medicine có thể thay đổi mọi thứ? Hôm nay chúng ta sẽ đi đến phần quan trọng nhất: tầm nhìn mới về y học – Medicine 3.0 – nơi mục tiêu không phải chỉ trì hoãn cái chết mà là bảo tồn sức sống và chất lượng cuộc sống. Chúng ta sẽ học các từ vựng cuối cùng, liên quan đến chất lượng cuộc sống, sự can thiệp sớm, và triết lý sống khỏe. Hãy cùng hoàn thành bộ từ vựng nhé!",
+                        "mp3Url": "https://nspacesing.s3.ap-southeast-1.amazonaws.com/audio/intro/20260228T084126_OLO.mp3",
+                        "whiteboardItems": [
+                            {
+                                "headline": "Cognitive Decline",
+                                "subtitle": "Sự suy giảm nhận thức",
+                                "secondsFromStart": 3
+                            },
+                            {
+                                "headline": "Degenerative",
+                                "subtitle": "Thoái hóa, suy thoái",
+                                "secondsFromStart": 5
+                            },
+                            {
+                                "headline": "Morbidity",
+                                "subtitle": "Tỷ lệ mắc bệnh, tình trạng bệnh tật",
+                                "secondsFromStart": 7
+                            },
+                            {
+                                "headline": "Preventive Medicine",
+                                "subtitle": "Y học dự phòng – phòng bệnh trước khi bệnh xảy ra",
+                                "secondsFromStart": 9
+                            },
+                            {
+                                "headline": "Medicine 3.0",
+                                "subtitle": "Tầm nhìn mới về y học – không chỉ trì hoãn cái chết mà bảo tồn sức sống",
+                                "secondsFromStart": 15
+                            },
+                            {
+                                "headline": "Chất lượng cuộc sống",
+                                "subtitle": "Mục tiêu cốt lõi của Medicine 3.0 – sống khỏe, không chỉ sống lâu",
+                                "secondsFromStart": 21
+                            },
+                            {
+                                "headline": "Sự can thiệp sớm",
+                                "subtitle": "Can thiệp y tế từ sớm để ngăn ngừa bệnh tật",
+                                "secondsFromStart": 27
+                            },
+                            {
+                                "headline": "Triết lý sống khỏe",
+                                "subtitle": "Quan điểm và cách tiếp cận để duy trì sức khỏe toàn diện",
+                                "secondsFromStart": 28
+                            }
+                        ],
+                        "chapterBookmarks": [
+                            {
+                                "title": "Chào bạn và ôn lại buổi trước",
+                                "secondsFromStart": 0
+                            },
+                            {
+                                "title": "Giới thiệu Medicine 3.0 và nội dung buổi học hôm nay",
+                                "secondsFromStart": 11
+                            }
+                        ]
+                    }
+                },
+                {
+                    "activityType": "introAudio",
+                    "title": "Giới thiệu từ vựng",
+                    "description": "Nghe giới thiệu về các từ vựng trong bài và cách dùng",
+                    "practiceMinutes": 3,
+                    "data": {
+                        "text": "Chúng ta sẽ học 6 từ vựng cuối cùng của bài học! Từ đầu tiên là 'quality of life' – 'chất lượng cuộc sống'. Đây là mức độ hạnh phúc, thoải mái, và khả năng tận hưởng cuộc sống hàng ngày. Ví dụ: 'Adding years to life means nothing without quality of life.' – Thêm năm tháng vào cuộc sống chẳng có ý nghĩa nếu thiếu chất lượng cuộc sống. Tiếp theo là 'to intervene' – 'can thiệp'. Khi bạn hành động để thay đổi hoặc ngăn ngừa một kết quả tiêu cực. 'Doctors should intervene early, not wait for symptoms to appear.' – Bác sĩ nên can thiệp sớm, không chờ triệu chứng xuất hiện. 'Proactive' – 'chủ động'. Hành động trước khi vấn đề xảy ra, thay vì chờ phản ứng. 'A proactive approach to health means acting before disease develops.' – Cách tiếp cận chủ động với sức khỏe nghĩa là hành động trước khi bệnh phát triển. 'Decline' – 'sự suy giảm'. Quá trình giảm dần về chất lượng, số lượng, hoặc sức mạnh. 'Physical decline is not inevitable — it can be slowed dramatically.' – Suy giảm thể chất không phải là không thể tránh – nó có thể được làm chậm đáng kể. 'To preserve' – 'bảo tồn, duy trì'. Giữ gìn điều gì đó ở trạng thái tốt theo thời gian. 'The goal is to preserve your body and mind for decades to come.' – Mục tiêu là bảo tồn cơ thể và tâm trí cho nhiều thập kỷ tới. Cuối cùng là 'to optimize' – 'tối ưu hóa'. Làm cho điều gì đó hoạt động ở mức tốt nhất có thể. 'Attia teaches people to optimize their health through exercise, nutrition, sleep, and emotional well-being.' – Attia dạy mọi người tối ưu hóa sức khỏe thông qua tập thể dục, dinh dưỡng, giấc ngủ, và sức khỏe tinh thần.",
+                        "mp3Url": "https://nspacesing.s3.ap-southeast-1.amazonaws.com/audio/intro/20260228T084320_V2O.mp3",
+                        "whiteboardItems": [
+                            {
+                                "headline": "Quality of life",
+                                "subtitle": "Chất lượng cuộc sống – mức độ hạnh phúc, thoải mái, và khả năng tận hưởng cuộc sống hàng ngày",
+                                "secondsFromStart": 3
+                            },
+                            {
+                                "headline": "To intervene",
+                                "subtitle": "Can thiệp – hành động để thay đổi hoặc ngăn ngừa một kết quả tiêu cực",
+                                "secondsFromStart": 26
+                            },
+                            {
+                                "headline": "Proactive",
+                                "subtitle": "Chủ động – hành động trước khi vấn đề xảy ra, thay vì chờ phản ứng",
+                                "secondsFromStart": 43
+                            },
+                            {
+                                "headline": "Decline",
+                                "subtitle": "Sự suy giảm – quá trình giảm dần về chất lượng, số lượng hoặc sức mạnh",
+                                "secondsFromStart": 61
+                            },
+                            {
+                                "headline": "To preserve",
+                                "subtitle": "Bảo tồn, duy trì – giữ gìn điều gì đó ở trạng thái tốt theo thời gian",
+                                "secondsFromStart": 79
+                            },
+                            {
+                                "headline": "To optimize",
+                                "subtitle": "Tối ưu hóa – làm cho điều gì đó hoạt động ở mức tốt nhất có thể",
+                                "secondsFromStart": 92
+                            }
+                        ],
+                        "chapterBookmarks": [
+                            {
+                                "title": "Giới thiệu bài học",
+                                "secondsFromStart": 0
+                            },
+                            {
+                                "title": "Quality of life – Chất lượng cuộc sống",
+                                "secondsFromStart": 3
+                            },
+                            {
+                                "title": "To intervene – Can thiệp",
+                                "secondsFromStart": 24
+                            },
+                            {
+                                "title": "Proactive – Chủ động",
+                                "secondsFromStart": 42
+                            },
+                            {
+                                "title": "Decline – Sự suy giảm",
+                                "secondsFromStart": 60
+                            },
+                            {
+                                "title": "To preserve – Bảo tồn, duy trì",
+                                "secondsFromStart": 79
+                            },
+                            {
+                                "title": "To optimize – Tối ưu hóa",
+                                "secondsFromStart": 91
+                            }
+                        ]
+                    }
+                },
+                {
+                    "activityType": "viewFlashcards",
+                    "title": "Từ vựng: Bảo tồn sức sống & Tầm nhìn mới",
+                    "description": "Học các từ: quality of life, to intervene, proactive, decline, to preserve, to optimize",
+                    "practiceMinutes": 3,
+                    "data": {
+                        "vocabList": [
+                            "quality of life",
+                            "to intervene",
+                            "proactive",
+                            "decline",
+                            "to preserve",
+                            "to optimize"
+                        ],
+                        "lessonUniqueId": "gbh1t3g7",
+                        "imageId": "fb59a690-b85b-4b50-dacd-00491628f800"
+                    }
+                },
+                {
+                    "activityType": "speakFlashcards",
+                    "title": "Tập nói từ vựng: Bảo tồn sức sống & Tầm nhìn mới",
+                    "description": "Tập nói các từ: quality of life, to intervene, proactive, decline, to preserve, to optimize",
+                    "practiceMinutes": 3,
+                    "data": {
+                        "vocabList": [
+                            "quality of life",
+                            "to intervene",
+                            "proactive",
+                            "decline",
+                            "to preserve",
+                            "to optimize"
+                        ],
+                        "lessonUniqueId": "gbh1t3g7",
+                        "imageId": "fb59a690-b85b-4b50-dacd-00491628f800"
+                    }
+                },
+                {
+                    "activityType": "vocabLevel1",
+                    "title": "Bài tập nhận biết: Bảo tồn sức sống & Tầm nhìn mới",
+                    "description": "Chọn nghĩa đúng cho các từ vựng vừa học",
+                    "practiceMinutes": 5,
+                    "data": {
+                        "vocabList": [
+                            "quality of life",
+                            "to intervene",
+                            "proactive",
+                            "decline",
+                            "to preserve",
+                            "to optimize"
+                        ],
+                        "lessonUniqueId": "gbh1t3g7",
+                        "imageId": "fb59a690-b85b-4b50-dacd-00491628f800"
+                    }
+                },
+                {
+                    "activityType": "vocabLevel2",
+                    "title": "Bài tập nhớ lại chủ động: Bảo tồn sức sống & Tầm nhìn mới",
+                    "description": "Điền từ thích hợp vào chỗ trống mà không có gợi ý",
+                    "practiceMinutes": 5,
+                    "data": {
+                        "vocabList": [
+                            "quality of life",
+                            "to intervene",
+                            "proactive",
+                            "decline",
+                            "to preserve",
+                            "to optimize"
+                        ],
+                        "lessonUniqueId": "gbh1t3g7",
+                        "imageId": "fb59a690-b85b-4b50-dacd-00491628f800"
+                    }
+                },
+                {
+                    "activityType": "introAudio",
+                    "title": "Giải thích ngữ pháp buổi 3",
+                    "description": "Nghe giải thích các điểm ngữ pháp liên quan đến từ vựng và đoạn văn buổi 3",
+                    "practiceMinutes": 3,
+                    "data": {
+                        "text": "Chào bạn, buổi học cuối cùng về từ vựng rồi! Chúng mình cùng tìm hiểu ba điểm quan trọng nhé. Điểm đầu tiên là sự khác biệt giữa 'proactive' và 'preventive'. 'Preventive' tập trung vào việc ngăn ngừa một điều xấu cụ thể – ví dụ: preventive medicine ngăn ngừa bệnh. 'Proactive' rộng hơn – là tư duy chủ động trong mọi việc, hành động trước khi cần thiết. Ví dụ: 'Being proactive about your health means not waiting for a diagnosis to start exercising.' – Chủ động với sức khỏe nghĩa là không chờ chẩn đoán mới bắt đầu tập thể dục. Tuy nhiên, trong ngữ cảnh sức khỏe, hai từ này thường bổ trợ nhau. Điểm thứ hai là 'decline' – dùng cả như danh từ và động từ. Như danh từ: 'the decline of physical strength' – sự suy giảm sức mạnh thể chất. Như động từ: 'His health declined rapidly after retirement.' – Sức khỏe của ông ấy suy giảm nhanh chóng sau khi nghỉ hưu. Cấu trúc phổ biến: 'decline in something' – suy giảm về điều gì đó. Ví dụ: 'a decline in cognitive function' – sự suy giảm chức năng nhận thức. Điểm cuối cùng là 'to optimize' và 'to preserve'. Hai từ này có mục tiêu khác nhau. 'Preserve' là giữ gìn những gì đã có – duy trì trạng thái hiện tại. 'Optimize' là nâng cấp – làm cho tốt hơn mức hiện tại. Ví dụ: 'First, preserve your metabolic health. Then, optimize it through better habits.' – Trước hết, bảo tồn sức khỏe chuyển hóa. Sau đó, tối ưu hóa nó thông qua thói quen tốt hơn.",
+                        "mp3Url": "https://nspacesing.s3.ap-southeast-1.amazonaws.com/audio/intro/20260228T084716_IEN.mp3",
+                        "whiteboardItems": [
+                            {
+                                "headline": "Proactive vs. Preventive",
+                                "subtitle": "Preventive: ngăn ngừa điều xấu cụ thể. Proactive: tư duy chủ động, hành động trước khi cần thiết",
+                                "secondsFromStart": 6
+                            },
+                            {
+                                "headline": "Preventive medicine",
+                                "subtitle": "Ngăn ngừa bệnh – ví dụ cụ thể của preventive",
+                                "secondsFromStart": 15
+                            },
+                            {
+                                "headline": "Being proactive about your health",
+                                "subtitle": "Chủ động với sức khỏe – không chờ chẩn đoán mới bắt đầu tập thể dục",
+                                "secondsFromStart": 25
+                            },
+                            {
+                                "headline": "Decline (danh từ & động từ)",
+                                "subtitle": "Sự suy giảm – dùng cả như danh từ và động từ",
+                                "secondsFromStart": 41
+                            },
+                            {
+                                "headline": "The decline of physical strength",
+                                "subtitle": "Sự suy giảm sức mạnh thể chất (danh từ)",
+                                "secondsFromStart": 47
+                            },
+                            {
+                                "headline": "His health declined rapidly after retirement",
+                                "subtitle": "Sức khỏe của ông ấy suy giảm nhanh chóng sau khi nghỉ hưu (động từ)",
+                                "secondsFromStart": 52
+                            },
+                            {
+                                "headline": "Decline in something",
+                                "subtitle": "Cấu trúc phổ biến: suy giảm về điều gì đó. Ví dụ: a decline in cognitive function",
+                                "secondsFromStart": 61
+                            },
+                            {
+                                "headline": "Preserve vs. Optimize",
+                                "subtitle": "Preserve: giữ gìn, duy trì trạng thái hiện tại. Optimize: nâng cấp, làm cho tốt hơn mức hiện tại",
+                                "secondsFromStart": 71
+                            },
+                            {
+                                "headline": "First preserve, then optimize",
+                                "subtitle": "Trước hết bảo tồn sức khỏe chuyển hóa, sau đó tối ưu hóa thông qua thói quen tốt hơn",
+                                "secondsFromStart": 86
+                            }
+                        ],
+                        "chapterBookmarks": [
+                            {
+                                "title": "Giới thiệu buổi học",
+                                "secondsFromStart": 0
+                            },
+                            {
+                                "title": "Sự khác biệt giữa 'proactive' và 'preventive'",
+                                "secondsFromStart": 6
+                            },
+                            {
+                                "title": "Cách dùng từ 'decline' như danh từ và động từ",
+                                "secondsFromStart": 41
+                            },
+                            {
+                                "title": "Phân biệt 'to optimize' và 'to preserve'",
+                                "secondsFromStart": 70
+                            }
+                        ]
+                    }
+                },
+                {
+                    "activityType": "reading",
+                    "title": "Đọc ngắn: Medicine 3.0 – Bảo tồn sức sống, không chỉ trì hoãn cái chết",
+                    "description": "Đọc đoạn văn ngắn chứa từ vựng buổi 3",
+                    "practiceMinutes": 5,
+                    "data": {
+                        "text": "Peter Attia envisions a new era of medicine — one that is proactive rather than reactive. Instead of waiting for decline to set in, this approach seeks to intervene early, preserve physical and cognitive function, and optimize every aspect of health. The goal is not simply to add years to life, but to add life to years — to protect quality of life until the very end. This means taking action decades before disease appears: building strength, maintaining metabolic health, nurturing emotional resilience, and sharpening the mind. Attia believes that if we shift our focus from merely delaying death to actively preserving vitality, we can transform the marginal decade from a period of suffering into a period of purpose and joy.",
+                        "userReadingId": "u9ban650",
+                        "imageId": "e0640bb0-3a69-4958-b101-0c206da7cb00"
+                    }
+                },
+                {
+                    "activityType": "speakReading",
+                    "title": "Luyện nói theo: Medicine 3.0 – Bảo tồn sức sống, không chỉ trì hoãn cái chết",
+                    "description": "Tập phát âm đoạn văn bằng cách lặp lại",
+                    "practiceMinutes": 5,
+                    "data": {
+                        "text": "Peter Attia envisions a new era of medicine — one that is proactive rather than reactive. Instead of waiting for decline to set in, this approach seeks to intervene early, preserve physical and cognitive function, and optimize every aspect of health. The goal is not simply to add years to life, but to add life to years — to protect quality of life until the very end. This means taking action decades before disease appears: building strength, maintaining metabolic health, nurturing emotional resilience, and sharpening the mind. Attia believes that if we shift our focus from merely delaying death to actively preserving vitality, we can transform the marginal decade from a period of suffering into a period of purpose and joy.",
+                        "userReadingId": "vzbq73oo",
+                        "imageId": "e0640bb0-3a69-4958-b101-0c206da7cb00"
+                    }
+                },
+                {
+                    "activityType": "readAlong",
+                    "title": "Nghe bài đọc: Medicine 3.0 – Bảo tồn sức sống, không chỉ trì hoãn cái chết",
+                    "description": "Nghe nội dung bài đọc ngắn buổi 3",
+                    "practiceMinutes": 2,
+                    "data": {
+                        "text": "Peter Attia envisions a new era of medicine — one that is proactive rather than reactive. Instead of waiting for decline to set in, this approach seeks to intervene early, preserve physical and cognitive function, and optimize every aspect of health. The goal is not simply to add years to life, but to add life to years — to protect quality of life until the very end. This means taking action decades before disease appears: building strength, maintaining metabolic health, nurturing emotional resilience, and sharpening the mind. Attia believes that if we shift our focus from merely delaying death to actively preserving vitality, we can transform the marginal decade from a period of suffering into a period of purpose and joy.",
+                        "mp3Url": "https://nspacesing.s3.ap-southeast-1.amazonaws.com/audio/intro/20260228T084942_MU7.mp3",
+                        "segments": [
+                            {
+                                "text": "Peter Etia envisions a new",
+                                "startTime": 0.3,
+                                "endTime": 2.11
+                            },
+                            {
+                                "text": "era of medicine,",
+                                "startTime": 2.11,
+                                "endTime": 3.23
+                            },
+                            {
+                                "text": "one that is proactive rather",
+                                "startTime": 3.23,
+                                "endTime": 5.18
+                            },
+                            {
+                                "text": "than reactive.",
+                                "startTime": 5.18,
+                                "endTime": 6.16
+                            },
+                            {
+                                "text": "Instead of waiting",
+                                "startTime": 6.49,
+                                "endTime": 7.6
+                            },
+                            {
+                                "text": "for decline to set in,",
+                                "startTime": 7.6,
+                                "endTime": 8.97
+                            },
+                            {
+                                "text": "this approach seeks",
+                                "startTime": 8.97,
+                                "endTime": 10.15
+                            },
+                            {
+                                "text": "to intervene early,",
+                                "startTime": 10.15,
+                                "endTime": 11.33
+                            },
+                            {
+                                "text": "preserve physical and cognitive function",
+                                "startTime": 11.33,
+                                "endTime": 13.82
+                            },
+                            {
+                                "text": "and optimize every aspect",
+                                "startTime": 13.82,
+                                "endTime": 15.37
+                            },
+                            {
+                                "text": "of health.",
+                                "startTime": 15.37,
+                                "endTime": 16
+                            },
+                            {
+                                "text": "The goal is not simply",
+                                "startTime": 16.37,
+                                "endTime": 17.83
+                            },
+                            {
+                                "text": "to add years",
+                                "startTime": 17.83,
+                                "endTime": 18.64
+                            },
+                            {
+                                "text": "to life, but",
+                                "startTime": 18.64,
+                                "endTime": 19.44
+                            },
+                            {
+                                "text": "to add life",
+                                "startTime": 19.44,
+                                "endTime": 20.17
+                            },
+                            {
+                                "text": "to years to protect quality",
+                                "startTime": 20.17,
+                                "endTime": 21.97
+                            },
+                            {
+                                "text": "of life until the very end.",
+                                "startTime": 21.97,
+                                "endTime": 23.78
+                            },
+                            {
+                                "text": "This means taking action decades",
+                                "startTime": 24.21,
+                                "endTime": 26.1
+                            },
+                            {
+                                "text": "before disease appears,",
+                                "startTime": 26.1,
+                                "endTime": 27.46
+                            },
+                            {
+                                "text": "Building strength, maintaining metabolic health",
+                                "startTime": 27.46,
+                                "endTime": 30.25
+                            },
+                            {
+                                "text": "nurturing emotional resilience",
+                                "startTime": 30.65,
+                                "endTime": 32.48
+                            },
+                            {
+                                "text": "and sharpening the mind.",
+                                "startTime": 32.48,
+                                "endTime": 33.96
+                            },
+                            {
+                                "text": "Atea believes that if we",
+                                "startTime": 34.45,
+                                "endTime": 35.97
+                            },
+                            {
+                                "text": "shift our focus",
+                                "startTime": 35.97,
+                                "endTime": 36.93
+                            },
+                            {
+                                "text": "from merely delaying death",
+                                "startTime": 36.93,
+                                "endTime": 38.58
+                            },
+                            {
+                                "text": "to actively preserving vitality,",
+                                "startTime": 38.58,
+                                "endTime": 40.62
+                            },
+                            {
+                                "text": "we can transform the marginal",
+                                "startTime": 40.62,
+                                "endTime": 42.47
+                            },
+                            {
+                                "text": "decade from a period",
+                                "startTime": 42.47,
+                                "endTime": 43.74
+                            },
+                            {
+                                "text": "of suffering into a period",
+                                "startTime": 43.74,
+                                "endTime": 45.4
+                            },
+                            {
+                                "text": "of purpose and joy.",
+                                "startTime": 45.4,
+                                "endTime": 46.61
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "title": "Buổi 4: Ôn tập toàn bộ",
+            "activities": [
+                {
+                    "activityType": "introAudio",
+                    "title": "Dẫn nhập ôn tập",
+                    "description": "Nghe hướng dẫn ôn tập lại toàn bộ từ vựng",
+                    "practiceMinutes": 1,
+                    "data": {
+                        "text": "Chúc mừng bạn đã hoàn thành cả ba phần từ vựng về sự khác biệt giữa healthspan và lifespan! Từ các khái niệm nền tảng về tuổi thọ và sức sống, đến thực trạng y học hiện đại và thập kỷ cuối đời, và cuối cùng là tầm nhìn mới về việc bảo tồn sức sống và tối ưu hóa sức khỏe. Hôm nay chúng ta sẽ ôn tập toàn bộ 18 từ vựng đã học trong suốt 3 buổi qua. Hãy chắc chắn rằng bạn đã nắm vững tất cả trước khi đọc bài đọc tổng hợp vào buổi tới nhé.",
+                        "mp3Url": "https://nspacesing.s3.ap-southeast-1.amazonaws.com/audio/intro/20260228T085046_QC0.mp3",
+                        "whiteboardItems": [
+                            {
+                                "headline": "Healthspan vs Lifespan",
+                                "subtitle": "Sự khác biệt giữa healthspan (tuổi thọ sức khỏe) và lifespan (tuổi thọ)",
+                                "secondsFromStart": 1
+                            },
+                            {
+                                "headline": "Ôn tập 18 từ vựng",
+                                "subtitle": "Ôn tập toàn bộ 18 từ vựng đã học trong suốt 3 buổi",
+                                "secondsFromStart": 7
+                            },
+                            {
+                                "headline": "Khái niệm nền tảng",
+                                "subtitle": "Tuổi thọ và sức sống - các khái niệm cơ bản",
+                                "secondsFromStart": 7
+                            },
+                            {
+                                "headline": "Thực trạng y học hiện đại",
+                                "subtitle": "Thập kỷ cuối đời và thực trạng chăm sóc sức khỏe",
+                                "secondsFromStart": 13
+                            },
+                            {
+                                "headline": "Bảo tồn sức sống",
+                                "subtitle": "Tầm nhìn mới về việc bảo tồn sức sống và tối ưu hóa sức khỏe",
+                                "secondsFromStart": 13
+                            },
+                            {
+                                "headline": "Bài đọc tổng hợp",
+                                "subtitle": "Nắm vững tất cả từ vựng trước khi đọc bài đọc tổng hợp buổi tới",
+                                "secondsFromStart": 25
+                            }
+                        ],
+                        "chapterBookmarks": [
+                            {
+                                "title": "Giới thiệu và tổng kết 3 phần từ vựng",
+                                "secondsFromStart": 0
+                            },
+                            {
+                                "title": "Ôn tập 18 từ vựng và hướng dẫn buổi tới",
+                                "secondsFromStart": 21
+                            }
+                        ]
+                    }
+                },
+                {
+                    "activityType": "viewFlashcards",
+                    "title": "Ôn tập tất cả từ vựng",
+                    "description": "Xem lại flashcards cho 18 từ vựng của toàn bộ khóa học",
+                    "practiceMinutes": 6,
+                    "data": {
+                        "vocabList": [
+                            "lifespan",
+                            "healthspan",
+                            "longevity",
+                            "chronic disease",
+                            "vitality",
+                            "mortality",
+                            "cognitive decline",
+                            "degenerative",
+                            "morbidity",
+                            "preventive",
+                            "metabolic health",
+                            "functional capacity",
+                            "quality of life",
+                            "to intervene",
+                            "proactive",
+                            "decline",
+                            "to preserve",
+                            "to optimize"
+                        ],
+                        "lessonUniqueId": "yf2x8yoj",
+                        "imageId": "8dd7a2db-52fb-4674-72ed-6ad905765700"
+                    }
+                },
+                {
+                    "activityType": "vocabLevel1",
+                    "title": "Kiểm tra nhanh: Nhận biết",
+                    "description": "Bài tập trắc nghiệm nhanh cho toàn bộ 18 từ",
+                    "practiceMinutes": 10,
+                    "data": {
+                        "vocabList": [
+                            "lifespan",
+                            "healthspan",
+                            "longevity",
+                            "chronic disease",
+                            "vitality",
+                            "mortality",
+                            "cognitive decline",
+                            "degenerative",
+                            "morbidity",
+                            "preventive",
+                            "metabolic health",
+                            "functional capacity",
+                            "quality of life",
+                            "to intervene",
+                            "proactive",
+                            "decline",
+                            "to preserve",
+                            "to optimize"
+                        ],
+                        "lessonUniqueId": "yf2x8yoj",
+                        "imageId": "8dd7a2db-52fb-4674-72ed-6ad905765700"
+                    }
+                },
+                {
+                    "activityType": "vocabLevel2",
+                    "title": "Kiểm tra sâu: Nhớ lại",
+                    "description": "Ghi nhớ chủ động các từ vựng toàn bộ khóa học",
+                    "practiceMinutes": 10,
+                    "data": {
+                        "vocabList": [
+                            "lifespan",
+                            "healthspan",
+                            "longevity",
+                            "chronic disease",
+                            "vitality",
+                            "mortality",
+                            "cognitive decline",
+                            "degenerative",
+                            "morbidity",
+                            "preventive",
+                            "metabolic health",
+                            "functional capacity",
+                            "quality of life",
+                            "to intervene",
+                            "proactive",
+                            "decline",
+                            "to preserve",
+                            "to optimize"
+                        ],
+                        "lessonUniqueId": "yf2x8yoj",
+                        "imageId": "8dd7a2db-52fb-4674-72ed-6ad905765700"
+                    }
+                }
+            ]
+        },
+        {
+            "title": "Buổi 5: Đọc trọn vẹn",
+            "activities": [
+                {
+                    "activityType": "introAudio",
+                    "title": "Dẫn nhập bài đọc cuối",
+                    "description": "Lời dẫn cho bài đọc tổng hợp",
+                    "practiceMinutes": 1,
+                    "data": {
+                        "text": "Chào bạn, đây là chặng cuối cùng của bài học về sự khác biệt giữa healthspan và lifespan. Sau khi đã học từng phần nhỏ và ôn tập kỹ càng, hôm nay bạn sẽ thử sức đọc hiểu toàn bộ bài viết hoàn chỉnh. Bài đọc này kết hợp cả ba chủ đề: khái niệm nền tảng về tuổi thọ và sức sống, thực trạng y học hiện đại và thập kỷ cuối đời, và tầm nhìn mới về việc bảo tồn sức sống. Hãy vận dụng tất cả 18 từ vựng đã học để cảm nhận trọn vẹn thông điệp nhé.",
+                        "mp3Url": "https://nspacesing.s3.ap-southeast-1.amazonaws.com/audio/intro/20260228T085158_A7D.mp3",
+                        "whiteboardItems": [
+                            {
+                                "headline": "Healthspan vs Lifespan",
+                                "subtitle": "Sự khác biệt giữa sức sống (healthspan) và tuổi thọ (lifespan)",
+                                "secondsFromStart": 1
+                            },
+                            {
+                                "headline": "Khái niệm nền tảng",
+                                "subtitle": "Tuổi thọ và sức sống - các khái niệm cơ bản về lifespan và healthspan",
+                                "secondsFromStart": 9
+                            },
+                            {
+                                "headline": "Thực trạng y học hiện đại",
+                                "subtitle": "Y học hiện đại và thập kỷ cuối đời - thực trạng sức khỏe giai đoạn cuối",
+                                "secondsFromStart": 17
+                            },
+                            {
+                                "headline": "Bảo tồn sức sống",
+                                "subtitle": "Tầm nhìn mới về việc duy trì và bảo tồn sức sống trong suốt cuộc đời",
+                                "secondsFromStart": 23
+                            },
+                            {
+                                "headline": "18 từ vựng",
+                                "subtitle": "Vận dụng tất cả 18 từ vựng đã học để đọc hiểu toàn bộ bài viết hoàn chỉnh",
+                                "secondsFromStart": 26
+                            }
+                        ],
+                        "chapterBookmarks": [
+                            {
+                                "title": "Giới thiệu bài học cuối cùng về healthspan và lifespan",
+                                "secondsFromStart": 0
+                            },
+                            {
+                                "title": "Hướng dẫn đọc hiểu toàn bộ bài viết hoàn chỉnh",
+                                "secondsFromStart": 12
+                            },
+                            {
+                                "title": "Ba chủ đề kết hợp và vận dụng từ vựng",
+                                "secondsFromStart": 16
+                            }
+                        ]
+                    }
+                },
+                {
+                    "activityType": "reading",
+                    "title": "Đọc hiểu: Healthspan vs. Lifespan – Sống lâu hay sống khỏe?",
+                    "description": "Đọc toàn bộ bài viết hoàn chỉnh có chứa 18 từ vựng đã học để củng cố kiến thức",
+                    "practiceMinutes": 15,
+                    "data": {
+                        "text": "Over the past century, modern medicine has achieved something remarkable: it has dramatically extended the average human lifespan. People are living longer than ever before. But there is a troubling truth hidden behind these numbers. While lifespan has increased, healthspan has not kept pace. Many people spend their final years battling chronic diseases — heart disease, diabetes, cancer, and dementia. They are alive, but they have lost their vitality. Peter Attia argues that true longevity is not just about reducing mortality. It is about preserving the quality of life for as long as possible. The real question is not \"How long can you live?\" but \"How well can you live?\"\n\nModern medicine operates in reactive mode. It waits for chronic diseases to appear and then fights them. But by that point, degenerative damage has already been done. Cognitive decline has already begun. Metabolic health has already deteriorated. Peter Attia calls this approach \"Medicine 2.0\" — a system focused on reducing mortality but largely ignoring morbidity. The result is what he calls the \"marginal decade\" — the final years of life spent in a state of declining functional capacity, dependence, and suffering. People are alive, but they can no longer do the things that make life worth living. The alternative, Attia argues, is preventive action: intervening decades before disease strikes, protecting the body and mind while they are still strong.\n\nPeter Attia envisions a new era of medicine — one that is proactive rather than reactive. Instead of waiting for decline to set in, this approach seeks to intervene early, preserve physical and cognitive function, and optimize every aspect of health. The goal is not simply to add years to life, but to add life to years — to protect quality of life until the very end. This means taking action decades before disease appears: building strength, maintaining metabolic health, nurturing emotional resilience, and sharpening the mind. Attia believes that if we shift our focus from merely delaying death to actively preserving vitality, we can transform the marginal decade from a period of suffering into a period of purpose and joy.",
+                        "userReadingId": "rma6je1r",
+                        "imageId": "45e777d3-be5d-48a9-5fde-adc12190cb00"
+                    }
+                },
+                {
+                    "activityType": "speakReading",
+                    "title": "Luyện nói theo: Healthspan vs. Lifespan – Sống lâu hay sống khỏe?",
+                    "description": "Phát âm toàn bộ bài viết hoàn chỉnh có chứa 18 từ vựng đã học để củng cố khả năng nói",
+                    "practiceMinutes": 15,
+                    "data": {
+                        "text": "Over the past century, modern medicine has achieved something remarkable: it has dramatically extended the average human lifespan. People are living longer than ever before. But there is a troubling truth hidden behind these numbers. While lifespan has increased, healthspan has not kept pace. Many people spend their final years battling chronic diseases — heart disease, diabetes, cancer, and dementia. They are alive, but they have lost their vitality. Peter Attia argues that true longevity is not just about reducing mortality. It is about preserving the quality of life for as long as possible. The real question is not \"How long can you live?\" but \"How well can you live?\"\n\nModern medicine operates in reactive mode. It waits for chronic diseases to appear and then fights them. But by that point, degenerative damage has already been done. Cognitive decline has already begun. Metabolic health has already deteriorated. Peter Attia calls this approach \"Medicine 2.0\" — a system focused on reducing mortality but largely ignoring morbidity. The result is what he calls the \"marginal decade\" — the final years of life spent in a state of declining functional capacity, dependence, and suffering. People are alive, but they can no longer do the things that make life worth living. The alternative, Attia argues, is preventive action: intervening decades before disease strikes, protecting the body and mind while they are still strong.\n\nPeter Attia envisions a new era of medicine — one that is proactive rather than reactive. Instead of waiting for decline to set in, this approach seeks to intervene early, preserve physical and cognitive function, and optimize every aspect of health. The goal is not simply to add years to life, but to add life to years — to protect quality of life until the very end. This means taking action decades before disease appears: building strength, maintaining metabolic health, nurturing emotional resilience, and sharpening the mind. Attia believes that if we shift our focus from merely delaying death to actively preserving vitality, we can transform the marginal decade from a period of suffering into a period of purpose and joy.",
+                        "userReadingId": "j5ia87sg",
+                        "imageId": "45e777d3-be5d-48a9-5fde-adc12190cb00"
+                    }
+                },
+                {
+                    "activityType": "readAlong",
+                    "title": "Nghe bài đọc: Healthspan vs. Lifespan – Sống lâu hay sống khỏe?",
+                    "description": "Nghe toàn bộ bài viết hoàn chỉnh",
+                    "practiceMinutes": 3,
+                    "data": {
+                        "text": "Over the past century, modern medicine has achieved something remarkable: it has dramatically extended the average human lifespan. People are living longer than ever before. But there is a troubling truth hidden behind these numbers. While lifespan has increased, healthspan has not kept pace. Many people spend their final years battling chronic diseases — heart disease, diabetes, cancer, and dementia. They are alive, but they have lost their vitality. Peter Attia argues that true longevity is not just about reducing mortality. It is about preserving the quality of life for as long as possible. The real question is not \"How long can you live?\" but \"How well can you live?\"\n\nModern medicine operates in reactive mode. It waits for chronic diseases to appear and then fights them. But by that point, degenerative damage has already been done. Cognitive decline has already begun. Metabolic health has already deteriorated. Peter Attia calls this approach \"Medicine 2.0\" — a system focused on reducing mortality but largely ignoring morbidity. The result is what he calls the \"marginal decade\" — the final years of life spent in a state of declining functional capacity, dependence, and suffering. People are alive, but they can no longer do the things that make life worth living. The alternative, Attia argues, is preventive action: intervening decades before disease strikes, protecting the body and mind while they are still strong.\n\nPeter Attia envisions a new era of medicine — one that is proactive rather than reactive. Instead of waiting for decline to set in, this approach seeks to intervene early, preserve physical and cognitive function, and optimize every aspect of health. The goal is not simply to add years to life, but to add life to years — to protect quality of life until the very end. This means taking action decades before disease appears: building strength, maintaining metabolic health, nurturing emotional resilience, and sharpening the mind. Attia believes that if we shift our focus from merely delaying death to actively preserving vitality, we can transform the marginal decade from a period of suffering into a period of purpose and joy.",
+                        "mp3Url": "https://nspacesing.s3.ap-southeast-1.amazonaws.com/audio/intro/20260228T085536_GNF.mp3",
+                        "segments": [
+                            {
+                                "text": "Over the past century,",
+                                "startTime": 0.22,
+                                "endTime": 1.48
+                            },
+                            {
+                                "text": "modern medicine has achieved something",
+                                "startTime": 1.48,
+                                "endTime": 3.66
+                            },
+                            {
+                                "text": "remarkable. It has dramatically extended",
+                                "startTime": 3.66,
+                                "endTime": 5.96
+                            },
+                            {
+                                "text": "the average human lifespan,",
+                                "startTime": 5.96,
+                                "endTime": 7.52
+                            },
+                            {
+                                "text": "people are living longer than",
+                                "startTime": 8.01,
+                                "endTime": 9.62
+                            },
+                            {
+                                "text": "ever before,",
+                                "startTime": 9.62,
+                                "endTime": 10.29
+                            },
+                            {
+                                "text": "but there is a troubling",
+                                "startTime": 10.68,
+                                "endTime": 11.97
+                            },
+                            {
+                                "text": "truth hidden behind these numbers.",
+                                "startTime": 11.97,
+                                "endTime": 13.8
+                            },
+                            {
+                                "text": "While lifespan has increased,",
+                                "startTime": 14.236,
+                                "endTime": 15.566
+                            },
+                            {
+                                "text": "health span has not kept pace.",
+                                "startTime": 16.036,
+                                "endTime": 18.076
+                            },
+                            {
+                                "text": "Many people spend their final",
+                                "startTime": 18.53,
+                                "endTime": 20.31
+                            },
+                            {
+                                "text": "years battling chronic diseases,",
+                                "startTime": 20.31,
+                                "endTime": 22.27
+                            },
+                            {
+                                "text": "heart disease, diabetes,",
+                                "startTime": 22.27,
+                                "endTime": 23.75
+                            },
+                            {
+                                "text": "cancer, and dementia.",
+                                "startTime": 23.75,
+                                "endTime": 25.04
+                            },
+                            {
+                                "text": "They are alive,",
+                                "startTime": 25.49,
+                                "endTime": 26.41
+                            },
+                            {
+                                "text": "but they have lost their vitality.",
+                                "startTime": 26.41,
+                                "endTime": 28.52
+                            },
+                            {
+                                "text": "Peter Ateia argues",
+                                "startTime": 29.18,
+                                "endTime": 30.29
+                            },
+                            {
+                                "text": "that true longevity is not",
+                                "startTime": 30.29,
+                                "endTime": 31.9
+                            },
+                            {
+                                "text": "just about reducing mortality. It",
+                                "startTime": 31.9,
+                                "endTime": 33.93
+                            },
+                            {
+                                "text": "is about preserving the quality",
+                                "startTime": 33.93,
+                                "endTime": 35.85
+                            },
+                            {
+                                "text": "of life for as long",
+                                "startTime": 35.85,
+                                "endTime": 37.02
+                            },
+                            {
+                                "text": "as possible.",
+                                "startTime": 37.02,
+                                "endTime": 37.77
+                            },
+                            {
+                                "text": "The real question is not",
+                                "startTime": 38.21,
+                                "endTime": 39.78
+                            },
+                            {
+                                "text": "how long can you live,",
+                                "startTime": 39.78,
+                                "endTime": 41.22
+                            },
+                            {
+                                "text": "but how well can you live?",
+                                "startTime": 41.22,
+                                "endTime": 42.92
+                            },
+                            {
+                                "text": "Modern medicine operates",
+                                "startTime": 44.37,
+                                "endTime": 45.77
+                            },
+                            {
+                                "text": "in reactive mode. It waits",
+                                "startTime": 45.77,
+                                "endTime": 47.28
+                            },
+                            {
+                                "text": "for chronic diseases",
+                                "startTime": 47.28,
+                                "endTime": 48.45
+                            },
+                            {
+                                "text": "to appear and then fights them.",
+                                "startTime": 48.45,
+                                "endTime": 50.26
+                            },
+                            {
+                                "text": "But by that point,",
+                                "startTime": 50.65,
+                                "endTime": 51.56
+                            },
+                            {
+                                "text": "degenerative damage has already been done.",
+                                "startTime": 51.56,
+                                "endTime": 53.68
+                            },
+                            {
+                                "text": "Cognitive decline has already begun.",
+                                "startTime": 54.046,
+                                "endTime": 55.796
+                            },
+                            {
+                                "text": "Metabolic health has already deteriorated.",
+                                "startTime": 56.156,
+                                "endTime": 58.276
+                            },
+                            {
+                                "text": "Peter Ateia calls this approach",
+                                "startTime": 58.66,
+                                "endTime": 60.89
+                            },
+                            {
+                                "text": "medicine 2.0.",
+                                "startTime": 60.89,
+                                "endTime": 61.83
+                            },
+                            {
+                                "text": "A system focused",
+                                "startTime": 62.17,
+                                "endTime": 63.14
+                            },
+                            {
+                                "text": "on reducing mortality,",
+                                "startTime": 63.14,
+                                "endTime": 64.48
+                            },
+                            {
+                                "text": "but largely ignoring morbidity.",
+                                "startTime": 64.48,
+                                "endTime": 66.37
+                            },
+                            {
+                                "text": "The result is what he",
+                                "startTime": 66.9,
+                                "endTime": 68
+                            },
+                            {
+                                "text": "calls the marginal decade.",
+                                "startTime": 68,
+                                "endTime": 69.38
+                            },
+                            {
+                                "text": "The final years",
+                                "startTime": 69.73,
+                                "endTime": 70.53
+                            },
+                            {
+                                "text": "of life spent",
+                                "startTime": 70.53,
+                                "endTime": 71.22
+                            },
+                            {
+                                "text": "in a state",
+                                "startTime": 71.22,
+                                "endTime": 71.75
+                            },
+                            {
+                                "text": "of declining functional capacity,",
+                                "startTime": 71.75,
+                                "endTime": 73.52
+                            },
+                            {
+                                "text": "depend ence and suffering",
+                                "startTime": 73.906,
+                                "endTime": 75.246
+                            },
+                            {
+                                "text": "People are alive,",
+                                "startTime": 75.9,
+                                "endTime": 76.78
+                            },
+                            {
+                                "text": "but they can no longer",
+                                "startTime": 76.78,
+                                "endTime": 77.92
+                            },
+                            {
+                                "text": "do the things",
+                                "startTime": 77.92,
+                                "endTime": 78.59
+                            },
+                            {
+                                "text": "that make life worth living.",
+                                "startTime": 78.59,
+                                "endTime": 80.05
+                            },
+                            {
+                                "text": "The alternative, Atea argues,",
+                                "startTime": 80.56,
+                                "endTime": 82.31
+                            },
+                            {
+                                "text": "is preventative action. Intervening decades",
+                                "startTime": 82.31,
+                                "endTime": 84.92
+                            },
+                            {
+                                "text": "before disease strikes,",
+                                "startTime": 84.92,
+                                "endTime": 86.31
+                            },
+                            {
+                                "text": "protecting the body",
+                                "startTime": 86.31,
+                                "endTime": 87.46
+                            },
+                            {
+                                "text": "and mind while they are",
+                                "startTime": 87.46,
+                                "endTime": 88.86
+                            },
+                            {
+                                "text": "still strong.",
+                                "startTime": 88.86,
+                                "endTime": 89.65
+                            },
+                            {
+                                "text": "Peter Ateia envisions a new",
+                                "startTime": 91.02,
+                                "endTime": 92.79
+                            },
+                            {
+                                "text": "era of medicine,",
+                                "startTime": 92.79,
+                                "endTime": 93.84
+                            },
+                            {
+                                "text": "one that is proactive rather",
+                                "startTime": 93.84,
+                                "endTime": 95.68
+                            },
+                            {
+                                "text": "than reactive.",
+                                "startTime": 95.68,
+                                "endTime": 96.6
+                            },
+                            {
+                                "text": "Instead of waiting",
+                                "startTime": 96.93,
+                                "endTime": 97.99
+                            },
+                            {
+                                "text": "for a decline",
+                                "startTime": 97.99,
+                                "endTime": 98.75
+                            },
+                            {
+                                "text": "to set in,",
+                                "startTime": 98.75,
+                                "endTime": 99.34
+                            },
+                            {
+                                "text": "this approach seeks",
+                                "startTime": 99.34,
+                                "endTime": 100.46
+                            },
+                            {
+                                "text": "to intervene early,",
+                                "startTime": 100.46,
+                                "endTime": 101.58
+                            },
+                            {
+                                "text": "preserve physical and cognitive function",
+                                "startTime": 101.58,
+                                "endTime": 103.93
+                            },
+                            {
+                                "text": "and optimize every aspect",
+                                "startTime": 103.93,
+                                "endTime": 105.41
+                            },
+                            {
+                                "text": "of health.",
+                                "startTime": 105.41,
+                                "endTime": 106
+                            },
+                            {
+                                "text": "The goal is not simply",
+                                "startTime": 106.41,
+                                "endTime": 107.85
+                            },
+                            {
+                                "text": "to add years",
+                                "startTime": 107.85,
+                                "endTime": 108.65
+                            },
+                            {
+                                "text": "to life, but",
+                                "startTime": 108.65,
+                                "endTime": 109.44
+                            },
+                            {
+                                "text": "to add life",
+                                "startTime": 109.44,
+                                "endTime": 110.16
+                            },
+                            {
+                                "text": "to life, to protect quality",
+                                "startTime": 110.16,
+                                "endTime": 111.94
+                            },
+                            {
+                                "text": "of life until the very end.",
+                                "startTime": 111.94,
+                                "endTime": 113.72
+                            },
+                            {
+                                "text": "This means taking action decades",
+                                "startTime": 114.25,
+                                "endTime": 115.97
+                            },
+                            {
+                                "text": "before disease appears.",
+                                "startTime": 115.97,
+                                "endTime": 117.21
+                            },
+                            {
+                                "text": "Building strength, maintaining metabolic health,",
+                                "startTime": 117.55,
+                                "endTime": 120.09
+                            },
+                            {
+                                "text": "nurturing emotion al resilience",
+                                "startTime": 120.09,
+                                "endTime": 121.73
+                            },
+                            {
+                                "text": "and sharpening the mind.",
+                                "startTime": 121.73,
+                                "endTime": 123
+                            },
+                            {
+                                "text": "Atea believes that if we",
+                                "startTime": 123.61,
+                                "endTime": 125
+                            },
+                            {
+                                "text": "shift our focus",
+                                "startTime": 125,
+                                "endTime": 125.87
+                            },
+                            {
+                                "text": "from merely delaying death",
+                                "startTime": 125.87,
+                                "endTime": 127.38
+                            },
+                            {
+                                "text": "to actively preserving vitality,",
+                                "startTime": 127.38,
+                                "endTime": 129.24
+                            },
+                            {
+                                "text": "we can transform the marginal",
+                                "startTime": 129.55,
+                                "endTime": 131.3
+                            },
+                            {
+                                "text": "decade from a period",
+                                "startTime": 131.3,
+                                "endTime": 132.52
+                            },
+                            {
+                                "text": "of suffering into a period",
+                                "startTime": 132.52,
+                                "endTime": 134.09
+                            },
+                            {
+                                "text": "of purpose and joy.",
+                                "startTime": 134.09,
+                                "endTime": 135.25
+                            }
+                        ]
+                    }
+                },
+                {
+                    "activityType": "introAudio",
+                    "title": "Tổng kết & Chúc mừng hoàn thành",
+                    "description": "Nghe tổng kết tất cả các điểm ngữ pháp đã học và lời chào tạm biệt",
+                    "practiceMinutes": 4,
+                    "data": {
+                        "text": "Chúc mừng bạn đã hoàn thành toàn bộ bài học về sự khác biệt giữa healthspan và lifespan! Trước khi chia tay, chúng mình cùng ôn lại những điểm quan trọng nhé. Điểm thứ nhất: 'lifespan' là tổng số năm sống, 'healthspan' là số năm sống khỏe mạnh. Hai từ này là danh từ ghép: life + span và health + span. Điểm thứ hai: 'longevity' rộng hơn 'lifespan' – bao gồm cả khái niệm sống lâu và sống khỏe. Điểm thứ ba: 'chronic disease' là cụm danh từ. Chronic nghĩa là mãn tính, trái nghĩa với acute – cấp tính. Điểm thứ tư: 'mortality' khác 'morbidity'. Mortality liên quan đến cái chết, morbidity liên quan đến việc sống với bệnh tật. Điểm thứ năm: 'cognitive decline' là cụm danh từ phổ biến – suy giảm nhận thức. Cấu trúc: age-related cognitive decline. Điểm thứ sáu: 'preventive' phổ biến hơn 'preventative' trong ngữ cảnh y học – preventive medicine, preventive care. Điểm thứ bảy: 'proactive' rộng hơn 'preventive' – là tư duy chủ động trong mọi việc, không chỉ phòng ngừa. Điểm thứ tám: 'decline' dùng được cả như danh từ và động từ – a decline in something, hoặc something declines. Điểm cuối cùng: 'preserve' là giữ gìn trạng thái hiện tại, 'optimize' là nâng cấp lên mức tốt nhất. Bạn đã hoàn thành xuất sắc bài học với 18 từ vựng mới và một bài đọc sâu sắc. Thông điệp cốt lõi từ Peter Attia là: đừng chỉ cố sống lâu – hãy sống khỏe. Hãy chủ động bảo tồn sức sống, tối ưu hóa sức khỏe, và biến những năm cuối đời thành khoảng thời gian tràn đầy ý nghĩa. Cảm ơn bạn đã đồng hành! Hẹn gặp lại ở bài tiếp theo nhé. Tạm biệt!",
+                        "mp3Url": "https://nspacesing.s3.ap-southeast-1.amazonaws.com/audio/intro/20260228T085839_NVM.mp3",
+                        "whiteboardItems": [
+                            {
+                                "headline": "Lifespan vs. Healthspan",
+                                "subtitle": "Lifespan là tổng số năm sống, Healthspan là số năm sống khỏe mạnh. Danh từ ghép: life + span, health + span",
+                                "secondsFromStart": 11
+                            },
+                            {
+                                "headline": "Longevity",
+                                "subtitle": "Rộng hơn lifespan – bao gồm cả khái niệm sống lâu và sống khỏe",
+                                "secondsFromStart": 22
+                            },
+                            {
+                                "headline": "Chronic Disease",
+                                "subtitle": "Cụm danh từ: chronic (mãn tính) trái nghĩa với acute (cấp tính)",
+                                "secondsFromStart": 29
+                            },
+                            {
+                                "headline": "Mortality vs. Morbidity",
+                                "subtitle": "Mortality liên quan đến cái chết, morbidity liên quan đến việc sống với bệnh tật",
+                                "secondsFromStart": 36
+                            },
+                            {
+                                "headline": "Cognitive Decline",
+                                "subtitle": "Suy giảm nhận thức – cấu trúc: age-related cognitive decline",
+                                "secondsFromStart": 45
+                            },
+                            {
+                                "headline": "Preventive vs. Preventative",
+                                "subtitle": "Preventive phổ biến hơn trong ngữ cảnh y học: preventive medicine, preventive care",
+                                "secondsFromStart": 55
+                            },
+                            {
+                                "headline": "Proactive",
+                                "subtitle": "Rộng hơn preventive – tư duy chủ động trong mọi việc, không chỉ phòng ngừa",
+                                "secondsFromStart": 63
+                            },
+                            {
+                                "headline": "Decline",
+                                "subtitle": "Dùng được cả như danh từ và động từ: a decline in something / something declines",
+                                "secondsFromStart": 70
+                            },
+                            {
+                                "headline": "Preserve vs. Optimize",
+                                "subtitle": "Preserve là giữ gìn trạng thái hiện tại, optimize là nâng cấp lên mức tốt nhất",
+                                "secondsFromStart": 79
+                            },
+                            {
+                                "headline": "Thông điệp cốt lõi",
+                                "subtitle": "Đừng chỉ cố sống lâu – hãy sống khỏe. Chủ động bảo tồn sức sống, tối ưu hóa sức khỏe",
+                                "secondsFromStart": 91
+                            }
+                        ],
+                        "chapterBookmarks": [
+                            {
+                                "title": "Giới thiệu phần ôn tập cuối bài",
+                                "secondsFromStart": 0
+                            },
+                            {
+                                "title": "Ôn tập 9 điểm từ vựng quan trọng",
+                                "secondsFromStart": 9
+                            },
+                            {
+                                "title": "Thông điệp cốt lõi và lời kết",
+                                "secondsFromStart": 85
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    ],
+    "taskId": null,
+    "illustrationSet": {
+        "square": "f528dd35-fc97-4f4a-9244-a848423e2200",
+        "vertical": "5307b42a-3d06-4994-4010-033c94641300",
+        "horizontal": "e5a46668-fb96-4abb-9123-5e664182c900"
+    }
+}
