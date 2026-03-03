@@ -1,0 +1,2663 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Xanh Tương Lai – Phí ổn định, tương lai vững vàng | Manulife Việt Nam</title>
+  <style>
+    /* ============================================
+       1. CSS Custom Properties (Design Tokens)
+       ============================================ */
+    :root {
+      /* Brand Colors */
+      --color-primary: #00A758;
+      --color-dark-green: #006B3F;
+      --color-white: #FFFFFF;
+      --color-light-green: #E8F5E9;
+      --color-accent: #2E8B57;
+      --color-text: #1A1A1A;
+      --color-text-light: #4A4A4A;
+      --color-bg: #FAFAFA;
+      --color-bg-alt: #F0F7F2;
+      --color-border: #D4E8D9;
+      --color-overlay: rgba(0, 0, 0, 0.5);
+
+      /* Spacing Scale */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2rem;
+      --space-2xl: 3rem;
+      --space-3xl: 4rem;
+      --space-4xl: 6rem;
+
+      /* Typography */
+      --font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      --font-size-base: 1rem;
+      --font-size-sm: 0.875rem;
+      --font-size-lg: 1.125rem;
+      --font-size-xl: 1.5rem;
+      --font-size-2xl: 2rem;
+      --font-size-3xl: 2.5rem;
+      --font-weight-normal: 400;
+      --font-weight-medium: 500;
+      --font-weight-bold: 700;
+      --line-height-base: 1.6;
+      --line-height-heading: 1.3;
+
+      /* Borders & Radius */
+      --radius-sm: 4px;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+      --radius-xl: 16px;
+
+      /* Shadows */
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+      --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+      --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+
+      /* Transitions */
+      --transition-fast: 150ms ease;
+      --transition-base: 300ms ease;
+      --transition-slow: 600ms ease;
+
+      /* Nav */
+      --nav-height: 64px;
+    }
+
+    /* ============================================
+       2. Reset & Base Styles
+       ============================================ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      font-family: var(--font-family, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif);
+      font-size: 16px;
+      font-size: var(--font-size-base, 16px);
+      line-height: 1.6;
+      line-height: var(--line-height-base, 1.6);
+      color: #1A1A1A;
+      color: var(--color-text, #1A1A1A);
+      background-color: #FAFAFA;
+      background-color: var(--color-bg, #FAFAFA);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+
+    img, svg {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    a {
+      color: #00A758;
+      color: var(--color-primary, #00A758);
+      text-decoration: none;
+    }
+
+    ul, ol {
+      list-style: none;
+    }
+
+    h1, h2, h3, h4 {
+      font-weight: 700;
+      font-weight: var(--font-weight-bold, 700);
+      line-height: 1.3;
+      line-height: var(--line-height-heading, 1.3);
+      color: #006B3F;
+      color: var(--color-dark-green, #006B3F);
+    }
+
+    h1 { font-size: 2.5rem; font-size: var(--font-size-3xl, 2.5rem); }
+    h2 { font-size: 2rem; font-size: var(--font-size-2xl, 2rem); }
+    h3 { font-size: 1.5rem; font-size: var(--font-size-xl, 1.5rem); }
+
+    p {
+      margin-bottom: 1rem;
+      margin-bottom: var(--space-md, 1rem);
+    }
+
+    /* ============================================
+       3. Section & Container Styles
+       ============================================ */
+    section {
+      padding: 4rem 1.5rem;
+      padding: var(--space-3xl, 4rem) var(--space-lg, 1.5rem);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 2rem;
+      margin-bottom: var(--space-xl, 2rem);
+      position: relative;
+    }
+
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 3px;
+      background-color: #00A758;
+      background-color: var(--color-primary, #00A758);
+      margin: 0.5rem auto 0;
+      margin: var(--space-sm, 0.5rem) auto 0;
+      border-radius: 2px;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: #4A4A4A;
+      color: var(--color-text-light, #4A4A4A);
+      font-size: 1.125rem;
+      font-size: var(--font-size-lg, 1.125rem);
+      max-width: 700px;
+      margin: 0 auto 3rem;
+      margin: 0 auto var(--space-2xl, 3rem);
+    }
+
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: linear-gradient(135deg, #006B3F 0%, #00A758 60%, #E8F5E9 100%);
+      color: #FFFFFF;
+      color: var(--color-white, #FFFFFF);
+      padding-top: 64px;
+      padding-top: var(--nav-height, 64px);
+      position: relative;
+    }
+
+    #hero h1 {
+      color: #FFFFFF;
+      color: var(--color-white, #FFFFFF);
+    }
+
+    #hero .hero-subtitle {
+      font-size: 1.125rem;
+      font-size: var(--font-size-lg, 1.125rem);
+      max-width: 600px;
+      margin: 1rem auto 2rem;
+      margin: var(--space-md, 1rem) auto var(--space-xl, 2rem);
+      opacity: 0.95;
+    }
+
+    .hero-banner {
+      max-width: 480px;
+      width: 100%;
+      height: auto;
+      margin: 0 auto 1.5rem;
+      border-radius: 12px;
+      border-radius: var(--radius-lg, 12px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    }
+
+    #tong-quan {
+      background-color: #FFFFFF;
+      background-color: var(--color-white, #FFFFFF);
+    }
+
+    #quyen-loi {
+      background-color: #F0F7F2;
+      background-color: var(--color-bg-alt, #F0F7F2);
+    }
+
+    #riders {
+      background-color: #FFFFFF;
+      background-color: var(--color-white, #FFFFFF);
+    }
+
+    #quy-dau-tu {
+      background-color: #F0F7F2;
+      background-color: var(--color-bg-alt, #F0F7F2);
+    }
+
+    #ai-nen-chon {
+      background-color: #FFFFFF;
+      background-color: var(--color-white, #FFFFFF);
+    }
+
+    #ai-nen-chon .cards-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    #ai-nen-chon .card {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #ai-nen-chon .card-icon {
+      margin-bottom: 1rem;
+      margin-bottom: var(--space-md, 1rem);
+    }
+
+    #ai-nen-chon .card-title {
+      font-size: 1rem;
+      font-size: var(--font-size-base, 1rem);
+      font-weight: 500;
+      font-weight: var(--font-weight-medium, 500);
+      color: #1A1A1A;
+      color: var(--color-text, #1A1A1A);
+      line-height: 1.5;
+    }
+
+    #faq {
+      background-color: #F0F7F2;
+      background-color: var(--color-bg-alt, #F0F7F2);
+    }
+
+    #lien-he {
+      background-color: #FFFFFF;
+      background-color: var(--color-white, #FFFFFF);
+    }
+
+    /* ============================================
+       4. Navigation Styles
+       ============================================ */
+    #main-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 1.5rem;
+      padding: 0 var(--space-lg, 1.5rem);
+      height: 64px;
+      height: var(--nav-height, 64px);
+      background-color: transparent;
+      transition: background-color 300ms ease, box-shadow 300ms ease;
+      transition: background-color var(--transition-base, 300ms ease), box-shadow var(--transition-base, 300ms ease);
+    }
+
+    #main-nav.nav-solid {
+      background-color: #006B3F;
+      background-color: var(--color-dark-green, #006B3F);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      box-shadow: var(--shadow-md, 0 4px 12px rgba(0, 0, 0, 0.1));
+    }
+
+    .nav-brand {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .nav-brand .brand-product {
+      font-size: 1.125rem;
+      font-size: var(--font-size-lg, 1.125rem);
+      font-weight: 700;
+      font-weight: var(--font-weight-bold, 700);
+      color: #FFFFFF;
+      color: var(--color-white, #FFFFFF);
+    }
+
+    .nav-brand .brand-company {
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      gap: var(--space-lg, 1.5rem);
+    }
+
+    .nav-links a {
+      color: #FFFFFF;
+      color: var(--color-white, #FFFFFF);
+      font-size: 0.875rem;
+      font-size: var(--font-size-sm, 0.875rem);
+      font-weight: 500;
+      font-weight: var(--font-weight-medium, 500);
+      padding: 0.25rem 0;
+      padding: var(--space-xs, 0.25rem) 0;
+      border-bottom: 2px solid transparent;
+      transition: border-color 150ms ease;
+      transition: border-color var(--transition-fast, 150ms ease);
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      border-bottom-color: #FFFFFF;
+      border-bottom-color: var(--color-white, #FFFFFF);
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem;
+      padding: var(--space-sm, 0.5rem);
+      z-index: 1001;
+    }
+
+    .hamburger-line {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background-color: #FFFFFF;
+      background-color: var(--color-white, #FFFFFF);
+      border-radius: 2px;
+      transition: transform 300ms ease, opacity 300ms ease;
+      transition: transform var(--transition-base, 300ms ease), opacity var(--transition-base, 300ms ease);
+    }
+
+    /* ============================================
+       5. Card Component Styles
+       ============================================ */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      gap: var(--space-lg, 1.5rem);
+    }
+
+    .card {
+      background-color: #FFFFFF;
+      background-color: var(--color-white, #FFFFFF);
+      border-radius: 12px;
+      border-radius: var(--radius-lg, 12px);
+      padding: 2rem;
+      padding: var(--space-xl, 2rem);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+      box-shadow: var(--shadow-sm, 0 1px 3px rgba(0, 0, 0, 0.08));
+      border: 1px solid #D4E8D9;
+      border: 1px solid var(--color-border, #D4E8D9);
+      transition: transform 300ms ease, box-shadow 300ms ease;
+      transition: transform var(--transition-base, 300ms ease), box-shadow var(--transition-base, 300ms ease);
+    }
+
+    .card .card-icon {
+      width: 48px;
+      height: 48px;
+      margin-bottom: 1rem;
+      margin-bottom: var(--space-md, 1rem);
+      color: #00A758;
+      color: var(--color-primary, #00A758);
+    }
+
+    .card .card-title {
+      font-size: 1.125rem;
+      font-size: var(--font-size-lg, 1.125rem);
+      font-weight: 700;
+      font-weight: var(--font-weight-bold, 700);
+      color: #006B3F;
+      color: var(--color-dark-green, #006B3F);
+      margin-bottom: 0.5rem;
+      margin-bottom: var(--space-sm, 0.5rem);
+    }
+
+    .card .card-description {
+      color: #4A4A4A;
+      color: var(--color-text-light, #4A4A4A);
+      font-size: 0.875rem;
+      font-size: var(--font-size-sm, 0.875rem);
+      line-height: 1.6;
+      line-height: var(--line-height-base, 1.6);
+    }
+
+    .card .card-highlights {
+      margin-top: 1rem;
+      margin-top: var(--space-md, 1rem);
+    }
+
+    .card .card-highlights li {
+      padding: 0.25rem 0;
+      padding: var(--space-xs, 0.25rem) 0;
+      font-size: 0.875rem;
+      font-size: var(--font-size-sm, 0.875rem);
+      color: #4A4A4A;
+      color: var(--color-text-light, #4A4A4A);
+      position: relative;
+      padding-left: 1rem;
+      padding-left: var(--space-md, 1rem);
+    }
+
+    .card .card-highlights li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: #00A758;
+      color: var(--color-primary, #00A758);
+      font-weight: 700;
+      font-weight: var(--font-weight-bold, 700);
+    }
+
+    .rider-card {
+      border-top: 4px solid #00A758;
+      border-top: 4px solid var(--color-primary, #00A758);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      gap: var(--space-sm, 0.5rem);
+      padding: 0.5rem 1rem;
+      padding: var(--space-sm, 0.5rem) var(--space-md, 1rem);
+      background-color: rgba(255, 255, 255, 0.15);
+      border-radius: 16px;
+      border-radius: var(--radius-xl, 16px);
+      font-size: 0.875rem;
+      font-size: var(--font-size-sm, 0.875rem);
+      color: #FFFFFF;
+      color: var(--color-white, #FFFFFF);
+      backdrop-filter: blur(4px);
+    }
+
+    .badges-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.5rem;
+      gap: var(--space-sm, 0.5rem);
+      margin: 1.5rem 0;
+      margin: var(--space-lg, 1.5rem) 0;
+    }
+
+    /* ============================================
+       6. Button Styles
+       ============================================ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      gap: var(--space-sm, 0.5rem);
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      border-radius: var(--radius-md, 8px);
+      font-size: 1rem;
+      font-size: var(--font-size-base, 1rem);
+      font-weight: 500;
+      font-weight: var(--font-weight-medium, 500);
+      font-family: inherit;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: transform 150ms ease, box-shadow 150ms ease, background-color 150ms ease;
+      transition: transform var(--transition-fast, 150ms ease), box-shadow var(--transition-fast, 150ms ease), background-color var(--transition-fast, 150ms ease);
+      text-decoration: none;
+      line-height: 1.4;
+    }
+
+    .btn-primary {
+      background-color: #FFFFFF;
+      background-color: var(--color-white, #FFFFFF);
+      color: #006B3F;
+      color: var(--color-dark-green, #006B3F);
+      border-color: #FFFFFF;
+      border-color: var(--color-white, #FFFFFF);
+    }
+
+    .btn-secondary {
+      background-color: transparent;
+      color: #FFFFFF;
+      color: var(--color-white, #FFFFFF);
+      border-color: #FFFFFF;
+      border-color: var(--color-white, #FFFFFF);
+    }
+
+    .btn-cta {
+      background-color: #00A758;
+      background-color: var(--color-primary, #00A758);
+      color: #FFFFFF;
+      color: var(--color-white, #FFFFFF);
+      border-color: #00A758;
+      border-color: var(--color-primary, #00A758);
+    }
+
+    .hero-ctas {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      gap: var(--space-md, 1rem);
+      margin-top: 1.5rem;
+      margin-top: var(--space-lg, 1.5rem);
+    }
+
+    /* ============================================
+       7. Jargon & Tooltip Styles
+       ============================================ */
+    .jargon {
+      color: #00A758;
+      color: var(--color-primary, #00A758);
+      border-bottom: 1px dotted #00A758;
+      border-bottom: 1px dotted var(--color-primary, #00A758);
+      cursor: help;
+      position: relative;
+    }
+
+    .jargon:focus {
+      outline: 2px solid #00A758;
+      outline: 2px solid var(--color-primary, #00A758);
+      outline-offset: 2px;
+      border-radius: 2px;
+    }
+
+    .tooltip {
+      position: absolute;
+      z-index: 2000;
+      background-color: #1A1A1A;
+      background-color: var(--color-text, #1A1A1A);
+      color: #FFFFFF;
+      color: var(--color-white, #FFFFFF);
+      padding: 0.5rem 0.75rem;
+      padding: var(--space-sm, 0.5rem) 0.75rem;
+      border-radius: 8px;
+      border-radius: var(--radius-md, 8px);
+      font-size: 0.875rem;
+      font-size: var(--font-size-sm, 0.875rem);
+      max-width: 280px;
+      line-height: 1.5;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 150ms ease;
+      transition: opacity var(--transition-fast, 150ms ease);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      box-shadow: var(--shadow-md, 0 4px 12px rgba(0, 0, 0, 0.1));
+    }
+
+    .tooltip.visible {
+      opacity: 1;
+    }
+
+    .tooltip::before {
+      content: '';
+      position: absolute;
+      top: -6px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-bottom: 6px solid #1A1A1A;
+      border-bottom: 6px solid var(--color-text, #1A1A1A);
+    }
+
+    /* ============================================
+       8. Accordion Styles
+       ============================================ */
+    .accordion {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .accordion-item {
+      background-color: #FFFFFF;
+      background-color: var(--color-white, #FFFFFF);
+      border: 1px solid #D4E8D9;
+      border: 1px solid var(--color-border, #D4E8D9);
+      border-radius: 8px;
+      border-radius: var(--radius-md, 8px);
+      margin-bottom: 0.5rem;
+      margin-bottom: var(--space-sm, 0.5rem);
+      overflow: hidden;
+    }
+
+    .accordion-trigger {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 1.5rem;
+      padding: var(--space-md, 1rem) var(--space-lg, 1.5rem);
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 1rem;
+      font-size: var(--font-size-base, 1rem);
+      font-weight: 500;
+      font-weight: var(--font-weight-medium, 500);
+      color: #1A1A1A;
+      color: var(--color-text, #1A1A1A);
+      text-align: left;
+      transition: background-color 150ms ease;
+      transition: background-color var(--transition-fast, 150ms ease);
+    }
+
+    .accordion-trigger:hover {
+      background-color: #F0F7F2;
+      background-color: var(--color-bg-alt, #F0F7F2);
+    }
+
+    .accordion-trigger:focus-visible {
+      outline: 2px solid #00A758;
+      outline: 2px solid var(--color-primary, #00A758);
+      outline-offset: -2px;
+    }
+
+    .accordion-trigger .accordion-icon {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      transition: transform 300ms ease;
+      transition: transform var(--transition-base, 300ms ease);
+      color: #00A758;
+      color: var(--color-primary, #00A758);
+    }
+
+    .accordion-trigger[aria-expanded="true"] .accordion-icon {
+      transform: rotate(180deg);
+    }
+
+    .accordion-panel {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 300ms ease;
+      transition: max-height var(--transition-base, 300ms ease);
+    }
+
+    .accordion-panel-content {
+      padding: 0 1.5rem 1rem;
+      padding: 0 var(--space-lg, 1.5rem) var(--space-md, 1rem);
+      color: #4A4A4A;
+      color: var(--color-text-light, #4A4A4A);
+      line-height: 1.6;
+      line-height: var(--line-height-base, 1.6);
+    }
+
+    /* ============================================
+       9. Chart & Spectrum Styles
+       ============================================ */
+    .stbh-chart {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 1rem;
+      gap: var(--space-md, 1rem);
+      height: 250px;
+      padding: 1rem 0;
+      padding: var(--space-md, 1rem) 0;
+    }
+
+    .stbh-bar {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 1;
+      max-width: 80px;
+    }
+
+    .stbh-bar-fill {
+      width: 100%;
+      background: linear-gradient(180deg, #00A758, #006B3F);
+      border-radius: 4px 4px 0 0;
+      border-radius: var(--radius-sm, 4px) var(--radius-sm, 4px) 0 0;
+      transition: height 600ms ease;
+      transition: height var(--transition-slow, 600ms ease);
+      min-height: 0;
+    }
+
+    .stbh-bar-label {
+      margin-top: 0.5rem;
+      margin-top: var(--space-sm, 0.5rem);
+      font-size: 0.75rem;
+      text-align: center;
+      color: #4A4A4A;
+      color: var(--color-text-light, #4A4A4A);
+    }
+
+    .fund-spectrum {
+      position: relative;
+      margin: 2rem 0;
+      margin: var(--space-xl, 2rem) 0;
+    }
+
+    .fund-spectrum-bar {
+      height: 8px;
+      background: linear-gradient(90deg, #006B3F, #00A758, #FFB300);
+      border-radius: 4px;
+      border-radius: var(--radius-sm, 4px);
+      position: relative;
+    }
+
+    .fund-spectrum-labels {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 0.5rem;
+      margin-top: var(--space-sm, 0.5rem);
+      font-size: 0.875rem;
+      font-size: var(--font-size-sm, 0.875rem);
+      color: #4A4A4A;
+      color: var(--color-text-light, #4A4A4A);
+    }
+
+    .fund-marker {
+      position: absolute;
+      top: -8px;
+      width: 24px;
+      height: 24px;
+      background-color: #FFFFFF;
+      background-color: var(--color-white, #FFFFFF);
+      border: 3px solid #00A758;
+      border: 3px solid var(--color-primary, #00A758);
+      border-radius: 50%;
+      transform: translateX(-50%);
+      cursor: pointer;
+      transition: transform 150ms ease, box-shadow 150ms ease;
+      transition: transform var(--transition-fast, 150ms ease), box-shadow var(--transition-fast, 150ms ease);
+    }
+
+    .fund-marker:hover,
+    .fund-marker:focus {
+      transform: translateX(-50%) scale(1.2);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      box-shadow: var(--shadow-md, 0 4px 12px rgba(0, 0, 0, 0.1));
+    }
+
+    .fund-marker-label {
+      position: absolute;
+      top: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      white-space: nowrap;
+      font-size: 0.75rem;
+      color: #1A1A1A;
+      color: var(--color-text, #1A1A1A);
+    }
+
+    /* ============================================
+       10. Compliance Disclaimer Styles
+       ============================================ */
+    .disclaimer {
+      font-size: 0.8125rem;
+      color: #4A4A4A;
+      color: var(--color-text-light, #4A4A4A);
+      font-style: italic;
+      padding: 0.75rem 1rem;
+      background-color: #F0F7F2;
+      background-color: var(--color-bg-alt, #F0F7F2);
+      border-left: 3px solid #00A758;
+      border-left: 3px solid var(--color-primary, #00A758);
+      border-radius: 0 4px 4px 0;
+      border-radius: 0 var(--radius-sm, 4px) var(--radius-sm, 4px) 0;
+      margin-top: 1rem;
+      margin-top: var(--space-md, 1rem);
+      line-height: 1.5;
+    }
+
+    #hero .disclaimer {
+      background-color: rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.85);
+      border-left-color: rgba(255, 255, 255, 0.4);
+      margin-top: 2rem;
+      margin-top: var(--space-xl, 2rem);
+      max-width: 500px;
+    }
+
+    /* ============================================
+       11. Flow Diagram Styles
+       ============================================ */
+    .flow-diagram {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      gap: var(--space-md, 1rem);
+      flex-wrap: wrap;
+      margin: 2rem 0;
+      margin: var(--space-xl, 2rem) 0;
+    }
+
+    .flow-node {
+      padding: 1rem 1.5rem;
+      padding: var(--space-md, 1rem) var(--space-lg, 1.5rem);
+      border-radius: 8px;
+      border-radius: var(--radius-md, 8px);
+      text-align: center;
+      font-weight: 500;
+      font-weight: var(--font-weight-medium, 500);
+    }
+
+    .flow-node-primary {
+      background-color: #00A758;
+      background-color: var(--color-primary, #00A758);
+      color: #FFFFFF;
+      color: var(--color-white, #FFFFFF);
+    }
+
+    .flow-node-secondary {
+      background-color: #E8F5E9;
+      background-color: var(--color-light-green, #E8F5E9);
+      color: #006B3F;
+      color: var(--color-dark-green, #006B3F);
+      border: 1px solid #D4E8D9;
+      border: 1px solid var(--color-border, #D4E8D9);
+    }
+
+    .flow-arrow {
+      font-size: 1.5rem;
+      color: #00A758;
+      color: var(--color-primary, #00A758);
+    }
+
+    /* ============================================
+       12. Footer Styles
+       ============================================ */
+    #footer {
+      background-color: #006B3F;
+      background-color: var(--color-dark-green, #006B3F);
+      color: #FFFFFF;
+      color: var(--color-white, #FFFFFF);
+      padding: 2rem 1.5rem;
+      padding: var(--space-xl, 2rem) var(--space-lg, 1.5rem);
+      text-align: center;
+    }
+
+    .footer-brand {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.25rem;
+      gap: var(--space-xs, 0.25rem);
+    }
+
+    .footer-brand .brand-product {
+      font-size: 1.125rem;
+      font-size: var(--font-size-lg, 1.125rem);
+      font-weight: 700;
+      font-weight: var(--font-weight-bold, 700);
+    }
+
+    .footer-brand .brand-company {
+      font-size: 0.875rem;
+      font-size: var(--font-size-sm, 0.875rem);
+      opacity: 0.8;
+    }
+
+    #footer a {
+      color: #FFFFFF;
+      color: var(--color-white, #FFFFFF);
+      text-decoration: underline;
+    }
+
+    .footer-links {
+      margin-top: 1rem;
+      margin-top: var(--space-md, 1rem);
+      font-size: 0.875rem;
+      font-size: var(--font-size-sm, 0.875rem);
+    }
+
+    /* ============================================
+       13. Glossary Section Styles
+       ============================================ */
+    .glossary-list {
+      max-width: 800px;
+      margin: 0 auto;
+      columns: 1;
+    }
+
+    .glossary-item {
+      padding: 0.5rem 0;
+      padding: var(--space-sm, 0.5rem) 0;
+      border-bottom: 1px solid #D4E8D9;
+      border-bottom: 1px solid var(--color-border, #D4E8D9);
+    }
+
+    .glossary-term {
+      font-weight: 700;
+      font-weight: var(--font-weight-bold, 700);
+      color: #006B3F;
+      color: var(--color-dark-green, #006B3F);
+    }
+
+    .glossary-definition {
+      color: #4A4A4A;
+      color: var(--color-text-light, #4A4A4A);
+      font-size: 0.875rem;
+      font-size: var(--font-size-sm, 0.875rem);
+    }
+
+    /* ============================================
+       13b. Benefit Supplementary Details
+       ============================================ */
+    .benefit-details {
+      margin-top: 3rem;
+      margin-top: var(--space-2xl, 3rem);
+    }
+
+    .benefit-detail-block {
+      background-color: #FFFFFF;
+      background-color: var(--color-white, #FFFFFF);
+      border-radius: 12px;
+      border-radius: var(--radius-lg, 12px);
+      padding: 1.5rem 2rem;
+      padding: var(--space-lg, 1.5rem) var(--space-xl, 2rem);
+      margin-bottom: 1.5rem;
+      margin-bottom: var(--space-lg, 1.5rem);
+      border: 1px solid #D4E8D9;
+      border: 1px solid var(--color-border, #D4E8D9);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+      box-shadow: var(--shadow-sm, 0 1px 3px rgba(0, 0, 0, 0.08));
+    }
+
+    .benefit-detail-block h3 {
+      font-size: 1.125rem;
+      font-size: var(--font-size-lg, 1.125rem);
+      margin-bottom: 0.75rem;
+    }
+
+    .benefit-detail-block p {
+      font-size: 0.9375rem;
+      color: #4A4A4A;
+      color: var(--color-text-light, #4A4A4A);
+      line-height: 1.6;
+      line-height: var(--line-height-base, 1.6);
+    }
+
+    .benefit-detail-block ul {
+      margin-top: 0.5rem;
+      margin-top: var(--space-sm, 0.5rem);
+    }
+
+    .benefit-detail-block ul li {
+      padding: 0.25rem 0;
+      padding: var(--space-xs, 0.25rem) 0;
+      padding-left: 1.25rem;
+      font-size: 0.9375rem;
+      color: #4A4A4A;
+      color: var(--color-text-light, #4A4A4A);
+      position: relative;
+    }
+
+    .benefit-detail-block ul li::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: #00A758;
+      color: var(--color-primary, #00A758);
+      font-weight: 700;
+      font-weight: var(--font-weight-bold, 700);
+    }
+
+    .family-illustration {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      gap: var(--space-sm, 0.5rem);
+      flex-wrap: wrap;
+      margin: 1rem 0;
+      margin: var(--space-md, 1rem) 0;
+      padding: 1rem;
+      padding: var(--space-md, 1rem);
+      background-color: #E8F5E9;
+      background-color: var(--color-light-green, #E8F5E9);
+      border-radius: 8px;
+      border-radius: var(--radius-md, 8px);
+    }
+
+    .family-member-icon {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.25rem;
+      gap: var(--space-xs, 0.25rem);
+      font-size: 0.75rem;
+      color: #006B3F;
+      color: var(--color-dark-green, #006B3F);
+      font-weight: 500;
+      font-weight: var(--font-weight-medium, 500);
+    }
+
+    .family-member-icon svg {
+      color: #00A758;
+      color: var(--color-primary, #00A758);
+    }
+
+    .family-plus {
+      font-size: 1.25rem;
+      color: #00A758;
+      color: var(--color-primary, #00A758);
+      font-weight: 700;
+      font-weight: var(--font-weight-bold, 700);
+    }
+
+    .family-result {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      gap: var(--space-sm, 0.5rem);
+      padding: 0.5rem 1rem;
+      padding: var(--space-sm, 0.5rem) var(--space-md, 1rem);
+      background-color: #00A758;
+      background-color: var(--color-primary, #00A758);
+      color: #FFFFFF;
+      color: var(--color-white, #FFFFFF);
+      border-radius: 8px;
+      border-radius: var(--radius-md, 8px);
+      font-weight: 700;
+      font-weight: var(--font-weight-bold, 700);
+      font-size: 0.875rem;
+      font-size: var(--font-size-sm, 0.875rem);
+    }
+
+    /* ============================================
+       14. Utility & Animation Base Styles
+       ============================================ */
+    [data-animate] {
+      opacity: 0;
+    }
+
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    /* ============================================
+       15. Animation Keyframes
+       ============================================ */
+    @keyframes fade-in {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slide-up {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slide-in-left {
+      from { opacity: 0; transform: translateX(-30px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes slide-in-right {
+      from { opacity: 0; transform: translateX(30px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes scale-up {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    /* ============================================
+       16. [data-animate] Initial States & Animated Classes
+       ============================================ */
+    [data-animate="fade-in"] {
+      opacity: 0;
+    }
+
+    [data-animate="slide-up"] {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    [data-animate="slide-in-left"] {
+      opacity: 0;
+      transform: translateX(-30px);
+    }
+
+    [data-animate="slide-in-right"] {
+      opacity: 0;
+      transform: translateX(30px);
+    }
+
+    [data-animate="scale-up"] {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+
+    /* Animated state classes — added by JS when elements enter viewport */
+    .fade-in {
+      animation: fade-in 0.6s ease forwards;
+    }
+
+    .slide-up {
+      animation: slide-up 0.6s ease forwards;
+    }
+
+    .slide-in-left {
+      animation: slide-in-left 0.6s ease forwards;
+    }
+
+    .slide-in-right {
+      animation: slide-in-right 0.6s ease forwards;
+    }
+
+    .scale-up {
+      animation: scale-up 0.6s ease forwards;
+    }
+
+    /* ============================================
+       17. Hover Micro-Interactions
+       ============================================ */
+    .btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+      box-shadow: var(--shadow-lg, 0 8px 24px rgba(0, 0, 0, 0.12));
+    }
+
+    /* ============================================
+       18. Responsive Breakpoints
+       ============================================ */
+
+    /* Tablet and below: max-width 768px */
+    @media (max-width: 768px) {
+      /* Hamburger visible */
+      .hamburger {
+        display: flex;
+      }
+
+      /* Nav links hidden by default on mobile */
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 64px;
+        top: var(--nav-height, 64px);
+        left: 0;
+        right: 0;
+        background-color: #006B3F;
+        background-color: var(--color-dark-green, #006B3F);
+        padding: 1rem 0;
+        padding: var(--space-md, 1rem) 0;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        box-shadow: var(--shadow-md, 0 4px 12px rgba(0, 0, 0, 0.1));
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .nav-links li {
+        width: 100%;
+        text-align: center;
+      }
+
+      .nav-links a {
+        display: block;
+        padding: 0.75rem 1.5rem;
+        padding: 0.75rem var(--space-lg, 1.5rem);
+        border-bottom: none;
+      }
+
+      .nav-links a:hover,
+      .nav-links a.active {
+        background-color: rgba(255, 255, 255, 0.1);
+        border-bottom: none;
+      }
+
+      /* Hamburger open state */
+      .hamburger[aria-expanded="true"] .hamburger-line:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
+      }
+
+      .hamburger[aria-expanded="true"] .hamburger-line:nth-child(2) {
+        opacity: 0;
+      }
+
+      .hamburger[aria-expanded="true"] .hamburger-line:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
+      }
+
+      /* Cards grid single column */
+      .cards-grid {
+        grid-template-columns: 1fr;
+      }
+
+      /* Audience grid stays 2 columns on tablet */
+      #ai-nen-chon .cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      /* Hero adjustments */
+      h1 {
+        font-size: 1.75rem;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+      }
+
+      h3 {
+        font-size: 1.25rem;
+      }
+
+      section {
+        padding: 2.5rem 1rem;
+      }
+
+      .hero-ctas {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .badges-row {
+        gap: 0.375rem;
+      }
+
+      .badge {
+        font-size: 0.75rem;
+        padding: 0.375rem 0.75rem;
+      }
+
+      /* Flow diagram stacks vertically */
+      .flow-diagram {
+        flex-direction: column;
+      }
+
+      .flow-arrow {
+        transform: rotate(90deg);
+      }
+
+      /* STBH chart smaller */
+      .stbh-chart {
+        height: 180px;
+        gap: 0.5rem;
+      }
+
+      /* Glossary single column */
+      .glossary-list {
+        columns: 1;
+      }
+    }
+
+    /* Small mobile: max-width 480px */
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      h2 {
+        font-size: 1.25rem;
+      }
+
+      h3 {
+        font-size: 1.1rem;
+      }
+
+      section {
+        padding: 2rem 0.75rem;
+      }
+
+      .container {
+        padding: 0 0.25rem;
+      }
+
+      .card {
+        padding: 1.25rem;
+      }
+
+      .accordion-trigger {
+        padding: 0.75rem 1rem;
+        font-size: 0.9375rem;
+      }
+
+      .accordion-panel-content {
+        padding: 0 1rem 0.75rem;
+      }
+
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .badges-row {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .stbh-chart {
+        height: 150px;
+      }
+
+      .fund-marker-label {
+        font-size: 0.625rem;
+      }
+
+      /* Audience grid single column on small mobile */
+      #ai-nen-chon .cards-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ============================================
+       19. Reduced Motion Override
+       ============================================ */
+    @media (prefers-reduced-motion: reduce) {
+      [data-animate],
+      [data-animate="fade-in"],
+      [data-animate="slide-up"],
+      [data-animate="slide-in-left"],
+      [data-animate="slide-in-right"],
+      [data-animate="scale-up"] {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+
+      .fade-in,
+      .slide-up,
+      .slide-in-left,
+      .slide-in-right,
+      .scale-up {
+        animation-duration: 0s !important;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0s !important;
+        transition-duration: 0s !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav id="main-nav" aria-label="Điều hướng chính">
+    <div class="nav-brand">
+      <span class="brand-product">Xanh Tương Lai</span>
+      <span class="brand-company">Manulife Việt Nam</span>
+    </div>
+    <button class="hamburger" aria-expanded="false" aria-controls="nav-links" aria-label="Mở menu điều hướng">
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+    </button>
+    <ul id="nav-links" class="nav-links" role="list">
+      <li><a href="#tong-quan" aria-label="Đi đến phần Tổng quan">Tổng quan</a></li>
+      <li><a href="#quyen-loi" aria-label="Đi đến phần Quyền lợi">Quyền lợi</a></li>
+      <li><a href="#riders" aria-label="Đi đến phần Riders">Riders</a></li>
+      <li><a href="#quy-dau-tu" aria-label="Đi đến phần Quỹ đầu tư">Quỹ đầu tư</a></li>
+      <li><a href="#faq" aria-label="Đi đến phần FAQ">FAQ</a></li>
+      <li><a href="#lien-he" aria-label="Đi đến phần Liên hệ">Liên hệ</a></li>
+      <li><a href="#tu-dien" aria-label="Đi đến phần Từ điển">Từ điển</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <!-- Hero Section -->
+    <section id="hero" aria-label="Giới thiệu sản phẩm">
+      <div class="container">
+        <img src="banner.png" alt="Xanh Tương Lai – Manulife Việt Nam" class="hero-banner" data-animate="fade-in" data-delay="0">
+        <h1 data-animate="fade-in" data-delay="0">Xanh Tương Lai – Phí ổn định, tương lai vững vàng</h1>
+        <p class="hero-subtitle" data-animate="fade-in" data-delay="200">Giải pháp bảo hiểm liên kết đơn vị kết hợp bảo vệ toàn diện và đầu tư dài hạn – trong cùng một hợp đồng.</p>
+
+        <div class="badges-row" data-animate="fade-in" data-delay="400">
+          <!-- Badge 1: Bảo vệ tử vong/TTTBVV -->
+          <span class="badge">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+            Bảo vệ tử vong / TTTBVV
+          </span>
+          <!-- Badge 2: Tự động tăng STBH 10%/năm -->
+          <span class="badge">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+              <polyline points="17 6 23 6 23 12"/>
+            </svg>
+            Tự động tăng STBH 10%/năm
+          </span>
+          <!-- Badge 3: Riders linh hoạt -->
+          <span class="badge">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="12" y1="8" x2="12" y2="16"/>
+              <line x1="8" y1="12" x2="16" y2="12"/>
+            </svg>
+            Riders linh hoạt
+          </span>
+          <!-- Badge 4: Danh mục quỹ đa dạng -->
+          <span class="badge">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="3" y="3" width="7" height="7"/>
+              <rect x="14" y="3" width="7" height="7"/>
+              <rect x="3" y="14" width="7" height="7"/>
+              <rect x="14" y="14" width="7" height="7"/>
+            </svg>
+            Danh mục quỹ đa dạng
+          </span>
+        </div>
+
+        <div class="hero-ctas" data-animate="fade-in" data-delay="600">
+          <button class="btn btn-primary" type="button">Tính phí &amp; nhận minh họa</button>
+          <button class="btn btn-secondary" type="button">Nhận tư vấn miễn phí</button>
+        </div>
+
+        <p class="disclaimer" data-animate="fade-in" data-delay="800">Lợi nhuận không đảm bảo, phụ thuộc thị trường</p>
+      </div>
+    </section>
+
+    <!-- Product Overview -->
+    <section id="tong-quan" aria-label="Tổng quan sản phẩm">
+      <div class="container">
+        <h2 class="section-title" data-animate="fade-in">Tổng Quan Sản Phẩm</h2>
+        <p class="section-subtitle" data-animate="fade-in" data-delay="100">Hiểu đơn giản về <span class="jargon" data-term="bảo hiểm liên kết đơn vị" tabindex="0" role="button" aria-describedby="tooltip">bảo hiểm liên kết đơn vị</span> – sản phẩm kết hợp bảo vệ và đầu tư trong cùng một hợp đồng.</p>
+
+        <!-- Flow Diagram: Phí bảo hiểm → Bảo vệ rủi ro + Đầu tư qua Quỹ -->
+        <div class="flow-diagram" data-animate="fade-in" data-delay="200">
+          <div class="flow-node flow-node-primary" data-animate="slide-in-left" data-delay="300">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:inline-block;vertical-align:middle;margin-right:6px;">
+              <rect x="2" y="4" width="20" height="16" rx="2"/>
+              <line x1="2" y1="10" x2="22" y2="10"/>
+            </svg>
+            Phí bảo hiểm
+          </div>
+          <span class="flow-arrow" aria-hidden="true">→</span>
+          <div class="flow-node flow-node-secondary" data-animate="slide-in-right" data-delay="500">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:inline-block;vertical-align:middle;margin-right:6px;">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+            Bảo vệ rủi ro
+          </div>
+          <span class="flow-arrow" aria-hidden="true">+</span>
+          <div class="flow-node flow-node-secondary" data-animate="slide-in-right" data-delay="700">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:inline-block;vertical-align:middle;margin-right:6px;">
+              <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+              <polyline points="17 6 23 6 23 12"/>
+            </svg>
+            Đầu tư qua Quỹ
+          </div>
+        </div>
+
+        <!-- Phí ổn định explanation -->
+        <p data-animate="fade-in" data-delay="400" style="max-width:700px;margin:1.5rem auto;text-align:center;">Với phiên bản <strong><span class="jargon" data-term="phí ổn định" tabindex="0" role="button" aria-describedby="tooltip">phí ổn định</span></strong>, tổng phí bảo hiểm định kỳ được thiết kế ổn định trong suốt thời gian đóng phí dự kiến – giúp bạn dễ dàng lập kế hoạch tài chính dài hạn mà không lo phí tăng bất ngờ.</p>
+
+        <!-- Compliance Disclaimer -->
+        <p class="disclaimer" data-animate="fade-in" data-delay="500"><span class="jargon" data-term="giá trị tài khoản" tabindex="0" role="button" aria-describedby="tooltip">Giá trị tài khoản</span> và quyền lợi bảo hiểm không được đảm bảo vì phụ thuộc vào kết quả đầu tư của <span class="jargon" data-term="quỹ liên kết đơn vị" tabindex="0" role="button" aria-describedby="tooltip">quỹ liên kết đơn vị</span>. Giá trị tài khoản có thể tăng hoặc giảm theo biến động thị trường.</p>
+      </div>
+    </section>
+
+    <!-- Benefits -->
+    <section id="quyen-loi" aria-label="Quyền lợi chính">
+      <div class="container">
+        <h2 class="section-title" data-animate="fade-in">Quyền Lợi Chính</h2>
+        <p class="section-subtitle" data-animate="fade-in" data-delay="100">Ba quyền lợi cốt lõi giúp bạn an tâm bảo vệ gia đình và tích lũy tài chính dài hạn.</p>
+
+        <!-- 3 Benefit Cards -->
+        <div class="cards-grid">
+          <!-- Card 1: Tử vong / TTTBVV -->
+          <article class="card" data-animate="fade-in" data-delay="200">
+            <div class="card-icon">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              </svg>
+            </div>
+            <h3 class="card-title">Tử vong / <span class="jargon" data-term="TTTBVV" tabindex="0" role="button" aria-describedby="tooltip">TTTBVV</span></h3>
+            <p class="card-description">Chi trả giá trị cao hơn giữa <span class="jargon" data-term="STBH" tabindex="0" role="button" aria-describedby="tooltip">STBH</span> và <span class="jargon" data-term="giá trị tài khoản" tabindex="0" role="button" aria-describedby="tooltip">giá trị tài khoản</span> cơ bản, cộng giá trị tài khoản đóng thêm.</p>
+          </article>
+
+          <!-- Card 2: Tăng STBH tự động -->
+          <article class="card" data-animate="fade-in" data-delay="400">
+            <div class="card-icon">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+                <polyline points="17 6 23 6 23 12"/>
+              </svg>
+            </div>
+            <h3 class="card-title">Tăng <span class="jargon" data-term="STBH" tabindex="0" role="button" aria-describedby="tooltip">STBH</span> tự động</h3>
+            <p class="card-description"><span class="jargon" data-term="STBH" tabindex="0" role="button" aria-describedby="tooltip">STBH</span> tự động tăng 10% mỗi năm từ năm thứ 2 đến năm thứ 6, không cần thẩm định lại sức khỏe.</p>
+          </article>
+
+          <!-- Card 3: Đáo hạn -->
+          <article class="card" data-animate="fade-in" data-delay="600">
+            <div class="card-icon">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                <line x1="16" y1="2" x2="16" y2="6"/>
+                <line x1="8" y1="2" x2="8" y2="6"/>
+                <line x1="3" y1="10" x2="21" y2="10"/>
+                <polyline points="9 16 11 18 15 14"/>
+              </svg>
+            </div>
+            <h3 class="card-title"><span class="jargon" data-term="đáo hạn" tabindex="0" role="button" aria-describedby="tooltip">Đáo hạn</span></h3>
+            <p class="card-description">Nhận toàn bộ <span class="jargon" data-term="giá trị tài khoản" tabindex="0" role="button" aria-describedby="tooltip">giá trị tài khoản</span> khi hợp đồng <span class="jargon" data-term="đáo hạn" tabindex="0" role="button" aria-describedby="tooltip">đáo hạn</span>.</p>
+          </article>
+        </div>
+
+        <!-- Supplementary Details -->
+        <div class="benefit-details">
+
+          <!-- 1. Death/TPD benefit explanation -->
+          <div class="benefit-detail-block" data-animate="fade-in" data-delay="200">
+            <h3>🛡️ Quyền lợi tử vong / <span class="jargon" data-term="TTTBVV" tabindex="0" role="button" aria-describedby="tooltip">TTTBVV</span></h3>
+            <p>Khi xảy ra sự kiện bảo hiểm tử vong hoặc <span class="jargon" data-term="TTTBVV" tabindex="0" role="button" aria-describedby="tooltip">thương tật toàn bộ vĩnh viễn</span>, Manulife sẽ chi trả giá trị cao hơn giữa <span class="jargon" data-term="STBH" tabindex="0" role="button" aria-describedby="tooltip">STBH</span> và <span class="jargon" data-term="giá trị tài khoản" tabindex="0" role="button" aria-describedby="tooltip">giá trị tài khoản</span> cơ bản, cộng thêm giá trị tài khoản đóng thêm (nếu có). Điều này đảm bảo gia đình bạn luôn nhận được mức bảo vệ tối ưu nhất.</p>
+          </div>
+
+          <!-- 2. Maturity benefit with disclaimer -->
+          <div class="benefit-detail-block" data-animate="fade-in" data-delay="300">
+            <h3>📅 Quyền lợi <span class="jargon" data-term="đáo hạn" tabindex="0" role="button" aria-describedby="tooltip">đáo hạn</span></h3>
+            <p>Khi hợp đồng <span class="jargon" data-term="đáo hạn" tabindex="0" role="button" aria-describedby="tooltip">đáo hạn</span>, bạn sẽ nhận toàn bộ <span class="jargon" data-term="giá trị tài khoản" tabindex="0" role="button" aria-describedby="tooltip">giá trị tài khoản</span> tích lũy được.</p>
+            <p class="disclaimer">⚠️ Lưu ý: <span class="jargon" data-term="giá trị tài khoản" tabindex="0" role="button" aria-describedby="tooltip">Giá trị tài khoản</span> phụ thuộc vào kết quả đầu tư của <span class="jargon" data-term="quỹ liên kết đơn vị" tabindex="0" role="button" aria-describedby="tooltip">quỹ liên kết đơn vị</span> và có thể thấp hơn tổng phí bảo hiểm đã đóng. Kết quả đầu tư không được đảm bảo.</p>
+          </div>
+
+          <!-- 3. Funeral advance & thyroid cancer benefit -->
+          <div class="benefit-detail-block" data-animate="fade-in" data-delay="400">
+            <h3>➕ Quyền lợi bổ sung</h3>
+            <ul>
+              <li><strong>Tạm ứng mai táng:</strong> Chi trả ngay 30 triệu VND khi có yêu cầu, giúp gia đình giảm bớt gánh nặng tài chính trong thời điểm khó khăn.</li>
+              <li><strong>Quyền lợi ung thư tuyến giáp:</strong> Chi trả thêm 10% <span class="jargon" data-term="STBH" tabindex="0" role="button" aria-describedby="tooltip">STBH</span>, tối đa 100 triệu VND, khi được chẩn đoán ung thư tuyến giáp.</li>
+            </ul>
+          </div>
+
+          <!-- 4. Family member STBH increase illustration -->
+          <div class="benefit-detail-block" data-animate="fade-in" data-delay="500">
+            <h3>👨‍👩‍👧‍👦 Tăng <span class="jargon" data-term="STBH" tabindex="0" role="button" aria-describedby="tooltip">STBH</span> khi có thành viên mới</h3>
+            <p>Mỗi khi gia đình có thêm thành viên mới (con sinh ra, nhận con nuôi), <span class="jargon" data-term="STBH" tabindex="0" role="button" aria-describedby="tooltip">STBH</span> tự động tăng thêm <strong>+5%</strong> cho mỗi thành viên, tối đa <strong>+25%</strong>.</p>
+
+            <!-- Icon-based visual illustration -->
+            <div class="family-illustration">
+              <div class="family-member-icon">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                  <circle cx="12" cy="7" r="4"/>
+                </svg>
+                +5%
+              </div>
+              <span class="family-plus" aria-hidden="true">+</span>
+              <div class="family-member-icon">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                  <circle cx="12" cy="7" r="4"/>
+                </svg>
+                +5%
+              </div>
+              <span class="family-plus" aria-hidden="true">+</span>
+              <div class="family-member-icon">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                  <circle cx="12" cy="7" r="4"/>
+                </svg>
+                +5%
+              </div>
+              <span class="family-plus" aria-hidden="true">+</span>
+              <div class="family-member-icon">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                  <circle cx="12" cy="7" r="4"/>
+                </svg>
+                +5%
+              </div>
+              <span class="family-plus" aria-hidden="true">+</span>
+              <div class="family-member-icon">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                  <circle cx="12" cy="7" r="4"/>
+                </svg>
+                +5%
+              </div>
+              <span class="family-plus" aria-hidden="true">=</span>
+              <div class="family-result">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                </svg>
+                Tối đa +25% STBH
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- STBH Growth Chart (Sum_Assured_Visualizer) -->
+        <div id="stbh-chart" class="stbh-chart" data-animate="scale-up" data-delay="200">
+          <div class="stbh-bar">
+            <div class="stbh-bar-fill" style="height: 0;" data-height="62%"></div>
+            <div class="stbh-bar-label">Năm 1<br>100%</div>
+          </div>
+          <div class="stbh-bar">
+            <div class="stbh-bar-fill" style="height: 0;" data-height="68%"></div>
+            <div class="stbh-bar-label">Năm 2<br>+10%</div>
+          </div>
+          <div class="stbh-bar">
+            <div class="stbh-bar-fill" style="height: 0;" data-height="75%"></div>
+            <div class="stbh-bar-label">Năm 3<br>+21%</div>
+          </div>
+          <div class="stbh-bar">
+            <div class="stbh-bar-fill" style="height: 0;" data-height="83%"></div>
+            <div class="stbh-bar-label">Năm 4<br>+33%</div>
+          </div>
+          <div class="stbh-bar">
+            <div class="stbh-bar-fill" style="height: 0;" data-height="91%"></div>
+            <div class="stbh-bar-label">Năm 5<br>+46%</div>
+          </div>
+          <div class="stbh-bar">
+            <div class="stbh-bar-fill" style="height: 0;" data-height="100%"></div>
+            <div class="stbh-bar-label">Năm 6<br>+61%</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Riders Comparison -->
+    <section id="riders" aria-label="Quyền lợi bổ sung">
+      <div class="container">
+        <h2 class="section-title" data-animate="fade-in">Quyền Lợi Bổ Sung (Riders)</h2>
+        <p class="section-subtitle" data-animate="fade-in" data-delay="100">So sánh 3 sản phẩm bổ trợ linh hoạt – chọn quyền lợi phù hợp với nhu cầu của bạn.</p>
+
+        <div class="cards-grid">
+          <!-- Rider 1: Lá Chắn Xanh -->
+          <article class="card rider-card" style="border-top: 4px solid #00A758;" data-animate="slide-up" data-delay="200">
+            <div class="card-icon" style="color: #00A758;">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                <path d="M12 8v4"/>
+                <path d="M12 16h.01"/>
+              </svg>
+            </div>
+            <h3 class="card-title">Lá Chắn Xanh</h3>
+            <p class="card-description">Bệnh lý nghiêm trọng – Bảo vệ toàn diện trước các bệnh lý nguy hiểm ở nhiều giai đoạn.</p>
+            <ul class="card-highlights">
+              <li><span class="jargon" data-term="giai đoạn cuối" tabindex="0" role="button" aria-describedby="tooltip">Giai đoạn cuối</span>: 100% <span class="jargon" data-term="STBH" tabindex="0" role="button" aria-describedby="tooltip">STBH</span> (trẻ em tối đa 1 tỷ, giới tính đặc biệt 125%)</li>
+              <li>78+ bệnh <span class="jargon" data-term="giai đoạn cuối" tabindex="0" role="button" aria-describedby="tooltip">giai đoạn cuối</span></li>
+              <li>61 bệnh <span class="jargon" data-term="giai đoạn sớm" tabindex="0" role="button" aria-describedby="tooltip">giai đoạn sớm</span></li>
+              <li>4 bệnh đặc biệt</li>
+            </ul>
+          </article>
+
+          <!-- Rider 2: Dự Phòng Xanh -->
+          <article class="card rider-card" style="border-top: 4px solid #006B3F;" data-animate="slide-up" data-delay="400">
+            <div class="card-icon" style="color: #006B3F;">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="3" y="3" width="18" height="18" rx="2"/>
+                <path d="M3 9h18"/>
+                <path d="M9 3v18"/>
+                <circle cx="15" cy="15" r="2"/>
+              </svg>
+            </div>
+            <h3 class="card-title">Dự Phòng Xanh</h3>
+            <p class="card-description"><span class="jargon" data-term="trợ cấp nằm viện" tabindex="0" role="button" aria-describedby="tooltip">Trợ cấp nằm viện</span> – Hỗ trợ tài chính mỗi ngày khi bạn nằm viện điều trị.</p>
+            <ul class="card-highlights">
+              <li>ICU / Hồi sức tích cực: 300% <span class="jargon" data-term="STBH" tabindex="0" role="button" aria-describedby="tooltip">STBH</span> / ngày</li>
+              <li>Khoa thường: 100% <span class="jargon" data-term="STBH" tabindex="0" role="button" aria-describedby="tooltip">STBH</span> / ngày</li>
+            </ul>
+          </article>
+
+          <!-- Rider 3: Hộ Vệ Xanh -->
+          <article class="card rider-card" style="border-top: 4px solid #2E8B57;" data-animate="slide-up" data-delay="600">
+            <div class="card-icon" style="color: #2E8B57;">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="8" x2="12" y2="12"/>
+                <line x1="12" y1="16" x2="12.01" y2="16"/>
+              </svg>
+            </div>
+            <h3 class="card-title">Hộ Vệ Xanh</h3>
+            <p class="card-description">Tai nạn – Bảo vệ tài chính khi gặp tai nạn bất ngờ trong cuộc sống.</p>
+            <ul class="card-highlights">
+              <li>Tử vong tai nạn: 100% <span class="jargon" data-term="STBH" tabindex="0" role="button" aria-describedby="tooltip">STBH</span></li>
+              <li><span class="jargon" data-term="thương tật nghiêm trọng" tabindex="0" role="button" aria-describedby="tooltip">Thương tật nghiêm trọng</span>, bộ phận, tổn thương nội tạng, gãy xương, bỏng</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Investment Funds -->
+    <section id="quy-dau-tu" aria-label="Quỹ đầu tư">
+      <div class="container">
+        <h2 class="section-title" data-animate="fade-in">Quỹ Đầu Tư</h2>
+        <p class="section-subtitle" data-animate="fade-in" data-delay="100">9 quỹ đầu tư đa dạng – từ thận trọng đến mạo hiểm – giúp bạn chọn chiến lược phù hợp với <span class="jargon" data-term="NAV" tabindex="0" role="button" aria-describedby="tooltip">NAV</span> và mục tiêu tài chính. Mỗi <span class="jargon" data-term="quỹ liên kết đơn vị" tabindex="0" role="button" aria-describedby="tooltip">quỹ liên kết đơn vị</span> có chiến lược đầu tư riêng.</p>
+
+        <!-- Risk Spectrum Visualization -->
+        <div id="fund-spectrum" class="fund-spectrum" data-animate="scale-up" data-delay="200">
+          <div class="fund-spectrum-bar">
+            <!-- Risk appetite funds (category: risk) -->
+            <div class="fund-marker" style="left: 8%;" tabindex="0" role="button" aria-label="Quỹ Bảo Toàn" data-fund="Bảo Toàn" data-description="Tập trung vào trái phiếu chính phủ và tiền gửi." data-category="risk">
+              <span class="fund-marker-label">Bảo Toàn</span>
+            </div>
+            <div class="fund-marker" style="left: 25%;" tabindex="0" role="button" aria-label="Quỹ Tích Lũy" data-fund="Tích Lũy" data-description="Chủ yếu trái phiếu, một phần nhỏ cổ phiếu." data-category="risk">
+              <span class="fund-marker-label">Tích Lũy</span>
+            </div>
+            <div class="fund-marker" style="left: 42%;" tabindex="0" role="button" aria-label="Quỹ Ổn Định" data-fund="Ổn Định" data-description="Cân bằng giữa trái phiếu và cổ phiếu." data-category="risk">
+              <span class="fund-marker-label">Ổn Định</span>
+            </div>
+            <div class="fund-marker" style="left: 58%;" tabindex="0" role="button" aria-label="Quỹ Cân Bằng" data-fund="Cân Bằng" data-description="Phân bổ đều giữa trái phiếu và cổ phiếu." data-category="risk">
+              <span class="fund-marker-label">Cân Bằng</span>
+            </div>
+            <div class="fund-marker" style="left: 75%;" tabindex="0" role="button" aria-label="Quỹ Phát Triển" data-fund="Phát Triển" data-description="Tỷ trọng cổ phiếu cao hơn trái phiếu." data-category="risk">
+              <span class="fund-marker-label">Phát Triển</span>
+            </div>
+            <div class="fund-marker" style="left: 92%;" tabindex="0" role="button" aria-label="Quỹ Tăng Trưởng" data-fund="Tăng Trưởng" data-description="Tập trung vào cổ phiếu, tiềm năng sinh lời cao." data-category="risk">
+              <span class="fund-marker-label">Tăng Trưởng</span>
+            </div>
+            <!-- Retirement target funds (category: retirement) -->
+            <div class="fund-marker" style="left: 42%; border-color: #2E8B57;" tabindex="0" role="button" aria-label="Quỹ Hưng Thịnh 2035" data-fund="Hưng Thịnh 2035" data-description="Tự động giảm rủi ro khi gần mốc 2035." data-category="retirement">
+              <span class="fund-marker-label" style="top: -28px;">HT 2035</span>
+            </div>
+            <div class="fund-marker" style="left: 58%; border-color: #2E8B57;" tabindex="0" role="button" aria-label="Quỹ Hưng Thịnh 2040" data-fund="Hưng Thịnh 2040" data-description="Tự động giảm rủi ro khi gần mốc 2040." data-category="retirement">
+              <span class="fund-marker-label" style="top: -28px;">HT 2040</span>
+            </div>
+            <div class="fund-marker" style="left: 75%; border-color: #2E8B57;" tabindex="0" role="button" aria-label="Quỹ Hưng Thịnh 2045" data-fund="Hưng Thịnh 2045" data-description="Tự động giảm rủi ro khi gần mốc 2045." data-category="retirement">
+              <span class="fund-marker-label" style="top: -28px;">HT 2045</span>
+            </div>
+          </div>
+          <div class="fund-spectrum-labels">
+            <span>Thận trọng</span>
+            <span>Mạo hiểm</span>
+          </div>
+        </div>
+
+        <!-- Fund Groups -->
+        <div class="fund-groups" style="margin-top: 3rem;">
+          <!-- Group 1: By risk appetite -->
+          <div data-animate="fade-in" data-delay="300">
+            <h3 style="margin-bottom: 1rem;">Theo khẩu vị rủi ro</h3>
+            <div class="cards-grid" style="grid-template-columns: repeat(3, 1fr);">
+              <article class="card" data-fund="Bảo Toàn" data-category="risk">
+                <h3 class="card-title">Bảo Toàn</h3>
+                <p class="card-description">Tập trung vào trái phiếu chính phủ và tiền gửi.</p>
+                <span style="font-size: 0.75rem; color: var(--color-primary, #00A758); font-weight: 700;">Rủi ro: ●○○○○○</span>
+              </article>
+              <article class="card" data-fund="Tích Lũy" data-category="risk">
+                <h3 class="card-title">Tích Lũy</h3>
+                <p class="card-description">Chủ yếu trái phiếu, một phần nhỏ cổ phiếu.</p>
+                <span style="font-size: 0.75rem; color: var(--color-primary, #00A758); font-weight: 700;">Rủi ro: ●●○○○○</span>
+              </article>
+              <article class="card" data-fund="Ổn Định" data-category="risk">
+                <h3 class="card-title">Ổn Định</h3>
+                <p class="card-description">Cân bằng giữa trái phiếu và cổ phiếu.</p>
+                <span style="font-size: 0.75rem; color: var(--color-primary, #00A758); font-weight: 700;">Rủi ro: ●●●○○○</span>
+              </article>
+              <article class="card" data-fund="Cân Bằng" data-category="risk">
+                <h3 class="card-title">Cân Bằng</h3>
+                <p class="card-description">Phân bổ đều giữa trái phiếu và cổ phiếu.</p>
+                <span style="font-size: 0.75rem; color: var(--color-primary, #00A758); font-weight: 700;">Rủi ro: ●●●●○○</span>
+              </article>
+              <article class="card" data-fund="Phát Triển" data-category="risk">
+                <h3 class="card-title">Phát Triển</h3>
+                <p class="card-description">Tỷ trọng cổ phiếu cao hơn trái phiếu.</p>
+                <span style="font-size: 0.75rem; color: var(--color-primary, #00A758); font-weight: 700;">Rủi ro: ●●●●●○</span>
+              </article>
+              <article class="card" data-fund="Tăng Trưởng" data-category="risk">
+                <h3 class="card-title">Tăng Trưởng</h3>
+                <p class="card-description">Tập trung vào cổ phiếu, tiềm năng sinh lời cao.</p>
+                <span style="font-size: 0.75rem; color: var(--color-primary, #00A758); font-weight: 700;">Rủi ro: ●●●●●●</span>
+              </article>
+            </div>
+          </div>
+
+          <!-- Group 2: By retirement target -->
+          <div data-animate="fade-in" data-delay="400" style="margin-top: 2rem;">
+            <h3 style="margin-bottom: 1rem;">Theo mốc hưu trí</h3>
+            <div class="cards-grid" style="grid-template-columns: repeat(3, 1fr);">
+              <article class="card" data-fund="Hưng Thịnh 2035" data-category="retirement">
+                <h3 class="card-title">Hưng Thịnh 2035</h3>
+                <p class="card-description">Tự động giảm rủi ro khi gần mốc 2035.</p>
+                <span style="font-size: 0.75rem; color: #2E8B57; font-weight: 700;">Rủi ro: ●●●○○○</span>
+              </article>
+              <article class="card" data-fund="Hưng Thịnh 2040" data-category="retirement">
+                <h3 class="card-title">Hưng Thịnh 2040</h3>
+                <p class="card-description">Tự động giảm rủi ro khi gần mốc 2040.</p>
+                <span style="font-size: 0.75rem; color: #2E8B57; font-weight: 700;">Rủi ro: ●●●●○○</span>
+              </article>
+              <article class="card" data-fund="Hưng Thịnh 2045" data-category="retirement">
+                <h3 class="card-title">Hưng Thịnh 2045</h3>
+                <p class="card-description">Tự động giảm rủi ro khi gần mốc 2045.</p>
+                <span style="font-size: 0.75rem; color: #2E8B57; font-weight: 700;">Rủi ro: ●●●●●○</span>
+              </article>
+            </div>
+          </div>
+        </div>
+
+        <!-- Compliance Disclaimer -->
+        <p class="disclaimer" data-animate="fade-in" data-delay="500">Giá trị các <span class="jargon" data-term="quỹ liên kết đơn vị" tabindex="0" role="button" aria-describedby="tooltip">quỹ liên kết đơn vị</span> có thể tăng hoặc giảm và không được đảm bảo. <span class="jargon" data-term="NAV" tabindex="0" role="button" aria-describedby="tooltip">NAV</span> phụ thuộc vào kết quả đầu tư thực tế của từng quỹ. Khách hàng chịu toàn bộ rủi ro đầu tư.</p>
+      </div>
+    </section>
+
+    <!-- Target Audience -->
+    <section id="ai-nen-chon" aria-label="Ai nên chọn sản phẩm này">
+      <div class="container">
+        <h2 class="section-title" data-animate="fade-in">Ai Nên Chọn Sản Phẩm Này?</h2>
+        <p class="section-subtitle" data-animate="fade-in" data-delay="100">Xanh Tương Lai phù hợp với những ai muốn kết hợp bảo vệ và đầu tư trong một hợp đồng duy nhất.</p>
+
+        <div class="cards-grid">
+          <!-- Profile 1: Family -->
+          <article class="card" data-animate="fade-in" data-delay="200">
+            <div class="card-icon">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="7" r="3"/>
+                <path d="M5.5 21v-2a4 4 0 0 1 4-4h5a4 4 0 0 1 4 4v2"/>
+                <circle cx="4" cy="11" r="2"/>
+                <circle cx="20" cy="11" r="2"/>
+                <path d="M2 21v-1a3 3 0 0 1 3-3"/>
+                <path d="M22 21v-1a3 3 0 0 0-3-3"/>
+              </svg>
+            </div>
+            <h3 class="card-title">Gia đình muốn bảo vệ &amp; tích lũy trong một hợp đồng</h3>
+          </article>
+
+          <!-- Profile 2: Long-term investor -->
+          <article class="card" data-animate="fade-in" data-delay="400">
+            <div class="card-icon">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+              </svg>
+            </div>
+            <h3 class="card-title">Người có định hướng dài hạn, chấp nhận biến động thị trường</h3>
+          </article>
+
+          <!-- Profile 3: Parents with young children -->
+          <article class="card" data-animate="fade-in" data-delay="600">
+            <div class="card-icon">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="8" r="4"/>
+                <path d="M6 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/>
+                <path d="M12 4V2"/>
+                <path d="M9 5l-1-1"/>
+                <path d="M15 5l1-1"/>
+              </svg>
+            </div>
+            <h3 class="card-title">Phụ huynh cần <span class="jargon" data-term="STBH" tabindex="0" role="button" aria-describedby="tooltip">STBH</span> tự động tăng khi con còn nhỏ</h3>
+          </article>
+
+          <!-- Profile 4: Riders add-on -->
+          <article class="card" data-animate="fade-in" data-delay="800">
+            <div class="card-icon">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="8" x2="12" y2="16"/>
+                <line x1="8" y1="12" x2="16" y2="12"/>
+              </svg>
+            </div>
+            <h3 class="card-title">Người muốn bổ sung riders y tế / bệnh hiểm nghèo / tai nạn</h3>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" aria-label="Câu hỏi thường gặp">
+      <div class="container">
+        <h2 class="section-title" data-animate="fade-in">Câu Hỏi Thường Gặp</h2>
+        <div class="accordion" data-animate="fade-in" data-delay="200">
+
+          <!-- FAQ Item 1 -->
+          <div class="accordion-item">
+            <button class="accordion-trigger" aria-expanded="false" aria-controls="faq-panel-1">
+              <span>ILP là gì? Có đảm bảo lãi không?</span>
+              <svg class="accordion-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div id="faq-panel-1" role="region" style="max-height: 0;" class="accordion-panel">
+              <div class="accordion-panel-content">
+                <span class="jargon" data-term="ILP" tabindex="0" role="button" aria-describedby="tooltip">ILP</span> (<span class="jargon" data-term="bảo hiểm liên kết đơn vị" tabindex="0" role="button" aria-describedby="tooltip">bảo hiểm liên kết đơn vị</span>) kết hợp bảo vệ rủi ro và đầu tư. Lợi nhuận KHÔNG được đảm bảo vì phụ thuộc vào kết quả đầu tư của <span class="jargon" data-term="quỹ liên kết đơn vị" tabindex="0" role="button" aria-describedby="tooltip">quỹ liên kết đơn vị</span>.
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ Item 2 -->
+          <div class="accordion-item">
+            <button class="accordion-trigger" aria-expanded="false" aria-controls="faq-panel-2">
+              <span>Vì sao cần xem nhiều kịch bản minh họa?</span>
+              <svg class="accordion-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div id="faq-panel-2" role="region" style="max-height: 0;" class="accordion-panel">
+              <div class="accordion-panel-content">
+                Mỗi kịch bản phản ánh một mức lợi nhuận giả định khác nhau. Xem nhiều kịch bản giúp bạn hiểu rõ phạm vi kết quả có thể xảy ra.
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ Item 3 -->
+          <div class="accordion-item">
+            <button class="accordion-trigger" aria-expanded="false" aria-controls="faq-panel-3">
+              <span>Khi nào hợp đồng có thể mất hiệu lực?</span>
+              <svg class="accordion-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div id="faq-panel-3" role="region" style="max-height: 0;" class="accordion-panel">
+              <div class="accordion-panel-content">
+                Hợp đồng có thể mất hiệu lực khi <span class="jargon" data-term="giá trị tài khoản" tabindex="0" role="button" aria-describedby="tooltip">giá trị tài khoản</span> không đủ để trừ các khoản phí (bao gồm <span class="jargon" data-term="phí rủi ro" tabindex="0" role="button" aria-describedby="tooltip">phí rủi ro</span>, <span class="jargon" data-term="phí ban đầu" tabindex="0" role="button" aria-describedby="tooltip">phí ban đầu</span> và các khoản phí khác). Điều này có thể xảy ra khi thị trường giảm sâu kéo dài.
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ Item 4 -->
+          <div class="accordion-item">
+            <button class="accordion-trigger" aria-expanded="false" aria-controls="faq-panel-4">
+              <span>Có thể đổi Quỹ đầu tư không?</span>
+              <svg class="accordion-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div id="faq-panel-4" role="region" style="max-height: 0;" class="accordion-panel">
+              <div class="accordion-panel-content">
+                Có. Bạn có thể chuyển đổi giữa các quỹ theo quy định của hợp đồng, giúp điều chỉnh chiến lược đầu tư phù hợp với tình hình thị trường.
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ Item 5 -->
+          <div class="accordion-item">
+            <button class="accordion-trigger" aria-expanded="false" aria-controls="faq-panel-5">
+              <span>Tôi theo dõi NAV ở đâu?</span>
+              <svg class="accordion-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div id="faq-panel-5" role="region" style="max-height: 0;" class="accordion-panel">
+              <div class="accordion-panel-content">
+                Bạn có thể tra cứu <span class="jargon" data-term="NAV" tabindex="0" role="button" aria-describedby="tooltip">NAV</span> (giá trị tài sản ròng) hàng ngày trên website chính thức của Manulife Việt Nam hoặc qua ứng dụng ManuConnect.
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA / Contact -->
+    <section id="lien-he" aria-label="Liên hệ và hành động">
+      <div class="container">
+        <h2 class="section-title" data-animate="fade-in">Bước Tiếp Theo</h2>
+        <p class="section-subtitle" data-animate="fade-in" data-delay="100">Chọn hành động phù hợp để bắt đầu hành trình bảo vệ tài chính cùng Xanh Tương Lai.</p>
+
+        <div class="cards-grid">
+          <!-- CTA Card 1: Tính phí & nhận minh họa -->
+          <article class="card" data-animate="slide-up" data-delay="200">
+            <div class="card-icon">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="4" y="2" width="16" height="20" rx="2"/>
+                <line x1="8" y1="6" x2="16" y2="6"/>
+                <line x1="8" y1="10" x2="16" y2="10"/>
+                <line x1="8" y1="14" x2="12" y2="14"/>
+              </svg>
+            </div>
+            <h3 class="card-title">Tính phí &amp; nhận minh họa</h3>
+            <p class="card-description">Nhập thông tin cơ bản để nhận bảng minh họa quyền lợi cá nhân hóa, giúp bạn hình dung rõ hơn về mức phí và quyền lợi bảo vệ.</p>
+          </article>
+
+          <!-- CTA Card 2: Đặt lịch tư vấn 1:1 -->
+          <article class="card" data-animate="slide-up" data-delay="400">
+            <div class="card-icon">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                <line x1="16" y1="2" x2="16" y2="6"/>
+                <line x1="8" y1="2" x2="8" y2="6"/>
+                <line x1="3" y1="10" x2="21" y2="10"/>
+                <circle cx="12" cy="15" r="2"/>
+              </svg>
+            </div>
+            <h3 class="card-title">Đặt lịch tư vấn 1:1</h3>
+            <p class="card-description">Gặp trực tiếp chuyên viên tư vấn để được giải đáp mọi thắc mắc và thiết kế giải pháp bảo hiểm phù hợp nhất với nhu cầu gia đình bạn.</p>
+          </article>
+
+          <!-- CTA Card 3: Tra cứu NAV & chọn Quỹ phù hợp -->
+          <article class="card" data-animate="slide-up" data-delay="600">
+            <div class="card-icon">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="11" cy="11" r="8"/>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                <polyline points="8 11 11 8 14 11"/>
+                <line x1="11" y1="8" x2="11" y2="16"/>
+              </svg>
+            </div>
+            <h3 class="card-title">Tra cứu <span class="jargon" data-term="NAV" tabindex="0" role="button" aria-describedby="tooltip">NAV</span> &amp; chọn Quỹ phù hợp</h3>
+            <p class="card-description">Xem <span class="jargon" data-term="NAV" tabindex="0" role="button" aria-describedby="tooltip">NAV</span> cập nhật hàng ngày và so sánh các <span class="jargon" data-term="quỹ liên kết đơn vị" tabindex="0" role="button" aria-describedby="tooltip">quỹ liên kết đơn vị</span> để chọn chiến lược đầu tư phù hợp với mục tiêu tài chính của bạn.</p>
+          </article>
+        </div>
+
+        <!-- Full Compliance Disclaimer -->
+        <p class="disclaimer" data-animate="fade-in" data-delay="800">Kết quả <span class="jargon" data-term="quỹ liên kết đơn vị" tabindex="0" role="button" aria-describedby="tooltip">Quỹ liên kết đơn vị</span> có thể lỗ hoặc lãi, không được bảo đảm. Khách hàng hưởng toàn bộ kết quả đầu tư và chịu mọi rủi ro. <span class="jargon" data-term="giá trị tài khoản" tabindex="0" role="button" aria-describedby="tooltip">Giá trị tài khoản</span> có thể thấp hơn tổng phí đã đóng. Minh họa không phải là hợp đồng.</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Glossary Section -->
+  <section id="tu-dien" aria-label="Từ điển thuật ngữ bảo hiểm">
+    <div class="container">
+      <h2 class="section-title">Từ Điển Thuật Ngữ</h2>
+      <div class="glossary-list">
+        <div class="glossary-item">
+          <span class="glossary-term">bảo hiểm liên kết đơn vị</span>
+          <p class="glossary-definition">Sản phẩm bảo hiểm nhân thọ kết hợp bảo vệ và đầu tư qua quỹ liên kết.</p>
+        </div>
+        <div class="glossary-item">
+          <span class="glossary-term">đáo hạn</span>
+          <p class="glossary-definition">Thời điểm hợp đồng bảo hiểm kết thúc theo thời hạn đã thỏa thuận.</p>
+        </div>
+        <div class="glossary-item">
+          <span class="glossary-term">giai đoạn cuối</span>
+          <p class="glossary-definition">Giai đoạn bệnh lý nghiêm trọng ở mức độ nặng nhất theo định nghĩa hợp đồng.</p>
+        </div>
+        <div class="glossary-item">
+          <span class="glossary-term">giai đoạn sớm</span>
+          <p class="glossary-definition">Giai đoạn bệnh lý nghiêm trọng được phát hiện ở mức độ nhẹ hơn.</p>
+        </div>
+        <div class="glossary-item">
+          <span class="glossary-term">giá trị tài khoản</span>
+          <p class="glossary-definition">Tổng giá trị các đơn vị quỹ bạn đang sở hữu trong hợp đồng.</p>
+        </div>
+        <div class="glossary-item">
+          <span class="glossary-term">ILP</span>
+          <p class="glossary-definition">Bảo hiểm liên kết đơn vị – sản phẩm kết hợp bảo vệ rủi ro và đầu tư qua các quỹ.</p>
+        </div>
+        <div class="glossary-item">
+          <span class="glossary-term">NAV</span>
+          <p class="glossary-definition">Giá trị tài sản ròng – giá trị mỗi đơn vị quỹ tại một thời điểm.</p>
+        </div>
+        <div class="glossary-item">
+          <span class="glossary-term">phí ban đầu</span>
+          <p class="glossary-definition">Khoản phí trích từ phí bảo hiểm định kỳ trong những năm đầu hợp đồng.</p>
+        </div>
+        <div class="glossary-item">
+          <span class="glossary-term">phí ổn định</span>
+          <p class="glossary-definition">Tổng phí bảo hiểm định kỳ được thiết kế ổn định trong suốt thời gian đóng phí dự kiến.</p>
+        </div>
+        <div class="glossary-item">
+          <span class="glossary-term">phí rủi ro</span>
+          <p class="glossary-definition">Khoản phí trích từ tài khoản để duy trì quyền lợi bảo vệ.</p>
+        </div>
+        <div class="glossary-item">
+          <span class="glossary-term">quỹ liên kết đơn vị</span>
+          <p class="glossary-definition">Quỹ đầu tư mà phí bảo hiểm được phân bổ vào, giá trị thay đổi theo thị trường.</p>
+        </div>
+        <div class="glossary-item">
+          <span class="glossary-term">STBH</span>
+          <p class="glossary-definition">Số tiền bảo hiểm – mức bảo vệ tối đa ghi trên hợp đồng.</p>
+        </div>
+        <div class="glossary-item">
+          <span class="glossary-term">thương tật nghiêm trọng</span>
+          <p class="glossary-definition">Các chấn thương nghiêm trọng do tai nạn được bảo hiểm chi trả.</p>
+        </div>
+        <div class="glossary-item">
+          <span class="glossary-term">trợ cấp nằm viện</span>
+          <p class="glossary-definition">Quyền lợi chi trả theo ngày khi người được bảo hiểm nằm viện.</p>
+        </div>
+        <div class="glossary-item">
+          <span class="glossary-term">TTTBVV</span>
+          <p class="glossary-definition">Thương tật toàn bộ vĩnh viễn – tình trạng mất hoàn toàn khả năng lao động.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer id="footer" aria-label="Thông tin cuối trang">
+    <div class="footer-brand">
+      <span class="brand-product">Xanh Tương Lai</span>
+      <span class="brand-company">Manulife Việt Nam</span>
+    </div>
+    <div class="footer-links">
+      <a href="#tu-dien" aria-label="Đi đến Từ điển thuật ngữ">Từ điển thuật ngữ</a>
+    </div>
+  </footer>
+
+  <script>
+    // ============================================
+    // Data Models
+    // ============================================
+
+    const GLOSSARY = {
+      "ILP": "Bảo hiểm liên kết đơn vị – sản phẩm kết hợp bảo vệ rủi ro và đầu tư qua các quỹ.",
+      "STBH": "Số tiền bảo hiểm – mức bảo vệ tối đa ghi trên hợp đồng.",
+      "TTTBVV": "Thương tật toàn bộ vĩnh viễn – tình trạng mất hoàn toàn khả năng lao động.",
+      "NAV": "Giá trị tài sản ròng – giá trị mỗi đơn vị quỹ tại một thời điểm.",
+      "phí rủi ro": "Khoản phí trích từ tài khoản để duy trì quyền lợi bảo vệ.",
+      "giá trị tài khoản": "Tổng giá trị các đơn vị quỹ bạn đang sở hữu trong hợp đồng.",
+      "quỹ liên kết đơn vị": "Quỹ đầu tư mà phí bảo hiểm được phân bổ vào, giá trị thay đổi theo thị trường.",
+      "đáo hạn": "Thời điểm hợp đồng bảo hiểm kết thúc theo thời hạn đã thỏa thuận.",
+      "phí ban đầu": "Khoản phí trích từ phí bảo hiểm định kỳ trong những năm đầu hợp đồng.",
+      "phí ổn định": "Tổng phí bảo hiểm định kỳ được thiết kế ổn định trong suốt thời gian đóng phí dự kiến.",
+      "bảo hiểm liên kết đơn vị": "Sản phẩm bảo hiểm nhân thọ kết hợp bảo vệ và đầu tư qua quỹ liên kết.",
+      "giai đoạn cuối": "Giai đoạn bệnh lý nghiêm trọng ở mức độ nặng nhất theo định nghĩa hợp đồng.",
+      "giai đoạn sớm": "Giai đoạn bệnh lý nghiêm trọng được phát hiện ở mức độ nhẹ hơn.",
+      "trợ cấp nằm viện": "Quyền lợi chi trả theo ngày khi người được bảo hiểm nằm viện.",
+      "thương tật nghiêm trọng": "Các chấn thương nghiêm trọng do tai nạn được bảo hiểm chi trả."
+    };
+
+    const FAQ_ITEMS = [
+      { question: "ILP là gì? Có đảm bảo lãi không?", answer: "ILP (bảo hiểm liên kết đơn vị) kết hợp bảo vệ rủi ro và đầu tư. Lợi nhuận KHÔNG được đảm bảo vì phụ thuộc vào kết quả đầu tư của quỹ liên kết đơn vị." },
+      { question: "Vì sao cần xem nhiều kịch bản minh họa?", answer: "Mỗi kịch bản phản ánh một mức lợi nhuận giả định khác nhau. Xem nhiều kịch bản giúp bạn hiểu rõ phạm vi kết quả có thể xảy ra." },
+      { question: "Khi nào hợp đồng có thể mất hiệu lực?", answer: "Hợp đồng có thể mất hiệu lực khi giá trị tài khoản không đủ để trừ các khoản phí. Điều này có thể xảy ra khi thị trường giảm sâu kéo dài." },
+      { question: "Có thể đổi Quỹ đầu tư không?", answer: "Có. Bạn có thể chuyển đổi giữa các quỹ theo quy định của hợp đồng, giúp điều chỉnh chiến lược đầu tư phù hợp với tình hình thị trường." },
+      { question: "Tôi theo dõi NAV ở đâu?", answer: "Bạn có thể tra cứu NAV (giá trị tài sản ròng) hàng ngày trên website chính thức của Manulife Việt Nam hoặc qua ứng dụng ManuConnect." }
+    ];
+
+    const FUNDS = [
+      { name: "Bảo Toàn", category: "risk", riskLevel: 1, description: "Tập trung vào trái phiếu chính phủ và tiền gửi." },
+      { name: "Tích Lũy", category: "risk", riskLevel: 2, description: "Chủ yếu trái phiếu, một phần nhỏ cổ phiếu." },
+      { name: "Ổn Định", category: "risk", riskLevel: 3, description: "Cân bằng giữa trái phiếu và cổ phiếu." },
+      { name: "Cân Bằng", category: "risk", riskLevel: 4, description: "Phân bổ đều giữa trái phiếu và cổ phiếu." },
+      { name: "Phát Triển", category: "risk", riskLevel: 5, description: "Tỷ trọng cổ phiếu cao hơn trái phiếu." },
+      { name: "Tăng Trưởng", category: "risk", riskLevel: 6, description: "Tập trung vào cổ phiếu, tiềm năng sinh lời cao." },
+      { name: "Hưng Thịnh 2035", category: "retirement", riskLevel: 3, description: "Tự động giảm rủi ro khi gần mốc 2035." },
+      { name: "Hưng Thịnh 2040", category: "retirement", riskLevel: 4, description: "Tự động giảm rủi ro khi gần mốc 2040." },
+      { name: "Hưng Thịnh 2045", category: "retirement", riskLevel: 5, description: "Tự động giảm rủi ro khi gần mốc 2045." }
+    ];
+
+    const RIDERS = [
+      { id: "la-chan-xanh", name: "Lá Chắn Xanh", subtitle: "Bệnh lý nghiêm trọng", color: "#00A758", highlights: ["Giai đoạn cuối: 100% STBH (trẻ em tối đa 1 tỷ, giới tính đặc biệt 125%)", "78+ bệnh giai đoạn cuối, 61 bệnh giai đoạn sớm, 4 bệnh đặc biệt"] },
+      { id: "du-phong-xanh", name: "Dự Phòng Xanh", subtitle: "Trợ cấp nằm viện", color: "#006B3F", highlights: ["ICU / Hồi sức tích cực: 300% STBH / ngày", "Khoa thường: 100% STBH / ngày"] },
+      { id: "ho-ve-xanh", name: "Hộ Vệ Xanh", subtitle: "Tai nạn", color: "#2E8B57", highlights: ["Tử vong tai nạn: 100% STBH", "Thương tật nghiêm trọng, bộ phận, tổn thương nội tạng, gãy xương, bỏng"] }
+    ];
+
+    const BENEFITS = [
+      { id: "death-tpd", title: "Tử vong / TTTBVV", icon: "shield", description: "Chi trả giá trị cao hơn giữa STBH và giá trị tài khoản cơ bản, cộng giá trị tài khoản đóng thêm." },
+      { id: "stbh-increase", title: "Tăng STBH tự động", icon: "trending-up", description: "STBH tự động tăng 10% mỗi năm từ năm thứ 2 đến năm thứ 6, không cần thẩm định lại sức khỏe." },
+      { id: "maturity", title: "Đáo hạn", icon: "calendar-check", description: "Nhận toàn bộ giá trị tài khoản khi hợp đồng đáo hạn." }
+    ];
+
+    const STBH_GROWTH = [
+      { year: 1, multiplier: 1.00, label: "Năm 1 (100%)" },
+      { year: 2, multiplier: 1.10, label: "Năm 2 (+10%)" },
+      { year: 3, multiplier: 1.21, label: "Năm 3 (+21%)" },
+      { year: 4, multiplier: 1.33, label: "Năm 4 (+33%)" },
+      { year: 5, multiplier: 1.46, label: "Năm 5 (+46%)" },
+      { year: 6, multiplier: 1.61, label: "Năm 6 (+61%)" }
+    ];
+
+    const AUDIENCE_PROFILES = [
+      { icon: "family", title: "Gia đình muốn bảo vệ & tích lũy trong một hợp đồng" },
+      { icon: "chart", title: "Người có định hướng dài hạn, chấp nhận biến động thị trường" },
+      { icon: "child", title: "Phụ huynh cần STBH tự động tăng khi con còn nhỏ" },
+      { icon: "plus-circle", title: "Người muốn bổ sung riders y tế / bệnh hiểm nghèo / tai nạn" }
+    ];
+
+    // ============================================
+    // Utility Functions
+    // ============================================
+
+    function calculateSTBH(base, year) {
+      return base * Math.pow(1.1, year - 1);
+    }
+
+    function calculateFamilySTBHIncrease(numMembers) {
+      return Math.min(numMembers * 5, 25);
+    }
+
+    // ============================================
+    // ScrollAnimator Component
+    // Requirements: 9.1, 9.2, 9.3, 9.4
+    // ============================================
+
+    var ScrollAnimator = {
+      observer: null,
+
+      respectsReducedMotion: function() {
+        return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      },
+
+      handleIntersection: function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            var el = entry.target;
+            var animClass = el.getAttribute('data-animate');
+            var delay = parseInt(el.getAttribute('data-delay'), 10) || 0;
+
+            if (delay > 0) {
+              setTimeout(function() {
+                el.classList.add(animClass);
+              }, delay);
+            } else {
+              el.classList.add(animClass);
+            }
+
+            ScrollAnimator.observer.unobserve(el);
+          }
+        });
+      },
+
+      init: function() {
+        var elements = document.querySelectorAll('[data-animate]');
+
+        // Reduced motion: show everything immediately
+        if (this.respectsReducedMotion()) {
+          elements.forEach(function(el) {
+            el.classList.add(el.getAttribute('data-animate'));
+          });
+          return;
+        }
+
+        // Graceful degradation: no IntersectionObserver
+        if (!('IntersectionObserver' in window)) {
+          elements.forEach(function(el) {
+            el.classList.add(el.getAttribute('data-animate'));
+          });
+          return;
+        }
+
+        this.observer = new IntersectionObserver(this.handleIntersection, {
+          threshold: 0.15
+        });
+
+        elements.forEach(function(el) {
+          ScrollAnimator.observer.observe(el);
+        });
+      }
+    };
+
+    // ============================================
+    // TooltipManager Component
+    // Requirements: 3.2, 3.4
+    // ============================================
+
+    var TooltipManager = {
+      tooltipEl: null,
+
+      init: function() {
+        // Create single reusable tooltip element
+        this.tooltipEl = document.createElement('div');
+        this.tooltipEl.className = 'tooltip';
+        this.tooltipEl.id = 'tooltip';
+        this.tooltipEl.setAttribute('role', 'tooltip');
+        document.body.appendChild(this.tooltipEl);
+
+        var triggers = document.querySelectorAll('[data-term]');
+        var self = this;
+
+        triggers.forEach(function(trigger) {
+          // Desktop: mouseenter/mouseleave
+          trigger.addEventListener('mouseenter', function() {
+            self.show(trigger);
+          });
+          trigger.addEventListener('mouseleave', function() {
+            self.hide();
+          });
+
+          // Mobile: click/tap
+          trigger.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (self.tooltipEl.classList.contains('visible') && self._currentTrigger === trigger) {
+              self.hide();
+            } else {
+              self.show(trigger);
+            }
+          });
+        });
+
+        // Dismiss on tap outside (mobile)
+        document.addEventListener('click', function(e) {
+          if (self.tooltipEl.classList.contains('visible') &&
+              !self.tooltipEl.contains(e.target) &&
+              !e.target.closest('[data-term]')) {
+            self.hide();
+          }
+        });
+
+        // Dismiss on Escape key
+        document.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape') {
+            self.hide();
+          }
+        });
+      },
+
+      show: function(triggerElement) {
+        var term = triggerElement.getAttribute('data-term');
+        var definition = GLOSSARY[term];
+
+        // Fail silently if term not found
+        if (!definition) return;
+
+        this._currentTrigger = triggerElement;
+        this.tooltipEl.textContent = definition;
+        this.positionTooltip(triggerElement);
+        this.tooltipEl.classList.add('visible');
+      },
+
+      hide: function() {
+        this.tooltipEl.classList.remove('visible');
+        this._currentTrigger = null;
+      },
+
+      positionTooltip: function(trigger) {
+        var rect = trigger.getBoundingClientRect();
+        var tooltipEl = this.tooltipEl;
+
+        // Position below trigger, centered
+        tooltipEl.style.left = '0';
+        tooltipEl.style.top = '0';
+        tooltipEl.style.display = 'block';
+
+        var tooltipRect = tooltipEl.getBoundingClientRect();
+        var left = rect.left + (rect.width / 2) - (tooltipRect.width / 2) + window.scrollX;
+        var top = rect.bottom + 8 + window.scrollY;
+
+        // Handle viewport overflow: right edge
+        if (left + tooltipRect.width > window.innerWidth - 8) {
+          left = window.innerWidth - tooltipRect.width - 8;
+        }
+        // Handle viewport overflow: left edge
+        if (left < 8) {
+          left = 8;
+        }
+        // Handle viewport overflow: bottom edge — flip to top
+        if (rect.bottom + tooltipRect.height + 8 > window.innerHeight) {
+          top = rect.top - tooltipRect.height - 8 + window.scrollY;
+        }
+
+        tooltipEl.style.left = left + 'px';
+        tooltipEl.style.top = top + 'px';
+      }
+    };
+
+    // ============================================
+    // AccordionController Component
+    // Requirements: 8.2, 8.3, 8.4
+    // ============================================
+
+    var AccordionController = {
+      init: function() {
+        var triggers = document.querySelectorAll('.accordion-trigger');
+        var self = this;
+
+        triggers.forEach(function(trigger) {
+          trigger.addEventListener('click', function() {
+            self.toggle(trigger);
+          });
+
+          trigger.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              self.toggle(trigger);
+            }
+          });
+        });
+      },
+
+      toggle: function(triggerButton) {
+        var isExpanded = triggerButton.getAttribute('aria-expanded') === 'true';
+
+        if (isExpanded) {
+          this.collapse(triggerButton);
+        } else {
+          // Single-open: collapse any other open item first
+          var allTriggers = document.querySelectorAll('.accordion-trigger');
+          var self = this;
+          allTriggers.forEach(function(t) {
+            if (t !== triggerButton && t.getAttribute('aria-expanded') === 'true') {
+              self.collapse(t);
+            }
+          });
+          this.expand(triggerButton);
+        }
+      },
+
+      collapse: function(triggerButton) {
+        triggerButton.setAttribute('aria-expanded', 'false');
+        var panelId = triggerButton.getAttribute('aria-controls');
+        var panel = document.getElementById(panelId);
+        if (panel) {
+          panel.style.maxHeight = '0';
+        }
+      },
+
+      expand: function(triggerButton) {
+        triggerButton.setAttribute('aria-expanded', 'true');
+        var panelId = triggerButton.getAttribute('aria-controls');
+        var panel = document.getElementById(panelId);
+        if (panel) {
+          panel.style.maxHeight = panel.scrollHeight + 'px';
+        }
+      }
+    };
+
+    // ============================================
+    // NavController Component
+    // Requirements: 10.2, 10.3, 10.4, 10.5
+    // ============================================
+
+    var NavController = {
+      sectionObserver: null,
+
+      init: function() {
+        var self = this;
+        var navLinks = document.querySelectorAll('#nav-links a');
+        var hamburger = document.querySelector('.hamburger');
+        var navLinksContainer = document.getElementById('nav-links');
+
+        // Smooth scroll on nav link click
+        navLinks.forEach(function(link) {
+          link.addEventListener('click', function(e) {
+            e.preventDefault();
+            var targetId = link.getAttribute('href').replace('#', '');
+            self.scrollToSection(targetId);
+
+            // Close hamburger menu if open
+            if (navLinksContainer && navLinksContainer.classList.contains('open')) {
+              self.toggleHamburger();
+            }
+          });
+        });
+
+        // Hamburger toggle
+        if (hamburger) {
+          hamburger.addEventListener('click', function() {
+            self.toggleHamburger();
+          });
+        }
+
+        // Track visible section with IntersectionObserver
+        if ('IntersectionObserver' in window) {
+          var sections = document.querySelectorAll('main > section[id]');
+          this.sectionObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+              if (entry.isIntersecting) {
+                self.updateActiveLink(entry.target.id);
+              }
+            });
+          }, { threshold: 0.3 });
+
+          sections.forEach(function(section) {
+            self.sectionObserver.observe(section);
+          });
+        }
+
+        // Nav background transition on scroll
+        window.addEventListener('scroll', function() {
+          self.updateNavBackground();
+        });
+      },
+
+      scrollToSection: function(sectionId) {
+        var section = document.getElementById(sectionId);
+        if (section) {
+          section.scrollIntoView({ behavior: 'smooth' });
+        }
+      },
+
+      updateActiveLink: function(sectionId) {
+        var navLinks = document.querySelectorAll('#nav-links a');
+        navLinks.forEach(function(link) {
+          if (link.getAttribute('href') === '#' + sectionId) {
+            link.classList.add('active');
+          } else {
+            link.classList.remove('active');
+          }
+        });
+      },
+
+      updateNavBackground: function() {
+        var nav = document.getElementById('main-nav');
+        var hero = document.getElementById('hero');
+        if (!nav || !hero) return;
+
+        if (window.scrollY > hero.offsetHeight) {
+          nav.classList.add('nav-solid');
+        } else {
+          nav.classList.remove('nav-solid');
+        }
+      },
+
+      toggleHamburger: function() {
+        var hamburger = document.querySelector('.hamburger');
+        var navLinksContainer = document.getElementById('nav-links');
+        if (!hamburger || !navLinksContainer) return;
+
+        var isOpen = navLinksContainer.classList.contains('open');
+        navLinksContainer.classList.toggle('open');
+        hamburger.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
+      }
+    };
+
+    // ============================================
+    // ChartAnimator Component
+    // Requirements: 4.4, 6.6
+    // ============================================
+
+    var ChartAnimator = {
+      stbhAnimated: false,
+      spectrumAnimated: false,
+
+      initSTBHChart: function() {
+        var chart = document.getElementById('stbh-chart');
+        if (!chart) return;
+
+        // Bars are already in the HTML with data-height attributes and height: 0
+        // Animation will be triggered by animateSTBHBars()
+      },
+
+      animateSTBHBars: function() {
+        if (this.stbhAnimated) return;
+        this.stbhAnimated = true;
+
+        var bars = document.querySelectorAll('#stbh-chart .stbh-bar-fill');
+        bars.forEach(function(bar, index) {
+          setTimeout(function() {
+            var targetHeight = bar.getAttribute('data-height');
+            if (targetHeight) {
+              bar.style.height = targetHeight;
+            }
+          }, index * 200);
+        });
+      },
+
+      initFundSpectrum: function() {
+        var spectrum = document.getElementById('fund-spectrum');
+        if (!spectrum) return;
+
+        // Set initial states for animation
+        var bar = spectrum.querySelector('.fund-spectrum-bar');
+        if (bar) {
+          bar.style.width = '0%';
+          bar.style.transition = 'width 0.8s ease';
+        }
+
+        var markers = spectrum.querySelectorAll('.fund-marker');
+        markers.forEach(function(marker) {
+          marker.style.opacity = '0';
+          marker.style.transition = 'opacity 0.4s ease';
+        });
+      },
+
+      animateFundSpectrum: function() {
+        if (this.spectrumAnimated) return;
+        this.spectrumAnimated = true;
+
+        var spectrum = document.getElementById('fund-spectrum');
+        if (!spectrum) return;
+
+        // Animate bar width from 0 to 100%
+        var bar = spectrum.querySelector('.fund-spectrum-bar');
+        if (bar) {
+          bar.style.width = '100%';
+        }
+
+        // Fade in fund markers sequentially after bar animation
+        var markers = spectrum.querySelectorAll('.fund-marker');
+        markers.forEach(function(marker, index) {
+          setTimeout(function() {
+            marker.style.opacity = '1';
+          }, 800 + (index * 100));
+        });
+      }
+    };
+
+    // ============================================
+    // Initialization on DOMContentLoaded
+    // Requirements: 9.1, 12.4, 12.5
+    // ============================================
+    document.addEventListener('DOMContentLoaded', function() {
+      // 1. Initialize ScrollAnimator (must be first — sets up IntersectionObserver for all [data-animate] elements)
+      ScrollAnimator.init();
+
+      // 2. Initialize TooltipManager (handles all jargon spans with [data-term])
+      TooltipManager.init();
+
+      // 3. Initialize AccordionController (FAQ expand/collapse)
+      AccordionController.init();
+
+      // 4. Initialize NavController (smooth scroll, active link, hamburger, nav background)
+      NavController.init();
+
+      // 5. Initialize ChartAnimator — prepare charts for animation
+      ChartAnimator.initSTBHChart();
+      ChartAnimator.initFundSpectrum();
+
+      // 6. Wire ScrollAnimator to trigger ChartAnimator when chart containers enter viewport
+      if ('IntersectionObserver' in window) {
+        var chartObserver = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+              if (entry.target.id === 'stbh-chart') {
+                ChartAnimator.animateSTBHBars();
+              } else if (entry.target.id === 'fund-spectrum') {
+                ChartAnimator.animateFundSpectrum();
+              }
+              chartObserver.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.15 });
+
+        var stbhChart = document.getElementById('stbh-chart');
+        var fundSpectrum = document.getElementById('fund-spectrum');
+        if (stbhChart) chartObserver.observe(stbhChart);
+        if (fundSpectrum) chartObserver.observe(fundSpectrum);
+      } else {
+        // Graceful degradation: animate immediately if IntersectionObserver unavailable
+        ChartAnimator.animateSTBHBars();
+        ChartAnimator.animateFundSpectrum();
+      }
+
+      // 7. Keyboard accessibility: ensure Enter/Space activates jargon tooltip triggers
+      document.querySelectorAll('.jargon[data-term]').forEach(function(trigger) {
+        trigger.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            trigger.click();
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
