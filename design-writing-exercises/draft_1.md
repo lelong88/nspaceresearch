@@ -35,22 +35,7 @@ Viết câu tiếng Anh sử dụng từ vựng mục tiêu buổi 1. Mỗi từ
 
 ---
 
-## Bài tập 1B – Viết câu có hỗ trợ
-
-Hoàn thành câu tiếng Anh từ phần mở đầu cho sẵn, sử dụng từ vựng buổi 1
-
-1. **lifespan** → In the past, the average lifespan was only about 40 years, but today _______________________________________________
-2. **healthspan** → My grandfather's healthspan was shorter than his lifespan because _______________________________________________
-3. **longevity** → I believe the secret to longevity is not just medicine, but also _______________________________________________
-4. **chronic disease** → In Vietnam, many older people suffer from chronic diseases such as _______________________________________________
-5. **vitality** → One way to maintain your vitality as you age is to _______________________________________________
-6. **mortality** → Although mortality rates have decreased, the real problem is that _______________________________________________
-
-> Gợi ý: Không có câu trả lời đúng hay sai — hãy viết theo suy nghĩ thật của bạn.
-
----
-
-## Bài tập 1C – Viết đoạn văn ngắn
+## Bài tập 1B – Viết đoạn văn ngắn
 
 Viết đoạn văn 4-6 câu sử dụng ít nhất 4 trong 6 từ vựng buổi 1
 
@@ -115,53 +100,13 @@ Dưới đây là ví dụ cách các bài tập viết trên có thể được
         }
     },
     {
-        "activityType": "writing",
-        "title": "Bài tập viết 1B – Viết câu có hỗ trợ",
-        "description": "Hoàn thành câu tiếng Anh từ phần mở đầu cho sẵn, sử dụng từ vựng buổi 1",
-        "practiceMinutes": 8,
-        "data": {
-            "exerciseType": "sentenceCompletion",
-            "instructions": "Hoàn thành mỗi câu bằng cách điền phần còn thiếu. Phần đầu câu đã được viết sẵn để giúp bạn. Không có câu trả lời đúng hay sai — hãy viết theo suy nghĩ thật của bạn.",
-            "vocabList": ["lifespan", "healthspan", "longevity", "chronic disease", "vitality", "mortality"],
-            "lessonUniqueId": "dgu21mdp",
-            "imageId": "8dd7a2db-52fb-4674-72ed-6ad905765700",
-            "items": [
-                {
-                    "targetVocab": "lifespan",
-                    "sentenceStarter": "In the past, the average lifespan was only about 40 years, but today"
-                },
-                {
-                    "targetVocab": "healthspan",
-                    "sentenceStarter": "My grandfather's healthspan was shorter than his lifespan because"
-                },
-                {
-                    "targetVocab": "longevity",
-                    "sentenceStarter": "I believe the secret to longevity is not just medicine, but also"
-                },
-                {
-                    "targetVocab": "chronic disease",
-                    "sentenceStarter": "In Vietnam, many older people suffer from chronic diseases such as"
-                },
-                {
-                    "targetVocab": "vitality",
-                    "sentenceStarter": "One way to maintain your vitality as you age is to"
-                },
-                {
-                    "targetVocab": "mortality",
-                    "sentenceStarter": "Although mortality rates have decreased, the real problem is that"
-                }
-            ]
-        }
-    },
-    {
-        "activityType": "writing",
-        "title": "Bài tập viết 1C – Viết đoạn văn ngắn",
+        "activityType": "writingParagraph",
+        "title": "Viết đoạn văn ngắn",
         "description": "Viết đoạn văn 4-6 câu sử dụng ít nhất 4 trong 6 từ vựng buổi 1",
         "practiceMinutes": 10,
         "data": {
-            "instructions": "Chọn một trong các đề bài sau. Viết 4-6 câu bằng tiếng Anh. Sử dụng ít nhất 4 trong 6 từ vựng đã học.",
+            "prompt": "Chọn một trong các đề bài sau. Viết 4-6 câu bằng tiếng Anh. Sử dụng ít nhất 4 trong 6 từ vựng đã học.",
             "vocabList": ["lifespan", "healthspan", "longevity", "chronic disease", "vitality", "mortality"],
-            "imageId": "8dd7a2db-52fb-4674-72ed-6ad905765700",
             "prompts": [
                 "Describe someone you know (or have heard of) who lived a long life. Did they have a long lifespan, a long healthspan, or both? What was the difference?",
                 "Do you think people today focus more on lifespan or healthspan? Why?"
