@@ -1,0 +1,9 @@
+{
+  "name": "insurance-payout-simulator-tests",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Tests for Xanh Tương Lai Insurance Payout Simulator",
+  "dependencies": {
+    "fast-check": "^3.0.0"
+  }
+}
