@@ -15,15 +15,11 @@ const scriptContent = scriptMatch ? scriptMatch[1] : '';
 // Load the HTML into jsdom (vitest jsdom environment provides document/window)
 document.documentElement.innerHTML = htmlContent.match(/<html[^>]*>([\s\S]*)<\/html>/i)?.[1] || htmlContent;
 
-// Transform the script so all declarations become window properties.
-// - `const X =` and `let X =` → `window.X =`
-// - `var X =` → `window.X =`
-// - `function X(` → `window.X = function(`
-// This ensures everything is accessible on the global window object.
+// Transform the script so key declarations become window properties.
 const transformedScript = scriptContent
-  .replace(/\b(const|let|var)\s+(GLOSSARY|FAQ_ITEMS|FUNDS|RIDERS|BENEFITS|STBH_GROWTH|AUDIENCE_PROFILES)\s*=/g, 'window.$2 =')
-  .replace(/\bfunction\s+(calculateSTBH|calculateFamilySTBHIncrease)\s*\(/g, 'window.$1 = function(')
-  .replace(/\bvar\s+(ScrollAnimator|TooltipManager|AccordionController|NavController|ChartAnimator)\s*=/g, 'window.$1 =');
+  .replace(/\bvar\s+(GLOSSARY|FAQ_ITEMS|FUNDS_DATA|RIDERS_DATA)\s*=/g, 'window.$1 =')
+  .replace(/\bfunction\s+(vnd|calcSTBH|stbhAtYear|calcFamilyBonus|estimateAccountValue|recommendFund|rateForRisk|buildScenarios|renderScenarioButtons|renderRiders|renderFunds|renderFAQ|renderGlossary|renderPersonalizedBenefits|selectScenario|showSlide|nextSlide|prevSlide|startAutoAdvance|clearAutoAdvance|togglePause|showScreen|collectInputs|startExperience|initTabs|initRiskOptions)\s*\(/g, 'window.$1 = function(')
+  .replace(/\bvar\s+(state|currentScenarios)\s*=/g, 'window.$1 =');
 
 // Execute the transformed script in the window context
 try {
@@ -35,10 +31,9 @@ try {
 
 // Verify key globals are available
 const requiredGlobals = [
-  'GLOSSARY', 'FAQ_ITEMS', 'FUNDS', 'RIDERS', 'BENEFITS',
-  'STBH_GROWTH', 'AUDIENCE_PROFILES', 'calculateSTBH',
-  'calculateFamilySTBHIncrease', 'ScrollAnimator', 'TooltipManager',
-  'AccordionController', 'NavController', 'ChartAnimator'
+  'GLOSSARY', 'FAQ_ITEMS', 'FUNDS_DATA', 'RIDERS_DATA',
+  'vnd', 'calcSTBH', 'stbhAtYear', 'calcFamilyBonus',
+  'estimateAccountValue', 'recommendFund', 'rateForRisk', 'state'
 ];
 
 const missing = requiredGlobals.filter(name => !(name in window));

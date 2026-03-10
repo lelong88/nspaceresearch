@@ -1,0 +1,469 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <title>Xanh Tương Lai – Phí Ổn Định · Tư vấn nhanh</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description"
+        content="Landing page tư vấn Xanh Tương Lai – Phí Ổn Định: bảo vệ + đầu tư, phí ổn định, tăng STBH tự động, 9 quỹ liên kết, thưởng duy trì hợp đồng." />
+  <style>
+    :root{
+      --brand:#0a8a5b; --brand-2:#0b5; --text:#1e293b; --muted:#64748b; --bg:#f8fafc; --card:#ffffff;
+      --accent:#0ea5e9; --warn:#ef4444; --ok:#10b981; --shadow:0 8px 24px rgba(2,6,23,.08);
+      --radius:14px; --radius-sm:10px; --line:#e5e7eb;
+    }
+    *{box-sizing:border-box}
+    body{margin:0; font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; color:var(--text); background:var(--bg); line-height:1.55}
+    a{color:var(--brand); text-decoration:none}
+    img{max-width:100%; display:block}
+    .container{width:min(1160px, 100% - 28px); margin-inline:auto}
+    .btn{background:var(--brand); color:#fff; padding:12px 18px; border:none; border-radius:10px; font-weight:600; cursor:pointer; transition:.2s; text-decoration:none; display:inline-flex; align-items:center; gap:8px}
+    .btn:hover{filter:brightness(1.05); transform:translateY(-1px)}
+    .btn.secondary{background:#0ea5e9}
+    .btn.ghost{background:transparent; color:var(--brand); border:1.5px solid var(--brand)}
+
+    header{position:sticky; top:0; z-index:40; background:rgba(255,255,255,.85); backdrop-filter:blur(8px); border-bottom:1px solid var(--line)}
+    .nav{display:flex; align-items:center; justify-content:space-between; padding:10px 0}
+    .brand{display:flex; align-items:center; gap:10px}
+    .logo{width:36px; height:36px; border-radius:8px; background:linear-gradient(135deg, var(--brand), #14b8a6)}
+    .agent{display:flex; align-items:center; gap:8px; color:var(--muted); font-size:14px}
+    .agent img{width:28px; height:28px; border-radius:50%; object-fit:cover}
+
+    /* Shell layout with sidebar */
+    .shell{display:grid; grid-template-columns: 280px 1fr; gap:16px; align-items:start}
+    @media (max-width: 1024px){ .shell{grid-template-columns: 1fr} }
+    .sidebar{
+      position: sticky; top:66px; align-self:start; background:var(--card); border:1px solid var(--line);
+      border-radius:12px; box-shadow:var(--shadow); padding:12px;
+      max-height: calc(100vh - 82px); overflow:auto;
+    }
+    .sidebar .head{display:flex; align-items:center; justify-content:space-between; gap:8px; padding:6px 6px 8px}
+    .sidebar .title{font-weight:700; color:#0f172a}
+    .toggle-sidebar{display:none}
+    @media (max-width:1024px){
+      .toggle-sidebar{display:inline-flex}
+      .sidebar{display:none; position:static; max-height:none}
+      .sidebar.open{display:block; margin-top:10px}
+    }
+    .group{margin:8px 0 14px}
+    .group .g-title{font-size:12px; letter-spacing:.02em; text-transform:uppercase; color:#0f172a; opacity:.7; padding:8px 6px}
+    .menu{display:grid; gap:4px; list-style:none; padding:0; margin:0}
+    .menu a{display:flex; align-items:center; gap:10px; padding:10px 10px; border-radius:10px; color:#0f172a; border:1px solid transparent}
+    .menu a:hover{background:#f1f5f9; border-color:#e2e8f0}
+    .menu a.active{background:#ecfdf5; border-color:#bbf7d0; color:#065f46; font-weight:700}
+    .menu small{color:var(--muted)}
+    .pill{font-size:11px; border:1px solid #e5e7eb; padding:0 6px; border-radius:999px; color:#0f172a; background:#f8fafc}
+
+    .content{min-width:0}
+    .hero{padding:28px 0 10px; position:relative; overflow:hidden}
+    .hero .wrap{display:grid; gap:24px; grid-template-columns:1fr; align-items:center}
+    @media(min-width:960px){ .hero .wrap{grid-template-columns:1.15fr .85fr} }
+    .hero-card{background:var(--card); border-radius:var(--radius); padding:22px; box-shadow:var(--shadow)}
+    h1{font-size:clamp(26px, 3.6vw, 42px); line-height:1.2; margin:0 0 10px}
+    .subtitle{color:var(--muted); font-size:clamp(14px, 2.2vw, 18px); margin-bottom:16px}
+    .cta-row{display:flex; gap:12px; flex-wrap:wrap}
+    .badges{display:flex; gap:10px; margin:14px 0 0; flex-wrap:wrap}
+    .badge{font-size:12px; padding:6px 10px; border-radius:999px; background:#ecfeff; color:#0ea5e9; border:1px dashed #bae6fd}
+    .hero-visual{border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow); background:linear-gradient(160deg, #ecfdf5, #ffffff 60%); min-height:260px; display:flex; align-items:center; justify-content:center; padding:16px}
+    section{padding:36px 0}
+    h2{font-size:clamp(20px, 2.8vw, 30px); margin:0 0 18px}
+    .grid-3{display:grid; gap:16px; grid-template-columns:1fr}
+    @media(min-width:800px){ .grid-3{grid-template-columns: repeat(3, 1fr)} }
+    .card{background:var(--card); border-radius:var(--radius-sm); padding:18px; box-shadow:var(--shadow)}
+    .icon{width:40px; height:40px; border-radius:10px; display:grid; place-items:center; color:white; font-weight:700}
+    .i-green{background:linear-gradient(135deg, #16a34a, #22c55e)}
+    .i-blue{background:linear-gradient(135deg, #0284c7, #38bdf8)}
+    .i-amber{background:linear-gradient(135deg, #d97706, #f59e0b)}
+    .muted{color:var(--muted)}
+    .timeline{display:grid; gap:14px}
+    .step{display:flex; gap:12px; align-items:flex-start}
+    .step .dot{min-width:26px; height:26px; border-radius:50%; background:#ecfeff; border:2px solid #7dd3fc; display:grid; place-items:center; color:#0ea5e9; font-weight:700}
+    .note{font-size:13px; color:var(--muted)}
+    table{width:100%; border-collapse:collapse; background:var(--card); border-radius:var(--radius-sm); overflow:hidden; box-shadow:var(--shadow)}
+    th,td{padding:12px 14px; border-bottom:1px solid #f1f5f9; text-align:left}
+    th{background:#f8fafc; color:#0f172a}
+    tr:last-child td{border-bottom:none}
+    .faq{display:grid; gap:10px}
+    details{background:var(--card); border-radius:10px; padding:14px 16px; box-shadow:var(--shadow)}
+    details[open]{outline:2px solid #e2e8f0}
+    summary{cursor:pointer; font-weight:600}
+    summary::-webkit-details-marker{display:none}
+    .warn{background:#fff1f2; color:#b91c1c; padding:10px 12px; border-radius:10px; border:1px solid #fecaca}
+    .model{display:grid; gap:14px; grid-template-columns:1fr}
+    @media(min-width:900px){ .model{grid-template-columns:1.2fr 1fr} }
+    .scenarios{display:grid; gap:16px; grid-template-columns:1fr}
+    @media(min-width:980px){ .scenarios{grid-template-columns:repeat(3,1fr)} }
+    .scenario .head{display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:6px}
+    .scenario .pill{font-size:12px; padding:4px 8px; border-radius:999px; border:1px solid #e5e7eb; color:#0f172a; background:#f8fafc}
+    .scenario h3{margin:8px 0}
+    .price{font-size:20px; font-weight:800; color:#0a8a5b}
+    .kicker{font-size:12px; color:#64748b}
+    .hl{display:flex; align-items:center; gap:8px}
+    .hl .check{color:var(--ok)}
+    .mode-switch{display:flex; gap:8px; flex-wrap:wrap; margin:12px 0}
+    .mode-switch button{background:#f1f5f9; color:#0f172a; border:1px solid #e2e8f0}
+    .mode-switch button.active{background:#0ea5e9; color:#fff; border-color:#38bdf8}
+    .form-grid{display:grid; gap:12px; grid-template-columns:1fr}
+    @media(min-width:800px){ .form-grid{grid-template-columns:1fr 1fr} }
+    .field{display:flex; flex-direction:column; gap:6px}
+    .field input,.field select,.field textarea{padding:10px 12px; border:1px solid #e5e7eb; border-radius:10px; outline:none; background:#fff}
+    .consent{display:flex; align-items:flex-start; gap:8px; font-size:13px; color:#475569}
+    footer{padding:28px 0 42px; color:var(--muted)}
+    .cta-final{display:flex; gap:12px; flex-wrap:wrap; margin-top:10px}
+    .tag{display:inline-block; padding:4px 8px; background:#eef2ff; color:#3730a3; border:1px solid #c7d2fe; border-radius:999px; font-size:12px}
+    .links{display:flex; flex-wrap:wrap; gap:10px}
+    .doc{display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:999px; background:#f1f5f9; border:1px solid #e2e8f0; color:#0f172a; text-decoration:none}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <strong>Xanh Tương Lai – Phí Ổn Định</strong><br>
+          <span class="muted" style="font-size:13px">Landing page tư vấn nhanh</span>
+        </div>
+      </div>
+      <div style="display:flex; align-items:center; gap:8px">
+        <button class="btn ghost toggle-sidebar" id="openSidebar">☰ Danh mục</button>
+        <div class="agent">
+          <img src="https://picsum.photos/64?grayscale" alt="Agent"/>
+          <span>Thanh (Agent) · <a href="#contact">Liên hệ</a></span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container" style="padding-top:16px">
+    <div class="shell">
+      <aside class="sidebar" id="sidebar" aria-label="Danh mục sản phẩm">
+        <div class="head">
+          <div class="title">Danh mục sản phẩm</div>
+          <button class="btn ghost toggle-sidebar" id="closeSidebar" style="padding:6px 10px">Đóng</button>
+        </div>
+        <div class="group">
+          <div class="g-title">Sản phẩm chính</div>
+          <ul class="menu">
+            <li><a class="active" href="./index%20copilot.html">Xanh Tương Lai – Phí Ổn Định <span class="pill">Hiện tại</span></a></li>
+            <li><a href="./index%20copilot.html">Xanh Tương Lai Mới <small>(đi đến trang này)</small></a></li>
+            <li><a href="https://www.manulife.com.vn/vi/san-pham-bao-hiem/bao-hiem-lien-ket-dau-tu/bao-hiem-lien-ket-don-vi/xanh-tuong-lai.html" target="_blank" rel="noopener">Xanh Tương Lai</a></li>
+            <li><a href="https://www.manulife.com.vn/vi/san-pham-bao-hiem/bao-hiem-lien-ket-dau-tu/bao-hiem-lien-ket-chung/xanh-uoc-mo.html" target="_blank" rel="noopener">Xanh Ước Mơ</a></li>
+          </ul>
+        </div>
+        <div class="group">
+          <div class="g-title">Đính kèm (Rider)</div>
+          <ul class="menu">
+            <li><a href="https://www.manulife.com.vn/vi/cac-san-pham-bo-tro-bao-hiem-nhan-tho/song-khoe-moi-ngay.html" target="_blank" rel="noopener">Sống Khỏe Mỗi Ngày 2024 – Phiên bản cải tiến</a></li>
+            <li><a href="https://www.manulife.com.vn/vi/san-pham-bao-hiem/la-chan-xanh.html" target="_blank" rel="noopener">Lá Chắn Xanh</a></li>
+            <li><a href="https://www.manulife.com.vn/vi/san-pham-bao-hiem/du-phong-xanh.html" target="_blank" rel="noopener">Dự Phòng Xanh</a></li>
+            <li><a href="https://www.manulife.com.vn/vi/san-pham-bao-hiem/ho-ve-xanh.html" target="_blank" rel="noopener">Hộ Vệ Xanh</a></li>
+            <li><a href="https://www.manulife.com.vn/vi/san-pham-bao-hiem/bao-than-xanh.html" target="_blank" rel="noopener">Bảo Thân Xanh</a></li>
+            <li><a href="https://www.manulife.com.vn/vi/san-pham-bao-hiem/danh-muc-dieu-khoan-san-pham/dieu-khoan-bo-san-pham-bo-tro.html" target="_blank" rel="noopener">Danh mục rider (đầy đủ)</a></li>
+          </ul>
+        </div>
+      </aside>
+
+      <main class="content">
+        <section class="hero">
+          <div class="wrap">
+            <div class="hero-card">
+              <h1>Giải pháp bảo vệ + đầu tư<br/>với <span style="color:var(--brand)">tổng phí ổn định</span> hằng năm</h1>
+              <p class="subtitle">Tăng an tâm bảo vệ – Linh hoạt đầu tư – Dài hạn đến 99 tuổi.</p>
+              <div class="cta-row">
+                <a class="btn" href="#contact">Để lại thông tin của bạn</a>
+                <a class="btn ghost" href="#scenarios">Xem 3 kịch bản ví dụ</a>
+              </div>
+              <div class="badges">
+                <span class="badge">Tự động tăng STBH tối đa +50%</span>
+                <span class="badge">+25% khi có thành viên gia đình mới</span>
+                <span class="badge">9 quỹ liên kết đơn vị</span>
+              </div>
+            </div>
+            <div class="hero-visual">
+              <div style="text-align:center">
+                <div style="font-size:64px">🛡️📈</div>
+                <p class="muted" style="margin:8px 0 0">Bảo vệ & Đầu tư trong cùng một hợp đồng</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Sản phẩm này là gì?</h2>
+          <div class="card">
+            <p><strong>Xanh Tương Lai – Phiên bản phí ổn định</strong> là <em>sản phẩm bảo hiểm liên kết đơn vị (ILP)</em>
+              kết hợp <strong>bảo vệ</strong> và <strong>đầu tư</strong>, cho phép đầu tư vào 9 quỹ do Manulife Investment (Việt Nam) quản lý.</p>
+            <div class="warn" style="margin-top:8px">Giá trị tài khoản <strong>biến động theo thị trường</strong> và
+              <strong>không cam kết lãi</strong>. Vui lòng tham khảo Quy tắc – Điều kiện – Điều khoản trước khi quyết định.</div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Quyền lợi bảo vệ (tóm tắt)</h2>
+          <div class="faq">
+            <details>
+              <summary>Tử vong</summary>
+              <div class="muted">Chi trả quyền lợi tử vong theo cơ chế nêu trong T&C (thường căn cứ STBH và/hoặc Giá trị tài khoản tại thời điểm sự kiện).</div>
+            </details>
+            <details>
+              <summary>Thương tật toàn bộ vĩnh viễn (TTTBVV)</summary>
+              <div class="muted">Tiêu chí xác định theo T&C.</div>
+            </details>
+            <details>
+              <summary>Quyền lợi chu toàn hậu sự</summary>
+              <div class="muted">Hỗ trợ chi phí hậu sự (điều kiện & mức chi trả theo T&C).</div>
+            </details>
+          </div>
+        </section>
+
+        <section>
+          <div class="model">
+            <div class="card">
+              <h2>Mô hình “Bảo hiểm + Đầu tư”</h2>
+              <p class="muted">Mỗi kỳ đóng phí, khoản tiền được phân bổ vào:</p>
+              <div class="timeline">
+                <div class="step"><div class="dot">1</div><div><strong>Quỹ rủi ro</strong> → chi trả quyền lợi bảo hiểm</div></div>
+                <div class="step"><div class="dot">2</div><div><strong>Quỹ đầu tư</strong> → hình thành <em>giá trị tài khoản</em> (biến động theo thị trường; không cam kết lãi).</div></div>
+              </div>
+            </div>
+            <div class="card">
+              <h2>Quyền lợi gia tăng Số Tiền Bảo Hiểm</h2>
+              <div class="timeline">
+                <div class="step"><div class="dot">Y2</div><div>+10% STBH (tự động)</div></div>
+                <div class="step"><div class="dot">Y3</div><div>+20% STBH</div></div>
+                <div class="step"><div class="dot">Y4</div><div>+30% STBH</div></div>
+                <div class="step"><div class="dot">Y5</div><div>+40% STBH</div></div>
+                <div class="step"><div class="dot">Y6</div><div>+50% STBH (tối đa)</div></div>
+                <div class="note">Mỗi thành viên gia đình mới: +5% STBH, tối đa +25%; <em>không thẩm định lại, không tăng phí</em>.</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Danh mục quỹ liên kết đơn vị</h2>
+          <p class="muted">Lựa chọn theo khẩu vị rủi ro. 3 quỹ “Hưng Thịnh” tự điều chỉnh rủi ro theo thời gian; 6 quỹ còn lại trải dài từ thận trọng đến tăng trưởng.</p>
+          <div class="grid-3">
+            <div class="card"><strong>Hưng Thịnh 1</strong><p class="muted">Điều chỉnh rủi ro tự động – giai đoạn tích lũy sớm.</p></div>
+            <div class="card"><strong>Hưng Thịnh 2</strong><p class="muted">Cân bằng tăng trưởng & an toàn theo thời gian.</p></div>
+            <div class="card"><strong>Hưng Thịnh 3</strong><p class="muted">Giảm rủi ro dần về cuối kỳ tích lũy.</p></div>
+            <div class="card"><strong>Quỹ Trái phiếu</strong><p class="muted">Rủi ro thấp · Thu nhập ổn định (dài hạn).</p></div>
+            <div class="card"><strong>Quỹ Cân bằng</strong><p class="muted">Kết hợp Cổ phiếu/Trái phiếu.</p></div>
+            <div class="card"><strong>Quỹ Cổ phiếu VN</strong><p class="muted">Tăng trưởng · Rủi ro cao hơn.</p></div>
+            <div class="card"><strong>Quỹ Cổ phiếu khu vực</strong><p class="muted">Đa dạng hóa theo khu vực.</p></div>
+            <div class="card"><strong>Quỹ ESG/Chủ đề</strong><p class="muted">Định hướng bền vững/chủ đề.</p></div>
+            <div class="card"><strong>Quỹ Thị trường tiền tệ</strong><p class="muted">Thanh khoản cao · Rủi ro thấp.</p></div>
+          </div>
+          <p class="note" style="margin-top:8px">* Tham khảo Bản cáo bạch/công bố quỹ của Manulife Investment (VN).</p>
+        </section>
+
+        <section>
+          <h2>3 giá trị cốt lõi</h2>
+          <div class="grid-3">
+            <div class="card">
+              <div class="icon i-green">🛡️</div>
+              <h3>Bảo vệ toàn diện</h3>
+              <ul>
+                <li>Tử vong & TTTBVV</li>
+                <li>Chu toàn hậu sự</li>
+                <li><span class="tag">Tự động +10%/năm (Y2→Y6), tối đa +50%</span></li>
+                <li><span class="tag">+5%/thành viên mới (tối đa +25%)</span></li>
+              </ul>
+            </div>
+            <div class="card">
+              <div class="icon i-blue">📊</div>
+              <h3>Đầu tư hiệu quả</h3>
+              <p class="muted">Danh mục 9 quỹ (3 Hưng Thịnh tự điều chỉnh + 6 quỹ theo khẩu vị rủi ro).</p>
+              <div style="height:120px; background:linear-gradient(180deg,#f0f9ff,#fff); border:1px dashed #bae6fd; border-radius:10px; display:grid; place-items:center; color:#0284c7">
+                (Placeholder mini chart)
+              </div>
+            </div>
+            <div class="card">
+              <div class="icon i-amber">🧩</div>
+              <h3>Linh hoạt cao</h3>
+              <ul>
+                <li>Đổi quỹ miễn phí & thay đổi tỷ lệ đầu tư</li>
+                <li>Nộp thêm tối đa 5× phí năm</li>
+                <li>Điều chỉnh kế hoạch bảo hiểm theo nhu cầu</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Thông tin nhanh</h2>
+          <div style="overflow:auto">
+            <table aria-label="Bảng thông tin sản phẩm">
+              <tbody>
+                <tr><th>Tuổi tham gia</th><td>30 ngày – 69 tuổi</td></tr>
+                <tr><th>Thời hạn hợp đồng</th><td>Đến 99 tuổi</td></tr>
+                <tr><th>Đóng phí</th><td>Bắt buộc 3 năm đầu; từ năm 4 linh hoạt</td></tr>
+                <tr><th>Thời hạn đóng phí dự kiến</th><td>Tối đa 20 năm hoặc đến 75 tuổi (tùy mốc đến trước)</td></tr>
+                <tr><th>Loại sản phẩm</th><td>Bảo hiểm liên kết đơn vị (Unit-Linked)</td></tr>
+                <tr><th>Thưởng duy trì HĐ</th><td>Các mốc năm 10, 15, 20</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="note" style="margin-top:10px">Chi tiết quyền lợi/loại trừ/chi phí theo Quy tắc – Điều kiện – Điều khoản (T&C) của sản phẩm.</p>
+        </section>
+
+        <section id="scenarios">
+          <h2>3 kịch bản ví dụ để bạn hình dung nhanh</h2>
+          <p class="muted">*Ước lượng minh họa UI — không phải báo giá chính thức.</p>
+          <div class="mode-switch">
+            <button class="btn ghost active" data-mode="annual">Hiển thị phí / Năm</button>
+            <button class="btn ghost" data-mode="quarter">Phí / Quý</button>
+            <button class="btn ghost" data-mode="month">Phí / Tháng</button>
+          </div>
+          <div class="scenarios">
+            <div class="card scenario" data-key="basic">
+              <div class="head">
+                <span class="pill">Kịch bản A</span>
+                <span class="pill" style="background:#ecfdf5; border-color:#bbf7d0; color:#065f46">Gia đình trẻ</span>
+              </div>
+              <h3>Basic • Phí hợp lý – Bảo vệ nền tảng</h3>
+              <p class="kicker">Giả định: Nam, 30 tuổi • STBH 800 triệu • Đóng phí 3 năm đầu</p>
+              <div class="price" data-price>—</div>
+              <ul>
+                <li class="hl"><span class="check">✔</span> Tử vong & TTTBVV + hậu sự</li>
+                <li class="hl"><span class="check">✔</span> Tự động +10% STBH/năm (Y2→Y6)</li>
+                <li class="hl"><span class="check">✔</span> Đầu tư vào 9 quỹ liên kết</li>
+              </ul>
+              <button class="btn secondary pick" data-pick="Kịch bản A (Basic, STBH 800tr)">Tôi quan tâm kịch bản này</button>
+            </div>
+
+            <div class="card scenario" data-key="balanced">
+              <div class="head">
+                <span class="pill">Kịch bản B</span>
+                <span class="pill" style="background:#eef2ff; border-color:#c7d2fe; color:#3730a3">Cân bằng</span>
+              </div>
+              <h3>Balanced • Bảo vệ tốt – Tích lũy đều</h3>
+              <p class="kicker">Giả định: Nữ, 35 tuổi • STBH 1,2 tỷ • Đóng phí 5 năm</p>
+              <div class="price" data-price>—</div>
+              <ul>
+                <li class="hl"><span class="check">✔</span> +5% STBH cho thành viên mới (tối đa +25%)</li>
+                <li class="hl"><span class="check">✔</span> Thưởng duy trì: mốc năm 10/15/20</li>
+                <li class="hl"><span class="check">✔</span> Chuyển đổi quỹ miễn phí</li>
+              </ul>
+              <button class="btn secondary pick" data-pick="Kịch bản B (Balanced, STBH 1.2 tỷ)">Tôi quan tâm kịch bản này</button>
+            </div>
+
+            <div class="card scenario" data-key="plus">
+              <div class="head">
+                <span class="pill">Kịch bản C</span>
+                <span class="pill" style="background:#fff7ed; border-color:#fed7aa; color:#9a3412">Nâng cao</span>
+              </div>
+              <h3>Plus • Bảo vệ cao – Mục tiêu tài chính lớn</h3>
+              <p class="kicker">Giả định: Nam, 40 tuổi • STBH 2 tỷ • Đóng phí 10 năm</p>
+              <div class="price" data-price>—</div>
+              <ul>
+                <li class="hl"><span class="check">✔</span> Ưu tiên bảo vệ cao cho gia đình</li>
+                <li class="hl"><span class="check">✔</span> Nộp thêm tối đa 5× phí năm</li>
+                <li class="hl"><span class="check">✔</span> Linh hoạt điều chỉnh kế hoạch</li>
+              </ul>
+              <button class="btn secondary pick" data-pick="Kịch bản C (Plus, STBH 2 tỷ)">Tôi quan tâm kịch bản này</button>
+            </div>
+          </div>
+          <p class="note" style="margin-top:10px">* Mỗi kịch bản có thể điều chỉnh theo tuổi/giới tính/STBH thực tế. Ấn “Tôi quan tâm…” để điền sẵn ghi chú vào form liên hệ bên dưới.</p>
+        </section>
+
+        <section id="contact">
+          <h2>Để lại thông tin của bạn</h2>
+          <p class="muted">Mình sẽ liên hệ trong giờ hành chính để tư vấn chi tiết & gửi minh họa chính thức.</p>
+          <form class="card" onsubmit="event.preventDefault(); alert('Đã gửi! Mình sẽ liên hệ sớm nhất.'); this.reset();">
+            <div class="form-grid">
+              <div class="field"><label>Họ và tên *</label><input required type="text" placeholder="Nguyễn Văn A" /></div>
+              <div class="field"><label>Số điện thoại *</label><input required type="tel" placeholder="09xx xxx xxx" /></div>
+              <div class="field"><label>Email</label><input type="email" placeholder="you@example.com" /></div>
+              <div class="field"><label>Kênh liên hệ ưa thích</label>
+                <select><option>Zalo</option><option>Điện thoại</option><option>Email</option></select>
+              </div>
+              <div class="field"><label>Thời gian thuận tiện</label>
+                <select><option>Sáng (9:00–11:30)</option><option>Chiều (13:30–17:00)</option><option>Tối (19:00–21:00)</option></select>
+              </div>
+              <div class="field" style="grid-column:1/-1"><label>Ghi chú</label>
+                <textarea id="note" rows="3" placeholder="VD: Quan tâm Kịch bản B (Balanced), muốn xem minh họa cho STBH 1.2 tỷ…"></textarea>
+              </div>
+            </div>
+            <label class="consent" style="margin-top:10px">
+              <input type="checkbox" required />
+              <span>Tôi đồng ý cho phép liên hệ để tư vấn sản phẩm và xử lý dữ liệu liên quan đến yêu cầu này.</span>
+            </label>
+            <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:14px">
+              <button class="btn" type="submit">Gửi thông tin</button>
+              <a class="btn ghost" href="tel:+84000000000">📞 Gọi ngay</a>
+              <a class="btn ghost" href="https://zalo.me/">💬 Nhắn Zalo</a>
+            </div>
+          </form>
+        </section>
+
+        <footer>
+          <h2 style="margin-bottom:12px">Tài liệu chính thức</h2>
+          <div class="links">
+            <a class="doc" href="https://www.manulife.com.vn/vi/san-pham-bao-hiem.html" target="_blank" rel="noopener">Trang “Sản phẩm bảo hiểm”</a>
+            <a class="doc" href="https://www.manulife.com.vn/vi/san-pham-bao-hiem/bao-hiem-lien-ket-dau-tu/bao-hiem-lien-ket-don-vi/xanh-tuong-lai-phi-on-dinh.html" target="_blank" rel="noopener">Trang sản phẩm (Phí Ổn Định)</a>
+            <a class="doc" href="https://www.manulife.com.vn/vi/san-pham-bao-hiem/danh-muc-dieu-khoan-san-pham/dieu-khoan-bo-san-pham-bo-tro.html" target="_blank" rel="noopener">Danh mục rider (điều khoản)</a>
+          </div>
+          <p class="muted" style="margin-top:12px">© 2026 • Trang mockup tư vấn. Nội dung nhằm minh họa giao diện. Vui lòng tham khảo T&C chính thức trước khi quyết định.</p>
+        </footer>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    // Sidebar toggle for mobile
+    const sidebar = document.getElementById('sidebar');
+    const openBtn = document.getElementById('openSidebar');
+    const closeBtn = document.getElementById('closeSidebar');
+    const toggle = (on) => {
+      if (window.innerWidth <= 1024) sidebar.classList.toggle('open', on ?? !sidebar.classList.contains('open'));
+    };
+    openBtn?.addEventListener('click', () => toggle());
+    closeBtn?.addEventListener('click', () => toggle(false));
+    window.addEventListener('resize', () => { if (window.innerWidth > 1024) sidebar.classList.remove('open'); });
+
+    // Demo pricing engine
+    const scenarios = {
+      basic: { age: 30, gender: 'male', sa: 0.8e9, years: 3 },
+      balanced: { age: 35, gender: 'female', sa: 1.2e9, years: 5 },
+      plus: { age: 40, gender: 'male', sa: 2.0e9, years: 10 }
+    };
+    let currentMode = 'annual';
+    function baseAnnual(sa){ return sa * 0.007; }
+    function ageLoading(age, val){ if(age>40) val*=1.15; if(age>50) val*=1.25; return val; }
+    function genderLoading(g, val){ if(g==='male') val*=1.05; return val; }
+    function modeFactor(m){ return ({annual:1, quarter:0.27, month:0.095})[m] || 1; }
+    function estimateScenario({age, gender, sa}){ let p=baseAnnual(sa); p=ageLoading(age,p); p=genderLoading(gender,p); return p; }
+    function renderPrices(){
+      document.querySelectorAll('.scenario').forEach(card=>{
+        const key = card.dataset.key;
+        const data = scenarios[key];
+        const annual = estimateScenario(data);
+        const per = currentMode==='annual'?'năm': currentMode==='quarter'?'quý':'tháng';
+        const premium = Math.round(annual * modeFactor(currentMode));
+        card.querySelector('[data-price]').textContent = `Ước tính phí / ${per}: ${premium.toLocaleString('vi-VN')} VND`;
+      });
+      document.querySelectorAll('.mode-switch button').forEach(b=>{
+        b.classList.toggle('active', b.dataset.mode===currentMode);
+      });
+    }
+    document.querySelectorAll('.mode-switch button').forEach(btn=>{
+      btn.addEventListener('click', ()=>{ currentMode = btn.dataset.mode; renderPrices(); });
+    });
+    renderPrices();
+
+    // NEW: mở tab Tích chuyên sâu với PDF minh họa
+    const note = document.getElementById('note');
+    document.querySelectorAll('.pick').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const label = btn.dataset.pick;
+        if (note) note.value = `Quan tâm ${label}. Vui lòng tư vấn & gửi minh họa theo thông tin của tôi.`;
+        const url = new URL('scenario.html', window.location.href);
+        url.searchParams.set('pick', label);
+        window.open(url.toString(), 'deepDive', 'noopener,noreferrer');
+      });
+    });
+  </script>
+</body>
+</html>

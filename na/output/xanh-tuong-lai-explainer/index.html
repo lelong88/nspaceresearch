@@ -1,460 +1,434 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8" />
   <title>Xanh Tương Lai – Khám phá câu chuyện bảo hiểm của bạn | Manulife Việt Nam</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Khám phá câu chuyện bảo hiểm Xanh Tương Lai được cá nhân hóa: bảo vệ + đầu tư, 9 quỹ liên kết, tăng STBH tự động." />
   <style>
-    :root {
-      --color-primary: #00A758;
-      --color-dark-green: #006B3F;
-      --color-white: #FFFFFF;
-      --color-light-green: #E8F5E9;
-      --color-text: #1A1A1A;
-      --color-text-light: #4A4A4A;
-      --color-bg: #FAFAFA;
-      --color-bg-alt: #F0F7F2;
-      --color-border: #D4E8D9;
-      --font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-      --radius-md: 8px;
-      --radius-lg: 12px;
-      --radius-xl: 16px;
-      --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
-      --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
-      --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
-      --transition-fast: 150ms ease;
-      --transition-base: 300ms ease;
+    :root{
+      --brand:#00A758; --brand-dark:#006B3F; --text:#1e293b; --muted:#64748b; --bg:#f8fafc; --card:#ffffff;
+      --accent:#0ea5e9; --warn:#ef4444; --ok:#10b981; --shadow:0 8px 24px rgba(2,6,23,.08);
+      --radius:14px; --radius-sm:10px; --line:#e5e7eb; --light-green:#ecfdf5;
     }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: var(--font-family);
-      font-size: 16px; line-height: 1.6;
-      color: var(--color-text); background: var(--color-bg);
-      -webkit-font-smoothing: antialiased; overflow-x: hidden;
-    }
-    img { max-width: 100%; height: auto; display: block; }
-    a { color: var(--color-primary); text-decoration: none; }
-    h1,h2,h3,h4 { font-weight: 700; line-height: 1.3; color: var(--color-dark-green); }
-    ul,ol { list-style: none; }
-    p { margin-bottom: 0.75rem; }
+    *{box-sizing:border-box}
+    body{margin:0; font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; color:var(--text); background:var(--bg); line-height:1.55}
+    a{color:var(--brand); text-decoration:none}
+    img{max-width:100%; display:block}
+    .container{width:min(1160px, 100% - 28px); margin-inline:auto}
+    .btn{background:var(--brand); color:#fff; padding:12px 18px; border:none; border-radius:10px; font-weight:600; cursor:pointer; transition:.2s; text-decoration:none; display:inline-flex; align-items:center; gap:8px; font-family:inherit; font-size:14px}
+    .btn:hover{filter:brightness(1.05); transform:translateY(-1px)}
+    .btn.secondary{background:#0ea5e9}
+    .btn.ghost{background:transparent; color:var(--brand); border:1.5px solid var(--brand)}
+    .btn.ghost:hover{background:var(--light-green)}
+    .btn:disabled{opacity:.5; cursor:not-allowed; transform:none}
 
-    /* ===== LAYOUT ===== */
-    .app-header {
-      background: linear-gradient(135deg, #006B3F 0%, #00A758 60%, #E8F5E9 100%);
-      color: #fff; text-align: center; padding: 2rem 1rem 1.5rem;
-    }
-    .app-header img { max-width: 320px; margin: 0 auto 1rem; border-radius: var(--radius-lg); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
-    .app-header h1 { color: #fff; font-size: 1.75rem; margin-bottom: 0.25rem; }
-    .app-header p { color: rgba(255,255,255,0.9); font-size: 0.95rem; margin-bottom: 0; }
+    header{position:sticky; top:0; z-index:40; background:rgba(255,255,255,.85); backdrop-filter:blur(8px); border-bottom:1px solid var(--line)}
+    .nav{display:flex; align-items:center; justify-content:space-between; padding:10px 0}
+    .brand-area{display:flex; align-items:center; gap:10px}
+    .logo{width:36px; height:36px; border-radius:8px; background:linear-gradient(135deg, var(--brand-dark), var(--brand))}
+    .agent{display:flex; align-items:center; gap:8px; color:var(--muted); font-size:14px}
 
-    .app-container { max-width: 900px; margin: 0 auto; padding: 0 1rem; }
+    .shell{display:grid; grid-template-columns:260px 1fr; gap:16px; align-items:start}
+    @media(max-width:1024px){.shell{grid-template-columns:1fr}}
+    .sidebar{position:sticky; top:66px; align-self:start; background:var(--card); border:1px solid var(--line); border-radius:12px; box-shadow:var(--shadow); padding:12px; max-height:calc(100vh - 82px); overflow:auto}
+    .sidebar .head{display:flex; align-items:center; justify-content:space-between; gap:8px; padding:6px 6px 8px}
+    .sidebar .title{font-weight:700; color:#0f172a; font-size:14px}
+    .toggle-sidebar{display:none}
+    @media(max-width:1024px){.toggle-sidebar{display:inline-flex} .sidebar{display:none; position:static; max-height:none} .sidebar.open{display:block; margin-top:10px}}
+    .group{margin:8px 0 14px}
+    .group .g-title{font-size:11px; letter-spacing:.04em; text-transform:uppercase; color:#0f172a; opacity:.6; padding:8px 6px}
+    .menu{display:grid; gap:4px; list-style:none; padding:0; margin:0}
+    .menu a,.menu button{display:flex; align-items:center; gap:10px; padding:10px; border-radius:10px; color:#0f172a; border:1px solid transparent; text-decoration:none; font-size:13px; width:100%; background:none; cursor:pointer; font-family:inherit; text-align:left}
+    .menu a:hover,.menu button:hover{background:#f1f5f9; border-color:#e2e8f0}
+    .menu .active{background:var(--light-green); border-color:#bbf7d0; color:#065f46; font-weight:700}
+    .menu small{color:var(--muted); font-size:11px}
+    .pill{font-size:11px; border:1px solid #e5e7eb; padding:0 6px; border-radius:999px; color:#0f172a; background:#f8fafc}
 
-    /* ===== SCREENS ===== */
-    .screen { display: none; }
-    .screen.active { display: block; }
+    .content{min-width:0}
+    section{padding:28px 0}
+    h1{font-size:clamp(26px,3.6vw,42px); line-height:1.2; margin:0 0 10px}
+    h2{font-size:clamp(18px,2.6vw,26px); margin:0 0 14px; color:var(--brand-dark)}
+    h3{font-size:16px; margin:0 0 8px; color:var(--brand-dark)}
+    .subtitle{color:var(--muted); font-size:clamp(14px,2.2vw,17px); margin-bottom:16px}
+    .muted{color:var(--muted)}
+    .note{font-size:13px; color:var(--muted)}
 
-    /* ===== INPUT SCREEN ===== */
-    #screen-input { padding: 2rem 0; }
-    .input-intro { text-align: center; margin-bottom: 2rem; }
-    .input-intro h2 { font-size: 1.5rem; margin-bottom: 0.5rem; }
-    .input-intro p { color: var(--color-text-light); max-width: 500px; margin: 0 auto; }
+    .hero{padding:28px 0 10px}
+    .hero .wrap{display:grid; gap:24px; grid-template-columns:1fr}
+    @media(min-width:800px){.hero .wrap{grid-template-columns:1.15fr .85fr}}
+    .hero-card{background:var(--card); border-radius:var(--radius); padding:22px; box-shadow:var(--shadow)}
+    .hero-visual{border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow); background:linear-gradient(160deg,var(--light-green),#fff 60%); min-height:240px; display:flex; align-items:center; justify-content:center; padding:16px}
+    .cta-row{display:flex; gap:12px; flex-wrap:wrap}
+    .badges{display:flex; gap:10px; margin:14px 0 0; flex-wrap:wrap}
+    .badge{font-size:12px; padding:6px 10px; border-radius:999px; background:#ecfeff; color:#0ea5e9; border:1px dashed #bae6fd}
 
-    .form-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem;
-      max-width: 600px; margin: 0 auto 2rem;
-    }
-    .form-group { display: flex; flex-direction: column; }
-    .form-group.full-width { grid-column: 1 / -1; }
-    .form-group label {
-      font-size: 0.875rem; font-weight: 600; color: var(--color-dark-green);
-      margin-bottom: 0.35rem;
-    }
-    .form-group input, .form-group select {
-      padding: 0.65rem 0.75rem; border: 1.5px solid var(--color-border);
-      border-radius: var(--radius-md); font-size: 1rem; font-family: inherit;
-      background: #fff; transition: border-color var(--transition-fast);
-    }
-    .form-group input:focus, .form-group select:focus {
-      outline: none; border-color: var(--color-primary);
-      box-shadow: 0 0 0 3px rgba(0,167,88,0.15);
-    }
+    .grid-2{display:grid; gap:16px; grid-template-columns:1fr}
+    @media(min-width:700px){.grid-2{grid-template-columns:1fr 1fr}}
+    .grid-3{display:grid; gap:16px; grid-template-columns:1fr}
+    @media(min-width:800px){.grid-3{grid-template-columns:repeat(3,1fr)}}
+    .card{background:var(--card); border-radius:var(--radius-sm); padding:18px; box-shadow:var(--shadow)}
+    .icon-box{width:40px; height:40px; border-radius:10px; display:grid; place-items:center; color:white; font-weight:700; font-size:18px}
+    .i-green{background:linear-gradient(135deg,#16a34a,#22c55e)}
+    .i-blue{background:linear-gradient(135deg,#0284c7,#38bdf8)}
+    .i-amber{background:linear-gradient(135deg,#d97706,#f59e0b)}
 
-    .risk-options { display: flex; gap: 0.5rem; flex-wrap: wrap; }
-    .risk-option {
-      flex: 1; min-width: 80px; padding: 0.6rem 0.5rem; text-align: center;
-      border: 1.5px solid var(--color-border); border-radius: var(--radius-md);
-      cursor: pointer; font-size: 0.85rem; background: #fff;
-      transition: all var(--transition-fast); user-select: none;
-    }
-    .risk-option:hover { border-color: var(--color-primary); background: var(--color-light-green); }
-    .risk-option.selected {
-      border-color: var(--color-primary); background: var(--color-primary);
-      color: #fff; font-weight: 600;
-    }
-    .risk-option .risk-emoji { display: block; font-size: 1.3rem; margin-bottom: 0.15rem; }
+    /* Form */
+    .form-grid{display:grid; gap:14px; grid-template-columns:1fr 1fr}
+    @media(max-width:600px){.form-grid{grid-template-columns:1fr}}
+    .field{display:flex; flex-direction:column; gap:6px}
+    .field label{font-size:13px; font-weight:600; color:var(--brand-dark)}
+    .field input,.field select{padding:10px 12px; border:1.5px solid var(--line); border-radius:10px; outline:none; background:#fff; font-size:14px; font-family:inherit}
+    .field input:focus,.field select:focus{border-color:var(--brand); box-shadow:0 0 0 3px rgba(0,167,88,.12)}
+    .full-span{grid-column:1/-1}
+    .risk-options{display:flex; gap:8px; flex-wrap:wrap}
+    .risk-option{flex:1; min-width:80px; padding:10px 8px; text-align:center; border:1.5px solid var(--line); border-radius:10px; cursor:pointer; font-size:13px; background:#fff; transition:.15s; user-select:none; font-family:inherit}
+    .risk-option:hover{border-color:var(--brand); background:var(--light-green)}
+    .risk-option.selected{border-color:var(--brand); background:var(--brand); color:#fff; font-weight:600}
+    .risk-emoji{display:block; font-size:1.3rem; margin-bottom:2px}
 
-    .btn-start {
-      display: block; width: 100%; max-width: 600px; margin: 0 auto;
-      padding: 0.9rem; font-size: 1.1rem; font-weight: 600; font-family: inherit;
-      background: var(--color-primary); color: #fff; border: none;
-      border-radius: var(--radius-md); cursor: pointer;
-      transition: transform var(--transition-fast), box-shadow var(--transition-fast);
-    }
-    .btn-start:hover { transform: scale(1.02); box-shadow: var(--shadow-md); }
-    .btn-start:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    /* Scenario grid */
+    .scenario-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(155px,1fr)); gap:10px; margin-bottom:16px}
+    .scenario-btn{display:flex; flex-direction:column; align-items:center; text-align:center; padding:14px 10px; border:1.5px solid var(--line); border-radius:var(--radius); background:#fff; cursor:pointer; transition:.2s; font-family:inherit}
+    .scenario-btn:hover{border-color:var(--brand); transform:translateY(-2px); box-shadow:var(--shadow)}
+    .scenario-btn.active{border-color:var(--brand); background:var(--light-green); box-shadow:0 0 0 3px rgba(0,167,88,.12)}
+    .sc-icon{font-size:1.8rem; margin-bottom:4px}
+    .sc-title{font-size:13px; font-weight:600; color:var(--brand-dark)}
+    .sc-desc{font-size:11px; color:var(--muted)}
 
-    /* ===== STORY SCREEN ===== */
-    #screen-story { padding: 1.5rem 0 2rem; }
-    .story-nav {
-      display: flex; align-items: center; justify-content: space-between;
-      margin-bottom: 1.5rem; flex-wrap: wrap; gap: 0.75rem;
-    }
-    .story-nav .user-summary {
-      font-size: 0.85rem; color: var(--color-text-light);
-      background: var(--color-bg-alt); padding: 0.4rem 0.75rem;
-      border-radius: var(--radius-xl); display: flex; gap: 0.75rem; flex-wrap: wrap;
-    }
-    .story-nav .user-summary span { white-space: nowrap; }
-    .btn-back {
-      padding: 0.4rem 0.9rem; font-size: 0.85rem; font-family: inherit;
-      background: none; border: 1.5px solid var(--color-border);
-      border-radius: var(--radius-md); cursor: pointer; color: var(--color-text-light);
-      transition: all var(--transition-fast);
-    }
-    .btn-back:hover { border-color: var(--color-primary); color: var(--color-primary); }
+    /* Story player */
+    .story-player{display:none; margin-bottom:20px}
+    .story-player.visible{display:block}
+    .story-progress{height:4px; background:var(--line); border-radius:2px; margin-bottom:14px; overflow:hidden}
+    .story-progress-fill{height:100%; background:var(--brand); border-radius:2px; transition:width .4s ease}
+    .story-slide{background:#fff; border-radius:var(--radius); padding:2rem; box-shadow:var(--shadow); border:1px solid var(--line); min-height:200px; position:relative; animation:slideIn .35s ease}
+    @keyframes slideIn{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}
+    .story-slide-icon{font-size:2.5rem; margin-bottom:10px}
+    .story-slide-title{font-size:1.2rem; font-weight:700; color:var(--brand-dark); margin-bottom:10px}
+    .story-slide-body{color:var(--muted); line-height:1.7; font-size:15px}
+    .story-slide-body .amount{color:var(--brand); font-weight:700; font-size:1.05em}
+    .story-slide-body .highlight{background:var(--light-green); padding:.1em .35em; border-radius:4px; font-weight:600}
+    .story-slide-body .warn{color:var(--warn); font-weight:600}
+    .story-slide-number{position:absolute; top:1rem; right:1.25rem; font-size:12px; color:var(--muted); opacity:.6}
+    .story-controls{display:flex; align-items:center; justify-content:center; gap:10px; margin-top:12px}
+    .story-controls button{padding:8px 16px; font-size:13px; font-family:inherit; border:1.5px solid var(--line); border-radius:10px; background:#fff; cursor:pointer; transition:.15s}
+    .story-controls button:hover{border-color:var(--brand); color:var(--brand)}
+    .story-controls button:disabled{opacity:.3; cursor:not-allowed}
 
-    /* Scenario Buttons */
-    .scenario-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 0.75rem; margin-bottom: 1.5rem;
-    }
-    .scenario-btn {
-      display: flex; flex-direction: column; align-items: center; text-align: center;
-      padding: 1rem 0.75rem; border: 1.5px solid var(--color-border);
-      border-radius: var(--radius-lg); background: #fff; cursor: pointer;
-      transition: all var(--transition-fast); font-family: inherit;
-    }
-    .scenario-btn:hover { border-color: var(--color-primary); transform: translateY(-2px); box-shadow: var(--shadow-md); }
-    .scenario-btn.active { border-color: var(--color-primary); background: var(--color-light-green); }
-    .scenario-btn .sc-icon { font-size: 1.8rem; margin-bottom: 0.35rem; }
-    .scenario-btn .sc-title { font-size: 0.85rem; font-weight: 600; color: var(--color-dark-green); margin-bottom: 0.15rem; }
-    .scenario-btn .sc-desc { font-size: 0.75rem; color: var(--color-text-light); }
+    /* Tabs */
+    .tab-buttons{display:flex; gap:0; border-bottom:2px solid var(--line); overflow-x:auto; -webkit-overflow-scrolling:touch; margin-top:24px}
+    .tab-btn{padding:10px 14px; font-size:13px; font-family:inherit; font-weight:500; background:none; border:none; border-bottom:2px solid transparent; margin-bottom:-2px; cursor:pointer; white-space:nowrap; color:var(--muted); transition:.15s}
+    .tab-btn:hover{color:var(--brand)}
+    .tab-btn.active{color:var(--brand); border-bottom-color:var(--brand); font-weight:600}
+    .tab-panel{display:none; padding:16px 0}
+    .tab-panel.active{display:block; animation:fadeIn .3s ease}
+    @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 
-    /* Story Player */
-    .story-player { display: none; }
-    .story-player.visible { display: block; }
-    .story-progress { height: 4px; background: var(--color-border); border-radius: 2px; margin-bottom: 1rem; overflow: hidden; }
-    .story-progress-fill { height: 100%; background: var(--color-primary); border-radius: 2px; transition: width 0.4s ease; }
+    /* Info cards */
+    .info-card{background:#fff; border:1px solid var(--line); border-radius:var(--radius-sm); padding:16px; margin-bottom:10px; box-shadow:var(--shadow)}
+    .info-card h3{font-size:15px; margin-bottom:6px}
+    .info-card p,.info-card li{font-size:14px; color:var(--muted)}
+    .info-card ul{margin-top:6px}
+    .info-card li{padding:3px 0 3px 18px; position:relative}
+    .info-card li::before{content:'✓'; position:absolute; left:0; color:var(--brand); font-weight:700}
 
-    .story-slide {
-      background: #fff; border-radius: var(--radius-lg); padding: 2rem;
-      box-shadow: var(--shadow-sm); border: 1px solid var(--color-border);
-      min-height: 200px; position: relative;
-      animation: slideIn 0.35s ease;
-    }
-    @keyframes slideIn { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
-    .story-slide-icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
-    .story-slide-title { font-size: 1.25rem; font-weight: 700; color: var(--color-dark-green); margin-bottom: 0.75rem; }
-    .story-slide-body { color: var(--color-text-light); line-height: 1.7; }
-    .story-slide-body .amount { color: var(--color-primary); font-weight: 700; font-size: 1.05em; }
-    .story-slide-body .highlight { background: var(--color-light-green); padding: 0.1em 0.35em; border-radius: 4px; font-weight: 600; }
-    .story-slide-body .warn { color: #D32F2F; font-weight: 600; }
-    .story-slide-number { position: absolute; top: 1rem; right: 1.25rem; font-size: 0.8rem; color: var(--color-text-light); opacity: 0.6; }
+    .rider-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:10px}
+    .rider-card{border-top:3px solid var(--brand)}
+    .rider-card.green{border-top-color:var(--brand-dark)}
+    .rider-card.teal{border-top-color:#2E8B57}
 
-    .story-controls {
-      display: flex; align-items: center; justify-content: center;
-      gap: 0.75rem; margin-top: 1rem;
-    }
-    .story-controls button {
-      padding: 0.5rem 1.25rem; font-size: 0.9rem; font-family: inherit;
-      border: 1.5px solid var(--color-border); border-radius: var(--radius-md);
-      background: #fff; cursor: pointer; transition: all var(--transition-fast);
-    }
-    .story-controls button:hover { border-color: var(--color-primary); color: var(--color-primary); }
-    .story-controls button:disabled { opacity: 0.3; cursor: not-allowed; }
-    .story-controls .btn-pause { min-width: 100px; }
+    .fund-spectrum-bar{height:8px; background:linear-gradient(90deg,var(--brand-dark),var(--brand),#FFB300); border-radius:4px; margin:16px 0 6px; position:relative}
+    .fund-spectrum-labels{display:flex; justify-content:space-between; font-size:12px; color:var(--muted)}
+    .fund-list{margin-top:12px}
+    .fund-item{display:flex; align-items:center; gap:10px; padding:8px 0; border-bottom:1px solid var(--line)}
+    .fund-item:last-child{border-bottom:none}
+    .fund-risk{width:28px; height:28px; border-radius:50%; background:var(--brand); color:#fff; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; flex-shrink:0}
+    .fund-name{font-weight:600; font-size:14px}
+    .fund-desc{font-size:12px; color:var(--muted)}
 
-    /* ===== INFO TABS (below story) ===== */
-    .info-tabs { margin-top: 2rem; }
-    .tab-buttons {
-      display: flex; gap: 0; border-bottom: 2px solid var(--color-border);
-      overflow-x: auto; -webkit-overflow-scrolling: touch;
-    }
-    .tab-btn {
-      padding: 0.6rem 1rem; font-size: 0.85rem; font-family: inherit;
-      font-weight: 500; background: none; border: none; border-bottom: 2px solid transparent;
-      margin-bottom: -2px; cursor: pointer; white-space: nowrap;
-      color: var(--color-text-light); transition: all var(--transition-fast);
-    }
-    .tab-btn:hover { color: var(--color-primary); }
-    .tab-btn.active { color: var(--color-primary); border-bottom-color: var(--color-primary); font-weight: 600; }
-    .tab-panel { display: none; padding: 1.25rem 0; }
-    .tab-panel.active { display: block; animation: fadeIn 0.3s ease; }
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    .faq-item{border:1px solid var(--line); border-radius:var(--radius-sm); margin-bottom:6px; overflow:hidden; background:#fff}
+    .faq-trigger{width:100%; display:flex; align-items:center; justify-content:space-between; padding:12px 14px; background:none; border:none; cursor:pointer; font-family:inherit; font-size:14px; font-weight:500; color:var(--text); text-align:left}
+    .faq-trigger:hover{background:#f8fafc}
+    .faq-icon{transition:transform .3s; font-size:12px; color:var(--brand)}
+    .faq-trigger[aria-expanded="true"] .faq-icon{transform:rotate(180deg)}
+    .faq-panel{max-height:0; overflow:hidden; transition:max-height .3s}
+    .faq-panel-content{padding:0 14px 12px; font-size:14px; color:var(--muted); line-height:1.6}
 
-    /* Info cards inside tabs */
-    .info-card {
-      background: #fff; border: 1px solid var(--color-border);
-      border-radius: var(--radius-lg); padding: 1.25rem; margin-bottom: 0.75rem;
-      box-shadow: var(--shadow-sm);
-    }
-    .info-card h3 { font-size: 1rem; margin-bottom: 0.5rem; }
-    .info-card p, .info-card li { font-size: 0.9rem; color: var(--color-text-light); }
-    .info-card ul { margin-top: 0.5rem; }
-    .info-card li { padding: 0.2rem 0 0.2rem 1rem; position: relative; }
-    .info-card li::before { content: '✓'; position: absolute; left: 0; color: var(--color-primary); font-weight: 700; }
+    .glossary-grid{columns:2; column-gap:20px}
+    @media(max-width:600px){.glossary-grid{columns:1}}
+    .glossary-item{break-inside:avoid; padding:6px 0; border-bottom:1px solid var(--line)}
+    .glossary-term{font-weight:700; color:var(--brand-dark); font-size:14px}
+    .glossary-def{font-size:13px; color:var(--muted)}
 
-    /* Rider cards */
-    .rider-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0.75rem; }
-    .rider-card { border-top: 3px solid var(--color-primary); }
-    .rider-card.green { border-top-color: #006B3F; }
-    .rider-card.teal { border-top-color: #2E8B57; }
+    .disclaimer{font-size:12px; color:var(--muted); font-style:italic; padding:10px 12px; background:#f8fafc; border-left:3px solid var(--brand); border-radius:0 4px 4px 0; margin-top:12px}
+    .warn-box{background:#fff1f2; color:#b91c1c; padding:10px 12px; border-radius:10px; border:1px solid #fecaca; font-size:13px}
 
-    /* Fund spectrum */
-    .fund-spectrum-bar {
-      height: 8px; background: linear-gradient(90deg, #006B3F, #00A758, #FFB300);
-      border-radius: 4px; margin: 1.5rem 0 0.5rem; position: relative;
-    }
-    .fund-spectrum-labels { display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--color-text-light); }
-    .fund-list { margin-top: 1rem; }
-    .fund-item {
-      display: flex; align-items: center; gap: 0.75rem;
-      padding: 0.5rem 0; border-bottom: 1px solid var(--color-border);
-    }
-    .fund-item:last-child { border-bottom: none; }
-    .fund-risk {
-      width: 28px; height: 28px; border-radius: 50%;
-      background: var(--color-primary); color: #fff;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 0.75rem; font-weight: 700; flex-shrink: 0;
-    }
-    .fund-name { font-weight: 600; font-size: 0.9rem; }
-    .fund-desc { font-size: 0.8rem; color: var(--color-text-light); }
+    footer{padding:28px 0 42px; color:var(--muted); font-size:13px}
+    .links{display:flex; flex-wrap:wrap; gap:10px; margin-bottom:12px}
+    .doc{display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:999px; background:#f1f5f9; border:1px solid #e2e8f0; color:#0f172a; text-decoration:none; font-size:13px}
+    .doc:hover{border-color:var(--brand)}
 
-    /* FAQ accordion */
-    .faq-item { border: 1px solid var(--color-border); border-radius: var(--radius-md); margin-bottom: 0.5rem; overflow: hidden; background: #fff; }
-    .faq-trigger {
-      width: 100%; display: flex; align-items: center; justify-content: space-between;
-      padding: 0.75rem 1rem; background: none; border: none; cursor: pointer;
-      font-family: inherit; font-size: 0.9rem; font-weight: 500; color: var(--color-text); text-align: left;
-    }
-    .faq-trigger:hover { background: var(--color-bg-alt); }
-    .faq-trigger .faq-icon { transition: transform var(--transition-base); font-size: 0.8rem; color: var(--color-primary); }
-    .faq-trigger[aria-expanded="true"] .faq-icon { transform: rotate(180deg); }
-    .faq-panel { max-height: 0; overflow: hidden; transition: max-height var(--transition-base); }
-    .faq-panel-content { padding: 0 1rem 0.75rem; font-size: 0.875rem; color: var(--color-text-light); line-height: 1.6; }
+    /* Screens */
+    .screen{display:none}
+    .screen.active{display:block}
 
-    /* Glossary */
-    .glossary-grid { columns: 2; column-gap: 1.5rem; }
-    .glossary-item { break-inside: avoid; padding: 0.4rem 0; border-bottom: 1px solid var(--color-border); }
-    .glossary-term { font-weight: 700; color: var(--color-dark-green); font-size: 0.9rem; }
-    .glossary-def { font-size: 0.8rem; color: var(--color-text-light); }
-
-    /* Disclaimer */
-    .disclaimer {
-      font-size: 0.8rem; color: var(--color-text-light); font-style: italic;
-      padding: 0.6rem 0.75rem; background: var(--color-bg-alt);
-      border-left: 3px solid var(--color-primary); border-radius: 0 4px 4px 0;
-      margin-top: 1rem;
-    }
-
-    /* Footer */
-    .app-footer {
-      background: var(--color-dark-green); color: #fff;
-      text-align: center; padding: 1.25rem; font-size: 0.85rem; margin-top: 2rem;
-    }
-    .app-footer a { color: #fff; text-decoration: underline; }
-
-    /* ===== RESPONSIVE ===== */
-    @media (max-width: 600px) {
-      .form-grid { grid-template-columns: 1fr; }
-      .scenario-grid { grid-template-columns: 1fr 1fr; }
-      .story-slide { padding: 1.25rem; }
-      .story-nav { flex-direction: column; align-items: flex-start; }
-      .tab-buttons { gap: 0; }
-      .glossary-grid { columns: 1; }
-      .rider-grid { grid-template-columns: 1fr; }
-      .app-header h1 { font-size: 1.35rem; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { animation-duration: 0s !important; transition-duration: 0s !important; }
-    }
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0s!important;transition-duration:0s!important}}
   </style>
 </head>
 <body>
-
-  <!-- Header -->
-  <header class="app-header">
-    <img src="banner.png" alt="Xanh Tương Lai – Manulife Việt Nam">
-    <h1>Xanh Tương Lai</h1>
-    <p>Khám phá câu chuyện bảo hiểm được cá nhân hóa cho bạn</p>
+  <header>
+    <div class="container nav">
+      <div class="brand-area">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <strong>Xanh Tương Lai</strong><br>
+          <span class="muted" style="font-size:13px">Câu chuyện bảo hiểm cá nhân hóa</span>
+        </div>
+      </div>
+      <div style="display:flex; align-items:center; gap:8px">
+        <button class="btn ghost toggle-sidebar" id="openSidebar">☰ Danh mục</button>
+        <div class="agent">
+          <span>Manulife Việt Nam</span>
+        </div>
+      </div>
+    </div>
   </header>
 
-  <div class="app-container">
+  <div class="container" style="padding-top:16px">
+    <div class="shell">
+      <aside class="sidebar" id="sidebar" aria-label="Danh mục">
+        <div class="head">
+          <div class="title">Danh mục</div>
+          <button class="btn ghost toggle-sidebar" id="closeSidebar" style="padding:6px 10px; font-size:12px">Đóng</button>
+        </div>
+        <div class="group">
+          <div class="g-title">Điều hướng</div>
+          <ul class="menu" id="sidebar-menu">
+            <li><button class="active" data-screen="screen-input">📝 Nhập thông tin</button></li>
+            <li><button data-screen="screen-story">📖 Câu chuyện của bạn</button></li>
+          </ul>
+        </div>
+        <div class="group">
+          <div class="g-title">Sản phẩm Manulife</div>
+          <ul class="menu">
+            <li><a href="https://www.manulife.com.vn/vi/san-pham-bao-hiem/bao-hiem-lien-ket-dau-tu/bao-hiem-lien-ket-don-vi/xanh-tuong-lai-phi-on-dinh.html" target="_blank" rel="noopener">Xanh Tương Lai – Phí Ổn Định</a></li>
+            <li><a href="https://www.manulife.com.vn/vi/san-pham-bao-hiem/bao-hiem-lien-ket-dau-tu/bao-hiem-lien-ket-don-vi/xanh-tuong-lai.html" target="_blank" rel="noopener">Xanh Tương Lai</a></li>
+          </ul>
+        </div>
+        <div class="group">
+          <div class="g-title">Riders</div>
+          <ul class="menu">
+            <li><a href="https://www.manulife.com.vn/vi/cac-san-pham-bo-tro-bao-hiem-nhan-tho/song-khoe-moi-ngay.html" target="_blank" rel="noopener">Sống Khỏe Mỗi Ngày</a></li>
+            <li><a href="https://www.manulife.com.vn/vi/san-pham-bao-hiem/la-chan-xanh.html" target="_blank" rel="noopener">Lá Chắn Xanh</a></li>
+            <li><a href="https://www.manulife.com.vn/vi/san-pham-bao-hiem/du-phong-xanh.html" target="_blank" rel="noopener">Dự Phòng Xanh</a></li>
+            <li><a href="https://www.manulife.com.vn/vi/san-pham-bao-hiem/ho-ve-xanh.html" target="_blank" rel="noopener">Hộ Vệ Xanh</a></li>
+          </ul>
+        </div>
+      </aside>
 
-    <!-- ========== SCREEN 1: INPUT ========== -->
-    <div id="screen-input" class="screen active">
-      <div class="input-intro">
-        <h2>Hãy cho chúng tôi biết về bạn</h2>
-        <p>Nhập thông tin cơ bản để nhận câu chuyện bảo hiểm được thiết kế riêng cho bạn và gia đình.</p>
-      </div>
+      <main class="content">
 
-      <div class="form-grid">
-        <div class="form-group">
-          <label for="inp-name">Tên của bạn</label>
-          <input type="text" id="inp-name" placeholder="VD: Minh" maxlength="30">
+        <!-- ========== SCREEN 1: INPUT ========== -->
+        <div id="screen-input" class="screen active">
+          <section class="hero">
+            <div class="wrap">
+              <div class="hero-card">
+                <h1>Khám phá câu chuyện <span style="color:var(--brand)">bảo hiểm</span> của bạn</h1>
+                <p class="subtitle">Nhập thông tin cơ bản để nhận câu chuyện bảo hiểm được thiết kế riêng cho bạn và gia đình.</p>
+                <div class="badges">
+                  <span class="badge">Tự động tăng STBH +50%</span>
+                  <span class="badge">9 quỹ liên kết đơn vị</span>
+                  <span class="badge">Cá nhân hóa theo hồ sơ</span>
+                </div>
+              </div>
+              <div class="hero-visual">
+                <div style="text-align:center">
+                  <div style="font-size:64px">🛡️📖</div>
+                  <p class="muted" style="margin:8px 0 0">Câu chuyện bảo hiểm cá nhân hóa</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h2>Hãy cho chúng tôi biết về bạn</h2>
+            <div class="card" style="max-width:640px">
+              <div class="form-grid">
+                <div class="field">
+                  <label for="inp-name">Tên của bạn</label>
+                  <input type="text" id="inp-name" placeholder="VD: Minh" maxlength="30">
+                </div>
+                <div class="field">
+                  <label for="inp-age">Tuổi</label>
+                  <input type="number" id="inp-age" value="30" min="18" max="60">
+                </div>
+                <div class="field">
+                  <label for="inp-gender">Giới tính</label>
+                  <select id="inp-gender">
+                    <option value="female">Nữ</option>
+                    <option value="male" selected>Nam</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="inp-family">Số con nhỏ</label>
+                  <select id="inp-family">
+                    <option value="0">Chưa có con</option>
+                    <option value="1" selected>1 con</option>
+                    <option value="2">2 con</option>
+                    <option value="3">3 con trở lên</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="inp-budget">Ngân sách phí BH / năm</label>
+                  <select id="inp-budget">
+                    <option value="20000000">20 triệu</option>
+                    <option value="30000000" selected>30 triệu</option>
+                    <option value="50000000">50 triệu</option>
+                    <option value="80000000">80 triệu</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="inp-payment">Thời hạn đóng phí</label>
+                  <select id="inp-payment">
+                    <option value="3">3 năm</option>
+                    <option value="5" selected>5 năm</option>
+                  </select>
+                </div>
+                <div class="field full-span">
+                  <label>Mức chấp nhận rủi ro đầu tư</label>
+                  <div class="risk-options" id="risk-options">
+                    <div class="risk-option" data-risk="1"><span class="risk-emoji">🛡️</span>Thận trọng</div>
+                    <div class="risk-option selected" data-risk="2"><span class="risk-emoji">⚖️</span>Cân bằng</div>
+                    <div class="risk-option" data-risk="3"><span class="risk-emoji">🚀</span>Tăng trưởng</div>
+                  </div>
+                </div>
+              </div>
+              <div style="margin-top:16px">
+                <button class="btn" id="btn-start" style="width:100%">Khám phá câu chuyện của bạn →</button>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h2>Tại sao chọn Xanh Tương Lai?</h2>
+            <div class="grid-3">
+              <div class="card">
+                <div class="icon-box i-green">🛡️</div>
+                <h3 style="margin-top:10px">Bảo vệ toàn diện</h3>
+                <p class="muted" style="font-size:14px">Tử vong, TTTBVV, tăng STBH tự động +10%/năm đến +50%.</p>
+              </div>
+              <div class="card">
+                <div class="icon-box i-blue">📊</div>
+                <h3 style="margin-top:10px">Đầu tư linh hoạt</h3>
+                <p class="muted" style="font-size:14px">9 quỹ liên kết đơn vị, chuyển đổi quỹ miễn phí.</p>
+              </div>
+              <div class="card">
+                <div class="icon-box i-amber">👶</div>
+                <h3 style="margin-top:10px">Tăng theo gia đình</h3>
+                <p class="muted" style="font-size:14px">+5% STBH mỗi thành viên mới, tối đa +25%, không thẩm định lại.</p>
+              </div>
+            </div>
+          </section>
         </div>
-        <div class="form-group">
-          <label for="inp-age">Tuổi</label>
-          <input type="number" id="inp-age" value="30" min="18" max="60">
-        </div>
-        <div class="form-group">
-          <label for="inp-gender">Giới tính</label>
-          <select id="inp-gender">
-            <option value="female">Nữ</option>
-            <option value="male" selected>Nam</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="inp-family">Số con nhỏ</label>
-          <select id="inp-family">
-            <option value="0">Chưa có con</option>
-            <option value="1" selected>1 con</option>
-            <option value="2">2 con</option>
-            <option value="3">3 con trở lên</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="inp-budget">Ngân sách phí BH / năm</label>
-          <select id="inp-budget">
-            <option value="20000000">20 triệu</option>
-            <option value="30000000" selected>30 triệu</option>
-            <option value="50000000">50 triệu</option>
-            <option value="80000000">80 triệu</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="inp-payment">Thời hạn đóng phí</label>
-          <select id="inp-payment">
-            <option value="3">3 năm</option>
-            <option value="5" selected>5 năm</option>
-          </select>
-        </div>
-        <div class="form-group full-width">
-          <label>Mức chấp nhận rủi ro đầu tư</label>
-          <div class="risk-options" id="risk-options">
-            <div class="risk-option" data-risk="1"><span class="risk-emoji">🛡️</span>Thận trọng</div>
-            <div class="risk-option selected" data-risk="2"><span class="risk-emoji">⚖️</span>Cân bằng</div>
-            <div class="risk-option" data-risk="3"><span class="risk-emoji">🚀</span>Tăng trưởng</div>
+
+        <!-- ========== SCREEN 2: STORY + INFO ========== -->
+        <div id="screen-story" class="screen">
+          <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom:16px">
+            <button class="btn ghost" id="btn-back" style="font-size:13px">← Thay đổi thông tin</button>
+            <div id="user-summary" style="font-size:13px; color:var(--muted); background:#f1f5f9; padding:6px 12px; border-radius:999px; display:flex; gap:10px; flex-wrap:wrap"></div>
+          </div>
+
+          <h2 id="story-heading" style="margin-bottom:14px"></h2>
+
+          <div class="scenario-grid" id="scenario-grid"></div>
+
+          <div class="story-player" id="story-player">
+            <div class="story-progress"><div class="story-progress-fill" id="story-progress-fill"></div></div>
+            <div class="story-slide" id="story-slide">
+              <div class="story-slide-number" id="slide-number"></div>
+              <div class="story-slide-icon" id="slide-icon"></div>
+              <div class="story-slide-title" id="slide-title"></div>
+              <div class="story-slide-body" id="slide-body"></div>
+            </div>
+            <div class="story-controls">
+              <button id="btn-prev" aria-label="Slide trước">◀ Trước</button>
+              <button id="btn-pause" aria-label="Tạm dừng">⏸ Tạm dừng</button>
+              <button id="btn-next" aria-label="Slide tiếp">Tiếp ▶</button>
+            </div>
+          </div>
+
+          <!-- Info Tabs -->
+          <div class="tab-buttons" role="tablist">
+            <button class="tab-btn active" data-tab="benefits" role="tab" aria-selected="true">Quyền lợi</button>
+            <button class="tab-btn" data-tab="riders" role="tab" aria-selected="false">Riders</button>
+            <button class="tab-btn" data-tab="funds" role="tab" aria-selected="false">Quỹ đầu tư</button>
+            <button class="tab-btn" data-tab="faq" role="tab" aria-selected="false">FAQ</button>
+            <button class="tab-btn" data-tab="glossary" role="tab" aria-selected="false">Từ điển</button>
+          </div>
+
+          <div class="tab-panel active" id="tab-benefits" role="tabpanel">
+            <div class="info-card">
+              <h3>🛡️ Tử vong / Thương tật toàn bộ vĩnh viễn</h3>
+              <p class="muted">Chi trả giá trị cao hơn giữa STBH và giá trị tài khoản cơ bản, cộng giá trị tài khoản đóng thêm.</p>
+              <p id="benefit-death-personalized" style="font-size:14px"></p>
+            </div>
+            <div class="info-card">
+              <h3>📈 Tăng STBH tự động</h3>
+              <p class="muted">STBH tự động tăng 10% mỗi năm từ năm thứ 2 đến năm thứ 6, không cần thẩm định lại sức khỏe.</p>
+              <p id="benefit-stbh-personalized" style="font-size:14px"></p>
+            </div>
+            <div class="info-card">
+              <h3>👨‍👩‍👧‍👦 Tăng STBH khi có thành viên mới</h3>
+              <p class="muted">Mỗi thành viên mới trong gia đình → STBH tăng thêm +5%, tối đa +25%.</p>
+              <p id="benefit-family-personalized" style="font-size:14px"></p>
+            </div>
+            <div class="info-card">
+              <h3>📅 Đáo hạn</h3>
+              <p class="muted">Nhận toàn bộ giá trị tài khoản khi hợp đồng đáo hạn.</p>
+            </div>
+            <div class="info-card">
+              <h3>➕ Quyền lợi bổ sung</h3>
+              <ul>
+                <li>Tạm ứng mai táng: 30 triệu VND</li>
+                <li>Ung thư tuyến giáp: 10% STBH, tối đa 100 triệu VND</li>
+              </ul>
+            </div>
+            <div class="disclaimer">Giá trị tài khoản và quyền lợi bảo hiểm không được đảm bảo vì phụ thuộc vào kết quả đầu tư. Giá trị tài khoản có thể tăng hoặc giảm theo biến động thị trường.</div>
+          </div>
+
+          <div class="tab-panel" id="tab-riders" role="tabpanel">
+            <div class="rider-grid" id="rider-grid"></div>
+          </div>
+
+          <div class="tab-panel" id="tab-funds" role="tabpanel">
+            <p class="muted" style="font-size:14px; margin-bottom:6px">9 quỹ đầu tư đa dạng – từ thận trọng đến mạo hiểm.</p>
+            <div class="fund-spectrum-bar"></div>
+            <div class="fund-spectrum-labels"><span>Thận trọng</span><span>Mạo hiểm</span></div>
+            <p id="fund-recommendation" style="margin-top:12px; font-weight:600; color:var(--brand-dark); font-size:14px"></p>
+            <div class="fund-list" id="fund-list"></div>
+          </div>
+
+          <div class="tab-panel" id="tab-faq" role="tabpanel">
+            <div id="faq-list"></div>
+          </div>
+
+          <div class="tab-panel" id="tab-glossary" role="tabpanel">
+            <div class="glossary-grid" id="glossary-list"></div>
           </div>
         </div>
-      </div>
 
-      <button class="btn-start" id="btn-start">Khám phá câu chuyện của bạn →</button>
+        <footer>
+          <h2 style="margin-bottom:12px; font-size:18px">Tài liệu chính thức</h2>
+          <div class="links">
+            <a class="doc" href="https://www.manulife.com.vn/vi/san-pham-bao-hiem.html" target="_blank" rel="noopener">Trang sản phẩm</a>
+            <a class="doc" href="https://www.manulife.com.vn/vi/san-pham-bao-hiem/bao-hiem-lien-ket-dau-tu/bao-hiem-lien-ket-don-vi/xanh-tuong-lai-phi-on-dinh.html" target="_blank" rel="noopener">Xanh Tương Lai – Phí Ổn Định</a>
+            <a class="doc" href="https://www.manulife.com.vn/vi/san-pham-bao-hiem/danh-muc-dieu-khoan-san-pham/dieu-khoan-bo-san-pham-bo-tro.html" target="_blank" rel="noopener">Danh mục rider</a>
+          </div>
+          <p class="muted">© 2026 · Trang tham khảo. Nội dung nhằm minh họa, không phải hợp đồng bảo hiểm. Lợi nhuận không được đảm bảo.</p>
+        </footer>
+      </main>
     </div>
-
-    <!-- ========== SCREEN 2: STORY + INFO ========== -->
-    <div id="screen-story" class="screen">
-      <div class="story-nav">
-        <button class="btn-back" id="btn-back">← Thay đổi thông tin</button>
-        <div class="user-summary" id="user-summary"></div>
-      </div>
-
-      <h2 style="font-size:1.25rem;margin-bottom:1rem;" id="story-heading"></h2>
-
-      <!-- Scenario buttons -->
-      <div class="scenario-grid" id="scenario-grid"></div>
-
-      <!-- Story player -->
-      <div class="story-player" id="story-player">
-        <div class="story-progress"><div class="story-progress-fill" id="story-progress-fill"></div></div>
-        <div class="story-slide" id="story-slide">
-          <div class="story-slide-number" id="slide-number"></div>
-          <div class="story-slide-icon" id="slide-icon"></div>
-          <div class="story-slide-title" id="slide-title"></div>
-          <div class="story-slide-body" id="slide-body"></div>
-        </div>
-        <div class="story-controls">
-          <button id="btn-prev" aria-label="Slide trước">◀ Trước</button>
-          <button id="btn-pause" class="btn-pause" aria-label="Tạm dừng">⏸ Tạm dừng</button>
-          <button id="btn-next" aria-label="Slide tiếp">Tiếp ▶</button>
-        </div>
-      </div>
-
-      <!-- Info Tabs -->
-      <div class="info-tabs">
-        <div class="tab-buttons" role="tablist">
-          <button class="tab-btn active" data-tab="benefits" role="tab" aria-selected="true">Quyền lợi</button>
-          <button class="tab-btn" data-tab="riders" role="tab" aria-selected="false">Riders</button>
-          <button class="tab-btn" data-tab="funds" role="tab" aria-selected="false">Quỹ đầu tư</button>
-          <button class="tab-btn" data-tab="faq" role="tab" aria-selected="false">FAQ</button>
-          <button class="tab-btn" data-tab="glossary" role="tab" aria-selected="false">Từ điển</button>
-        </div>
-
-        <!-- Benefits Tab -->
-        <div class="tab-panel active" id="tab-benefits" role="tabpanel">
-          <div class="info-card">
-            <h3>🛡️ Tử vong / Thương tật toàn bộ vĩnh viễn</h3>
-            <p>Chi trả giá trị cao hơn giữa <strong>STBH</strong> và <strong>giá trị tài khoản</strong> cơ bản, cộng giá trị tài khoản đóng thêm.</p>
-            <p id="benefit-death-personalized"></p>
-          </div>
-          <div class="info-card">
-            <h3>📈 Tăng STBH tự động</h3>
-            <p>STBH tự động tăng 10% mỗi năm từ năm thứ 2 đến năm thứ 6, không cần thẩm định lại sức khỏe.</p>
-            <p id="benefit-stbh-personalized"></p>
-          </div>
-          <div class="info-card">
-            <h3>👨‍👩‍👧‍👦 Tăng STBH khi có thành viên mới</h3>
-            <p>Mỗi thành viên mới trong gia đình → STBH tăng thêm +5%, tối đa +25%.</p>
-            <p id="benefit-family-personalized"></p>
-          </div>
-          <div class="info-card">
-            <h3>📅 Đáo hạn</h3>
-            <p>Nhận toàn bộ giá trị tài khoản khi hợp đồng đáo hạn.</p>
-          </div>
-          <div class="info-card">
-            <h3>➕ Quyền lợi bổ sung</h3>
-            <ul>
-              <li>Tạm ứng mai táng: 30 triệu VND</li>
-              <li>Ung thư tuyến giáp: 10% STBH, tối đa 100 triệu VND</li>
-            </ul>
-          </div>
-          <p class="disclaimer">Giá trị tài khoản và quyền lợi bảo hiểm không được đảm bảo vì phụ thuộc vào kết quả đầu tư. Giá trị tài khoản có thể tăng hoặc giảm theo biến động thị trường.</p>
-        </div>
-
-        <!-- Riders Tab -->
-        <div class="tab-panel" id="tab-riders" role="tabpanel">
-          <div class="rider-grid" id="rider-grid"></div>
-        </div>
-
-        <!-- Funds Tab -->
-        <div class="tab-panel" id="tab-funds" role="tabpanel">
-          <p style="font-size:0.9rem;color:var(--color-text-light);margin-bottom:0.5rem;">9 quỹ đầu tư đa dạng – từ thận trọng đến mạo hiểm.</p>
-          <div class="fund-spectrum-bar"></div>
-          <div class="fund-spectrum-labels"><span>Thận trọng</span><span>Mạo hiểm</span></div>
-          <p id="fund-recommendation" style="margin-top:1rem;font-weight:600;color:var(--color-dark-green);"></p>
-          <div class="fund-list" id="fund-list"></div>
-        </div>
-
-        <!-- FAQ Tab -->
-        <div class="tab-panel" id="tab-faq" role="tabpanel">
-          <div id="faq-list"></div>
-        </div>
-
-        <!-- Glossary Tab -->
-        <div class="tab-panel" id="tab-glossary" role="tabpanel">
-          <div class="glossary-grid" id="glossary-list"></div>
-        </div>
-      </div>
-    </div>
-
   </div>
-
-  <footer class="app-footer">
-    <strong>Xanh Tương Lai</strong> — Manulife Việt Nam<br>
-    <small>Đây là công cụ tham khảo, không phải hợp đồng bảo hiểm. Lợi nhuận không được đảm bảo.</small>
-  </footer>
 
   <script>
     // ============================================
@@ -477,7 +451,6 @@
       "Trợ cấp nằm viện": "Quyền lợi chi trả theo ngày khi người được bảo hiểm nằm viện.",
       "Thương tật nghiêm trọng": "Các chấn thương nghiêm trọng do tai nạn được bảo hiểm chi trả."
     };
-
     var FAQ_ITEMS = [
       { q: "ILP là gì? Có đảm bảo lãi không?", a: "ILP (bảo hiểm liên kết đơn vị) kết hợp bảo vệ rủi ro và đầu tư. Lợi nhuận KHÔNG được đảm bảo vì phụ thuộc vào kết quả đầu tư của quỹ liên kết đơn vị." },
       { q: "Vì sao cần xem nhiều kịch bản minh họa?", a: "Mỗi kịch bản phản ánh một mức lợi nhuận giả định khác nhau. Xem nhiều kịch bản giúp bạn hiểu rõ phạm vi kết quả có thể xảy ra." },
@@ -485,8 +458,7 @@
       { q: "Có thể đổi Quỹ đầu tư không?", a: "Có. Bạn có thể chuyển đổi giữa các quỹ theo quy định của hợp đồng." },
       { q: "Tôi theo dõi NAV ở đâu?", a: "Bạn có thể tra cứu NAV hàng ngày trên website Manulife Việt Nam hoặc qua ứng dụng ManuConnect." }
     ];
-
-    var FUNDS = [
+    var FUNDS_DATA = [
       { name: "Bảo Toàn", risk: 1, desc: "Trái phiếu chính phủ và tiền gửi." },
       { name: "Tích Lũy", risk: 2, desc: "Chủ yếu trái phiếu, một phần nhỏ cổ phiếu." },
       { name: "Ổn Định", risk: 3, desc: "Cân bằng giữa trái phiếu và cổ phiếu." },
@@ -497,8 +469,7 @@
       { name: "Hưng Thịnh 2040", risk: 4, desc: "Tự động giảm rủi ro khi gần mốc 2040." },
       { name: "Hưng Thịnh 2045", risk: 5, desc: "Tự động giảm rủi ro khi gần mốc 2045." }
     ];
-
-    var RIDERS = [
+    var RIDERS_DATA = [
       { name: "Lá Chắn Xanh", sub: "Bệnh lý nghiêm trọng", cls: "", highlights: ["Giai đoạn cuối: 100% STBH", "78+ bệnh giai đoạn cuối", "61 bệnh giai đoạn sớm", "4 bệnh đặc biệt"] },
       { name: "Dự Phòng Xanh", sub: "Trợ cấp nằm viện", cls: "green", highlights: ["ICU: 300% STBH / ngày", "Khoa thường: 100% STBH / ngày"] },
       { name: "Hộ Vệ Xanh", sub: "Tai nạn", cls: "teal", highlights: ["Tử vong tai nạn: 100% STBH", "Thương tật, gãy xương, bỏng"] }
@@ -512,25 +483,14 @@
       if (n >= 1e6) return Math.round(n / 1e6).toLocaleString('vi-VN') + ' triệu VND';
       return Math.round(n).toLocaleString('vi-VN') + ' VND';
     }
-
-    function calcSTBH(basePremium) {
-      // Simplified: STBH ~ 5x annual premium for illustration
-      return basePremium * 5;
-    }
-
+    function calcSTBH(basePremium) { return basePremium * 5; }
     function stbhAtYear(base, year) {
-      // 10% increase per year from year 2 to year 6
       if (year <= 1) return base;
       var y = Math.min(year, 6);
       return base * Math.pow(1.1, y - 1);
     }
-
-    function calcFamilyBonus(numChildren) {
-      return Math.min(numChildren * 5, 25);
-    }
-
+    function calcFamilyBonus(numChildren) { return Math.min(numChildren * 5, 25); }
     function estimateAccountValue(premium, paymentYears, year, rate) {
-      // Simplified projection: accumulate premiums with growth, minus fees
       var av = 0;
       for (var y = 1; y <= year; y++) {
         if (y <= paymentYears) {
@@ -538,22 +498,16 @@
           av += premium * (1 - feeRate);
         }
         av *= (1 + rate);
-        // Deduct risk fee (simplified)
         av -= premium * 0.02;
         if (av < 0) av = 0;
       }
       return Math.round(av);
     }
-
     function recommendFund(riskLevel) {
       var map = { 1: "Bảo Toàn hoặc Tích Lũy", 2: "Cân Bằng hoặc Ổn Định", 3: "Phát Triển hoặc Tăng Trưởng" };
       return map[riskLevel] || "Cân Bằng";
     }
-
-    function rateForRisk(riskLevel) {
-      // Assumed annual return rates for illustration
-      return { 1: 0.04, 2: 0.06, 3: 0.08 }[riskLevel] || 0.06;
-    }
+    function rateForRisk(riskLevel) { return { 1: 0.04, 2: 0.06, 3: 0.08 }[riskLevel] || 0.06; }
 
     // ============================================
     // APP STATE
@@ -565,7 +519,7 @@
     };
 
     // ============================================
-    // SCENARIO BUILDER (personalized stories)
+    // SCENARIO BUILDER
     // ============================================
     function buildScenarios() {
       var s = state;
@@ -573,7 +527,6 @@
       var baseSA = calcSTBH(s.budget);
       var rate = rateForRisk(s.riskLevel);
       var lowRate = rate * 0.3;
-
       var sa3 = stbhAtYear(baseSA, 3);
       var sa6 = stbhAtYear(baseSA, 6);
       var av5h = estimateAccountValue(s.budget, s.paymentYears, 5, rate);
@@ -588,13 +541,13 @@
       var death15 = Math.max(sa6, av15h);
       var totalPaid = s.budget * s.paymentYears;
       var familyBonus = calcFamilyBonus(s.children);
+      var Name = name.charAt(0).toUpperCase() + name.slice(1);
 
       var scenarios = {
         'family-shield': {
-          icon: '🛡️', title: 'Lá chắn gia đình',
-          desc: 'Bảo vệ ngay từ năm đầu',
+          icon: '🛡️', title: 'Lá chắn gia đình', desc: 'Bảo vệ ngay từ năm đầu',
           slides: [
-            { icon: '👨‍👩‍👧‍👦', title: 'Khởi đầu hành trình của ' + name, body: name.charAt(0).toUpperCase() + name.slice(1) + ' ' + s.age + ' tuổi, quyết định bảo vệ gia đình với Xanh Tương Lai.<br>Phí bảo hiểm: <span class="amount">' + vnd(s.budget) + '</span>/năm trong ' + s.paymentYears + ' năm.' },
+            { icon: '👨‍👩‍👧‍👦', title: 'Khởi đầu hành trình của ' + name, body: Name + ' ' + s.age + ' tuổi, quyết định bảo vệ gia đình với Xanh Tương Lai.<br>Phí bảo hiểm: <span class="amount">' + vnd(s.budget) + '</span>/năm trong ' + s.paymentYears + ' năm.' },
             { icon: '📋', title: 'Hợp đồng bắt đầu', body: 'Số tiền bảo hiểm ban đầu: <span class="amount">' + vnd(baseSA) + '</span><br>STBH sẽ tự động tăng 10% mỗi năm đến năm thứ 6.' },
             { icon: '📈', title: 'STBH tăng trưởng', body: 'Năm thứ 3, STBH đã là: <span class="amount">' + vnd(sa3) + '</span><br>Năm thứ 6: <span class="amount">' + vnd(sa6) + '</span> (+61% so với ban đầu)' },
             { icon: '💔', title: 'Biến cố — Tử vong năm thứ 3', body: 'Điều không ai mong muốn xảy ra. Nhưng gia đình ' + name + ' được bảo vệ.' },
@@ -603,10 +556,9 @@
           ]
         },
         'growth-journey': {
-          icon: '🌱', title: 'Hành trình tích lũy',
-          desc: 'Sức mạnh của lãi kép 20 năm',
+          icon: '🌱', title: 'Hành trình tích lũy', desc: 'Sức mạnh của lãi kép 20 năm',
           slides: [
-            { icon: '🌿', title: 'Kiên trì dài hạn', body: name.charAt(0).toUpperCase() + name.slice(1) + ' bắt đầu ở tuổi ' + s.age + '. Hãy xem điều gì xảy ra khi kiên trì duy trì hợp đồng.' },
+            { icon: '🌿', title: 'Kiên trì dài hạn', body: Name + ' bắt đầu ở tuổi ' + s.age + '. Hãy xem điều gì xảy ra khi kiên trì duy trì hợp đồng.' },
             { icon: '💰', title: 'Giai đoạn đóng phí', body: 'Đóng phí ' + s.paymentYears + ' năm, tổng: <span class="amount">' + vnd(totalPaid) + '</span><br>Sau đó, tài khoản tự tăng trưởng nhờ lãi đầu tư.' },
             { icon: '📊', title: 'Năm thứ 10', body: 'Giá trị tài khoản:<br>Kịch bản thuận lợi: <span class="amount">' + vnd(av10h) + '</span><br>Kịch bản thận trọng: ' + vnd(av10l) },
             { icon: '🎁', title: 'Thưởng duy trì', body: 'Manulife thưởng cho sự kiên trì:<br>• Năm 10: thưởng duy trì<br>• Năm 15: thưởng duy trì<br>• Năm 20: thưởng duy trì<br>Tổng thưởng cộng dồn vào tài khoản.' },
@@ -614,11 +566,11 @@
             { icon: '💚', title: 'Kết luận', body: 'Tổng phí đã đóng: <span class="amount">' + vnd(totalPaid) + '</span><br>Giá trị tài khoản sau 20 năm: <span class="amount">' + vnd(av20h) + '</span><br><br>Thời gian và lãi kép biến khoản phí nhỏ thành tài sản lớn.' }
           ]
         },
+
         'critical-illness': {
-          icon: '🏥', title: 'Bệnh hiểm nghèo',
-          desc: 'Quyền lợi riders khi ốm đau',
+          icon: '🏥', title: 'Bệnh hiểm nghèo', desc: 'Quyền lợi riders khi ốm đau',
           slides: [
-            { icon: '💪', title: '10 năm khỏe mạnh', body: name.charAt(0).toUpperCase() + name.slice(1) + ' đóng phí đầy đủ ' + s.paymentYears + ' năm và duy trì hợp đồng.<br>Năm thứ 10, giá trị tài khoản: <span class="amount">' + vnd(av10h) + '</span>' },
+            { icon: '💪', title: '10 năm khỏe mạnh', body: Name + ' đóng phí đầy đủ ' + s.paymentYears + ' năm và duy trì hợp đồng.<br>Năm thứ 10, giá trị tài khoản: <span class="amount">' + vnd(av10h) + '</span>' },
             { icon: '🏥', title: 'Phát hiện bệnh hiểm nghèo', body: 'Năm thứ 10, ở tuổi ' + (s.age + 9) + ', ' + name + ' được chẩn đoán bệnh hiểm nghèo giai đoạn muộn.' },
             { icon: '🛡️', title: 'Lá Chắn Xanh kích hoạt', body: 'Quyền lợi bệnh hiểm nghèo giai đoạn muộn:<br><span class="amount">200.000.000 VND</span><br><br>Số tiền này giúp trang trải chi phí điều trị ngay lập tức.' },
             { icon: '🏨', title: 'Nằm viện điều trị', body: 'Dự Phòng Xanh hỗ trợ thêm:<br><span class="highlight">200.000 VND/ngày</span> nằm viện<br>ICU: <span class="highlight">600.000 VND/ngày</span><br><br>30 ngày nằm viện = <span class="amount">6 triệu VND</span> hỗ trợ.' },
@@ -627,19 +579,18 @@
           ]
         },
         'family-grows': {
-          icon: '👶', title: 'Gia đình lớn lên',
-          desc: 'STBH tăng theo gia đình',
+          icon: '👶', title: 'Gia đình lớn lên', desc: 'STBH tăng theo gia đình',
           slides: [
-            { icon: '👨‍👩‍👧', title: 'Gia đình hiện tại', body: name.charAt(0).toUpperCase() + name.slice(1) + ' hiện có ' + s.children + ' con nhỏ.<br>STBH ban đầu: <span class="amount">' + vnd(baseSA) + '</span>' },
-            { icon: '👶', title: 'Thành viên mới', body: 'Mỗi khi gia đình có thêm thành viên mới (con sinh ra, nhận con nuôi), STBH tự động tăng thêm <span class="highlight">+5%</span> cho mỗi thành viên.' },
+            { icon: '👨‍👩‍👧', title: 'Gia đình hiện tại', body: Name + ' hiện có ' + s.children + ' con nhỏ.<br>STBH ban đầu: <span class="amount">' + vnd(baseSA) + '</span>' },
+            { icon: '👶', title: 'Thành viên mới', body: 'Mỗi khi gia đình có thêm thành viên mới, STBH tự động tăng thêm <span class="highlight">+5%</span> cho mỗi thành viên.' },
             { icon: '📈', title: 'STBH tăng kép', body: 'Kết hợp tăng tự động 10%/năm VÀ tăng theo gia đình:<br><br>Năm 3 + 2 con mới = STBH tăng thêm ' + vnd(sa3 * 0.10) + '<br>Tối đa +25% STBH từ thành viên mới.' },
             { icon: '🛡️', title: 'Bảo vệ tối đa', body: 'Với ' + s.children + ' con hiện tại, STBH đã được tăng thêm <span class="amount">+' + familyBonus + '%</span>.<br><br>STBH hiệu quả năm 1: <span class="amount">' + vnd(baseSA * (1 + familyBonus / 100)) + '</span>' },
             { icon: '💚', title: 'Ý nghĩa', body: 'Xanh Tương Lai hiểu rằng khi gia đình lớn lên, nhu cầu bảo vệ cũng tăng theo.<br><br>Không cần thẩm định lại sức khỏe. Không cần thủ tục phức tạp.' }
           ]
         },
+
         'what-if-lapse': {
-          icon: '⚠️', title: 'Nếu mất hiệu lực?',
-          desc: 'Hiểu rủi ro để phòng tránh',
+          icon: '⚠️', title: 'Nếu mất hiệu lực?', desc: 'Hiểu rủi ro để phòng tránh',
           slides: [
             { icon: '⚠️', title: 'Khi nào hợp đồng mất hiệu lực?', body: 'Hợp đồng mất hiệu lực khi giá trị tài khoản không đủ trả phí rủi ro và phí quản lý.' },
             { icon: '📉', title: 'Yếu tố ảnh hưởng', body: '• <span class="warn">Tuổi cao</span> → phí rủi ro tăng mạnh<br>• <span class="warn">Phí đóng thấp</span> → tích lũy ít<br>• <span class="warn">Thời hạn đóng ngắn</span> → ít năm nạp tiền<br>• <span class="warn">Lợi nhuận thấp</span> → tăng trưởng chậm' },
@@ -663,37 +614,32 @@
         var btn = document.createElement('button');
         btn.className = 'scenario-btn';
         btn.setAttribute('data-scenario', key);
-        btn.innerHTML = '<span class="sc-icon">' + sc.icon + '</span>' +
-          '<span class="sc-title">' + sc.title + '</span>' +
-          '<span class="sc-desc">' + sc.desc + '</span>';
+        btn.innerHTML = '<span class="sc-icon">' + sc.icon + '</span><span class="sc-title">' + sc.title + '</span><span class="sc-desc">' + sc.desc + '</span>';
         btn.addEventListener('click', function() { selectScenario(key); });
         grid.appendChild(btn);
       });
     }
-
     function renderRiders() {
       var grid = document.getElementById('rider-grid');
       grid.innerHTML = '';
-      RIDERS.forEach(function(r) {
+      RIDERS_DATA.forEach(function(r) {
         var card = document.createElement('div');
         card.className = 'info-card rider-card ' + r.cls;
         var lis = r.highlights.map(function(h) { return '<li>' + h + '</li>'; }).join('');
-        card.innerHTML = '<h3>' + r.name + '</h3><p style="font-size:0.8rem;color:var(--color-text-light);margin-bottom:0.5rem;">' + r.sub + '</p><ul>' + lis + '</ul>';
+        card.innerHTML = '<h3>' + r.name + '</h3><p style="font-size:12px;color:var(--muted);margin-bottom:6px">' + r.sub + '</p><ul>' + lis + '</ul>';
         grid.appendChild(card);
       });
     }
-
     function renderFunds() {
       var list = document.getElementById('fund-list');
       list.innerHTML = '';
-      FUNDS.forEach(function(f) {
+      FUNDS_DATA.forEach(function(f) {
         var item = document.createElement('div');
         item.className = 'fund-item';
         item.innerHTML = '<div class="fund-risk">' + f.risk + '</div><div><div class="fund-name">' + f.name + '</div><div class="fund-desc">' + f.desc + '</div></div>';
         list.appendChild(item);
       });
-      document.getElementById('fund-recommendation').textContent =
-        '💡 Với mức chấp nhận rủi ro của bạn, quỹ phù hợp: ' + recommendFund(state.riskLevel);
+      document.getElementById('fund-recommendation').textContent = '💡 Với mức chấp nhận rủi ro của bạn, quỹ phù hợp: ' + recommendFund(state.riskLevel);
     }
 
     function renderFAQ() {
@@ -702,16 +648,12 @@
       FAQ_ITEMS.forEach(function(item, i) {
         var div = document.createElement('div');
         div.className = 'faq-item';
-        div.innerHTML = '<button class="faq-trigger" aria-expanded="false" aria-controls="faq-p-' + i + '">' +
-          '<span>' + item.q + '</span><span class="faq-icon">▼</span></button>' +
-          '<div id="faq-p-' + i + '" class="faq-panel" role="region"><div class="faq-panel-content">' + item.a + '</div></div>';
+        div.innerHTML = '<button class="faq-trigger" aria-expanded="false" aria-controls="faq-p-' + i + '"><span>' + item.q + '</span><span class="faq-icon">▼</span></button><div id="faq-p-' + i + '" class="faq-panel" role="region"><div class="faq-panel-content">' + item.a + '</div></div>';
         list.appendChild(div);
       });
-      // Wire accordion
       list.querySelectorAll('.faq-trigger').forEach(function(trigger) {
         trigger.addEventListener('click', function() {
           var expanded = trigger.getAttribute('aria-expanded') === 'true';
-          // Close all
           list.querySelectorAll('.faq-trigger').forEach(function(t) {
             t.setAttribute('aria-expanded', 'false');
             var p = document.getElementById(t.getAttribute('aria-controls'));
@@ -725,7 +667,6 @@
         });
       });
     }
-
     function renderGlossary() {
       var list = document.getElementById('glossary-list');
       list.innerHTML = '';
@@ -736,106 +677,73 @@
         list.appendChild(div);
       });
     }
-
     function renderPersonalizedBenefits() {
       var baseSA = calcSTBH(state.budget);
       var sa6 = stbhAtYear(baseSA, 6);
       var familyBonus = calcFamilyBonus(state.children);
-
-      document.getElementById('benefit-death-personalized').innerHTML =
-        '→ Với phí ' + vnd(state.budget) + '/năm, STBH ban đầu của bạn: <strong>' + vnd(baseSA) + '</strong>';
-      document.getElementById('benefit-stbh-personalized').innerHTML =
-        '→ STBH năm thứ 6: <strong>' + vnd(sa6) + '</strong> (+61% so với ban đầu)';
-      document.getElementById('benefit-family-personalized').innerHTML =
-        '→ Với ' + state.children + ' con, STBH đã tăng thêm <strong>+' + familyBonus + '%</strong>' +
-        (familyBonus > 0 ? ' = ' + vnd(baseSA * familyBonus / 100) + ' thêm' : '');
+      document.getElementById('benefit-death-personalized').innerHTML = '→ Với phí ' + vnd(state.budget) + '/năm, STBH ban đầu của bạn: <strong>' + vnd(baseSA) + '</strong>';
+      document.getElementById('benefit-stbh-personalized').innerHTML = '→ STBH năm thứ 6: <strong>' + vnd(sa6) + '</strong> (+61% so với ban đầu)';
+      document.getElementById('benefit-family-personalized').innerHTML = '→ Với ' + state.children + ' con, STBH đã tăng thêm <strong>+' + familyBonus + '%</strong>' + (familyBonus > 0 ? ' = ' + vnd(baseSA * familyBonus / 100) + ' thêm' : '');
     }
 
     // ============================================
     // STORY PLAYER
     // ============================================
     var currentScenarios = {};
-
     function selectScenario(key) {
       state.currentScenario = key;
       state.currentSlide = 0;
       state.paused = false;
       clearAutoAdvance();
-
-      // Update active button
       document.querySelectorAll('.scenario-btn').forEach(function(btn) {
         btn.classList.toggle('active', btn.getAttribute('data-scenario') === key);
       });
-
       var player = document.getElementById('story-player');
       player.classList.add('visible');
       showSlide();
       startAutoAdvance();
       player.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
-
     function showSlide() {
       var sc = currentScenarios[state.currentScenario];
       if (!sc) return;
       var slides = sc.slides;
       var idx = state.currentSlide;
       var slide = slides[idx];
-
       document.getElementById('slide-icon').textContent = slide.icon;
       document.getElementById('slide-title').textContent = slide.title;
       document.getElementById('slide-body').innerHTML = slide.body;
       document.getElementById('slide-number').textContent = (idx + 1) + ' / ' + slides.length;
-
-      var pct = ((idx + 1) / slides.length) * 100;
-      document.getElementById('story-progress-fill').style.width = pct + '%';
-
+      document.getElementById('story-progress-fill').style.width = ((idx + 1) / slides.length * 100) + '%';
       document.getElementById('btn-prev').disabled = idx === 0;
       document.getElementById('btn-next').disabled = idx === slides.length - 1;
-
-      // Re-trigger animation
       var slideEl = document.getElementById('story-slide');
       slideEl.style.animation = 'none';
-      slideEl.offsetHeight; // force reflow
+      slideEl.offsetHeight;
       slideEl.style.animation = '';
     }
-
     function nextSlide() {
       var sc = currentScenarios[state.currentScenario];
       if (!sc) return;
-      if (state.currentSlide < sc.slides.length - 1) {
-        state.currentSlide++;
-        showSlide();
-      } else {
-        clearAutoAdvance();
-      }
+      if (state.currentSlide < sc.slides.length - 1) { state.currentSlide++; showSlide(); }
+      else { clearAutoAdvance(); }
     }
-
     function prevSlide() {
-      if (state.currentSlide > 0) {
-        state.currentSlide--;
-        showSlide();
-      }
+      if (state.currentSlide > 0) { state.currentSlide--; showSlide(); }
     }
-
     function startAutoAdvance() {
       clearAutoAdvance();
       if (state.paused) return;
       state.autoTimer = setInterval(function() {
         var sc = currentScenarios[state.currentScenario];
         if (!sc) return;
-        if (state.currentSlide < sc.slides.length - 1) {
-          state.currentSlide++;
-          showSlide();
-        } else {
-          clearAutoAdvance();
-        }
+        if (state.currentSlide < sc.slides.length - 1) { state.currentSlide++; showSlide(); }
+        else { clearAutoAdvance(); }
       }, 6000);
     }
-
     function clearAutoAdvance() {
       if (state.autoTimer) { clearInterval(state.autoTimer); state.autoTimer = null; }
     }
-
     function togglePause() {
       state.paused = !state.paused;
       document.getElementById('btn-pause').textContent = state.paused ? '▶ Tiếp tục' : '⏸ Tạm dừng';
@@ -848,9 +756,12 @@
     function showScreen(id) {
       document.querySelectorAll('.screen').forEach(function(s) { s.classList.remove('active'); });
       document.getElementById(id).classList.add('active');
+      // Update sidebar
+      document.querySelectorAll('#sidebar-menu button').forEach(function(b) {
+        b.classList.toggle('active', b.getAttribute('data-screen') === id);
+      });
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-
     function collectInputs() {
       state.name = document.getElementById('inp-name').value.trim() || 'bạn';
       state.age = parseInt(document.getElementById('inp-age').value) || 30;
@@ -859,59 +770,39 @@
       state.budget = parseInt(document.getElementById('inp-budget').value) || 30000000;
       state.paymentYears = parseInt(document.getElementById('inp-payment').value) || 5;
     }
-
     function startExperience() {
       collectInputs();
-      if (state.age < 18 || state.age > 60) {
-        alert('Tuổi phải từ 18 đến 60.');
-        return;
-      }
-
-      // Build personalized content
+      if (state.age < 18 || state.age > 60) { alert('Tuổi phải từ 18 đến 60.'); return; }
       currentScenarios = buildScenarios();
       renderScenarioButtons(currentScenarios);
       renderPersonalizedBenefits();
       renderFunds();
-
-      // Update heading and summary
-      document.getElementById('story-heading').textContent =
-        'Câu chuyện bảo hiểm của ' + state.name;
+      document.getElementById('story-heading').textContent = 'Câu chuyện bảo hiểm của ' + state.name;
       document.getElementById('user-summary').innerHTML =
         '<span>👤 ' + state.name + ', ' + state.age + ' tuổi</span>' +
         '<span>👶 ' + state.children + ' con</span>' +
         '<span>💰 ' + vnd(state.budget) + '/năm</span>' +
         '<span>📅 ' + state.paymentYears + ' năm</span>';
-
-      // Reset player
       document.getElementById('story-player').classList.remove('visible');
       state.currentScenario = null;
       clearAutoAdvance();
-
       showScreen('screen-story');
     }
 
     // ============================================
-    // TAB CONTROLLER
+    // INITIALIZATION
     // ============================================
     function initTabs() {
       document.querySelectorAll('.tab-btn').forEach(function(btn) {
         btn.addEventListener('click', function() {
           var tab = btn.getAttribute('data-tab');
-          document.querySelectorAll('.tab-btn').forEach(function(b) {
-            b.classList.remove('active');
-            b.setAttribute('aria-selected', 'false');
-          });
-          btn.classList.add('active');
-          btn.setAttribute('aria-selected', 'true');
+          document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); b.setAttribute('aria-selected', 'false'); });
+          btn.classList.add('active'); btn.setAttribute('aria-selected', 'true');
           document.querySelectorAll('.tab-panel').forEach(function(p) { p.classList.remove('active'); });
           document.getElementById('tab-' + tab).classList.add('active');
         });
       });
     }
-
-    // ============================================
-    // RISK OPTION SELECTOR
-    // ============================================
     function initRiskOptions() {
       document.querySelectorAll('.risk-option').forEach(function(opt) {
         opt.addEventListener('click', function() {
@@ -921,38 +812,35 @@
         });
       });
     }
-
-    // ============================================
-    // INITIALIZATION
-    // ============================================
     document.addEventListener('DOMContentLoaded', function() {
       initRiskOptions();
       initTabs();
       renderRiders();
       renderFAQ();
       renderGlossary();
-
       document.getElementById('btn-start').addEventListener('click', startExperience);
-      document.getElementById('btn-back').addEventListener('click', function() {
-        clearAutoAdvance();
-        showScreen('screen-input');
-      });
-      document.getElementById('btn-prev').addEventListener('click', function() {
-        clearAutoAdvance(); state.paused = true;
-        document.getElementById('btn-pause').textContent = '▶ Tiếp tục';
-        prevSlide();
-      });
-      document.getElementById('btn-next').addEventListener('click', function() {
-        clearAutoAdvance(); state.paused = true;
-        document.getElementById('btn-pause').textContent = '▶ Tiếp tục';
-        nextSlide();
-      });
+      document.getElementById('btn-back').addEventListener('click', function() { clearAutoAdvance(); showScreen('screen-input'); });
+      document.getElementById('btn-prev').addEventListener('click', function() { clearAutoAdvance(); state.paused = true; document.getElementById('btn-pause').textContent = '▶ Tiếp tục'; prevSlide(); });
+      document.getElementById('btn-next').addEventListener('click', function() { clearAutoAdvance(); state.paused = true; document.getElementById('btn-pause').textContent = '▶ Tiếp tục'; nextSlide(); });
       document.getElementById('btn-pause').addEventListener('click', togglePause);
-
-      // Allow Enter key on input screen
-      document.getElementById('screen-input').addEventListener('keydown', function(e) {
-        if (e.key === 'Enter') startExperience();
+      document.getElementById('screen-input').addEventListener('keydown', function(e) { if (e.key === 'Enter') startExperience(); });
+      // Sidebar toggle
+      var sidebar = document.getElementById('sidebar');
+      document.getElementById('openSidebar').addEventListener('click', function() { sidebar.classList.toggle('open'); });
+      document.getElementById('closeSidebar').addEventListener('click', function() { sidebar.classList.remove('open'); });
+      // Sidebar nav
+      document.querySelectorAll('#sidebar-menu button').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var screen = btn.getAttribute('data-screen');
+          if (screen === 'screen-story' && !state.currentScenario && !document.getElementById('scenario-grid').children.length) {
+            startExperience();
+          } else {
+            showScreen(screen);
+          }
+          sidebar.classList.remove('open');
+        });
       });
+      window.addEventListener('resize', function() { if (window.innerWidth > 1024) sidebar.classList.remove('open'); });
     });
   </script>
 </body>
