@@ -1,4 +1,4 @@
-firebase_service*.json
+*_service*.json
 *.zip
 *.png
 *.mp3
