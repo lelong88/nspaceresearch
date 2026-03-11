@@ -1,0 +1,1 @@
+use mcp postgres to get content of curriculum gA1W24Ga6lXwdHHx use strip_keys(), create 20 new curriculums using `curriculum/create` following the structure and difficulty level but on diverse different topics
