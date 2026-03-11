@@ -182,13 +182,14 @@
         <div class="logo" aria-hidden="true"></div>
         <div>
           <strong>Xanh Tương Lai</strong><br>
-          <span class="muted" style="font-size:13px">Câu chuyện bảo hiểm cá nhân hóa</span>
+          <span class="muted" style="font-size:13px" data-i18n="brandSub">Câu chuyện bảo hiểm cá nhân hóa</span>
         </div>
       </div>
       <div style="display:flex; align-items:center; gap:8px">
-        <button class="btn ghost toggle-sidebar" id="openSidebar">☰ Danh mục</button>
+        <button class="btn ghost" id="lang-toggle" onclick="toggleLanguage()" style="padding:8px 12px; font-size:13px; min-width:64px">🇬🇧 EN</button>
+        <button class="btn ghost toggle-sidebar" id="openSidebar" data-i18n="sidebarToggle">☰ Danh mục</button>
         <div class="agent">
-          <span>Manulife Việt Nam</span>
+          <span data-i18n="manulife">Manulife Việt Nam</span>
         </div>
       </div>
     </div>
@@ -198,32 +199,32 @@
     <div class="shell">
       <aside class="sidebar" id="sidebar" aria-label="Danh mục">
         <div class="head">
-          <div class="title">Danh mục</div>
-          <button class="btn ghost toggle-sidebar" id="closeSidebar" style="padding:6px 10px; font-size:12px">Đóng</button>
+          <div class="title" data-i18n="sidebarTitle">Danh mục</div>
+          <button class="btn ghost toggle-sidebar" id="closeSidebar" style="padding:6px 10px; font-size:12px" data-i18n="sidebarClose">Đóng</button>
         </div>
         <div class="group">
-          <div class="g-title">Trang</div>
+          <div class="g-title" data-i18n="sidebarPages">Trang</div>
           <ul class="menu">
-            <li><a class="active" href="./index.html">📖 Câu chuyện bảo hiểm <span class="pill">Hiện tại</span></a></li>
-            <li><a href="./scenario.html">📊 Mô phỏng chi trả</a></li>
+            <li><a class="active" href="./index.html"><span data-i18n="navStory">📖 Câu chuyện bảo hiểm</span> <span class="pill" data-i18n="navCurrent">Hiện tại</span></a></li>
+            <li><a href="./scenario.html" data-i18n="navSimulator">📊 Mô phỏng chi trả</a></li>
           </ul>
         </div>
         <div class="group">
-          <div class="g-title">Điều hướng</div>
+          <div class="g-title" data-i18n="sidebarNav">Điều hướng</div>
           <ul class="menu" id="sidebar-menu">
-            <li><button class="active" data-screen="screen-input">📝 Nhập thông tin</button></li>
-            <li><button data-screen="screen-story">📖 Câu chuyện của bạn</button></li>
+            <li><button class="active" data-screen="screen-input" data-i18n="navInput">📝 Nhập thông tin</button></li>
+            <li><button data-screen="screen-story" data-i18n="navYourStory">📖 Câu chuyện của bạn</button></li>
           </ul>
         </div>
         <div class="group">
-          <div class="g-title">Sản phẩm Manulife</div>
+          <div class="g-title" data-i18n="sidebarProducts">Sản phẩm Manulife</div>
           <ul class="menu">
             <li><a href="https://www.manulife.com.vn/vi/san-pham-bao-hiem/bao-hiem-lien-ket-dau-tu/bao-hiem-lien-ket-don-vi/xanh-tuong-lai-phi-on-dinh.html" target="_blank" rel="noopener">Xanh Tương Lai – Phí Ổn Định</a></li>
             <li><a href="https://www.manulife.com.vn/vi/san-pham-bao-hiem/bao-hiem-lien-ket-dau-tu/bao-hiem-lien-ket-don-vi/xanh-tuong-lai.html" target="_blank" rel="noopener">Xanh Tương Lai</a></li>
           </ul>
         </div>
         <div class="group">
-          <div class="g-title">Riders</div>
+          <div class="g-title" data-i18n="sidebarRiders">Riders</div>
           <ul class="menu">
             <li><a href="https://www.manulife.com.vn/vi/cac-san-pham-bo-tro-bao-hiem-nhan-tho/song-khoe-moi-ngay.html" target="_blank" rel="noopener">Sống Khỏe Mỗi Ngày</a></li>
             <li><a href="https://www.manulife.com.vn/vi/san-pham-bao-hiem/la-chan-xanh.html" target="_blank" rel="noopener">Lá Chắn Xanh</a></li>
@@ -240,99 +241,99 @@
           <section class="hero">
             <div class="wrap">
               <div class="hero-card">
-                <h1>Khám phá câu chuyện <span style="color:var(--brand)">bảo hiểm</span> của bạn</h1>
-                <p class="subtitle">Nhập thông tin cơ bản để nhận câu chuyện bảo hiểm được thiết kế riêng cho bạn và gia đình.</p>
+                <h1><span data-i18n="heroTitle1">Khám phá câu chuyện </span><span style="color:var(--brand)" data-i18n="heroTitleHighlight">bảo hiểm</span><span data-i18n="heroTitle2"> của bạn</span></h1>
+                <p class="subtitle" data-i18n="heroSubtitle">Nhập thông tin cơ bản để nhận câu chuyện bảo hiểm được thiết kế riêng cho bạn và gia đình.</p>
                 <div class="badges">
-                  <span class="badge">Tự động tăng STBH +50%</span>
-                  <span class="badge">9 quỹ liên kết đơn vị</span>
-                  <span class="badge">Cá nhân hóa theo hồ sơ</span>
+                  <span class="badge" data-i18n="badge1">Tự động tăng STBH +50%</span>
+                  <span class="badge" data-i18n="badge2">9 quỹ liên kết đơn vị</span>
+                  <span class="badge" data-i18n="badge3">Cá nhân hóa theo hồ sơ</span>
                 </div>
               </div>
               <div class="hero-visual">
                 <div style="text-align:center">
                   <div style="font-size:64px">🛡️📖</div>
-                  <p class="muted" style="margin:8px 0 0">Câu chuyện bảo hiểm cá nhân hóa</p>
+                  <p class="muted" style="margin:8px 0 0" data-i18n="heroVisualText">Câu chuyện bảo hiểm cá nhân hóa</p>
                 </div>
               </div>
             </div>
           </section>
 
           <section>
-            <h2>Hãy cho chúng tôi biết về bạn</h2>
+            <h2 data-i18n="formTitle">Hãy cho chúng tôi biết về bạn</h2>
             <div class="card" style="max-width:640px">
               <div class="form-grid">
                 <div class="field">
-                  <label for="inp-name">Tên của bạn</label>
-                  <input type="text" id="inp-name" placeholder="VD: Minh" maxlength="30">
+                  <label for="inp-name" data-i18n="labelName">Tên của bạn</label>
+                  <input type="text" id="inp-name" placeholder="VD: Minh" maxlength="30" data-i18n-placeholder="placeholderName">
                 </div>
                 <div class="field">
-                  <label for="inp-age">Tuổi</label>
+                  <label for="inp-age" data-i18n="labelAge">Tuổi</label>
                   <input type="number" id="inp-age" value="30" min="18" max="60">
                 </div>
                 <div class="field">
-                  <label for="inp-gender">Giới tính</label>
+                  <label for="inp-gender" data-i18n="labelGender">Giới tính</label>
                   <select id="inp-gender">
-                    <option value="female">Nữ</option>
-                    <option value="male" selected>Nam</option>
+                    <option value="female" data-i18n="genderFemale">Nữ</option>
+                    <option value="male" selected data-i18n="genderMale">Nam</option>
                   </select>
                 </div>
                 <div class="field">
-                  <label for="inp-family">Số con nhỏ</label>
+                  <label for="inp-family" data-i18n="labelChildren">Số con nhỏ</label>
                   <select id="inp-family">
-                    <option value="0">Chưa có con</option>
-                    <option value="1" selected>1 con</option>
-                    <option value="2">2 con</option>
-                    <option value="3">3 con trở lên</option>
+                    <option value="0" data-i18n="children0">Chưa có con</option>
+                    <option value="1" selected data-i18n="children1">1 con</option>
+                    <option value="2" data-i18n="children2">2 con</option>
+                    <option value="3" data-i18n="children3">3 con trở lên</option>
                   </select>
                 </div>
                 <div class="field">
-                  <label for="inp-budget">Ngân sách phí BH / năm</label>
+                  <label for="inp-budget" data-i18n="labelBudget">Ngân sách phí BH / năm</label>
                   <select id="inp-budget">
-                    <option value="20000000">20 triệu</option>
-                    <option value="30000000" selected>30 triệu</option>
-                    <option value="50000000">50 triệu</option>
-                    <option value="80000000">80 triệu</option>
+                    <option value="20000000" data-i18n="budget20">20 triệu</option>
+                    <option value="30000000" selected data-i18n="budget30">30 triệu</option>
+                    <option value="50000000" data-i18n="budget50">50 triệu</option>
+                    <option value="80000000" data-i18n="budget80">80 triệu</option>
                   </select>
                 </div>
                 <div class="field">
-                  <label for="inp-payment">Thời hạn đóng phí</label>
+                  <label for="inp-payment" data-i18n="labelPayment">Thời hạn đóng phí</label>
                   <select id="inp-payment">
-                    <option value="3">3 năm</option>
-                    <option value="5" selected>5 năm</option>
+                    <option value="3" data-i18n="payment3">3 năm</option>
+                    <option value="5" selected data-i18n="payment5">5 năm</option>
                   </select>
                 </div>
                 <div class="field full-span">
-                  <label>Mức chấp nhận rủi ro đầu tư</label>
+                  <label data-i18n="labelRisk">Mức chấp nhận rủi ro đầu tư</label>
                   <div class="risk-options" id="risk-options">
-                    <div class="risk-option" data-risk="1"><span class="risk-emoji">🛡️</span>Thận trọng</div>
-                    <div class="risk-option selected" data-risk="2"><span class="risk-emoji">⚖️</span>Cân bằng</div>
-                    <div class="risk-option" data-risk="3"><span class="risk-emoji">🚀</span>Tăng trưởng</div>
+                    <div class="risk-option" data-risk="1"><span class="risk-emoji">🛡️</span><span data-i18n="riskConservative">Thận trọng</span></div>
+                    <div class="risk-option selected" data-risk="2"><span class="risk-emoji">⚖️</span><span data-i18n="riskBalanced">Cân bằng</span></div>
+                    <div class="risk-option" data-risk="3"><span class="risk-emoji">🚀</span><span data-i18n="riskGrowth">Tăng trưởng</span></div>
                   </div>
                 </div>
               </div>
               <div style="margin-top:16px">
-                <button class="btn" id="btn-start" style="width:100%">Khám phá câu chuyện của bạn →</button>
+                <button class="btn" id="btn-start" style="width:100%" data-i18n="btnStart">Khám phá câu chuyện của bạn →</button>
               </div>
             </div>
           </section>
 
           <section>
-            <h2>Tại sao chọn Xanh Tương Lai?</h2>
+            <h2 data-i18n="whyTitle">Tại sao chọn Xanh Tương Lai?</h2>
             <div class="grid-3">
               <div class="card">
                 <div class="icon-box i-green">🛡️</div>
-                <h3 style="margin-top:10px">Bảo vệ toàn diện</h3>
-                <p class="muted" style="font-size:14px">Tử vong, TTTBVV, tăng STBH tự động +10%/năm đến +50%.</p>
+                <h3 style="margin-top:10px" data-i18n="why1Title">Bảo vệ toàn diện</h3>
+                <p class="muted" style="font-size:14px" data-i18n="why1Desc">Tử vong, TTTBVV, tăng STBH tự động +10%/năm đến +50%.</p>
               </div>
               <div class="card">
                 <div class="icon-box i-blue">📊</div>
-                <h3 style="margin-top:10px">Đầu tư linh hoạt</h3>
-                <p class="muted" style="font-size:14px">9 quỹ liên kết đơn vị, chuyển đổi quỹ miễn phí.</p>
+                <h3 style="margin-top:10px" data-i18n="why2Title">Đầu tư linh hoạt</h3>
+                <p class="muted" style="font-size:14px" data-i18n="why2Desc">9 quỹ liên kết đơn vị, chuyển đổi quỹ miễn phí.</p>
               </div>
               <div class="card">
                 <div class="icon-box i-amber">👶</div>
-                <h3 style="margin-top:10px">Tăng theo gia đình</h3>
-                <p class="muted" style="font-size:14px">+5% STBH mỗi thành viên mới, tối đa +25%, không thẩm định lại.</p>
+                <h3 style="margin-top:10px" data-i18n="why3Title">Tăng theo gia đình</h3>
+                <p class="muted" style="font-size:14px" data-i18n="why3Desc">+5% STBH mỗi thành viên mới, tối đa +25%, không thẩm định lại.</p>
               </div>
             </div>
           </section>
@@ -341,7 +342,7 @@
         <!-- ========== SCREEN 2: STORY + INFO ========== -->
         <div id="screen-story" class="screen">
           <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom:16px">
-            <button class="btn ghost" id="btn-back" style="font-size:13px">← Thay đổi thông tin</button>
+            <button class="btn ghost" id="btn-back" style="font-size:13px" data-i18n="btnBack">← Thay đổi thông tin</button>
             <div id="user-summary" style="font-size:13px; color:var(--muted); background:#f1f5f9; padding:6px 12px; border-radius:999px; display:flex; gap:10px; flex-wrap:wrap"></div>
           </div>
 
@@ -358,49 +359,49 @@
               <div class="story-slide-body" id="slide-body"></div>
             </div>
             <div class="story-controls">
-              <button id="btn-prev" aria-label="Slide trước">◀ Trước</button>
-              <button id="btn-pause" aria-label="Tạm dừng">⏸ Tạm dừng</button>
-              <button id="btn-next" aria-label="Slide tiếp">Tiếp ▶</button>
+              <button id="btn-prev" aria-label="Slide trước" data-i18n="btnPrev">◀ Trước</button>
+              <button id="btn-pause" aria-label="Tạm dừng" data-i18n="btnPause">⏸ Tạm dừng</button>
+              <button id="btn-next" aria-label="Slide tiếp" data-i18n="btnNext">Tiếp ▶</button>
             </div>
           </div>
 
           <!-- Info Tabs -->
           <div class="tab-buttons" role="tablist">
-            <button class="tab-btn active" data-tab="benefits" role="tab" aria-selected="true">Quyền lợi</button>
-            <button class="tab-btn" data-tab="riders" role="tab" aria-selected="false">Riders</button>
-            <button class="tab-btn" data-tab="funds" role="tab" aria-selected="false">Quỹ đầu tư</button>
-            <button class="tab-btn" data-tab="faq" role="tab" aria-selected="false">FAQ</button>
-            <button class="tab-btn" data-tab="glossary" role="tab" aria-selected="false">Từ điển</button>
+            <button class="tab-btn active" data-tab="benefits" role="tab" aria-selected="true" data-i18n="tabBenefits">Quyền lợi</button>
+            <button class="tab-btn" data-tab="riders" role="tab" aria-selected="false" data-i18n="tabRiders">Riders</button>
+            <button class="tab-btn" data-tab="funds" role="tab" aria-selected="false" data-i18n="tabFunds">Quỹ đầu tư</button>
+            <button class="tab-btn" data-tab="faq" role="tab" aria-selected="false" data-i18n="tabFaq">FAQ</button>
+            <button class="tab-btn" data-tab="glossary" role="tab" aria-selected="false" data-i18n="tabGlossary">Từ điển</button>
           </div>
 
           <div class="tab-panel active" id="tab-benefits" role="tabpanel">
             <div class="info-card">
-              <h3>🛡️ Tử vong / Thương tật toàn bộ vĩnh viễn</h3>
-              <p class="muted">Chi trả giá trị cao hơn giữa STBH và giá trị tài khoản cơ bản, cộng giá trị tài khoản đóng thêm.</p>
+              <h3 data-i18n="benefitDeathTitle">🛡️ Tử vong / Thương tật toàn bộ vĩnh viễn</h3>
+              <p class="muted" data-i18n="benefitDeathDesc">Chi trả giá trị cao hơn giữa STBH và giá trị tài khoản cơ bản, cộng giá trị tài khoản đóng thêm.</p>
               <p id="benefit-death-personalized" style="font-size:14px"></p>
             </div>
             <div class="info-card">
-              <h3>📈 Tăng STBH tự động</h3>
-              <p class="muted">STBH tự động tăng 10% mỗi năm từ năm thứ 2 đến năm thứ 6, không cần thẩm định lại sức khỏe.</p>
+              <h3 data-i18n="benefitSATitle">📈 Tăng STBH tự động</h3>
+              <p class="muted" data-i18n="benefitSADesc">STBH tự động tăng 10% mỗi năm từ năm thứ 2 đến năm thứ 6, không cần thẩm định lại sức khỏe.</p>
               <p id="benefit-stbh-personalized" style="font-size:14px"></p>
             </div>
             <div class="info-card">
-              <h3>👨‍👩‍👧‍👦 Tăng STBH khi có thành viên mới</h3>
-              <p class="muted">Mỗi thành viên mới trong gia đình → STBH tăng thêm +5%, tối đa +25%.</p>
+              <h3 data-i18n="benefitFamilyTitle">👨‍👩‍👧‍👦 Tăng STBH khi có thành viên mới</h3>
+              <p class="muted" data-i18n="benefitFamilyDesc">Mỗi thành viên mới trong gia đình → STBH tăng thêm +5%, tối đa +25%.</p>
               <p id="benefit-family-personalized" style="font-size:14px"></p>
             </div>
             <div class="info-card">
-              <h3>📅 Đáo hạn</h3>
-              <p class="muted">Nhận toàn bộ giá trị tài khoản khi hợp đồng đáo hạn.</p>
+              <h3 data-i18n="benefitMaturityTitle">📅 Đáo hạn</h3>
+              <p class="muted" data-i18n="benefitMaturityDesc">Nhận toàn bộ giá trị tài khoản khi hợp đồng đáo hạn.</p>
             </div>
             <div class="info-card">
-              <h3>➕ Quyền lợi bổ sung</h3>
+              <h3 data-i18n="benefitExtraTitle">➕ Quyền lợi bổ sung</h3>
               <ul>
-                <li>Tạm ứng mai táng: 30 triệu VND</li>
-                <li>Ung thư tuyến giáp: 10% STBH, tối đa 100 triệu VND</li>
+                <li data-i18n="benefitExtra1">Tạm ứng mai táng: 30 triệu VND</li>
+                <li data-i18n="benefitExtra2">Ung thư tuyến giáp: 10% STBH, tối đa 100 triệu VND</li>
               </ul>
             </div>
-            <div class="disclaimer">Giá trị tài khoản và quyền lợi bảo hiểm không được đảm bảo vì phụ thuộc vào kết quả đầu tư. Giá trị tài khoản có thể tăng hoặc giảm theo biến động thị trường.</div>
+            <div class="disclaimer" data-i18n="disclaimer">Giá trị tài khoản và quyền lợi bảo hiểm không được đảm bảo vì phụ thuộc vào kết quả đầu tư. Giá trị tài khoản có thể tăng hoặc giảm theo biến động thị trường.</div>
           </div>
 
           <div class="tab-panel" id="tab-riders" role="tabpanel">
@@ -408,9 +409,9 @@
           </div>
 
           <div class="tab-panel" id="tab-funds" role="tabpanel">
-            <p class="muted" style="font-size:14px; margin-bottom:6px">9 quỹ đầu tư đa dạng – từ thận trọng đến mạo hiểm.</p>
+            <p class="muted" style="font-size:14px; margin-bottom:6px" data-i18n="fundDesc">9 quỹ đầu tư đa dạng – từ thận trọng đến mạo hiểm.</p>
             <div class="fund-spectrum-bar"></div>
-            <div class="fund-spectrum-labels"><span>Thận trọng</span><span>Mạo hiểm</span></div>
+            <div class="fund-spectrum-labels"><span data-i18n="fundSpectrumLow">Thận trọng</span><span data-i18n="fundSpectrumHigh">Mạo hiểm</span></div>
             <p id="fund-recommendation" style="margin-top:12px; font-weight:600; color:var(--brand-dark); font-size:14px"></p>
             <div class="fund-list" id="fund-list"></div>
           </div>
@@ -425,18 +426,26 @@
         </div>
 
         <footer>
-          <h2 style="margin-bottom:12px; font-size:18px">Tài liệu chính thức</h2>
+          <h2 style="margin-bottom:12px; font-size:18px" data-i18n="footerTitle">Tài liệu chính thức</h2>
           <div class="links">
-            <a class="doc" href="https://www.manulife.com.vn/vi/san-pham-bao-hiem.html" target="_blank" rel="noopener">Trang sản phẩm</a>
-            <a class="doc" href="https://www.manulife.com.vn/vi/san-pham-bao-hiem/bao-hiem-lien-ket-dau-tu/bao-hiem-lien-ket-don-vi/xanh-tuong-lai-phi-on-dinh.html" target="_blank" rel="noopener">Xanh Tương Lai – Phí Ổn Định</a>
-            <a class="doc" href="https://www.manulife.com.vn/vi/san-pham-bao-hiem/danh-muc-dieu-khoan-san-pham/dieu-khoan-bo-san-pham-bo-tro.html" target="_blank" rel="noopener">Danh mục rider</a>
+            <a class="doc" href="https://www.manulife.com.vn/vi/san-pham-bao-hiem.html" target="_blank" rel="noopener" data-i18n="footerProductPage">Trang sản phẩm</a>
+            <a class="doc" href="https://www.manulife.com.vn/vi/san-pham-bao-hiem/bao-hiem-lien-ket-dau-tu/bao-hiem-lien-ket-don-vi/xanh-tuong-lai-phi-on-dinh.html" target="_blank" rel="noopener" data-i18n="footerXTL">Xanh Tương Lai – Phí Ổn Định</a>
+            <a class="doc" href="https://www.manulife.com.vn/vi/san-pham-bao-hiem/danh-muc-dieu-khoan-san-pham/dieu-khoan-bo-san-pham-bo-tro.html" target="_blank" rel="noopener" data-i18n="footerRiders">Danh mục rider</a>
           </div>
-          <p class="muted">© 2026 · Trang tham khảo. Nội dung nhằm minh họa, không phải hợp đồng bảo hiểm. Lợi nhuận không được đảm bảo.</p>
+          <p class="muted" data-i18n="footerDisclaimer">© 2026 · Trang tham khảo. Nội dung nhằm minh họa, không phải hợp đồng bảo hiểm. Lợi nhuận không được đảm bảo.</p>
         </footer>
       </main>
     </div>
   </div>
 
+  <script src="lang.js"></script>
+  <script>
+    // Fallback if lang.js didn't load (e.g. file:// protocol)
+    if (typeof toggleLanguage === 'undefined') {
+      window.currentLang = 'vi';
+      window.toggleLanguage = function() { alert('Language file not loaded. Please serve via HTTP server.'); };
+    }
+  </script>
   <script>
     // ============================================
     // DATA MODELS
@@ -530,7 +539,8 @@
     // ============================================
     function buildScenarios() {
       var s = state;
-      var name = s.name || 'bạn';
+      var isEn = (typeof currentLang !== 'undefined' && currentLang === 'en');
+      var name = s.name || (isEn ? 'you' : 'bạn');
       var baseSA = calcSTBH(s.budget);
       var rate = rateForRisk(s.riskLevel);
       var lowRate = rate * 0.3;
@@ -549,6 +559,10 @@
       var totalPaid = s.budget * s.paymentYears;
       var familyBonus = calcFamilyBonus(s.children);
       var Name = name.charAt(0).toUpperCase() + name.slice(1);
+
+      if (isEn) {
+        return buildScenariosEN(s, name, Name, baseSA, sa3, sa6, rate, lowRate, av10h, av10l, av15h, av20h, av30h, av30l, death3, totalPaid, familyBonus);
+      }
 
       var scenarios = {
         'family-shield': {
@@ -629,7 +643,8 @@
     function renderRiders() {
       var grid = document.getElementById('rider-grid');
       grid.innerHTML = '';
-      RIDERS_DATA.forEach(function(r) {
+      var data = (typeof currentLang !== 'undefined' && currentLang === 'en') ? RIDERS_DATA_EN : RIDERS_DATA;
+      data.forEach(function(r) {
         var card = document.createElement('div');
         card.className = 'info-card rider-card ' + r.cls;
         var lis = r.highlights.map(function(h) { return '<li>' + h + '</li>'; }).join('');
@@ -640,19 +655,24 @@
     function renderFunds() {
       var list = document.getElementById('fund-list');
       list.innerHTML = '';
-      FUNDS_DATA.forEach(function(f) {
+      var data = (typeof currentLang !== 'undefined' && currentLang === 'en') ? FUNDS_DATA_EN : FUNDS_DATA;
+      data.forEach(function(f) {
         var item = document.createElement('div');
         item.className = 'fund-item';
         item.innerHTML = '<div class="fund-risk">' + f.risk + '</div><div><div class="fund-name">' + f.name + '</div><div class="fund-desc">' + f.desc + '</div></div>';
         list.appendChild(item);
       });
-      document.getElementById('fund-recommendation').textContent = '💡 Với mức chấp nhận rủi ro của bạn, quỹ phù hợp: ' + recommendFund(state.riskLevel);
+      var t = (typeof I18N !== 'undefined') ? I18N[currentLang || 'vi'] : null;
+      var prefix = t ? t.fundRecommendPrefix : '💡 Với mức chấp nhận rủi ro của bạn, quỹ phù hợp: ';
+      var rec = (typeof currentLang !== 'undefined' && currentLang === 'en') ? (FUND_RECOMMEND_EN[state.riskLevel] || 'Balance') : recommendFund(state.riskLevel);
+      document.getElementById('fund-recommendation').textContent = prefix + rec;
     }
 
     function renderFAQ() {
       var list = document.getElementById('faq-list');
       list.innerHTML = '';
-      FAQ_ITEMS.forEach(function(item, i) {
+      var items = (typeof currentLang !== 'undefined' && currentLang === 'en') ? FAQ_EN : FAQ_ITEMS;
+      items.forEach(function(item, i) {
         var div = document.createElement('div');
         div.className = 'faq-item';
         div.innerHTML = '<button class="faq-trigger" aria-expanded="false" aria-controls="faq-p-' + i + '"><span>' + item.q + '</span><span class="faq-icon">▼</span></button><div id="faq-p-' + i + '" class="faq-panel" role="region"><div class="faq-panel-content">' + item.a + '</div></div>';
@@ -677,10 +697,11 @@
     function renderGlossary() {
       var list = document.getElementById('glossary-list');
       list.innerHTML = '';
-      Object.keys(GLOSSARY).sort().forEach(function(term) {
+      var data = (typeof currentLang !== 'undefined' && currentLang === 'en') ? GLOSSARY_EN : GLOSSARY;
+      Object.keys(data).sort().forEach(function(term) {
         var div = document.createElement('div');
         div.className = 'glossary-item';
-        div.innerHTML = '<span class="glossary-term">' + term + '</span><p class="glossary-def">' + GLOSSARY[term] + '</p>';
+        div.innerHTML = '<span class="glossary-term">' + term + '</span><p class="glossary-def">' + data[term] + '</p>';
         list.appendChild(div);
       });
     }
@@ -688,9 +709,16 @@
       var baseSA = calcSTBH(state.budget);
       var sa6 = stbhAtYear(baseSA, 6);
       var familyBonus = calcFamilyBonus(state.children);
-      document.getElementById('benefit-death-personalized').innerHTML = '→ Với phí ' + vnd(state.budget) + '/năm, STBH ban đầu của bạn: <strong>' + vnd(baseSA) + '</strong>';
-      document.getElementById('benefit-stbh-personalized').innerHTML = '→ STBH năm thứ 6: <strong>' + vnd(sa6) + '</strong> (+61% so với ban đầu)';
-      document.getElementById('benefit-family-personalized').innerHTML = '→ Với ' + state.children + ' con, STBH đã tăng thêm <strong>+' + familyBonus + '%</strong>' + (familyBonus > 0 ? ' = ' + vnd(baseSA * familyBonus / 100) + ' thêm' : '');
+      var isEn = (typeof currentLang !== 'undefined' && currentLang === 'en');
+      if (isEn) {
+        document.getElementById('benefit-death-personalized').innerHTML = '→ With ' + vnd(state.budget) + '/year premium, your initial SA: <strong>' + vnd(baseSA) + '</strong>';
+        document.getElementById('benefit-stbh-personalized').innerHTML = '→ SA at year 6: <strong>' + vnd(sa6) + '</strong> (+61% from initial)';
+        document.getElementById('benefit-family-personalized').innerHTML = '→ With ' + state.children + ' child(ren), SA increased by <strong>+' + familyBonus + '%</strong>' + (familyBonus > 0 ? ' = ' + vnd(baseSA * familyBonus / 100) + ' additional' : '');
+      } else {
+        document.getElementById('benefit-death-personalized').innerHTML = '→ Với phí ' + vnd(state.budget) + '/năm, STBH ban đầu của bạn: <strong>' + vnd(baseSA) + '</strong>';
+        document.getElementById('benefit-stbh-personalized').innerHTML = '→ STBH năm thứ 6: <strong>' + vnd(sa6) + '</strong> (+61% so với ban đầu)';
+        document.getElementById('benefit-family-personalized').innerHTML = '→ Với ' + state.children + ' con, STBH đã tăng thêm <strong>+' + familyBonus + '%</strong>' + (familyBonus > 0 ? ' = ' + vnd(baseSA * familyBonus / 100) + ' thêm' : '');
+      }
     }
 
     // ============================================
@@ -753,7 +781,8 @@
     }
     function togglePause() {
       state.paused = !state.paused;
-      document.getElementById('btn-pause').textContent = state.paused ? '▶ Tiếp tục' : '⏸ Tạm dừng';
+      var t = (typeof I18N !== 'undefined') ? I18N[currentLang || 'vi'] : null;
+      document.getElementById('btn-pause').textContent = state.paused ? (t ? t.btnResume : '▶ Tiếp tục') : (t ? t.btnPause : '⏸ Tạm dừng');
       if (state.paused) { clearAutoAdvance(); } else { startAutoAdvance(); }
     }
 
@@ -779,17 +808,18 @@
     }
     function startExperience() {
       collectInputs();
-      if (state.age < 18 || state.age > 60) { alert('Tuổi phải từ 18 đến 60.'); return; }
+      if (state.age < 18 || state.age > 60) { alert((typeof I18N !== 'undefined') ? I18N[currentLang || 'vi'].alertAge : 'Tuổi phải từ 18 đến 60.'); return; }
       currentScenarios = buildScenarios();
       renderScenarioButtons(currentScenarios);
       renderPersonalizedBenefits();
       renderFunds();
-      document.getElementById('story-heading').textContent = 'Câu chuyện bảo hiểm của ' + state.name;
+      document.getElementById('story-heading').textContent = (typeof I18N !== 'undefined' ? I18N[currentLang || 'vi'].storyHeadingPrefix : 'Câu chuyện bảo hiểm của ') + state.name;
+      var isEn = (typeof currentLang !== 'undefined' && currentLang === 'en');
       document.getElementById('user-summary').innerHTML =
-        '<span>👤 ' + state.name + ', ' + state.age + ' tuổi</span>' +
-        '<span>👶 ' + state.children + ' con</span>' +
-        '<span>💰 ' + vnd(state.budget) + '/năm</span>' +
-        '<span>📅 ' + state.paymentYears + ' năm</span>';
+        '<span>👤 ' + state.name + ', ' + state.age + (isEn ? ' years old' : ' tuổi') + '</span>' +
+        '<span>👶 ' + state.children + (isEn ? ' child(ren)' : ' con') + '</span>' +
+        '<span>💰 ' + vnd(state.budget) + (isEn ? '/year' : '/năm') + '</span>' +
+        '<span>📅 ' + state.paymentYears + (isEn ? ' years' : ' năm') + '</span>';
       document.getElementById('story-player').classList.remove('visible');
       state.currentScenario = null;
       clearAutoAdvance();
@@ -827,8 +857,8 @@
       renderGlossary();
       document.getElementById('btn-start').addEventListener('click', startExperience);
       document.getElementById('btn-back').addEventListener('click', function() { clearAutoAdvance(); showScreen('screen-input'); });
-      document.getElementById('btn-prev').addEventListener('click', function() { clearAutoAdvance(); state.paused = true; document.getElementById('btn-pause').textContent = '▶ Tiếp tục'; prevSlide(); });
-      document.getElementById('btn-next').addEventListener('click', function() { clearAutoAdvance(); state.paused = true; document.getElementById('btn-pause').textContent = '▶ Tiếp tục'; nextSlide(); });
+      document.getElementById('btn-prev').addEventListener('click', function() { clearAutoAdvance(); state.paused = true; document.getElementById('btn-pause').textContent = (typeof I18N !== 'undefined') ? I18N[currentLang || 'vi'].btnResume : '▶ Tiếp tục'; prevSlide(); });
+      document.getElementById('btn-next').addEventListener('click', function() { clearAutoAdvance(); state.paused = true; document.getElementById('btn-pause').textContent = (typeof I18N !== 'undefined') ? I18N[currentLang || 'vi'].btnResume : '▶ Tiếp tục'; nextSlide(); });
       document.getElementById('btn-pause').addEventListener('click', togglePause);
       document.getElementById('screen-input').addEventListener('keydown', function(e) { if (e.key === 'Enter') startExperience(); });
       // Sidebar toggle
