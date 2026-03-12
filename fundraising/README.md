@@ -5,6 +5,8 @@ Step is an AI-powered language learning mobile app built around interesting cont
 
 - Target market: People who want to, need to learn a language but don't have enough self-discipline and/or time to do it. They learn language with Step while doing something else: read a fiction story, read news, learn a new interesting concept, etc.
 
+fetch https://step.is for the product landing page.
+
 # WHAT I NEED
 ## A full-time employee 
 - Title: Learning Content Manager
