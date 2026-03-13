@@ -33,25 +33,7 @@ The `strip_keys()` utility (defined inline in scripts, or via `strip-keys.py` fo
 
 Curriculums are organized into a two-level hierarchy: Collections (top-level shelves) contain Series (thematic groupings), which contain individual curriculums. A curriculum can also be added directly to a collection without a series.
 
-Current vi-en collections (by display_order):
-- **Featured** (-1000) — Editorial spotlight, rotate items in/out
-- **Học Từ Vựng Theo Chủ Đề (Topic-Based Vocabulary)** (100) — Topic-based vocabulary learning
-  - Series: Tâm Lý & Phát Triển Bản Thân (Psychology & Personal Growth)
-  - Series: Sức Khỏe & Lối Sống (Health & Wellness)
-- **Truyện (Fiction)** (200) — Novel-based curriculums
-  - Series: Ánh Sáng Cuối Cùng Của Ngôi Nhà Alder (The Last Light of Alder House) (20 chapters)
-- **Tiếng Anh Thiếu Nhi (Kids English)** (300) — Kids/teens English
-  - Series: Dành cho bé gái 10-14 tuổi
-- **Nuôi Dạy Con (Parenting)** (350) — Parenting English (for parents raising kids)
-  - Series: Nuôi Dạy Con Gái (Raising Girls), Nuôi Dạy Con Trai (Raising Boys)
-- **Tiếng Anh Chuyên Nghiệp (Professional English)** (400) — Professional English
-  - Series: Hướng Dẫn Viên Du Lịch (Tour Guides)
-- **Huấn Luyện Viên (Coaching)** (500) — Personalized coaching curriculums
-  - Series: Tiền Trung Cấp - Chủ Doanh Nghiệp (Preintermediate - Business Owner)
-- **News-Based Learning** (600) — News-based learning
-  - Series: World News - Advanced
-- **Exam Prep** (700) — Exam prep
-  - Series: Foundation Growth [~IELTS 6.0+]
+Current collections, series, and their contents should be queried from the database in real-time using MCP postgres or the API (`curriculum-collection/listAll`, `curriculum-series/listAll`). Do not rely on static snapshots.
 
 API endpoints for organization (all require `firebaseIdToken` in body):
 - `curriculum-collection/` — create, update, delete, setIsPublic, setDisplayOrder, addCurriculum, removeCurriculum, addSeriesToCollection, removeSeriesFromCollection, listAll, listPublicCollections
@@ -73,8 +55,6 @@ Organizing principle for source material:
 - The full content is always recoverable from the DB via `curriculum/getOne` or MCP postgres queries
 
 ## Quality Standards
-
-Reference template: "Rewriting Extinction" (`gA1W24Ga6lXwdHHx`). All curriculum text content should match this quality bar.
 
 ### Preview (~150 words)
 - Opens with vivid, imaginative hooks ("What if the woolly mammoth could walk the tundra again?")
