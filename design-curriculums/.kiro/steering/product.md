@@ -134,6 +134,9 @@ To look up levels:
 - `curriculum_series_max_level` view — max level across all curriculums in a series
 - `curriculum_collections_max_level` view — max level across all curriculums in a collection
 
+### No Difficulty Level in Titles
+Do not include difficulty level descriptions (e.g., "Beginner", "Intermediate", "Advanced") in collection, series, or curriculum titles. The level is metadata, not part of the title. Example: use "World News", not "World News - Advanced".
+
 ### What to strip when rewriting content
 When rewriting text fields, strip `mp3Url` from: `preview`, `introAudio` activities, `writingSentence` items, `writingParagraph` — so audio can be regenerated.
 
