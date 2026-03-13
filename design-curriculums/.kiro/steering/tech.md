@@ -30,20 +30,11 @@ from firebase_token import get_firebase_id_token
 
 ## Common Commands
 ```bash
-# Create 20 curriculums from topic definitions
-python hugo/create_20.py
-
 # Update curriculums with rewritten quality content
-python hugo/update_curriculums.py
-
-# Organize curriculums into collections and series
-python organize_collections.py
+python learners/hugo/update_curriculums.py
 
 # Strip unnecessary keys from JSON files
 python strip-keys.py
-
-# Create a novel chapter curriculum (run from repo root)
-python original-novels/the-last-light-of-alder-house/create_chapter1_vi.py
 ```
 
 ## No Build/Test System

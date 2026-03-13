@@ -58,9 +58,21 @@ API endpoints for organization (all require `firebaseIdToken` in body):
 
 When creating a new curriculum, also assign it to the appropriate series and collection.
 
+## No Ephemeral Code
+
+Do NOT create scripts or files with hardcoded curriculum IDs, collection IDs, series IDs, or static ID-to-name mappings. These go stale as the database changes. Instead:
+- Query MCP postgres in real-time to get current IDs, titles, and relationships
+- Scripts that need IDs should look them up by title or other stable attributes at runtime
+- One-time creation/reorganization scripts should be deleted after execution
+
+Organizing principle for source material:
+- Always preserve original inputs (chapter text files, learner profiles, prompt docs, etc.)
+- Each source folder should have a README with the SQL query to find its corresponding curriculums in the DB
+- The link between source material and DB content is maintained via queries (e.g. by series ID, title pattern), not static ID files
+
 ## Quality Standards
 
-See `hugo/curriculums/README.md` for the detailed quality bar. Key points:
+See `learners/hugo/curriculums/README.md` for the detailed quality bar. Key points:
 - Previews must be rich, captivating paragraphs (~150 words) with vivid hooks
 - introAudio texts must be elaborate teaching scripts (500-800 words) that teach each word individually with definitions, examples, and article context
 - writingSentence prompts must include specific context and example sentences
