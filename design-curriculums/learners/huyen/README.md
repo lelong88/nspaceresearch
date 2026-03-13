@@ -2,10 +2,6 @@
 
 Personalized Vietnamese-English curriculum created for Huyen, a small business owner selling healthy meals.
 
-## Source Material
-- `background.md` — Learner profile
-- `opportunity-cost.json` — Full curriculum JSON tailored to learner's context (opportunity cost topic)
-
 ## Curriculums in Database
 Language pair: vi-en. Curriculum ID: `EX4E093ppEMsAlW8`.
 

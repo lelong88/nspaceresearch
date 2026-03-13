@@ -1,1 +1,0 @@
-Small business owner, selling healthy meals service.
