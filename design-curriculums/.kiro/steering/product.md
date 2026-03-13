@@ -2,6 +2,10 @@
 
 This is a content management and creation toolkit for a language-learning platform (helloapi.step.is). The platform teaches vocabulary across many language pairs through structured multi-session curriculums that combine reading, listening, speaking, and writing activities.
 
+use firebase_token.py to generate firebaseIdToken to use with the helloapi.step.is
+
+see `server` (which is the helloapi server code) symlink to get what endpoints are available
+
 ## Scope
 
 This is a personal workspace for all aspects of curriculum content management — creating, updating, rewriting, and experimenting across any language pair and any combination of learning activities. The folder structure is fluid and changes frequently.
