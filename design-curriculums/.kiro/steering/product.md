@@ -35,20 +35,22 @@ Curriculums are organized into a two-level hierarchy: Collections (top-level she
 
 Current vi-en collections (by display_order):
 - **Featured** (-1000) — Editorial spotlight, rotate items in/out
-- **Học từ vựng theo chủ đề** (100) — Topic-based vocabulary learning
-  - Series: Tâm lý & Phát triển bản thân (values, decisions, leadership, teamwork)
-  - Series: Health & Wellness
-- **Fiction** (200) — Novel-based curriculums
-  - Series: The Last Light of Alder House (20 chapters)
-- **Tiếng Anh Thiếu Nhi** (300) — Kids/teens English
-  - Series: Raising Girls, Dành cho bé gái 10-14 tuổi, Kids Playground, Raising Boys
-- **Tiếng Anh Chuyên Nghiệp** (400) — Professional English
-  - Series: Tour Guides
-- **Coaching** (500) — Personalized coaching curriculums
-  - Series: Preintermediate - Business Owner
-- **Học theo tin tức** (600) — News-based learning
-  - Series: World News - Intermediate
-- **Luyện thi** (700) — Exam prep
+- **Học Từ Vựng Theo Chủ Đề (Topic-Based Vocabulary)** (100) — Topic-based vocabulary learning
+  - Series: Tâm Lý & Phát Triển Bản Thân (Psychology & Personal Growth)
+  - Series: Sức Khỏe & Lối Sống (Health & Wellness)
+- **Truyện (Fiction)** (200) — Novel-based curriculums
+  - Series: Ánh Sáng Cuối Cùng Của Ngôi Nhà Alder (The Last Light of Alder House) (20 chapters)
+- **Tiếng Anh Thiếu Nhi (Kids English)** (300) — Kids/teens English
+  - Series: Dành cho bé gái 10-14 tuổi
+- **Nuôi Dạy Con (Parenting)** (350) — Parenting English (for parents raising kids)
+  - Series: Nuôi Dạy Con Gái (Raising Girls), Nuôi Dạy Con Trai (Raising Boys)
+- **Tiếng Anh Chuyên Nghiệp (Professional English)** (400) — Professional English
+  - Series: Hướng Dẫn Viên Du Lịch (Tour Guides)
+- **Huấn Luyện Viên (Coaching)** (500) — Personalized coaching curriculums
+  - Series: Tiền Trung Cấp - Chủ Doanh Nghiệp (Preintermediate - Business Owner)
+- **News-Based Learning** (600) — News-based learning
+  - Series: World News - Advanced
+- **Exam Prep** (700) — Exam prep
   - Series: Foundation Growth [~IELTS 6.0+]
 
 API endpoints for organization (all require `firebaseIdToken` in body):
@@ -128,6 +130,29 @@ Good: "Use the word 'circadian' in a sentence about biological rhythms. Example:
 
 Bad: "Explain a key concept from the invisible architecture of sleep using Session 1 vocabulary."
 Good: "Explain how the brain uses circadian rhythms and neurological processes to perform cognitive consolidation during sleep. What happens when this process is disrupted by deprivation?"
+
+### Language Policy by Level
+This applies to all language pairs (vi-en, vi-zh, and any future pairs), not just Vietnamese-English.
+- **Beginner**, **Preintermediate**, **Intermediate**: All user-facing text must be bilingual (user language + target language). This includes curriculum titles, descriptions, previews, collection names, series names/descriptions, etc.
+- **Upper-intermediate**: May be either bilingual or single-language (target language only).
+- **Advanced**: Must be single-language (target language only).
+
+### Language Homogeneity Within Series and Collections
+- Each collection/series must have curriculums targeting the same `language` (target language).
+- Each collection/series must have curriculums with the same `user_language`.
+- Titles and descriptions should be written in the `user_language`, with a mix of `language` if it differs.
+- Use `curriculum_series_language_list` and `curriculum_collections_language_list` views to check — both `language_list` and `user_language_list` columns must contain a single element.
+
+### Level Consistency Within Series and Collections
+Curriculums in a series or collection should be at similar levels (max 1 level gap from the highest-level curriculum). Use `curriculum_series_level_gap` and `curriculum_collections_level_gap` views to spot pairs that violate this rule. Remove unfit curriculums from the series/collection to resolve violations.
+
+### No Mixing Bilingual and Single-Language Content
+Do not mix bilingual curriculums (`userLanguage` ≠ `language`) with single-language curriculums (`userLanguage` == `language`) in the same series or collection. Each series and collection should contain exclusively one type.
+
+To look up levels:
+- `curriculum_all_tags` view — per-curriculum level info (`overall_level`, `vocab_level`, `reading_level`, `writing_level`)
+- `curriculum_series_max_level` view — max level across all curriculums in a series
+- `curriculum_collections_max_level` view — max level across all curriculums in a collection
 
 ### What to strip when rewriting content
 When rewriting text fields, strip `mp3Url` from: `preview`, `introAudio` activities, `writingSentence` items, `writingParagraph` — so audio can be regenerated.
