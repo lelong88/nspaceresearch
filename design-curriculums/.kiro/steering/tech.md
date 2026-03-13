@@ -30,9 +30,6 @@ from firebase_token import get_firebase_id_token
 
 ## Common Commands
 ```bash
-# Update curriculums with rewritten quality content
-python learners/hugo/update_curriculums.py
-
 # Strip unnecessary keys from JSON files
 python strip-keys.py
 ```

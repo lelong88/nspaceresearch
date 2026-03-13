@@ -1,25 +1,25 @@
 # Hugo — Learner Curriculums
 
-English-English curriculums created for Hugo, covering 20 diverse topics at intermediate level.
+English-English curriculums for Hugo, covering diverse topics at intermediate level.
+Series ID: `db5930f6`.
 
-## Source Material
-- `PROMPT.md` — Original prompt used to generate the 20 curriculums
-- `curriculums/*.py` — High-quality rewritten content (preview, introAudio, writing prompts). Each file exports a `CONTENT` dict with `curriculum_id` linking it to the DB record.
-- `curriculums/README.md` — Quality bar documentation
+## How They Were Created
+- Template curriculum: "Rewriting Extinction" (`gA1W24Ga6lXwdHHx`) — used `curriculum/getOne` with `strip_keys()` to get the structure
+- Generated 20 curriculums matching the template's structure and difficulty across diverse topics
+- Quality-rewritten preview, introAudio, writingSentence, and writingParagraph texts to match the project quality bar (see Quality Standards in product.md steering)
+- Additional curriculums added to the series over time
 
-## Reusable Tools
-- `update_curriculums.py` — Patches existing curriculums with content from `curriculums/*.py` (reads `curriculum_id` from each module at runtime)
+## To Recreate
+1. Fetch the template: `curriculum/getOne` for `gA1W24Ga6lXwdHHx`, run through `strip_keys()`
+2. Generate new curriculums following the same 4-session structure, activity types, and quality bar
+3. Upload via `curriculum/create`, add to series `db5930f6`
 
 ## Curriculums in Database
-Language pair: en-en. UID: `zs5AMpVfqkcfDf8CJ9qrXdH58d73`.
 
-To get the current list:
 ```sql
-SELECT id, content->>'title' as title
-FROM curriculum
-WHERE uid = 'zs5AMpVfqkcfDf8CJ9qrXdH58d73'
-  AND language = 'en' AND user_language = 'en'
-ORDER BY content->>'title';
+SELECT c.id, c.content->>'title' as title, c.display_order
+FROM curriculum c
+JOIN curriculum_series_items csi ON c.id = csi.curriculum_id
+WHERE csi.curriculum_series_id = 'db5930f6'
+ORDER BY c.display_order;
 ```
-
-The `curriculum_id` field in each `curriculums/*.py` file is the authoritative link between source content and DB record.

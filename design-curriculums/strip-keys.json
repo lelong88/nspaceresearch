@@ -1,1 +1,12 @@
-["mp3Url", "illustrationSet", "chapterBookmarks", "segments", "whiteboardItems", "userReadingId", "lessonUniqueId", "curriculumTags", "taskId", "imageId"]
+[
+    "mp3Url",
+    "illustrationSet",
+    "chapterBookmarks",
+    "segments",
+    "whiteboardItems",
+    "userReadingId",
+    "lessonUniqueId",
+    "curriculumTags",
+    "taskId",
+    "imageId"
+]

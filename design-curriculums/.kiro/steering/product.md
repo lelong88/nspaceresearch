@@ -66,14 +66,74 @@ Do NOT create scripts or files with hardcoded curriculum IDs, collection IDs, se
 - One-time creation/reorganization scripts should be deleted after execution
 
 Organizing principle for source material:
-- Always preserve original inputs (chapter text files, learner profiles, prompt docs, etc.)
-- Each source folder should have a README with the SQL query to find its corresponding curriculums in the DB
-- The link between source material and DB content is maintained via queries (e.g. by series ID, title pattern), not static ID files
+- Source materials (chapter text files, curriculum JSON, content Python files, learner profiles, etc.) should be DELETED after they are successfully imported into the DB
+- Each source folder keeps only a README with: (1) how the content was created, (2) SQL queries to find the curriculums in the DB, (3) enough context to recreate the source materials if needed
+- The full content is always recoverable from the DB via `curriculum/getOne` or MCP postgres queries
 
 ## Quality Standards
 
-See `learners/hugo/curriculums/README.md` for the detailed quality bar. Key points:
-- Previews must be rich, captivating paragraphs (~150 words) with vivid hooks
-- introAudio texts must be elaborate teaching scripts (500-800 words) that teach each word individually with definitions, examples, and article context
-- writingSentence prompts must include specific context and example sentences
-- writingParagraph prompts must reference specific concepts from the article
+Reference template: "Rewriting Extinction" (`gA1W24Ga6lXwdHHx`). All curriculum text content should match this quality bar.
+
+### Preview (~150 words)
+- Opens with vivid, imaginative hooks ("What if the woolly mammoth could walk the tundra again?")
+- Names the vocabulary words and explains how they'll be learned
+- Describes the learning journey and what the learner will be able to do by the end
+- Reads like compelling marketing copy, not a dry description
+
+Bad: "Every night your brain embarks on an extraordinary journey of repair, memory consolidation, and emotional processing. Learn 10 words through cutting-edge sleep science."
+Good: A full paragraph with vivid hooks, word list, learning journey description, and a compelling closing line.
+
+### introAudio — Session 1 & 2 (~500-800 words each)
+- Welcomes the learner and sets the scene with vivid context
+- Lists all vocabulary words for the session
+- Teaches each word individually: part of speech, full definition, example sentence from the article context, explanation of how the word is used in the article
+- Transitions smoothly between words with connecting phrases
+- Session 2: recaps Session 1 words before introducing new ones
+
+Bad: "In this session you'll learn: Circadian, Consolidation, Deprivation, Cognitive, Neurological."
+Good: A full teaching script that walks through each word with definitions, examples, and article context.
+
+### introAudio — Session 3 (Review)
+- Congratulates the learner on learning all words
+- Briefly recaps what was covered in Sessions 1 and 2 with specific references
+- Explains what the review session will involve
+- Motivates the learner for the full article in Session 4
+
+### introAudio — Session 4 (Final Reading Intro)
+- Welcomes to the final session
+- Recaps the learning journey across all sessions
+- Lists all words the learner will encounter
+- Sets expectations for the full article reading
+
+### introAudio — Session 4 (Farewell, ~400-600 words)
+- Reviews each vocabulary word with definition and a fresh example sentence
+- Summarizes the learning journey
+- Provides a warm, encouraging farewell
+
+Bad: "Congratulations on completing the curriculum! You mastered: [word list]. Well done!"
+Good: A full review of all words with definitions and examples, plus a warm farewell.
+
+### writingSentence items
+- Detailed prompts that specify the context for using the word
+- An example sentence showing correct usage
+- Format: "Use the word 'X' in a sentence about [specific context]. Example: [full example sentence]."
+
+Bad: "Use 'circadian' in a sentence about the invisible architecture of sleep."
+Good: "Use the word 'circadian' in a sentence about biological rhythms. Example: Every organism on Earth follows a circadian rhythm synchronized to the 24-hour cycle of light and darkness."
+
+### writingParagraph prompts
+- Specific to the topic and session content
+- Guide the learner to use vocabulary in meaningful analytical writing
+- Reference specific concepts from the article
+
+Bad: "Explain a key concept from the invisible architecture of sleep using Session 1 vocabulary."
+Good: "Explain how the brain uses circadian rhythms and neurological processes to perform cognitive consolidation during sleep. What happens when this process is disrupted by deprivation?"
+
+### What to strip when rewriting content
+When rewriting text fields, strip `mp3Url` from: `preview`, `introAudio` activities, `writingSentence` items, `writingParagraph` — so audio can be regenerated.
+
+### What NOT to change when rewriting
+- Activity structure (types, order, count)
+- Vocabulary lists
+- Reading passages
+- Activity types that aren't introAudio/writingSentence/writingParagraph
