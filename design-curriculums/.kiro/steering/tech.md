@@ -10,7 +10,9 @@
 - `importlib` — Dynamic module loading for curriculum content files
 
 ## External Services
-- **Curriculum API**: `https://helloapi.step.is/curriculum` (endpoints: `/create`, `/update`, `/getOne`)
+- **Curriculum API**: `https://helloapi.step.is/curriculum` (endpoints: `/create`, `/update`, `/getOne`, `/setDisplayOrder`)
+- **Curriculum Collection API**: `https://helloapi.step.is/curriculum-collection` (endpoints: `/create`, `/update`, `/delete`, `/setIsPublic`, `/setDisplayOrder`, `/addCurriculum`, `/removeCurriculum`, `/addSeriesToCollection`, `/removeSeriesFromCollection`, `/addCurriculumToSeries`, `/removeCurriculumFromSeries`, `/listAll`, `/listPublicCollections`)
+- **Curriculum Series API**: `https://helloapi.step.is/curriculum-series` (endpoints: `/create`, `/update`, `/delete`, `/setIsPublic`, `/setDisplayOrder`, `/addCurriculum`, `/removeCurriculum`, `/listAll`)
 - **Firebase Auth**: Used to generate ID tokens for API authentication
 - **PostgreSQL database**: Curriculum data is also queryable via MCP postgres
 
@@ -33,6 +35,9 @@ python hugo/create_20.py
 
 # Update curriculums with rewritten quality content
 python hugo/update_curriculums.py
+
+# Organize curriculums into collections and series
+python organize_collections.py
 
 # Strip unnecessary keys from JSON files
 python strip-keys.py

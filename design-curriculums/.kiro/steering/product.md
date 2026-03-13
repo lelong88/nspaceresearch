@@ -29,6 +29,35 @@ Rules:
 
 The `strip_keys()` utility (defined inline in scripts, or via `strip-keys.py` for JSON files) handles this.
 
+## Collections & Series Organization
+
+Curriculums are organized into a two-level hierarchy: Collections (top-level shelves) contain Series (thematic groupings), which contain individual curriculums. A curriculum can also be added directly to a collection without a series.
+
+Current vi-en collections (by display_order):
+- **Featured** (-1000) — Editorial spotlight, rotate items in/out
+- **Học từ vựng theo chủ đề** (100) — Topic-based vocabulary learning
+  - Series: Tâm lý & Phát triển bản thân (values, decisions, leadership, teamwork)
+  - Series: Health & Wellness
+- **Fiction** (200) — Novel-based curriculums
+  - Series: The Last Light of Alder House (20 chapters)
+- **Tiếng Anh Thiếu Nhi** (300) — Kids/teens English
+  - Series: Raising Girls, Dành cho bé gái 10-14 tuổi, Kids Playground, Raising Boys
+- **Tiếng Anh Chuyên Nghiệp** (400) — Professional English
+  - Series: Tour Guides
+- **Coaching** (500) — Personalized coaching curriculums
+  - Series: Preintermediate - Business Owner
+- **Học theo tin tức** (600) — News-based learning
+  - Series: World News - Intermediate
+- **Luyện thi** (700) — Exam prep
+  - Series: Foundation Growth [~IELTS 6.0+]
+
+API endpoints for organization (all require `firebaseIdToken` in body):
+- `curriculum-collection/` — create, update, delete, setIsPublic, setDisplayOrder, addCurriculum, removeCurriculum, addSeriesToCollection, removeSeriesFromCollection, listAll, listPublicCollections
+- `curriculum-series/` — create, update, delete, setIsPublic, setDisplayOrder, addCurriculum, removeCurriculum, listAll
+- `curriculum/setDisplayOrder` — set display order on individual curriculums
+
+When creating a new curriculum, also assign it to the appropriate series and collection.
+
 ## Quality Standards
 
 See `hugo/curriculums/README.md` for the detailed quality bar. Key points:

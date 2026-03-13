@@ -8,6 +8,8 @@
 ├── strip-keys.json                # List of keys to strip (mp3Url, illustrationSet, segments, etc.)
 ├── sample.json                    # Sample full curriculum JSON (Vietnamese "Disagree and Commit")
 │
+├── organize_collections.py         # Script to reorganize curriculums into collections and series via API
+│
 ├── hugo/                          # Curriculums for Hugo (a learner)
 │   ├── PROMPT.md                  # Original prompt/instructions used to generate curriculums
 │   ├── create_20.py               # Generates 20 curriculums from inline topic definitions, uploads via API
@@ -28,7 +30,7 @@
 │   ├── background.md              # Learner profile (small business owner, healthy meals)
 │   └── opportunity-cost.json      # Full curriculum JSON tailored to learner's context
 │
-└── server                         # (binary/script — purpose unclear)
+└── server                         # Symlink to ../../nspacenest (NestJS helloapi server code)
 ```
 
 ## Conventions
