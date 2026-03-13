@@ -2,9 +2,9 @@
 
 This is a content management and creation toolkit for a language-learning platform (helloapi.step.is). The platform teaches vocabulary across many language pairs through structured multi-session curriculums that combine reading, listening, speaking, and writing activities.
 
-use firebase_token.py to generate firebaseIdToken to use with the helloapi.step.is
+use firebase_token.py to generate firebaseIdToken to use with the helloapi.step.is . 
 
-see `server` (which is the helloapi server code) symlink to get what endpoints are available
+see `server` (which is the helloapi server code) symlink to get what endpoints are available. most of these endpoints required `firebaseIdToken` which is converted into `uid` via middleware.
 
 ## Scope
 
