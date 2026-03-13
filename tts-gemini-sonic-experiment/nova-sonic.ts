@@ -14,7 +14,7 @@ const textContentName = crypto.randomUUID();
 const encoder = new TextEncoder();
 const decoder = new TextDecoder();
 
-const userText = "Read this mixed language text naturally: Hello, hôm nay trời đẹp quá! I'm learning tiếng Việt, it's very thú vị. Let's go eat phở tonight!";
+const userText = "Read this text: The morning sun cast long shadows across the quiet village. A gentle breeze carried the scent of jasmine through the open windows, and somewhere in the distance, a church bell rang twice.";
 const silentChunk = Buffer.alloc(2048).toString("base64");
 
 async function main() {
