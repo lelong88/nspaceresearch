@@ -36,7 +36,7 @@ Create a complete preintermediate-level fiction novel curriculum series (10 chap
   - Same structure and constraints as task 2
   - _Requirements: 2.1–2.8, 3.1–3.3, 3.6, 4.1, 4.3, 6.1_
 
-- [ ] 4. Create the validation script and validate all content
+- [x] 4. Create the validation script and validate all content
   - [x] 4.1 Create `validate_content.py`
     - Import all 10 `chapterN_content` modules dynamically
     - Per-chapter checks:
@@ -61,15 +61,15 @@ Create a complete preintermediate-level fiction novel curriculum series (10 chap
     - Fix any content modules that fail validation
     - Re-run until all properties pass
 
-  - [~] 4.3 Run difficulty level classification on all chapters
+  - [x] 4.3 Run difficulty level classification on all chapters
     - For each chapter, extract the vocab list and reading passages
     - Submit them to an LLM using the same difficulty classifier prompt from `server/src/utils/activity-summary.ts:buildDifficultyPrompt`
     - Verify both vocab and reading classify as `preintermediate`
     - If any chapter classifies as `beginner` or `intermediate`, adjust the vocab/prose complexity and re-validate
     - _Property 15_
 
-- [ ] 5. Create chapter creation scripts and upload all 10 chapters
-  - [-] 5.1 Create `create_chapter1_vi.py` through `create_chapter10_vi.py`
+- [x] 5. Create chapter creation scripts and upload all 10 chapters
+  - [x] 5.1 Create `create_chapter1_vi.py` through `create_chapter10_vi.py`
     - Each script imports its `chapterN_content` module and `firebase_token`
     - Authenticates with UID `zs5AMpVfqkcfDf8CJ9qrXdH58d73`
     - POSTs to `https://helloapi.step.is/curriculum/create` with `{ firebaseIdToken, uid, language: "en", userLanguage: "vi", content: json.dumps(get_content()) }`
@@ -79,14 +79,14 @@ Create a complete preintermediate-level fiction novel curriculum series (10 chap
     - Place in `original-novels/the-little-bookshop-by-the-sea/`
     - _Requirements: 7.1–7.5, 10.1_
 
-  - [~] 5.2 Run creation scripts for all 10 chapters
+  - [x] 5.2 Run creation scripts for all 10 chapters
     - Run each `create_chapterN_vi.py` sequentially (1 through 10)
     - Record the returned curriculum IDs and titles
     - Verify each script prints success
     - _Requirements: 7.1, 7.5_
 
-- [ ] 6. Create and run the series organization script
-  - [~] 6.1 Create `organize_series.py`
+- [x] 6. Create and run the series organization script
+  - [x] 6.1 Create `organize_series.py`
     - Authenticate with UID `zs5AMpVfqkcfDf8CJ9qrXdH58d73`
     - POST `curriculum-series/create` with bilingual title "Tiệm Sách Nhỏ Bên Biển (The Little Bookshop by the Sea)" and Vietnamese description, `isPublic: true`
     - POST `curriculum-collection/listAll` to find "Truyện (Fiction)" collection ID by title at runtime
@@ -100,26 +100,26 @@ Create a complete preintermediate-level fiction novel curriculum series (10 chap
     - Place in `original-novels/the-little-bookshop-by-the-sea/`
     - _Requirements: 8.1–8.6, 3.4, 3.5_
 
-  - [~] 6.2 Run `organize_series.py`
+  - [x] 6.2 Run `organize_series.py`
     - Run the script and verify series creation, curriculum additions, collection attachment, and display orders
     - Record the series ID for verification
     - _Requirements: 8.1–8.3, 8.5_
 
-- [~] 7. Post-upload verification
+- [x] 7. Post-upload verification
   - Run SQL to confirm all 10 curriculums are in the series with correct display_order (1–10)
   - Run SQL to confirm all curriculums have `language = 'en'` and `user_language = 'vi'`
   - Verify series is attached to the "Truyện (Fiction)" collection
   - _Requirements: 8.5, 10.1, 10.4_
 
-- [ ] 8. Cleanup and README creation
-  - [~] 8.1 Create `README.md` in `original-novels/the-little-bookshop-by-the-sea/`
+- [x] 8. Cleanup and README creation
+  - [x] 8.1 Create `README.md` in `original-novels/the-little-bookshop-by-the-sea/`
     - Document how the content was created
     - Include the series ID
     - Include SQL query to list all chapter curriculums with titles and display_orders
     - Include enough context to recreate source materials if needed
     - _Requirements: 9.2, 9.3_
 
-  - [~] 8.2 Delete all source files except README.md
+  - [x] 8.2 Delete all source files except README.md
     - Delete all `chapterN_content.py`, `create_chapterN_vi.py`, `organize_series.py`, `validate_content.py`
     - Retain only `README.md`
     - _Requirements: 9.1_
