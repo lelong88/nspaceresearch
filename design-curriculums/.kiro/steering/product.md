@@ -140,6 +140,16 @@ Do not include difficulty level descriptions (e.g., "Beginner", "Intermediate", 
 ### What to strip when rewriting content
 When rewriting text fields, strip `mp3Url` from: `preview`, `introAudio` activities, `writingSentence` items, `writingParagraph` — so audio can be regenerated.
 
+### Activity Title and Description Required
+Every activity must have a `title` and `description` field. These are used in server-side logging and client display. Never create activities without them.
+- `viewFlashcards`/`speakFlashcards`/`vocabLevel1`/`vocabLevel2`: title = "Flashcards: <topic>", description = "Học N từ: word1, word2, ..."
+- `reading`/`speakReading`: title = "Đọc: <topic>", description = first ~80 chars of the reading text
+- `readAlong`: title = "Nghe: <topic>", description = "Nghe đoạn văn vừa đọc và theo dõi."
+- `introAudio`: title = descriptive label (e.g. "Giới thiệu bài học", "Giới thiệu từ vựng"), description = brief summary
+- `writingSentence`/`writingParagraph`: title = "Viết: <topic>", description = brief summary of the writing task
+- Review/final sessions: use "Ôn tập" in titles, "Toàn bộ câu chuyện" for full-chapter readAlongs
+- Session objects also need a `title` field (e.g. "Phần 1", "Phần 2", "Ôn tập")
+
 ### What NOT to change when rewriting
 - Activity structure (types, order, count)
 - Vocabulary lists
