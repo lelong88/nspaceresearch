@@ -230,3 +230,186 @@ original-novels/the-silent-clocktower/
 └── README.md              # Kept after cleanup
 ```
 
+
+## Correctness Properties
+
+*A property is a characteristic or behavior that should hold true across all valid executions of a system — essentially, a formal statement about what the system should do. Properties serve as the bridge between human-readable specifications and machine-verifiable correctness guarantees.*
+
+### Property 1: Session structure is correct
+
+*For any* chapter curriculum, it shall contain exactly 6 sessions, where sessions 1–5 each have exactly 3 activities in order (viewFlashcards, reading, readAlong) and session 6 has exactly 2 activities in order (viewFlashcards, readAlong).
+
+**Validates: Requirements 4.1, 4.2, 4.3**
+
+### Property 2: Vocabulary word counts are correct
+
+*For any* chapter curriculum, each viewFlashcards activity in sessions 1–5 shall contain exactly 3 vocabulary words, the session 6 viewFlashcards shall contain exactly 15 vocabulary words, and the total unique vocabulary words per chapter shall be exactly 15.
+
+**Validates: Requirements 2.2, 3.1, 4.4, 4.5**
+
+### Property 3: Vocabulary words appear in their assigned passage
+
+*For any* chapter and *for any* session 1–5, each of the 3 vocabulary words assigned to that session shall appear (case-insensitive) in the corresponding reading passage text.
+
+**Validates: Requirements 2.3, 10.3**
+
+### Property 4: No vocabulary word is repeated across chapters
+
+*For any* pair of chapters, the intersection of their vocabulary word sets shall be empty.
+
+**Validates: Requirements 3.3**
+
+### Property 5: Vocabulary words have complete data
+
+*For any* vocabulary word across all chapters, the word shall have a non-empty `translation` field and a non-empty `exampleSentence` field.
+
+**Validates: Requirements 3.5, 3.6**
+
+### Property 6: readAlong text matches reading text in sessions 1–5
+
+*For any* chapter and *for any* session 1–5, the readAlong activity text shall be identical to the reading activity text in the same session.
+
+**Validates: Requirements 4.7**
+
+### Property 7: Session 6 readAlong contains the full chapter text
+
+*For any* chapter, the session 6 readAlong text shall equal the concatenation of all 5 passage texts (from sessions 1–5 reading activities) joined with appropriate separators.
+
+**Validates: Requirements 4.8**
+
+### Property 8: audioSpeed is set correctly
+
+*For any* chapter and *for any* activity that supports audio playback (viewFlashcards, readAlong), the `audioSpeed` field shall be set to -0.2.
+
+**Validates: Requirements 4.9**
+
+### Property 9: Passage word count is in range
+
+*For any* reading passage across all chapters, the word count shall be between 150 and 200 words (inclusive, with ±10% tolerance).
+
+**Validates: Requirements 2.4, 10.4**
+
+### Property 10: Curriculum title follows the bilingual format
+
+*For any* chapter curriculum, the title shall match the pattern: `[Series Vietnamese Title] ([Series English Title]) — Chương N: [Chapter Vietnamese Title] ([Chapter English Title])` where N is the chapter number, and the title contains Vietnamese characters.
+
+**Validates: Requirements 2.5, 5.1**
+
+### Property 11: Session titles are correct
+
+*For any* chapter, sessions 1–5 shall have titles "Phần 1" through "Phần 5" respectively, and session 6 shall have title "Ôn tập".
+
+**Validates: Requirements 5.4, 5.5**
+
+### Property 12: Activity titles and descriptions follow format conventions
+
+*For any* activity across all chapters: viewFlashcards titles start with "Flashcards:", reading titles start with "Đọc:", readAlong titles in sessions 1–5 start with "Nghe:", session 6 readAlong title contains "Toàn bộ câu chuyện", and all activities have non-empty title and description fields.
+
+**Validates: Requirements 5.6, 5.7, 5.8, 5.9, 7.9**
+
+### Property 13: Vietnamese metadata and language fields
+
+*For any* chapter curriculum: the preview text and description shall contain Vietnamese characters (Unicode range for Vietnamese diacritics), `language` shall be "en", and `userLanguage` shall be "vi".
+
+**Validates: Requirements 5.2, 5.3, 5.10, 8.4**
+
+### Property 14: No auto-generated platform keys present
+
+*For any* chapter curriculum dict (recursively), none of the strip-keys (mp3Url, illustrationSet, chapterBookmarks, segments, whiteboardItems, userReadingId, lessonUniqueId, curriculumTags, taskId, imageId) shall be present.
+
+**Validates: Requirements 6.2, 7.8**
+
+## Error Handling
+
+### Validation Errors
+
+The validation script (`validate_content.py`) is the primary error-handling mechanism. It runs before any upload and reports violations with specificity:
+
+- **Format**: `FAIL [Chapter N, Session M, Activity type]: description of violation`
+- **Behavior**: Collects all violations across all chapters, prints a summary, and exits with non-zero status if any violations found
+- **No partial uploads**: The creation script should only proceed if validation passes with zero violations
+
+### API Errors
+
+The creation script handles API failures:
+
+- **Authentication failure**: If `get_firebase_id_token()` fails, abort with clear error message
+- **Upload failure**: If `curriculum/create` returns non-200, print the response body and abort. Do not continue uploading remaining chapters.
+- **Series creation failure**: If series creation or curriculum attachment fails, print the error and the IDs of already-uploaded curriculums so they can be cleaned up manually
+- **Collection lookup failure**: If the Fiction collection cannot be found by title via `listAll`, abort with a message suggesting the collection may have been renamed
+
+### Content Module Errors
+
+- **Import failure**: If a `chapterN_content.py` cannot be imported, the validation script reports which module failed and continues checking others
+- **Missing function**: If `get_curriculum()` is not defined in a module, report the specific module
+
+## Testing Strategy
+
+### Validation Script as the Test Suite
+
+Since there is no build system or test framework in this workspace, the validation script (`validate_content.py`) serves as the test suite. It implements all 14 correctness properties as programmatic checks.
+
+### Property-Based Testing Approach
+
+The content modules produce a fixed set of 10 curriculum dicts (not random inputs), so traditional property-based testing with random generation doesn't apply here. Instead, the validation script applies each property universally across all 10 chapters — effectively treating the 10 chapters as the input space and verifying that every property holds for all of them.
+
+Each check in the validation script is tagged with a comment referencing the design property:
+
+```python
+# Feature: fiction-novel-new-genre, Property 1: Session structure is correct
+def check_session_structure(curriculum, chapter_num):
+    ...
+```
+
+### Unit Test Examples
+
+The validation script also includes specific example checks:
+
+- Chapter 1 has exactly 6 sessions (sanity check)
+- Session 6 of any chapter has "Ôn tập" as title
+- The word count of a known passage is within range
+
+### Validation Checks Mapped to Properties
+
+| Property | Validation Check |
+|---|---|
+| P1: Session structure | Count sessions, verify activity types and order |
+| P2: Vocab counts | Count words in each viewFlashcards activity |
+| P3: Vocab in passage | Case-insensitive substring search in reading text |
+| P4: No cross-chapter repeats | Set intersection across all chapter word lists |
+| P5: Vocab completeness | Check translation and exampleSentence non-empty |
+| P6: readAlong = reading | String equality check per session |
+| P7: Session 6 full text | Concatenate passages, compare to session 6 readAlong |
+| P8: audioSpeed | Check field value on viewFlashcards and readAlong activities |
+| P9: Passage word count | `len(text.split())` in range [135, 220] (±10% of 150-200) |
+| P10: Title format | Regex match for Vietnamese + English pattern with "Chương N" |
+| P11: Session titles | Exact string match per session index |
+| P12: Activity title formats | Prefix checks per activity type |
+| P13: Vietnamese metadata | Vietnamese character detection in preview/description, language field checks |
+| P14: No strip-keys | Recursive key scan against strip-keys set |
+
+### Running Validation
+
+```bash
+cd original-novels/the-silent-clocktower
+python validate_content.py
+```
+
+Expected output on success:
+```
+Validating chapter 1... OK
+Validating chapter 2... OK
+...
+Validating chapter 10... OK
+Cross-chapter vocab check... OK
+All 14 properties verified across 10 chapters. 0 violations.
+```
+
+Expected output on failure:
+```
+Validating chapter 3... 
+  FAIL [Chapter 3, Session 2, viewFlashcards]: Expected 3 words, found 2
+  FAIL [Chapter 3, Session 2, reading]: Vocab word 'investigate' not found in passage text
+...
+2 violations found. Fix before uploading.
+```
