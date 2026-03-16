@@ -173,6 +173,9 @@ Good: "Use the word 'circadian' in a sentence about biological rhythms. Example:
 Bad: "Explain a key concept from the invisible architecture of sleep using Session 1 vocabulary."
 Good: "Explain how the brain uses circadian rhythms and neurological processes to perform cognitive consolidation during sleep. What happens when this process is disrupted by deprivation?"
 
+### Language Code Convention
+Always use 2-character ISO 639-1 language codes (e.g. `en`, `vi`, `zh`, `ja`, `ko`, `fr`). This applies everywhere: DB fields (`language`, `user_language`), folder names, script parameters, and documentation. Language pairs are written as `{user_language}-{target_language}` (e.g. `vi-en` = Vietnamese speaker learning English, `en-en` = English speaker learning English).
+
 ### Language Policy by Level
 This applies to all language pairs (vi-en, vi-zh, and any future pairs), not just Vietnamese-English.
 - **Beginner**, **Preintermediate**, **Intermediate**: All user-facing text must be bilingual (user language + target language). This includes curriculum titles, descriptions, previews, collection names, series names/descriptions, etc.
