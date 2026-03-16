@@ -40,6 +40,8 @@ Rules:
 
 The `strip_keys()` utility (defined inline in scripts, or via `strip-keys.py` for JSON files) handles this.
 
+**Workflow rule:** When fetching an existing curriculum via API or DB to use as a structural template for new curriculums, ALWAYS run `strip_keys()` on the content dict before using it as input. This applies whether you're copying the full structure, extracting activity patterns, or adapting content for a new topic. Never pass raw fetched content into `curriculum/create` or `curriculum/update` without stripping first.
+
 ## Collections & Series Organization
 
 Curriculums are organized into a two-level hierarchy: Collections (top-level shelves) contain Series (thematic groupings), which contain individual curriculums. A curriculum can also be added directly to a collection without a series.
