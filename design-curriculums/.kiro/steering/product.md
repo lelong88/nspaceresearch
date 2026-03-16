@@ -67,7 +67,58 @@ Organizing principle for source material:
 
 ## Quality Standards
 
+### Persuasive Copy Style (applies to: description, preview, introAudio)
+
+All learner-facing marketing text must be written as **emotional sales copy**, not informational summaries. The text must make the reader *feel* something — curiosity, urgency, recognition of their own pain — before it tells them what they'll learn.
+
+**Required structure (each point gets its own paragraph/beat):**
+
+1. **BOLD HEADLINE** — A provocative question or statement in ALL CAPS that hits a pain point the learner recognizes in their own life. Not about the curriculum topic — about the learner's struggle.
+2. **Concrete examples that make it personal** — Use specific, relatable scenarios ("từ việc chọn việc làm đến người bạn yêu"). The reader must think "that's me."
+3. **Reveal the hidden mechanism with a vivid metaphor** — Name the concept/framework and explain it with an image that sticks ("bạn sẽ mãi như con thuyền không lái"). This is the "aha moment."
+4. **Promise of transformation** — What will change if they learn this? Be specific and aspirational.
+5. **Tie learning to personal growth** — The vocabulary isn't homework; it's a tool for upgrading both their thinking AND their language ability. Use language like "nâng cấp tư duy, vừa nâng trình ngoại ngữ."
+
+**Gold standard example:**
+```
+TẠI SAO BẠN NỖ LỰC NHƯNG VẪN THẤY MÔNG LUNG?
+
+Mọi quyết định bạn đưa ra — từ việc chọn việc làm đến người bạn yêu — đều bị chi phối bởi một "bộ lọc" ngầm: Hệ thống giá trị cá nhân.
+
+Nếu bạn chưa biết mình đang "hướng tới" (Moving-toward) điều gì hay đang cố "né tránh" (Moving-away-from) điều gì, bạn sẽ mãi như con thuyền không lái.
+
+Khám phá bí mật từ Tony Robbins: Cách tái thiết lập hệ thống giá trị để làm chủ vận mệnh của mình.
+
+Học 18 từ vựng đắt giá cùng với trải nghiệm đa giác quan giúp bạn vừa nâng cấp tư duy, vừa nâng trình ngoại ngữ một cách vượt bậc.
+```
+
+**Why this works:**
+- "TẠI SAO BẠN NỖ LỰC NHƯNG VẪN THẤY MÔNG LUNG?" — hits a universal pain point
+- "từ việc chọn việc làm đến người bạn yêu" — concrete, personal examples
+- "con thuyền không lái" — vivid metaphor that sticks
+- "Khám phá bí mật từ Tony Robbins" — authority + curiosity
+- "nâng cấp tư duy, vừa nâng trình ngoại ngữ" — dual transformation promise
+
+**Anti-patterns to avoid:**
+- ❌ "Chương trình này giúp bạn học N từ vựng..." (template opener, no hook)
+- ❌ "Master 10 advanced vocabulary words through..." (catalog description, not persuasive)
+- ❌ "Học N từ vựng tiếng Anh qua bài đọc về..." (compressed summary, no emotional architecture)
+- ❌ "Bạn sẽ xây dựng vốn từ vựng vững chắc..." (generic promise, no specificity)
+- ❌ Single-paragraph compressed descriptions — each beat needs breathing room
+- ❌ Listing features without connecting to learner's desires or pain points
+- ❌ Dry summaries that read like course catalogs or encyclopedia entries
+
+**Tone:** Energetic, empowering, slightly provocative. Speak directly to the learner ("bạn"). Use rhetorical questions. Create urgency and curiosity. Each paragraph should feel like a punch, not a lecture.
+
+### Description
+- Follows the persuasive copy style above with full multi-paragraph structure
+- MUST have a bold headline, concrete examples, vivid metaphor, and transformation promise
+- Each idea gets its own paragraph — no cramming everything into one block
+- For novel chapters: hook with a cliffhanger or dramatic question from the plot, then tease what happens
+- Must feel like marketing copy that makes someone want to start immediately
+
 ### Preview (~150 words)
+- Follows the persuasive copy style above, expanded even further
 - Opens with vivid, imaginative hooks ("What if the woolly mammoth could walk the tundra again?")
 - Names the vocabulary words and explains how they'll be learned
 - Describes the learning journey and what the learner will be able to do by the end
@@ -160,6 +211,17 @@ Every activity must have a `title` and `description` field. These are used in se
 - `writingSentence`/`writingParagraph`: title = "Viết: <topic>", description = brief summary of the writing task
 - Review/final sessions: use "Ôn tập" in titles, "Toàn bộ câu chuyện" for full-chapter readAlongs
 - Session objects also need a `title` field (e.g. "Phần 1", "Phần 2", "Ôn tập")
+
+### Database Column Length Limits
+The following columns in PostgreSQL are `varchar` with hard length limits. Exceeding them causes an insert/update error:
+
+| Table | Column | Max Length |
+|---|---|---|
+| `curriculum_series` | `title` | 255 |
+| `curriculum_series` | `description` | 255 |
+| `curriculum_collections` | `title` | 255 |
+
+Note: `curriculum.content` is `jsonb` (no varchar limit), so the `description` field inside the curriculum JSON blob is not constrained by the DB — but the series and collection `title`/`description` columns are. Keep series descriptions concise (under 255 chars). Collection descriptions are `text` type (no limit).
 
 ### What NOT to change when rewriting
 - Activity structure (types, order, count)

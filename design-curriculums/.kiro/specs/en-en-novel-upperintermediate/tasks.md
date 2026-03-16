@@ -6,7 +6,7 @@ Create a 20-chapter science fiction novel curriculum series for English-only (en
 
 ## Tasks
 
-- [-] 1. Create the project directory and first content module as the structural template
+- [x] 1. Create the project directory and first content module as the structural template
   - [x] 1.1 Create `original-novels/[novel-folder-name]/chapter1_content.py` with a complete `get_curriculum()` function
     - Choose a novel title and folder name (science fiction / near-future genre, distinct from Alder House mystery/gothic and Silent Clocktower mystery/detective)
     - Define the protagonist, setting, and opening premise for the 20-chapter arc
@@ -20,7 +20,7 @@ Create a 20-chapter science fiction novel curriculum series for English-only (en
     - Ensure audioSpeed = -0.2 on all activities, no strip-keys present
     - _Requirements: 1.1, 1.2, 1.3, 1.5, 1.7, 2.1–2.6, 3.1–3.6, 4.1–4.9, 5.1–5.11, 6.1, 6.2, 10.1–10.7, 11.1–11.5, 12.1, 12.2_
 
-- [-] 2. Create content modules for chapters 2–10 (setup and rising action)
+- [x] 2. Create content modules for chapters 2–10 (setup and rising action)
   - [x] 2.1 Create `chapter2_content.py` — Chapter 2: setup continues, protagonist explores the world, meets key supporting characters
     - Same structural template as chapter 1, new plot content, 20 new unique B2 vocab words (no repeats from chapter 1)
     - _Requirements: 1.1, 1.4, 1.5, 1.7, 2.1–2.6, 3.1–3.6, 4.1–4.9, 5.1–5.11, 6.1, 6.2, 10.1–10.7, 11.1–11.5_
@@ -32,38 +32,38 @@ Create a 20-chapter science fiction novel curriculum series for English-only (en
     - _Requirements: 1.1, 1.5, 1.7, 2.1–2.6, 3.1–3.6, 4.1–4.9, 5.1–5.11, 6.1, 6.2, 10.1–10.7, 11.1–11.5_
   - [x] 2.5 Create `chapter6_content.py` — Chapter 6: rising action, complications and new discoveries
     - _Requirements: 1.1, 1.5, 1.7, 2.1–2.6, 3.1–3.6, 4.1–4.9, 5.1–5.11, 6.1, 6.2, 10.1–10.7, 11.1–11.5_
-  - [-] 2.6 Create `chapter7_content.py` — Chapter 7: rising action, alliances and obstacles
+  - [x] 2.6 Create `chapter7_content.py` — Chapter 7: rising action, alliances and obstacles
     - _Requirements: 1.1, 1.5, 1.7, 2.1–2.6, 3.1–3.6, 4.1–4.9, 5.1–5.11, 6.1, 6.2, 10.1–10.7, 11.1–11.5_
-  - [~] 2.7 Create `chapter8_content.py` — Chapter 8: rising action intensifies, major setback or revelation
+  - [x] 2.7 Create `chapter8_content.py` — Chapter 8: rising action intensifies, major setback or revelation
     - _Requirements: 1.1, 1.5, 1.7, 2.1–2.6, 3.1–3.6, 4.1–4.9, 5.1–5.11, 6.1, 6.2, 10.1–10.7, 11.1–11.5_
-  - [~] 2.8 Create `chapter9_content.py` — Chapter 9: rising action peaks, tension builds toward midpoint
+  - [x] 2.8 Create `chapter9_content.py` — Chapter 9: rising action peaks, tension builds toward midpoint
     - _Requirements: 1.1, 1.5, 1.7, 2.1–2.6, 3.1–3.6, 4.1–4.9, 5.1–5.11, 6.1, 6.2, 10.1–10.7, 11.1–11.5_
-  - [~] 2.9 Create `chapter10_content.py` — Chapter 10: final rising action chapter, sets up the midpoint shift
+  - [x] 2.9 Create `chapter10_content.py` — Chapter 10: final rising action chapter, sets up the midpoint shift
     - _Requirements: 1.1, 1.5, 1.7, 2.1–2.6, 3.1–3.6, 4.1–4.9, 5.1–5.11, 6.1, 6.2, 10.1–10.7, 11.1–11.5_
 
-- [ ] 3. Create content modules for chapters 11–20 (midpoint, escalation, climax, resolution)
-  - [~] 3.1 Create `chapter11_content.py` — Chapter 11: midpoint shift, a major change in direction or understanding
+- [x] 3. Create content modules for chapters 11–20 (midpoint, escalation, climax, resolution)
+  - [x] 3.1 Create `chapter11_content.py` — Chapter 11: midpoint shift, a major change in direction or understanding
     - _Requirements: 1.1, 1.5, 1.7, 2.1–2.6, 3.1–3.6, 4.1–4.9, 5.1–5.11, 6.1, 6.2, 10.1–10.7, 11.1–11.5_
-  - [~] 3.2 Create `chapter12_content.py` — Chapter 12: midpoint continues, consequences of the shift unfold
+  - [x] 3.2 Create `chapter12_content.py` — Chapter 12: midpoint continues, consequences of the shift unfold
     - _Requirements: 1.1, 1.5, 1.7, 2.1–2.6, 3.1–3.6, 4.1–4.9, 5.1–5.11, 6.1, 6.2, 10.1–10.7, 11.1–11.5_
-  - [~] 3.3 Create `chapter13_content.py` — Chapter 13: midpoint concludes, new trajectory established
+  - [x] 3.3 Create `chapter13_content.py` — Chapter 13: midpoint concludes, new trajectory established
     - _Requirements: 1.1, 1.5, 1.7, 2.1–2.6, 3.1–3.6, 4.1–4.9, 5.1–5.11, 6.1, 6.2, 10.1–10.7, 11.1–11.5_
-  - [~] 3.4 Create `chapter14_content.py` — Chapter 14: escalation begins, stakes rise dramatically
+  - [x] 3.4 Create `chapter14_content.py` — Chapter 14: escalation begins, stakes rise dramatically
     - _Requirements: 1.1, 1.5, 1.7, 2.1–2.6, 3.1–3.6, 4.1–4.9, 5.1–5.11, 6.1, 6.2, 10.1–10.7, 11.1–11.5_
-  - [~] 3.5 Create `chapter15_content.py` — Chapter 15: escalation, protagonist faces critical choices
+  - [x] 3.5 Create `chapter15_content.py` — Chapter 15: escalation, protagonist faces critical choices
     - _Requirements: 1.1, 1.5, 1.7, 2.1–2.6, 3.1–3.6, 4.1–4.9, 5.1–5.11, 6.1, 6.2, 10.1–10.7, 11.1–11.5_
-  - [~] 3.6 Create `chapter16_content.py` — Chapter 16: escalation, allies tested, pressure mounts
+  - [x] 3.6 Create `chapter16_content.py` — Chapter 16: escalation, allies tested, pressure mounts
     - _Requirements: 1.1, 1.5, 1.7, 2.1–2.6, 3.1–3.6, 4.1–4.9, 5.1–5.11, 6.1, 6.2, 10.1–10.7, 11.1–11.5_
-  - [~] 3.7 Create `chapter17_content.py` — Chapter 17: final escalation, point of no return
+  - [x] 3.7 Create `chapter17_content.py` — Chapter 17: final escalation, point of no return
     - _Requirements: 1.1, 1.5, 1.7, 2.1–2.6, 3.1–3.6, 4.1–4.9, 5.1–5.11, 6.1, 6.2, 10.1–10.7, 11.1–11.5_
-  - [~] 3.8 Create `chapter18_content.py` — Chapter 18: climax begins, major confrontation or crisis
+  - [x] 3.8 Create `chapter18_content.py` — Chapter 18: climax begins, major confrontation or crisis
     - _Requirements: 1.1, 1.5, 1.7, 2.1–2.6, 3.1–3.6, 4.1–4.9, 5.1–5.11, 6.1, 6.2, 10.1–10.7, 11.1–11.5_
-  - [~] 3.9 Create `chapter19_content.py` — Chapter 19: climax continues, decisive action and turning point
+  - [x] 3.9 Create `chapter19_content.py` — Chapter 19: climax continues, decisive action and turning point
     - _Requirements: 1.1, 1.5, 1.6, 1.7, 2.1–2.6, 3.1–3.6, 4.1–4.9, 5.1–5.11, 6.1, 6.2, 10.1–10.7, 11.1–11.5_
-  - [~] 3.10 Create `chapter20_content.py` — Chapter 20: resolution, all major plot threads resolved, satisfying conclusion
+  - [x] 3.10 Create `chapter20_content.py` — Chapter 20: resolution, all major plot threads resolved, satisfying conclusion
     - _Requirements: 1.1, 1.5, 1.6, 1.7, 2.1–2.6, 3.1–3.6, 4.1–4.9, 5.1–5.11, 6.1, 6.2, 10.1–10.7, 11.1–11.5_
 
-- [ ] 4. Checkpoint — Verify all 20 content modules
+- [x] 4. Checkpoint — Verify all 20 content modules
   - Ensure all 20 `chapterN_content.py` files exist and each exports a `get_curriculum()` function returning a valid dict
   - Ensure no vocabulary word is repeated across any two chapters (400 unique words total)
   - Ensure all vocabList entries are plain strings (no translation objects)
@@ -71,8 +71,8 @@ Create a 20-chapter science fiction novel curriculum series for English-only (en
   - Ensure all session titles follow "Session N" / "Review" convention
   - Ask the user if questions arise
 
-- [ ] 5. Create the validation script with all 14 correctness properties
-  - [~] 5.1 Create `original-novels/[novel-folder-name]/validate_content.py` implementing all 14 correctness properties
+- [x] 5. Create the validation script with all 14 correctness properties
+  - [x] 5.1 Create `original-novels/[novel-folder-name]/validate_content.py` implementing all 14 correctness properties
     - Import all 20 content modules dynamically
     - Implement checks for: session count (P1), vocab counts (P2), vocab in passage text (P3), no cross-chapter vocab repeats (P4), vocabList plain strings (P5), readAlong = reading text (P6), session 6 full text (P7), audioSpeed (P8), passage word count (P9), English-only title format (P10), session titles (P11), activity title/description formats (P12), English-only metadata and language fields (P13), no strip-keys (P14)
     - Report violations in format: `FAIL [Chapter N, Session M, Activity type]: description`
@@ -80,70 +80,70 @@ Create a 20-chapter science fiction novel curriculum series for English-only (en
     - Print summary: `All 14 properties verified across 20 chapters. 0 violations.` on success
     - _Requirements: 7.1–7.14_
 
-  - [ ] 5.2 Write property check for session structure (Property 1)
+  - [x] 5.2 Write property check for session structure (Property 1)
     - **Property 1: Session structure is correct**
     - **Validates: Requirements 4.1, 4.2, 4.3, 7.1, 7.2, 7.3**
 
-  - [ ] 5.3 Write property check for vocabulary word counts (Property 2)
+  - [x] 5.3 Write property check for vocabulary word counts (Property 2)
     - **Property 2: Vocabulary word counts are correct**
     - **Validates: Requirements 2.2, 3.1, 4.4, 4.5, 7.4, 7.5**
 
-  - [ ] 5.4 Write property check for vocab appearing in passage text (Property 3)
+  - [x] 5.4 Write property check for vocab appearing in passage text (Property 3)
     - **Property 3: Vocabulary words appear in their assigned passage**
     - **Validates: Requirements 2.3, 7.7, 10.3**
 
-  - [ ] 5.5 Write property check for no cross-chapter vocab repeats (Property 4)
+  - [x] 5.5 Write property check for no cross-chapter vocab repeats (Property 4)
     - **Property 4: No vocabulary word is repeated across chapters**
     - **Validates: Requirements 3.3, 7.12**
 
-  - [ ] 5.6 Write property check for vocabList plain strings (Property 5)
+  - [x] 5.6 Write property check for vocabList plain strings (Property 5)
     - **Property 5: VocabList contains plain strings only**
     - **Validates: Requirements 3.5, 3.6, 11.5**
 
-  - [ ] 5.7 Write property check for readAlong matching reading text (Property 6)
+  - [x] 5.7 Write property check for readAlong matching reading text (Property 6)
     - **Property 6: readAlong text matches reading text in sessions 1–5**
     - **Validates: Requirements 4.7**
 
-  - [ ] 5.8 Write property check for session 6 full chapter text (Property 7)
+  - [x] 5.8 Write property check for session 6 full chapter text (Property 7)
     - **Property 7: Session 6 readAlong contains the full chapter text**
     - **Validates: Requirements 4.8, 7.6**
 
-  - [ ] 5.9 Write property check for audioSpeed (Property 8)
+  - [x] 5.9 Write property check for audioSpeed (Property 8)
     - **Property 8: audioSpeed is set correctly on all activities**
     - **Validates: Requirements 4.9, 7.11**
 
-  - [ ] 5.10 Write property check for passage word count range (Property 9)
+  - [x] 5.10 Write property check for passage word count range (Property 9)
     - **Property 9: Passage word count is in range**
     - **Validates: Requirements 2.4, 10.4**
 
-  - [ ] 5.11 Write property check for English-only title format (Property 10)
+  - [x] 5.11 Write property check for English-only title format (Property 10)
     - **Property 10: Curriculum title follows English-only format**
     - **Validates: Requirements 2.5, 5.1, 8.8**
 
-  - [ ] 5.12 Write property check for session titles (Property 11)
+  - [x] 5.12 Write property check for session titles (Property 11)
     - **Property 11: Session titles are correct**
     - **Validates: Requirements 5.4, 5.5**
 
-  - [ ] 5.13 Write property check for activity title/description formats (Property 12)
+  - [x] 5.13 Write property check for activity title/description formats (Property 12)
     - **Property 12: Activity titles, descriptions, and required fields**
     - **Validates: Requirements 5.6, 5.7, 5.8, 5.9, 7.9, 11.4**
 
-  - [ ] 5.14 Write property check for English-only metadata and language fields (Property 13)
+  - [x] 5.14 Write property check for English-only metadata and language fields (Property 13)
     - **Property 13: English-only metadata and language fields**
     - **Validates: Requirements 5.2, 5.3, 5.10, 5.11, 7.10, 7.13, 8.6**
 
-  - [ ] 5.15 Write property check for no strip-keys present (Property 14)
+  - [x] 5.15 Write property check for no strip-keys present (Property 14)
     - **Property 14: No auto-generated platform keys present**
     - **Validates: Requirements 6.2, 7.8**
 
-- [ ] 6. Checkpoint — Run validation and fix any violations
+- [x] 6. Checkpoint — Run validation and fix any violations
   - Run `python validate_content.py` from `original-novels/[novel-folder-name]/`
   - Fix any violations in the content modules
   - Ensure all 14 properties pass across all 20 chapters with 0 violations
   - Ask the user if questions arise
 
-- [ ] 7. Create the creation script and README
-  - [~] 7.1 Create `original-novels/[novel-folder-name]/create_all_chapters.py`
+- [x] 7. Create the creation script and README
+  - [x] 7.1 Create `original-novels/[novel-folder-name]/create_all_chapters.py`
     - Authenticate via `firebase_token.get_firebase_id_token(UID)` with UID `zs5AMpVfqkcfDf8CJ9qrXdH58d73`
     - Import all 20 content modules and upload each via `curriculum/create` to `https://helloapi.step.is/curriculum/create`
     - Create series via `curriculum-series/create` with English-only title (no level descriptor), language "en", userLanguage "en"
@@ -156,11 +156,11 @@ Create a 20-chapter science fiction novel curriculum series for English-only (en
     - Handle errors: abort on auth failure, abort on upload failure with response body, report already-uploaded IDs on series failure
     - _Requirements: 6.3–6.7, 8.1–8.8_
 
-  - [~] 7.2 Create `original-novels/[novel-folder-name]/README.md`
+  - [x] 7.2 Create `original-novels/[novel-folder-name]/README.md`
     - Document: how content was created, series ID placeholder, en-en fiction collection reference, SQL queries to find all 20 chapter curriculums in DB, novel summary, enough context to recreate source materials
     - _Requirements: 9.2–9.4_
 
-- [ ] 8. Final checkpoint — Full review
+- [x] 8. Final checkpoint — Full review
   - Ensure all files are in place: 20 content modules, validate_content.py, create_all_chapters.py, README.md
   - Ensure validation passes with 0 violations across all 20 chapters
   - Ensure 400 unique vocabulary words total, all plain strings

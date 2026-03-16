@@ -39,10 +39,10 @@
 
 ## Task 5: Upload and organize
 
-- [ ] 5.1 Run `create_all_chapters.py` to upload all 10 chapter curriculums, create series, attach to existing collection, and set display orders
-- [ ] 5.2 Verify all 10 curriculums appear correctly in the series with correct display orders
+- [x] 5.1 Run `create_all_chapters.py` to upload all 10 chapter curriculums, create series, attach to existing collection, and set display orders
+- [x] 5.2 Verify all 10 curriculums appear correctly in the series with correct display orders
 
 ## Task 6: Cleanup and documentation
 
-- [ ] 6.1 Create `README.md` in `original-novels/vi-zh-mystery-novel/` with: how content was created, Series ID, Collection ID (7nf5wi1d), SQL queries to find curriculums, novel summary for recreation
-- [ ] 6.2 Delete all source material files (chapter content modules, creation script, validation script) — retain only README.md
+- [x] 6.1 Create `README.md` in `original-novels/vi-zh-mystery-novel/` with: how content was created, Series ID, Collection ID (7nf5wi1d), SQL queries to find curriculums, novel summary for recreation
+- [x] 6.2 Delete all source material files (chapter content modules, creation script, validation script) — retain only README.md
