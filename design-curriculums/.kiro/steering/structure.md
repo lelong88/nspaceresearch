@@ -21,6 +21,10 @@
 └── server                         # Symlink to ../../nspacenest (NestJS helloapi server code)
 ```
 
+## Naming Conventions
+
+- Novel folders and spec names must be descriptive — use the actual title slug (e.g. `the-signal-beyond`, `the-garden-of-forgotten-letters`), not generic labels like `vi-zh-novel` or `vi-zh-mystery-novel`. The name should tell you what the content is without opening it.
+
 ## Conventions
 
 - Source materials (content files, JSON, chapter texts, etc.) are deleted after successful import to DB
