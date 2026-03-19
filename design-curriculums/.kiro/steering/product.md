@@ -42,6 +42,10 @@ The `strip_keys()` utility (defined inline in scripts, or via `strip-keys.py` fo
 
 **Workflow rule:** When fetching an existing curriculum via API or DB to use as a structural template for new curriculums, ALWAYS run `strip_keys()` on the content dict before using it as input. This applies whether you're copying the full structure, extracting activity patterns, or adapting content for a new topic. Never pass raw fetched content into `curriculum/create` or `curriculum/update` without stripping first.
 
+## Newly Created Curriculums Must Be Private
+
+All newly created curriculums must have `is_public = false` (the default). Do not call `curriculum/setPublic` with `isPublic: true` on a newly created curriculum. Curriculums need to go through content generation (audio, illustrations, etc.) before they are ready for public users. Only mark a curriculum public after all generated content has been produced and verified.
+
 ## Collections & Series Organization
 
 Curriculums are organized into a two-level hierarchy: Collections (top-level shelves) contain Series (thematic groupings), which contain individual curriculums. A curriculum can also be added directly to a collection without a series.
@@ -53,7 +57,7 @@ API endpoints for organization (all require `firebaseIdToken` in body):
 - `curriculum-series/` — create, update, delete, setIsPublic, setDisplayOrder, addCurriculum, removeCurriculum, listAll
 - `curriculum/setDisplayOrder` — set display order on individual curriculums
 
-When creating a new curriculum, also assign it to the appropriate series and collection.
+When creating a new curriculum, also assign it to the appropriate series and collection. After adding a curriculum to a series, always call `curriculum/setDisplayOrder` to set its `displayOrder` so it appears in the correct position. Query existing curriculums in the series to determine the next appropriate order value. Do not leave `displayOrder` unset — curriculums without an explicit order may sort unpredictably in the client.
 
 ## No Ephemeral Code
 
@@ -227,6 +231,20 @@ The following columns in PostgreSQL are `varchar` with hard length limits. Excee
 | `curriculum_collections` | `title` | 255 |
 
 Note: `curriculum.content` is `jsonb` (no varchar limit), so the `description` field inside the curriculum JSON blob is not constrained by the DB — but the series and collection `title`/`description` columns are. Keep series descriptions concise (under 255 chars). Collection descriptions are `text` type (no limit).
+
+### No Templated Content Generation
+Every piece of learner-facing text — introAudio scripts, reading passages, descriptions, previews, writing prompts, farewell scripts — must be individually crafted for its specific curriculum topic. Never use template functions, string interpolation patterns, or generic fill-in-the-blank approaches to generate content. Each curriculum's content must read as if a human subject-matter expert wrote it from scratch for that specific topic.
+
+Anti-patterns:
+- ❌ `f"Welcome to '{title}'! You'll learn {len(vocab)} words..."` — templated intro
+- ❌ `f"Use the word '{w}' in a sentence."` — generic writing prompt
+- ❌ A single `build_content()` function that assembles all curriculums from a data dict
+- ❌ Loops that generate intro/reading/writing text by substituting topic-specific variables into a shared skeleton
+
+The activity structure (types, order, data schema) can use shared helper functions, but all text content must be hand-written per curriculum.
+
+### One Script Per Curriculum (for series with many curriculums)
+When creating a series with multiple curriculums, write a separate Python script for each curriculum (e.g., `create_gre_1_altruism.py`, `create_gre_2_dissent.py`). This prevents files from becoming unmanageably large and keeps each curriculum's content self-contained. A single "orchestrator" script or README can document the series-level setup (series creation, adding curriculums to series, setting display order).
 
 ### What NOT to change when rewriting
 - Activity structure (types, order, count)

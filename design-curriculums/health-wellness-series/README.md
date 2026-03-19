@@ -12,10 +12,14 @@ Language pair: vi-en | 18 words each | 5 sessions
 | 1 | `WoFcRVXJLIfsTXnr` | The Science of Sleep – Giấc Ngủ: Siêu Năng Lực Bị Lãng Quên |
 | 2 | `qBXFufi1wo9U0xIj` | Gut Health & The Microbiome – Bộ Não Thứ Hai Bên Trong Bạn |
 | 3 | `izvYsuQ0vaeNfs8E` | Stress, Cortisol & Resilience – Nghệ Thuật Bền Bỉ Trong Thế Giới Quá Tải |
+| 4 | `EzGDu7x1blVRXhVB` | Nutrition & Metabolism – Dinh Dưỡng: Nhiên Liệu Cho Cỗ Máy Cơ Thể |
+| 5 | `ByfeP1fgRiVkc6pQ` | Exercise & Movement Science – Vận Động: Liều Thuốc Mạnh Nhất Mà Không Ai Kê Đơn |
+| 6 | `dBbVnKCnLq3VgauU` | Mental Health & Neuroplasticity – Não Bộ: Cỗ Máy Tự Chữa Lành Bên Trong Bạn |
+| 7 | `GgGcJKMFU9tSvVn4` | Hydration & Detox Systems – Nước: Dòng Sông Thanh Lọc Bên Trong Cơ Thể |
 
 ## How content was created
 
-All 3 new curriculums were modeled on `nG3KtewNxA7iEkut` (the Outlive curriculum):
+All 7 new curriculums were modeled on `nG3KtewNxA7iEkut` (the Outlive curriculum):
 - Same 5-session structure: 3 learning sessions (6 words each) + review + full reading
 - Same activity pattern per learning session: introAudio × 3, viewFlashcards, speakFlashcards, vocabLevel1, vocabLevel2, vocabLevel3, reading, speakReading, readAlong, writingSentence
 - Vietnamese user-facing text, English reading passages
