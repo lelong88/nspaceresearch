@@ -2,27 +2,27 @@
 
 ## Overview
 
-This feature creates a brand new collection "Học Từ Vựng Tiếng Trung Qua Âm Nhạc (通过音乐学中文词汇)" and populates it with a single series "Học Từ Vựng Qua Bài Hát Trung Quốc (通过中文歌曲学词汇)" containing 4 curriculums. Each curriculum is built around a different evergreen Chinese (Mandarin) song, using verbatim Chinese lyrics as reading passages. Songs are selected for HSK 3-4 level lyrics appropriate for pre-intermediate to intermediate Vietnamese learners of Chinese.
+This feature creates a brand new collection "Học Từ Vựng Tiếng Trung Qua Âm Nhạc (通过音乐学中文词汇)" and populates it with a single series "Học Từ Vựng Tiếng Trung Qua Bài Hát (通过歌曲学中文词汇)" containing 4 curriculums. Each curriculum is built around a different well-known Chinese (Mandarin) song, using verbatim simplified Chinese lyrics as reading passages. Vocabulary words are Chinese words at HSK2-HSK3 level, drawn from the song lyrics, appropriate for pre-intermediate to intermediate Vietnamese learners of Chinese.
 
-The implementation consists of standalone Python scripts that call the helloapi REST API. Each curriculum script contains all hand-written learner-facing text (Vietnamese for instructions/descriptions, simplified Chinese for lyrics/vocab). A single orchestrator script handles collection creation, series creation, and wiring.
+The implementation consists of standalone Python scripts that call the helloapi REST API. The orchestrator creates a new top-level collection first, then creates the series and curriculums within it. Each curriculum script contains all hand-written learner-facing text. This is the vi-zh counterpart to the existing vi-en song-based vocab series, following the identical 18-word / 5-session structure but adapted for Chinese songs.
 
 ### Key Design Decisions
 
-1. **New collection via API** — The orchestrator calls `curriculum-collection/create` to create the vi-zh music collection, then `curriculum-series/create` for the series, then wires them together. This is a separate collection from the vi-en music collection.
+1. **New collection via API** — The orchestrator calls `curriculum-collection/create` to create the Chinese music collection, then `curriculum-series/create` for the series, then wires them together. This is a separate collection from the existing English music collection because it targets a different language pair (vi-zh vs vi-en).
 2. **One script per curriculum** — Same pattern as the vi-en song series. Each script is ~500-800 lines with all hand-written content.
 3. **One orchestrator for collection + series** — A single `create_zh_song_series.py` handles collection creation, series creation, adding curriculums, setting display orders, and wiring the series into the collection.
 4. **Chinese song lyrics as reading passages** — Reading activities use verbatim simplified Chinese lyrics sourced via web search. Sessions 1-3 use lyric portions containing that session's vocabulary; Sessions 4-5 use the complete lyrics.
 5. **youtubeUrl at top level of content JSON** — Each curriculum's content dict includes a `youtubeUrl` field alongside `title`, `description`, `preview`, and `learningSessions`.
-6. **Vietnamese for user-facing text, Chinese for reading content** — All descriptions, previews, introAudio scripts, and writing prompts are in Vietnamese. Reading passages (lyrics) are in simplified Chinese. Vocabulary words are Chinese with Vietnamese definitions.
-7. **Session structure matches vi-en song series exactly** — Sessions 1-3 have 12 activities, Session 4 has 4 activities, Session 5 has 5 activities.
-8. **language="zh", userLanguage="vi"** — This is the vi-zh language pair, distinct from the vi-en song series.
+6. **Pinyin in teaching content** — introAudio scripts include pinyin when teaching vocabulary words, and writing prompts include pinyin alongside Chinese characters. This is a key difference from the vi-en series where pronunciation guidance is not needed.
+7. **language="zh", userLanguage="vi"** — All curriculums use `language: "zh"` and `userLanguage: "vi"` as top-level body parameters, unlike the vi-en series which uses `language: "en"`.
+8. **Session structure matches vi-en song series exactly** — Sessions 1-3 have 12 activities, Session 4 has 4 activities, Session 5 has 5 activities. Same activity type sequences.
 
 ## Architecture
 
 ```mermaid
 graph TD
     subgraph NewCollection["Học Từ Vựng Tiếng Trung Qua Âm Nhạc (NEW collection)"]
-        S1["Học Từ Vựng Qua Bài Hát Trung Quốc — order 100"]
+        S1["Học Từ Vựng Tiếng Trung Qua Bài Hát — order 100"]
     end
 
     S1 --> C1["Chinese Song 1 (order 0)"]
@@ -65,7 +65,7 @@ sequenceDiagram
 ### Folder Structure
 
 ```
-vi-zh-song-based-vocab-series/
+vi-zh-song-vocab-series/
 ├── create_zh_song_1_<artist>.py       # Curriculum script for Chinese song 1
 ├── create_zh_song_2_<artist>.py       # Curriculum script for Chinese song 2
 ├── create_zh_song_3_<artist>.py       # Curriculum script for Chinese song 3
@@ -94,9 +94,9 @@ Each `create_zh_song_N_<artist>.py` script:
 
 1. Takes 4 curriculum IDs as constants (pasted from curriculum script output)
 2. Calls `POST curriculum-collection/create` with title "Học Từ Vựng Tiếng Trung Qua Âm Nhạc (通过音乐学中文词汇)", persuasive Vietnamese description, `isPublic: true`
-3. Calls `POST curriculum-series/create` with title "Học Từ Vựng Qua Bài Hát Trung Quốc (通过中文歌曲学词汇)", Vietnamese description (≤255 chars), `isPublic: true`
+3. Calls `POST curriculum-series/create` with title "Học Từ Vựng Tiếng Trung Qua Bài Hát (通过歌曲学中文词汇)", Vietnamese description (≤255 chars), `isPublic: true`
 4. Calls `POST curriculum-collection/addSeriesToCollection` with the new collection ID and new series ID
-5. Calls `POST curriculum-series/setDisplayOrder` with display_order 100 (first series in new collection)
+5. Calls `POST curriculum-series/setDisplayOrder` with display_order 100
 6. For each curriculum: calls `POST curriculum-series/addCurriculum` then `POST curriculum/setDisplayOrder` (0, 1, 2, 3)
 
 ### API Calls Used
@@ -104,7 +104,7 @@ Each `create_zh_song_N_<artist>.py` script:
 | Endpoint | Purpose | Auth |
 |---|---|---|
 | `curriculum/create` | Create each curriculum | AuthGuard |
-| `curriculum-collection/create` | Create the new vi-zh music collection | SuperAuthGuard |
+| `curriculum-collection/create` | Create the new Chinese music collection | SuperAuthGuard |
 | `curriculum-series/create` | Create the Chinese song series | SuperAuthGuard |
 | `curriculum-collection/addSeriesToCollection` | Add series to collection | SuperAuthGuard |
 | `curriculum-series/setDisplayOrder` | Set series order within collection | SuperAuthGuard |
@@ -132,28 +132,28 @@ content = {
     "title": "Học Qua Bài Hát: '月亮代表我的心' – 邓丽君",
     "description": "Multi-paragraph persuasive copy in Vietnamese (5-beat structure, Chinese song-adapted)",
     "preview": {
-        "text": "~150 word vivid marketing copy in Vietnamese referencing the Chinese song and its themes"
+        "text": "~150 word vivid marketing copy referencing the Chinese song and its themes"
     },
     "youtubeUrl": "https://www.youtube.com/watch?v=XXXXXXXXXXX",
     "learningSessions": [
-        # Session 1-3: Learning sessions (6 Chinese words each, Chinese lyrics as reading)
+        # Session 1-3: Learning sessions (6 Chinese words each, lyrics as reading)
         {
-            "title": "Buổi 1: <lyric theme in Vietnamese>",
+            "title": "Buổi 1: <lyric theme excerpt>",
             "activities": [
-                # introAudio (welcome + song context, in Vietnamese)
-                # introAudio (vocab teaching — how each Chinese word appears in the lyrics, Vietnamese explanations)
+                # introAudio (welcome + Chinese song context)
+                # introAudio (vocab teaching — how each Chinese word appears in the lyrics, with pinyin)
                 # viewFlashcards, speakFlashcards
                 # vocabLevel1, vocabLevel2, vocabLevel3
-                # introAudio (grammar/usage notes, Vietnamese)
+                # introAudio (grammar/usage notes from Chinese lyrics)
                 # reading (verbatim Chinese lyrics portion), speakReading, readAlong
-                # writingSentence (song-themed prompts in Vietnamese, example sentences in Chinese)
+                # writingSentence (song-themed prompts with pinyin and Chinese examples)
             ]
         },
-        # Session 4: Review (all 18 words)
+        # Session 4: Review (all 18 Chinese words)
         {
             "title": "Ôn tập",
             "activities": [
-                # introAudio (congratulations + recap in Vietnamese)
+                # introAudio (congratulations + recap of Chinese song themes)
                 # viewFlashcards (ALL words)
                 # vocabLevel1, vocabLevel2
             ]
@@ -162,9 +162,9 @@ content = {
         {
             "title": "Đọc toàn bộ lời bài hát",
             "activities": [
-                # introAudio (farewell + word review in Vietnamese, 400-600 words)
+                # introAudio (farewell + word review with pinyin, 400-600 words)
                 # reading (FULL Chinese lyrics), speakReading, readAlong
-                # introAudio (warm farewell in Vietnamese)
+                # introAudio (warm farewell)
             ]
         }
     ]
@@ -192,14 +192,16 @@ content = {
 | `readAlong` | `{ text: string, audioSpeed: -0.1 }` |
 | `writingSentence` | `{ vocabList: string[], audioSpeed: 0.01, items: WritingItem[] }` |
 
-### WritingItem Shape
+### WritingItem Shape (Chinese-Adapted)
 
 ```python
 {
-    "targetVocab": "中文词",
-    "prompt": "Sử dụng từ '中文词' để nói về [specific context related to the song's themes]. Ví dụ: [full example sentence in Chinese]."
+    "targetVocab": "幸福",
+    "prompt": "Sử dụng từ '幸福' (xìngfú) để nói về [specific context related to the song's themes]. Ví dụ: 幸福就是和家人在一起的时光。"
 }
 ```
+
+Note: Writing prompts include pinyin in parentheses after the Chinese word, and example sentences are in Chinese.
 
 ### Strip Keys Set
 
@@ -215,27 +217,31 @@ STRIP_KEYS = {
 
 | Aspect | Vi-En Song Series | Vi-Zh Song Series |
 |---|---|---|
-| Target language | English (`language: "en"`) | Chinese (`language: "zh"`) |
-| User language | Vietnamese (`userLanguage: "vi"`) | Vietnamese (`userLanguage: "vi"`) |
-| Collection | Vi-en music collection | New vi-zh music collection |
-| Reading passages | English song lyrics | Simplified Chinese song lyrics |
-| Vocabulary words | English words | Chinese words/phrases (characters) |
-| Song selection | Evergreen English pop/rock | Evergreen Mandopop/Chinese ballads |
-| Level reference | A2-B1 CEFR | HSK 3-4 |
-| introAudio language | Vietnamese | Vietnamese |
-| Writing prompt examples | English sentences | Chinese sentences |
-| Folder | `song-based-vocab-series/` | `vi-zh-song-based-vocab-series/` |
+| Language params | `language="en"`, `userLanguage="vi"` | `language="zh"`, `userLanguage="vi"` |
+| Collection | "Học Từ Vựng Qua Âm Nhạc" | "Học Từ Vựng Tiếng Trung Qua Âm Nhạc (通过音乐学中文词汇)" |
+| Series | "Học Từ Vựng Qua Bài Hát" | "Học Từ Vựng Tiếng Trung Qua Bài Hát (通过歌曲学中文词汇)" |
+| Songs | Evergreen English songs | Well-known Chinese (Mandarin) songs |
+| Lyrics | English lyrics | Simplified Chinese lyrics |
+| Vocab level | A2-B1 English | HSK2-HSK3 Chinese |
 | Script naming | `create_song_N_<artist>.py` | `create_zh_song_N_<artist>.py` |
+| Folder | `song-based-vocab-series/` | `vi-zh-song-vocab-series/` |
+| introAudio vocab teaching | Word + definition + usage | Word + pinyin + definition + usage |
+| Writing prompts | English example sentences | Pinyin in parentheses + Chinese example sentences |
+| Curriculum titles | "Học Qua Bài Hát: 'Song Title' – Artist" | "Học Qua Bài Hát: '中文歌名' – 歌手名" |
+
+
 
 ## Correctness Properties
 
+*A property is a characteristic or behavior that should hold true across all valid executions of a system — essentially, a formal statement about what the system should do. Properties serve as the bridge between human-readable specifications and machine-verifiable correctness guarantees.*
+
 ### Property 1: Curriculum structural completeness
 
-*For any* curriculum content dict, it SHALL contain exactly 18 unique Chinese vocabulary words divided into 3 groups of 6 (W1, W2, W3), exactly 5 learning sessions, and the activity type sequences SHALL match: sessions 1-3 = [introAudio, introAudio, viewFlashcards, speakFlashcards, vocabLevel1, vocabLevel2, vocabLevel3, introAudio, reading, speakReading, readAlong, writingSentence] (12 activities), session 4 = [introAudio, viewFlashcards, vocabLevel1, vocabLevel2] (4 activities), session 5 = [introAudio, reading, speakReading, readAlong, introAudio] (5 activities).
+*For any* curriculum content dict, it SHALL contain exactly 18 unique vocabulary words divided into 3 groups of 6 (W1, W2, W3), exactly 5 learning sessions, and the activity type sequences SHALL match: sessions 1-3 = [introAudio, introAudio, viewFlashcards, speakFlashcards, vocabLevel1, vocabLevel2, vocabLevel3, introAudio, reading, speakReading, readAlong, writingSentence] (12 activities), session 4 = [introAudio, viewFlashcards, vocabLevel1, vocabLevel2] (4 activities), session 5 = [introAudio, reading, speakReading, readAlong, introAudio] (5 activities).
 
 **Validates: Requirements 4.1, 4.2, 4.3, 4.4, 4.5**
 
-### Property 2: Language parameters at top level
+### Property 2: Language parameters are zh/vi
 
 *For any* curriculum creation API call body, the fields `language` (value `"zh"`) and `userLanguage` (value `"vi"`) SHALL be present as top-level body parameters alongside `content`.
 
@@ -271,9 +277,9 @@ STRIP_KEYS = {
 
 **Validates: Requirements 3.4, 15.1**
 
-### Property 8: Vocabulary words appear in full lyrics
+### Property 8: Vocabulary words appear in Chinese lyrics
 
-*For any* curriculum, every one of the 18 Chinese vocabulary words SHALL appear in the `FULL_LYRICS` text used for the complete song reading.
+*For any* curriculum, every one of the 18 Chinese vocabulary words SHALL appear in the `FULL_LYRICS` text (the complete Chinese song lyrics used for reading activities).
 
 **Validates: Requirements 5.1**
 
@@ -283,9 +289,9 @@ STRIP_KEYS = {
 
 **Validates: Requirements 3.2**
 
-### Property 10: Curriculum title contains song title and artist
+### Property 10: Curriculum title contains Chinese song title and artist, no difficulty descriptors
 
-*For any* curriculum, the `title` field in the content dict SHALL contain both the song title and the artist name as substrings, and SHALL NOT contain difficulty level descriptors (e.g., "Upper-Intermediate", "Advanced", "Beginner").
+*For any* curriculum, the `title` field in the content dict SHALL contain both the Chinese song title (in Chinese characters) and the artist name as substrings, and SHALL NOT contain difficulty level descriptors (e.g., "HSK3", "Intermediate", "Advanced", "Beginner").
 
 **Validates: Requirements 3.5, 14.1, 14.2**
 
@@ -347,7 +353,16 @@ Firebase ID tokens expire after ~1 hour. For scripts making multiple sequential 
 - `curriculum-collection/addSeriesToCollection` IS idempotent — adding the same series twice is safe
 - If the orchestrator fails partway through, the user should check the DB state before re-running
 
+### Orchestrator Failure Recovery
+
+Since the orchestrator creates both the collection and series, a failure mid-way requires careful recovery:
+1. If collection creation succeeds but series creation fails → note the collection ID, fix the issue, re-run with collection creation skipped (or delete the collection and re-run)
+2. If series creation succeeds but addSeriesToCollection fails → note both IDs, fix the issue, manually wire them
+3. If curriculum addition fails → note which curriculums were added, add the remaining ones manually
+
 ## Testing Strategy
+
+Since this project has no test framework or CI pipeline, validation is done through structural verification of the content dicts before they are sent to the API, and post-creation verification via DB queries.
 
 ### Pre-Upload Validation (Unit-Test Equivalent)
 
@@ -358,20 +373,41 @@ Each curriculum script includes a `validate(content)` function that checks struc
 3. Verify all activities have `title` and `description`
 4. Verify no strip keys present in content (recursive check)
 5. Verify `youtubeUrl` exists at top level and matches YouTube URL pattern
-6. Verify all 18 vocab words appear in FULL_LYRICS
+6. Verify all 18 Chinese vocab words appear in FULL_LYRICS
 7. Verify session 1-3 reading texts are substrings of FULL_LYRICS
 8. Verify writingSentence items have `targetVocab` and `prompt` with "Ví dụ:" marker
 9. Verify vocabList in flashcard activities matches the correct word group
-10. Verify curriculum title contains song title and artist name
-11. Verify farewell introAudio (session 5) contains all 18 vocab words
+10. Verify curriculum title contains Chinese song title and artist name
+11. Verify farewell introAudio (session 5) contains all 18 Chinese vocab words
 12. Verify activity title format matches activity type (Flashcards:/Đọc:/Nghe:/Viết:)
+
+This function runs locally before any API call is made. If validation fails, the script exits with a clear error message.
+
+### Property-Based Testing
+
+Since there is no test framework in this repo, property-based testing is implemented as inline assertions within the `validate(content)` function. These assertions verify the structural properties (Properties 1-14) against the content dict before upload. Each curriculum script includes the same validation logic (copied inline, since scripts are standalone and deleted after use).
+
+**Feature: vi-zh-song-vocab-series, Property 1**: Curriculum structural completeness — verified by checking session count, activity type sequences, and vocab word counts.
+**Feature: vi-zh-song-vocab-series, Property 2**: Language parameters — verified by checking the API call body contains `language="zh"` and `userLanguage="vi"`.
+**Feature: vi-zh-song-vocab-series, Property 3**: No strip keys — verified by recursive traversal of content dict.
+**Feature: vi-zh-song-vocab-series, Property 4**: Title/description presence — verified by iterating all activities and sessions.
+**Feature: vi-zh-song-vocab-series, Property 5**: Activity title format — verified by checking title prefixes against activity types.
+**Feature: vi-zh-song-vocab-series, Property 6**: Writing prompt format — verified by checking targetVocab and "Ví dụ:" in each prompt.
+**Feature: vi-zh-song-vocab-series, Property 7**: youtubeUrl format — verified by regex match on the URL.
+**Feature: vi-zh-song-vocab-series, Property 8**: Vocab in lyrics — verified by checking each word appears in FULL_LYRICS.
+**Feature: vi-zh-song-vocab-series, Property 9**: Session lyrics substrings — verified by substring check against FULL_LYRICS.
+**Feature: vi-zh-song-vocab-series, Property 10**: Title format — verified by checking Chinese characters and artist name present, no difficulty descriptors.
+**Feature: vi-zh-song-vocab-series, Property 11**: Farewell word review — verified by checking all 18 words in farewell introAudio text.
+**Feature: vi-zh-song-vocab-series, Property 12**: Flashcard vocab lists — verified by comparing vocabList arrays against W1/W2/W3/ALL.
+**Feature: vi-zh-song-vocab-series, Property 13**: Display orders — verified post-creation via DB query.
+**Feature: vi-zh-song-vocab-series, Property 14**: Series description length — verified by checking len(description) ≤ 255.
 
 ### Post-Creation Verification
 
 After all scripts have run, verify via SQL:
 
 ```sql
--- Find the new vi-zh music collection
+-- Find the new Chinese music collection
 SELECT id, title, description, is_public
 FROM curriculum_collections
 WHERE title LIKE '%Tiếng Trung%Âm Nhạc%';
@@ -391,7 +427,7 @@ JOIN curriculum_series_items csi ON csi.curriculum_id = c.id
 WHERE csi.curriculum_series_id = '<NEW_SERIES_ID>'
 ORDER BY c.display_order;
 
--- Verify language homogeneity (should be zh/vi)
+-- Verify language homogeneity (all vi-zh)
 SELECT * FROM curriculum_series_language_list
 WHERE id = '<NEW_SERIES_ID>';
 
@@ -401,3 +437,22 @@ FROM curriculum c
 JOIN curriculum_series_items csi ON csi.curriculum_id = c.id
 WHERE csi.curriculum_series_id = '<NEW_SERIES_ID>';
 ```
+
+### Validation Checklist Per Curriculum
+
+- [ ] 18 unique Chinese vocabulary words (6 + 6 + 6)
+- [ ] All 18 words appear in the full Chinese song lyrics
+- [ ] 5 sessions with correct activity sequences (12, 12, 12, 4, 5)
+- [ ] All activities have title and description
+- [ ] Activity title format matches type (Flashcards:/Đọc:/Nghe:/Viết:)
+- [ ] No strip keys in content
+- [ ] `youtubeUrl` present at top level with valid YouTube URL
+- [ ] `language="zh"` and `userLanguage="vi"` at top level of API call body
+- [ ] Curriculum title contains Chinese song title (in characters) and artist name
+- [ ] Writing prompts contain target vocab with pinyin and "Ví dụ:" with Chinese example
+- [ ] Farewell introAudio contains all 18 Chinese vocabulary words
+- [ ] Session 1-3 reading texts are substrings of full Chinese lyrics
+- [ ] Session 5 reading text is the complete Chinese lyrics
+- [ ] Display orders set correctly (curriculum: 0-3, series: 100)
+- [ ] Series description ≤ 255 characters
+- [ ] Collection title ≤ 255 characters
