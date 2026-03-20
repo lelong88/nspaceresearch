@@ -1,1 +1,5 @@
-{"specId": "669a96f4-6c9f-4677-b7ed-1b87d87f9c76", "workflowType": "requirements-first", "specType": "feature"}
+{
+  "specType": "feature",
+  "workflowType": "requirements-first",
+  "featureName": "podcast-based-vocab-series"
+}

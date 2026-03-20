@@ -56,6 +56,7 @@ Each curriculum is built around a single podcast episode. The content JSON inclu
 4. THE Curriculum SHALL be based on a podcast episode whose content does not contain excessive profanity, graphic descriptions, or culturally inappropriate content for a language-learning context.
 5. THE Curriculum SHALL be based on a podcast episode from a podcast that is well-known enough that learners can find the episode easily on YouTube.
 6. THE Curriculum SHALL be based on a podcast episode with sufficient transcript length to yield 18 teachable vocabulary words and provide meaningful reading passages for 3 learning sessions plus a full reading session.
+7. THE Curriculum SHALL be based on a podcast episode that is educational, informational, or storytelling in nature — not purely casual conversation or unstructured chat without substantive content.
 
 ### Requirement 3: Podcast Transcript as Reading Content
 
