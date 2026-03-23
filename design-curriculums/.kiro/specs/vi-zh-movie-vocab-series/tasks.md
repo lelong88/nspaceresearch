@@ -6,8 +6,8 @@ Create a new collection "Học Từ Vựng Tiếng Trung Qua Điện Ảnh (通�
 
 ## Tasks
 
-- [ ] 1. Chinese Movie Curriculum Scripts
-  - [-] 1.1 Create `vi-zh-movie-vocab-series/create_zh_movie_1_<movie>.py` — Chinese Movie 1 curriculum
+- [x] 1. Chinese Movie Curriculum Scripts
+  - [x] 1.1 Create `vi-zh-movie-vocab-series/create_zh_movie_1_<movie>.py` — Chinese Movie 1 curriculum
     - Select an appropriate well-known Chinese (Mandarin) movie scene via web search (clear Mandarin pronunciation, HSK2-HSK3 level dialogue, no excessive profanity or graphic content, well-known on YouTube)
     - Find verbatim Chinese movie dialogue/monologue (simplified characters) via web search and verify accuracy
     - Find the YouTube URL for the scene clip via web search
@@ -24,7 +24,7 @@ Create a new collection "Học Từ Vựng Tiếng Trung Qua Điện Ảnh (通�
     - Print created curriculum ID
     - _Requirements: 1.5, 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 3.1, 3.2, 3.3, 3.4, 3.5, 4.1, 4.2, 4.3, 4.4, 4.5, 4.6, 4.7, 5.1, 5.2, 5.3, 6.1, 6.2, 6.3, 6.4, 6.5, 6.6, 7.1, 7.2, 8.1, 8.2, 8.3, 8.4, 8.5, 8.6, 8.7, 9.1, 11.1, 11.3, 12.1, 12.2, 13.1, 14.1, 14.2, 15.1, 15.2, 15.3, 16.1, 16.2_
 
-  - [~] 1.2 Create `vi-zh-movie-vocab-series/create_zh_movie_2_<movie>.py` — Chinese Movie 2 curriculum
+  - [x] 1.2 Create `vi-zh-movie-vocab-series/create_zh_movie_2_<movie>.py` — Chinese Movie 2 curriculum
     - Select a different well-known Chinese (Mandarin) movie scene via web search (same criteria as 1.1 — clear Mandarin pronunciation, HSK2-HSK3 level dialogue, no excessive profanity, well-known)
     - Find verbatim Chinese movie dialogue (simplified characters) and YouTube URL for the scene via web search
     - Same structure as 1.1 but with 18 Chinese vocabulary words drawn from this scene's dialogue
@@ -32,7 +32,7 @@ Create a new collection "Học Từ Vựng Tiếng Trung Qua Điện Ảnh (通�
     - Include inline `strip_keys()`, `validate(content)`, `youtubeUrl`, and API call with `language="zh"`, `userLanguage="vi"`
     - _Requirements: 1.5, 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 3.1, 3.2, 3.3, 3.4, 3.5, 4.1, 4.2, 4.3, 4.4, 4.5, 4.6, 4.7, 5.1, 5.2, 5.3, 6.1, 6.2, 6.3, 6.4, 6.5, 6.6, 7.1, 7.2, 8.1, 8.2, 8.3, 8.4, 8.5, 8.6, 8.7, 9.1, 11.1, 11.3, 12.1, 12.2, 13.1, 14.1, 14.2, 15.1, 15.2, 15.3, 16.1, 16.2_
 
-  - [~] 1.3 Create `vi-zh-movie-vocab-series/create_zh_movie_3_<movie>.py` — Chinese Movie 3 curriculum
+  - [x] 1.3 Create `vi-zh-movie-vocab-series/create_zh_movie_3_<movie>.py` — Chinese Movie 3 curriculum
     - Select a different well-known Chinese (Mandarin) movie scene via web search (same criteria — clear Mandarin pronunciation, HSK2-HSK3 level dialogue, no excessive profanity, well-known)
     - Find verbatim Chinese movie dialogue (simplified characters) and YouTube URL for the scene via web search
     - Same structure as 1.1 but with 18 Chinese vocabulary words drawn from this scene's dialogue
@@ -40,7 +40,7 @@ Create a new collection "Học Từ Vựng Tiếng Trung Qua Điện Ảnh (通�
     - Include inline `strip_keys()`, `validate(content)`, `youtubeUrl`, and API call with `language="zh"`, `userLanguage="vi"`
     - _Requirements: 1.5, 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 3.1, 3.2, 3.3, 3.4, 3.5, 4.1, 4.2, 4.3, 4.4, 4.5, 4.6, 4.7, 5.1, 5.2, 5.3, 6.1, 6.2, 6.3, 6.4, 6.5, 6.6, 7.1, 7.2, 8.1, 8.2, 8.3, 8.4, 8.5, 8.6, 8.7, 9.1, 11.1, 11.3, 12.1, 12.2, 13.1, 14.1, 14.2, 15.1, 15.2, 15.3, 16.1, 16.2_
 
-  - [~] 1.4 Create `vi-zh-movie-vocab-series/create_zh_movie_4_<movie>.py` — Chinese Movie 4 curriculum
+  - [x] 1.4 Create `vi-zh-movie-vocab-series/create_zh_movie_4_<movie>.py` — Chinese Movie 4 curriculum
     - Select a different well-known Chinese (Mandarin) movie scene via web search (same criteria — clear Mandarin pronunciation, HSK2-HSK3 level dialogue, no excessive profanity, well-known)
     - Find verbatim Chinese movie dialogue (simplified characters) and YouTube URL for the scene via web search
     - Same structure as 1.1 but with 18 Chinese vocabulary words drawn from this scene's dialogue
@@ -48,11 +48,11 @@ Create a new collection "Học Từ Vựng Tiếng Trung Qua Điện Ảnh (通�
     - Include inline `strip_keys()`, `validate(content)`, `youtubeUrl`, and API call with `language="zh"`, `userLanguage="vi"`
     - _Requirements: 1.5, 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 3.1, 3.2, 3.3, 3.4, 3.5, 4.1, 4.2, 4.3, 4.4, 4.5, 4.6, 4.7, 5.1, 5.2, 5.3, 6.1, 6.2, 6.3, 6.4, 6.5, 6.6, 7.1, 7.2, 8.1, 8.2, 8.3, 8.4, 8.5, 8.6, 8.7, 9.1, 11.1, 11.3, 12.1, 12.2, 13.1, 14.1, 14.2, 15.1, 15.2, 15.3, 16.1, 16.2_
 
-- [ ] 2. Checkpoint — All 4 Chinese movie curriculum scripts created
+- [x] 2. Checkpoint — All 4 Chinese movie curriculum scripts created
   - Ensure all 4 curriculum scripts pass `validate(content)` locally. Verify each script selects a different Chinese movie scene, has 18 unique Chinese vocab words from the dialogue, correct session/activity structure, youtubeUrl present, language="zh"/userLanguage="vi", and no strip keys. Ask the user if questions arise.
 
-- [ ] 3. Orchestrator & Execution
-  - [~] 3.1 Create `vi-zh-movie-vocab-series/create_zh_movie_series.py` — Collection + Series orchestrator
+- [x] 3. Orchestrator & Execution
+  - [x] 3.1 Create `vi-zh-movie-vocab-series/create_zh_movie_series.py` — Collection + Series orchestrator
     - Create collection via `curriculum-collection/create` with title "Học Từ Vựng Tiếng Trung Qua Điện Ảnh (通过电影学中文词汇)", persuasive Vietnamese description, `isPublic: true`
     - Create series via `curriculum-series/create` with title "Học Từ Vựng Tiếng Trung Qua Phim (通过电影学中文词汇)", Vietnamese description (≤255 chars), `isPublic: true`
     - Add series to collection via `curriculum-collection/addSeriesToCollection`
@@ -62,16 +62,16 @@ Create a new collection "Học Từ Vựng Tiếng Trung Qua Điện Ảnh (通�
     - Token refreshed before each API call
     - _Requirements: 1.1, 1.2, 1.3, 1.4, 1.5, 10.1, 10.2, 10.3, 11.2, 13.3_
 
-  - [~] 3.2 Run all 4 curriculum scripts and the orchestrator, verify output
+  - [x] 3.2 Run all 4 curriculum scripts and the orchestrator, verify output
     - Run `python create_zh_movie_1_<movie>.py`, `create_zh_movie_2_<movie>.py`, `create_zh_movie_3_<movie>.py`, `create_zh_movie_4_<movie>.py`
     - Paste curriculum IDs into orchestrator, run `python create_zh_movie_series.py`
     - _Requirements: 11.1, 11.2_
 
-- [ ] 4. Checkpoint — Collection, series, and curriculums created
+- [x] 4. Checkpoint — Collection, series, and curriculums created
   - Ensure the orchestrator completed successfully. Verify the new collection exists, the series is inside it with display_order 100, and all 4 curriculums are in the series with display orders 0-3. Ask the user if questions arise.
 
-- [ ] 5. Post-creation verification
-  - [~] 5.1 Run SQL verification queries against the database
+- [x] 5. Post-creation verification
+  - [x] 5.1 Run SQL verification queries against the database
     - Verify the new "Học Từ Vựng Tiếng Trung Qua Điện Ảnh" collection exists and is public
     - Verify the collection has exactly 1 series
     - Verify the series has exactly 4 curriculums
@@ -82,12 +82,12 @@ Create a new collection "Học Từ Vựng Tiếng Trung Qua Điện Ảnh (通�
     - Verify all 4 curriculums are private (`is_public = false`)
     - _Requirements: 1.1, 1.2, 1.3, 1.4, 1.5, 10.1, 10.2, 10.3, 13.1, 15.1, 16.1_
 
-- [ ] 6. Cleanup — Delete scripts and write README
-  - [~] 6.1 Delete all curriculum and orchestrator scripts from `vi-zh-movie-vocab-series/`, write `README.md`
+- [x] 6. Cleanup — Delete scripts and write README
+  - [x] 6.1 Delete all curriculum and orchestrator scripts from `vi-zh-movie-vocab-series/`, write `README.md`
     - README includes: collection ID and title, series ID, 4 curriculum IDs and titles (with Chinese movie/scene), YouTube URLs used, how content was created, SQL queries to find the curriculums in the DB, enough context to recreate if needed
     - _Requirements: 11.4, 17.1, 17.2, 17.3_
 
-- [ ] 7. Final checkpoint
+- [x] 7. Final checkpoint
   - Ensure all 4 curriculums exist in DB, the new collection and series are correctly wired, all source scripts are deleted, and the folder contains only README.md. Ask the user if questions arise.
 
 ## Notes
