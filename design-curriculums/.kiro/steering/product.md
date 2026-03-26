@@ -230,7 +230,6 @@ Every activity must have a `practiceMinutes` field (integer). This tells the cli
 | `readAlong` | 3 |
 | `writingSentence` | 10 |
 | `writingParagraph` | 10 |
-| `speak` | 5 |
 
 These are the most common values in the DB. Adjust if the activity is unusually long or short (e.g., a short welcome introAudio can be 1 minute). Never create activities without `practiceMinutes`.
 
@@ -274,3 +273,13 @@ When creating a series with multiple curriculums, write a separate Python script
 - Vocabulary lists
 - Reading passages
 - Activity types that aren't introAudio/writingSentence/writingParagraph
+
+### Duplicate Check After Creation
+Scripts sometimes get run multiple times accidentally, creating duplicate curriculums. After creating new curriculums, always check for duplicates by querying the DB for curriculums with the same title and language owned by the same user. If duplicates are found, delete the extras (keep the earliest-created one) and verify series/collection membership is correct. A simple check:
+```sql
+SELECT id, title, created_at
+FROM curriculum
+WHERE title = '<curriculum_title>' AND uid = 'zs5AMpVfqkcfDf8CJ9qrXdH58d73'
+ORDER BY created_at;
+```
+If more than one row is returned, delete all but the first. Also remove any duplicate entries from series (`curriculum_series_curriculums`) before deleting the curriculum itself.

@@ -28,7 +28,7 @@ All endpoints are POST. All require `firebaseIdToken` in the JSON body (middlewa
 | Endpoint | Body Params | Auth | Notes |
 |---|---|---|---|
 | `/create` | `language`, `userLanguage`, `content` (JSON string) | AuthGuard | `content` can be string or object (service handles both), but `language` and `userLanguage` MUST be top-level body params, not just inside content. Returns `{ id, ... }` |
-| `/update` | `id`, `content` (JSON string) | AuthGuard | |
+| `/update` | `id`, `content` | AuthGuard | |
 | `/updateTitle` | `id`, `title` | AuthGuard | |
 | `/getOne` | `id`, `uid` | None | |
 | `/delete` | `id` | AuthGuard | |
