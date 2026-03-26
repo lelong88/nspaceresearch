@@ -1,0 +1,16 @@
+{
+  "project": "var-7th-script",
+  "generated_at": "2026-03-26T02:24:10.679808+00:00",
+  "questions": [
+    "You mentioned that VaR is calculated using income from the entire team hierarchy but only subtracts direct team FYP. Have you considered revising the formula to align the income and FYP scopes, rather than accepting this structural mismatch and building a buffer around it?",
+    "The 20% buffer above the $2.5 million forecast is based on the assumption that calculation-gap cases will remain at roughly 20% of total VaR, consistent with 2025. What happens if the new compensation scheme or EverGreen product changes that ratio \u2014 have you stress-tested the buffer under different calculation-gap scenarios?",
+    "You're projecting EverGreen will contribute 40% of agency FYP by year-end, but you acknowledge it's early to fully assess its impact on sales mix. If EverGreen exceeds 40% \u2014 as the 87% month-to-date March figure might suggest \u2014 could VaR blow past $3 million even without any actual risk deterioration? What's your contingency plan?",
+    "The $3.0 million trigger was also the approved threshold in prior years when agency FYP was $200+ million. Now FYP is projected at roughly $53\u201374 million. Why is the same absolute dollar threshold appropriate when the business is a fraction of its former size \u2014 shouldn't the trigger scale with business volume?",
+    "You've zeroed out negative VaR teams so they don't offset positive VaR teams. Can you walk us through how much negative VaR exists across the agency, and whether there's a scenario where masking that offset could overstate the actual net risk to the company?",
+    "Five GTF UM+ units were flagged with VaR above $4,000, driven largely by GTF subsidy (57% of payout). Given that GTF subsidies are a company-funded investment, should these be treated differently in the VaR calculation rather than being monitored as potential risk cases?",
+    "Commission rates were reduced from 32% to 26% in H2 2024, which helped bring VaR down. With the new 2026 compensation scheme rewarding top performers more aggressively \u2014 MBA Pro VaR surging 2.3x \u2014 are we effectively reversing the discipline that brought VaR to its current low, and how do you reconcile that?",
+    "You stated that PSM+ VaR is consistently negative and therefore excluded from measurement. But if a PSM+ leader is enabling or incentivizing arbitrage behavior at the UM+ level through informal arrangements, how would your current monitoring framework detect that connection?",
+    "Your monitoring framework lists over a dozen controls for the new ILP product \u2014 mystery shopping, social media monitoring, audio sampling, vulnerable customer analysis, and more. How are these prioritized in terms of resource allocation, and do you have evidence that these controls are operationally sustainable at scale if EverGreen adoption accelerates beyond forecast?",
+    "The VaR-to-FYP ratio of 4.0% in November 2023 was described as an outlier driven by deferred payouts meeting low production. If the market faces similar headwinds in 2026 while the new compensation scheme and EverGreen are in effect, what is your modeled worst-case VaR, and would $3 million still hold as an appropriate trigger?"
+  ]
+}
