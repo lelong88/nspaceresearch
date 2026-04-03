@@ -46,3 +46,23 @@ Story-oriented curriculums (housed in `original-novels/`) are for **reading prac
 - Ask: "Would a learner at this level understand ~95% of this text without a dictionary?" If not, simplify.
 
 The level tag on the curriculum reflects the reader it's written *for*, not the ceiling it's written *toward*.
+
+## Collections & Series Workflow
+
+After adding a curriculum to a series, always call `curriculum/setDisplayOrder` to set its position. Query existing curriculums in the series to determine the next appropriate order value. Do not leave `displayOrder` unset — curriculums without an explicit order may sort unpredictably in the client.
+
+### Minimal Curriculum Titles
+Titles must be as short as possible — the series/collection provides context. Never repeat series/collection name, content type prefix, skill-focus label, or audience suffix in the curriculum title.
+
+## Document Every Curriculum Creation
+
+After creating any curriculum: (1) create README.md with curriculum ID, collection/series membership, creation method, SQL queries, recreation context; (2) delete all temporary files (scripts, JSON, intermediate data).
+
+## Duplicate Check After Creation
+
+Always check for duplicates after creating curriculums:
+```sql
+SELECT id, title, created_at FROM curriculum
+WHERE title = '<title>' AND uid = 'zs5AMpVfqkcfDf8CJ9qrXdH58d73' ORDER BY created_at;
+```
+Keep earliest, delete extras. Remove duplicate series entries before deleting curriculum.

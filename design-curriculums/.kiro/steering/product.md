@@ -24,14 +24,7 @@ Do not call `curriculum/setPublic` with `isPublic: true` on newly created curric
 
 ## Collections & Series Organization
 
-Two-level hierarchy: Collections → Series → Curriculums. Query current state from DB in real-time (MCP postgres or API). After adding a curriculum to a series, always call `curriculum/setDisplayOrder`. Do not leave `displayOrder` unset.
-
-### Minimal Curriculum Titles
-Titles must be as short as possible — the series/collection provides context. Never repeat series/collection name, content type prefix, skill-focus label, or audience suffix in the curriculum title.
-
-## Document Every Curriculum Creation
-
-After creating any curriculum: (1) create README.md with curriculum ID, collection/series membership, creation method, SQL queries, recreation context; (2) delete all temporary files (scripts, JSON, intermediate data).
+Two-level hierarchy: Collections → Series → Curriculums. Query current state from DB in real-time (MCP postgres or API).
 
 ## No Ephemeral Code
 
@@ -45,15 +38,6 @@ No hardcoded IDs or static ID-to-name mappings. Query MCP postgres in real-time.
 - No mixing bilingual and single-language content in the same series/collection.
 - Max 1 level gap within a series/collection. Check via `curriculum_series_level_gap` and `curriculum_collections_level_gap` views.
 - No difficulty level in titles (level is metadata, not title content).
-
-## Duplicate Check After Creation
-
-Always check for duplicates after creating curriculums:
-```sql
-SELECT id, title, created_at FROM curriculum
-WHERE title = '<title>' AND uid = 'zs5AMpVfqkcfDf8CJ9qrXdH58d73' ORDER BY created_at;
-```
-Keep earliest, delete extras. Remove duplicate series entries before deleting curriculum.
 
 ## Detailed Rules (in repo root — read when relevant to the task)
 
