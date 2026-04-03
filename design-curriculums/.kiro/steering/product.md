@@ -18,6 +18,15 @@ A curriculum has:
 - Activity types include: `introAudio`, `viewFlashcards`, `speakFlashcards`, `vocabLevel1`, `vocabLevel2`, `reading`, `speakReading`, `readAlong`, `writingSentence`, `writingParagraph`
 - The number of sessions, vocabulary words, and activity composition varies per curriculum
 
+### contentTypeTags
+Curriculums based on specific media types must include a `"contentTypeTags"` array in the top-level curriculum content JSON:
+- Movie-based curriculums: `"contentTypeTags": ["movie"]`
+- Music-based curriculums: `"contentTypeTags": ["music"]`
+- Podcast-based curriculums: `"contentTypeTags": ["podcast"]`
+- Fiction story curriculums: `"contentTypeTags": ["story"]`
+
+This field is used for client-side filtering and display. Curriculums that don't fall into these categories should have `"contentTypeTags": []` (empty array). Always include the field — never omit it.
+
 ## Story-Oriented Curriculums (original-novels)
 
 Story-oriented curriculums (housed in `original-novels/`) are for **reading practice**, not vocabulary acquisition. The core rule:
@@ -61,6 +70,26 @@ API endpoints for organization (all require `firebaseIdToken` in body):
 - `curriculum/setDisplayOrder` — set display order on individual curriculums
 
 When creating a new curriculum, also assign it to the appropriate series and collection. After adding a curriculum to a series, always call `curriculum/setDisplayOrder` to set its `displayOrder` so it appears in the correct position. Query existing curriculums in the series to determine the next appropriate order value. Do not leave `displayOrder` unset — curriculums without an explicit order may sort unpredictably in the client.
+
+### Minimal Curriculum Titles — Context Lives in the Hierarchy
+Curriculum titles must be as short as possible. The series and collection provide the context — the curriculum title should not repeat it. The hierarchy (Collection → Series → Curriculum) gives meaning; the title just identifies the specific item within that context.
+
+Rules:
+- Never repeat the series or collection name in the curriculum title. If a curriculum is in the series "The Signal Beyond", its title should be "Chapter 1: The Frequency", not "The Signal Beyond — Chapter 1: The Frequency".
+- Never prefix with the content type when the collection/series already conveys it. If a curriculum is in "Học Từ Vựng Qua Podcast", its title should be "'The Power of Vulnerability' – TED Talk", not "Học Qua Podcast: 'The Power of Vulnerability' – TED Talk".
+- Never include skill-focus labels when the series already says it. If a curriculum is in the "Writing Focus" series, title it "The Architecture of Persuasion", not "Writing Focus: The Architecture of Persuasion".
+- Never include audience/role suffixes when the series already says it. If a curriculum is in "Tour Guides", title it "Introducing Huế to the World", not "Introducing Huế to the World – English for Vietnamese Tour Guides".
+
+If a curriculum is standalone (not in any series), a descriptive prefix is acceptable since there's no hierarchy to provide context.
+
+## Document Every Curriculum Creation
+
+After creating any curriculum (whether via a script, manual API call, or spec-driven task), two things must happen before the work is considered complete:
+
+1. **Document**: Create a README.md inside the relevant source folder with: curriculum ID, collection/series membership, how the content was created, SQL queries to find it in the DB, and enough context to recreate it.
+2. **Clean up**: Delete all temporary files — creation scripts, JSON content files, intermediate data — from the workspace. Only the README should remain in the source folder.
+
+Spec-driven tasks already follow this via their task definitions — this rule ensures ad-hoc creations are documented and cleaned up too.
 
 ## No Ephemeral Code
 
@@ -232,6 +261,15 @@ Every activity must have a `practiceMinutes` field (integer). This tells the cli
 | `writingParagraph` | 10 |
 
 These are the most common values in the DB. Adjust if the activity is unusually long or short (e.g., a short welcome introAudio can be 1 minute). Never create activities without `practiceMinutes`.
+
+### vocabList Required on Vocab Activities
+`speakFlashcards`, `viewFlashcards`, and `vocabLevel*` (`vocabLevel1`, `vocabLevel2`, `vocabLevel3`) activities must include a `vocabList` field — an array of lowercase strings listing the vocabulary words for that activity. Never create these activity types without `vocabList`.
+
+Rules:
+- `vocabList` must be an array of strings — never objects, numbers, or other types
+- All strings must be lowercase (e.g. `["resilience", "cognitive"]`, not `["Resilience", "Cognitive"]`)
+- The field name must be `vocabList` — never `words`. Using `words` is a schema violation
+- This applies everywhere `vocabList` appears: on activities (`viewFlashcards`, `speakFlashcards`, `vocabLevel1`, `vocabLevel2`, `vocabLevel3`, `reading`, `speakReading`) and on `writingParagraph` activities
 
 ### Activity Title and Description Required
 Every activity must have a `title` and `description` field. These are used in server-side logging and client display. Never create activities without them.

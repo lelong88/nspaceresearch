@@ -8,5 +8,8 @@
     "lessonUniqueId",
     "curriculumTags",
     "taskId",
-    "imageId"
+    "imageId",
+    "practiceTime",
+    "difficultyTags",
+    "skillFocusTags"
 ]
