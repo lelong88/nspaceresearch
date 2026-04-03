@@ -35,7 +35,7 @@ Fill 6 content gaps across the language pair × content type matrix so every com
     - All user-facing text in Vietnamese (titles, descriptions, previews, introAudio, writing prompts, activity titles, session titles, vocabulary definitions)
     - Include inline `strip_keys()` and `validate()` functions
     - Set `language="zh"`, `userLanguage="vi"`, `contentTypeTags=["podcast"]`
-    - Include `youtubeUrl` at top level, `practiceMinutes`/`title`/`description` on every activity
+    - Include `youtubeUrl` at top level, `title`/`description` on every activity
     - Set `is_public = false`
     - _Requirements: 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7, 9.1, 9.2, 9.3, 9.4, 9.5_
 
@@ -71,7 +71,7 @@ Fill 6 content gaps across the language pair × content type matrix so every com
     - All user-facing text in English with pinyin in introAudio vocabulary teaching and writing prompts
     - Set `language="zh"`, `userLanguage="en"`, `contentTypeTags=["podcast"]`
     - Include inline `strip_keys()` and `validate()` functions
-    - Include `youtubeUrl` at top level, `practiceMinutes`/`title`/`description` on every activity
+    - Include `youtubeUrl` at top level, `title`/`description` on every activity
     - 5 sessions: 3 learning (12 activities each), 1 review (4 activities), 1 full reading + farewell (5 activities)
     - Set `is_public = false`
     - _Requirements: 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 3.7, 3.8, 9.1, 9.2, 9.3, 9.4, 9.5, 9.6_

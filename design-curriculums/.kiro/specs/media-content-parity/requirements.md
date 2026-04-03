@@ -40,7 +40,7 @@ The platform supports 4 language pairs (vi-en, vi-zh, en-zh, en-en), each of whi
 4. THE Creation_Script SHALL include a `youtubeUrl` at the top level of the content JSON pointing to the source Chinese-language talk
 5. THE Creation_Script SHALL write all user-facing text (titles, descriptions, previews, introAudio scripts, writing prompts, activity titles, session titles, vocabulary definitions) in Vietnamese, following the persuasive copy style
 6. THE Creation_Script SHALL strip all auto-generated keys before upload and set `is_public = false`
-7. THE Creation_Script SHALL include `practiceMinutes`, `title`, and `description` on every activity
+7. THE Creation_Script SHALL include `title` and `description` on every activity
 8. WHEN all 4 vi-zh podcast curriculums are created, THE Orchestrator_Script SHALL create a Collection with a bilingual Vietnamese/Chinese title, add all 4 curriculums directly to the Collection via `curriculum-collection/addCurriculum`, and set display orders 0 through 3
 9. IF a Creation_Script is run more than once, THEN THE Creation_Script SHALL check for duplicate curriculums by title and language, and the operator SHALL delete extras keeping the earliest-created one
 10. WHEN all curriculums are verified in the database, THE operator SHALL delete all Creation_Scripts and the Orchestrator_Script, leaving only a README documenting how the content was created, SQL queries to find it, and recreation instructions
@@ -58,7 +58,7 @@ The platform supports 4 language pairs (vi-en, vi-zh, en-zh, en-en), each of whi
 5. THE Creation_Script SHALL write all user-facing text in English, following the persuasive copy style
 6. THE Creation_Script SHALL include pinyin in introAudio scripts when teaching vocabulary and in writing prompts with Chinese example sentences
 7. THE Creation_Script SHALL strip all auto-generated keys before upload and set `is_public = false`
-8. THE Creation_Script SHALL include `practiceMinutes`, `title`, and `description` on every activity
+8. THE Creation_Script SHALL include `title` and `description` on every activity
 9. WHEN all 4 en-zh podcast curriculums are created, THE Orchestrator_Script SHALL create a Collection with a bilingual English/Chinese title, add all 4 curriculums directly to the Collection via `curriculum-collection/addCurriculum`, and set display orders 0 through 3
 10. IF a Creation_Script is run more than once, THEN THE Creation_Script SHALL check for duplicate curriculums by title and language, and the operator SHALL delete extras keeping the earliest-created one
 11. WHEN all curriculums are verified in the database, THE operator SHALL delete all Creation_Scripts and the Orchestrator_Script, leaving only a README
@@ -74,7 +74,7 @@ The platform supports 4 language pairs (vi-en, vi-zh, en-zh, en-en), each of whi
 3. THE Creation_Script SHALL fetch the corresponding vi-en curriculum via `curriculum/getOne`, strip all auto-generated keys, and transform all Vietnamese user-facing text to hand-written English
 4. THE Creation_Script SHALL produce a curriculum with 18 vocabulary words (3 groups of 6), 5 sessions (12, 12, 12, 4, 5 activities), and a `youtubeUrl` at the top level
 5. THE Creation_Script SHALL write all user-facing text in English following the persuasive copy style
-6. THE Creation_Script SHALL set `is_public = false` and include `practiceMinutes`, `title`, and `description` on every activity
+6. THE Creation_Script SHALL set `is_public = false` and include `title` and `description` on every activity
 7. WHEN all 4 en-en movie curriculums are created, THE Orchestrator_Script SHALL create a Collection with an English title (e.g., "Learn Vocabulary Through Cinema"), add all 4 curriculums directly to the Collection via `curriculum-collection/addCurriculum`, and set display orders 0 through 3
 8. IF a Creation_Script is run more than once, THEN THE Creation_Script SHALL check for duplicate curriculums by title and language, and the operator SHALL delete extras keeping the earliest-created one
 9. WHEN all curriculums are verified in the database, THE operator SHALL delete all Creation_Scripts and the Orchestrator_Script, leaving only a README
@@ -90,7 +90,7 @@ The platform supports 4 language pairs (vi-en, vi-zh, en-zh, en-en), each of whi
 3. THE Creation_Script SHALL fetch the corresponding vi-en curriculum via `curriculum/getOne`, strip all auto-generated keys, and transform all Vietnamese user-facing text to hand-written English
 4. THE Creation_Script SHALL produce a curriculum with 18 vocabulary words (3 groups of 6), 5 sessions (12, 12, 12, 4, 5 activities), and a `youtubeUrl` at the top level
 5. THE Creation_Script SHALL write all user-facing text in English following the persuasive copy style
-6. THE Creation_Script SHALL set `is_public = false` and include `practiceMinutes`, `title`, and `description` on every activity
+6. THE Creation_Script SHALL set `is_public = false` and include `title` and `description` on every activity
 7. WHEN all 4 en-en song curriculums are created, THE Orchestrator_Script SHALL create a Collection with an English title (e.g., "Learn Vocabulary Through Music"), add all 4 curriculums directly to the Collection via `curriculum-collection/addCurriculum`, and set display orders 0 through 3
 8. IF a Creation_Script is run more than once, THEN THE Creation_Script SHALL check for duplicate curriculums by title and language, and the operator SHALL delete extras keeping the earliest-created one
 9. WHEN all curriculums are verified in the database, THE operator SHALL delete all Creation_Scripts and the Orchestrator_Script, leaving only a README
@@ -106,7 +106,7 @@ The platform supports 4 language pairs (vi-en, vi-zh, en-zh, en-en), each of whi
 3. THE Creation_Script SHALL fetch the corresponding vi-en curriculum via `curriculum/getOne`, strip all auto-generated keys, and transform all Vietnamese user-facing text to hand-written English
 4. THE Creation_Script SHALL produce a curriculum with 18 vocabulary words (3 groups of 6), 5 sessions (12, 12, 12, 4, 5 activities), and a `youtubeUrl` at the top level
 5. THE Creation_Script SHALL write all user-facing text in English following the persuasive copy style
-6. THE Creation_Script SHALL set `is_public = false` and include `practiceMinutes`, `title`, and `description` on every activity
+6. THE Creation_Script SHALL set `is_public = false` and include `title` and `description` on every activity
 7. WHEN all 4 en-en podcast curriculums are created, THE Orchestrator_Script SHALL create a Collection with an English title (e.g., "Learn Vocabulary Through Podcasts"), add all 4 curriculums directly to the Collection via `curriculum-collection/addCurriculum`, and set display orders 0 through 3
 8. IF a Creation_Script is run more than once, THEN THE Creation_Script SHALL check for duplicate curriculums by title and language, and the operator SHALL delete extras keeping the earliest-created one
 9. WHEN all curriculums are verified in the database, THE operator SHALL delete all Creation_Scripts and the Orchestrator_Script, leaving only a README

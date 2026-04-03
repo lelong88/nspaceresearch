@@ -73,12 +73,12 @@ def validate(content):
     if "podcast" not in content.get("contentTypeTags", []):
         errors.append("Missing 'podcast' in contentTypeTags")
 
-    # Every activity has title, description, practiceMinutes
+    # Every activity has title, description
     for i, session in enumerate(content["learningSessions"]):
         if "title" not in session:
             errors.append(f"Session {i} missing title")
         for j, act in enumerate(session["activities"]):
-            for field in ("title", "description", "practiceMinutes"):
+            for field in ("title", "description"):
                 if field not in act:
                     errors.append(f"Session {i}, Activity {j} missing '{field}'")
 
@@ -192,7 +192,6 @@ def build_content():
                 "activityType": "introAudio",
                 "title": "Giới thiệu bài nói chuyện",
                 "description": "Giới thiệu bài TED Talk của Trần Vĩnh Nghi về cảm xúc tiêu cực",
-                "practiceMinutes": 2,
                 "data": {
                     "text": (
                         "Chào mừng bạn đến với khóa học từ vựng tiếng Trung qua podcast! "
@@ -217,7 +216,6 @@ def build_content():
                 "activityType": "introAudio",
                 "title": "Giới thiệu từ vựng buổi 1",
                 "description": "Học 6 từ: 情绪, 负面, 感觉, 表达, 压力, 健康",
-                "practiceMinutes": 3,
                 "data": {
                     "text": (
                         "Bây giờ chúng ta sẽ cùng học 6 từ vựng đầu tiên. Mỗi từ đều gắn liền với nội dung "
@@ -278,7 +276,6 @@ def build_content():
                 "activityType": "viewFlashcards",
                 "title": "Flashcards: Cảm xúc và năng lượng",
                 "description": "Học 6 từ: 情绪, 负面, 感觉, 表达, 压力, 健康",
-                "practiceMinutes": 2,
                 "data": {"vocabList": VOCAB_GROUP_1[:], "audioSpeed": 0},
             },
             # 4. speakFlashcards
@@ -286,7 +283,6 @@ def build_content():
                 "activityType": "speakFlashcards",
                 "title": "Flashcards: Tập nói từ vựng buổi 1",
                 "description": "Tập nói 6 từ: 情绪, 负面, 感觉, 表达, 压力, 健康",
-                "practiceMinutes": 2,
                 "data": {"vocabList": VOCAB_GROUP_1[:], "audioSpeed": 0},
             },
             # 5. vocabLevel1
@@ -294,7 +290,6 @@ def build_content():
                 "activityType": "vocabLevel1",
                 "title": "Flashcards: Nhận biết từ vựng buổi 1",
                 "description": "Nhận biết 6 từ: 情绪, 负面, 感觉, 表达, 压力, 健康",
-                "practiceMinutes": 2,
                 "data": {"vocabList": VOCAB_GROUP_1[:], "audioSpeed": 0},
             },
             # 6. vocabLevel2
@@ -302,7 +297,6 @@ def build_content():
                 "activityType": "vocabLevel2",
                 "title": "Flashcards: Ghép nghĩa từ vựng buổi 1",
                 "description": "Ghép nghĩa 6 từ: 情绪, 负面, 感觉, 表达, 压力, 健康",
-                "practiceMinutes": 3,
                 "data": {"vocabList": VOCAB_GROUP_1[:], "audioSpeed": 0},
             },
             # 7. vocabLevel3
@@ -310,7 +304,6 @@ def build_content():
                 "activityType": "vocabLevel3",
                 "title": "Flashcards: Viết từ vựng buổi 1",
                 "description": "Viết 6 từ: 情绪, 负面, 感觉, 表达, 压力, 健康",
-                "practiceMinutes": 3,
                 "data": {"vocabList": VOCAB_GROUP_1[:], "audioSpeed": 0},
             },
             # 8. introAudio — grammar/usage
@@ -318,7 +311,6 @@ def build_content():
                 "activityType": "introAudio",
                 "title": "Ngữ pháp và cách dùng",
                 "description": "Hướng dẫn cách sử dụng từ vựng buổi 1 trong câu",
-                "practiceMinutes": 2,
                 "data": {
                     "text": (
                         "Tuyệt vời! Bạn đã làm quen với 6 từ vựng đầu tiên. Bây giờ hãy cùng tìm hiểu "
@@ -347,7 +339,6 @@ def build_content():
                 "activityType": "reading",
                 "title": "Đọc: Đoạn trích bài nói chuyện (phần 1)",
                 "description": "大家好，我是陈永仪。今天我想跟大家聊一个话题：负面情绪真的是坏事吗？",
-                "practiceMinutes": 9,
                 "data": {"text": READING_1, "audioSpeed": 0},
             },
             # 10. speakReading
@@ -355,7 +346,6 @@ def build_content():
                 "activityType": "speakReading",
                 "title": "Tập nói: Đoạn trích bài nói chuyện (phần 1)",
                 "description": "Luyện nói theo đoạn trích về cảm xúc tiêu cực",
-                "practiceMinutes": 15,
                 "data": {"text": READING_1, "audioSpeed": 0},
             },
             # 11. readAlong
@@ -363,7 +353,6 @@ def build_content():
                 "activityType": "readAlong",
                 "title": "Nghe: Đoạn trích bài nói chuyện (phần 1)",
                 "description": "Nghe đoạn văn vừa đọc và theo dõi.",
-                "practiceMinutes": 3,
                 "data": {"text": READING_1, "audioSpeed": 0},
             },
             # 12. writingSentence
@@ -371,7 +360,6 @@ def build_content():
                 "activityType": "writingSentence",
                 "title": "Viết: Cảm xúc và năng lượng",
                 "description": "Viết câu sử dụng 6 từ vựng buổi 1",
-                "practiceMinutes": 12,
                 "data": {
                     "items": [
                         {
@@ -441,7 +429,6 @@ def build_content():
                 "activityType": "introAudio",
                 "title": "Giới thiệu buổi 2",
                 "description": "Ôn lại buổi 1 và giới thiệu chủ đề buổi 2",
-                "practiceMinutes": 2,
                 "data": {
                     "text": (
                         "Chào mừng bạn trở lại với buổi học thứ hai! Ở buổi trước, chúng ta đã học 6 từ "
@@ -461,7 +448,6 @@ def build_content():
                 "activityType": "introAudio",
                 "title": "Giới thiệu từ vựng buổi 2",
                 "description": "Học 6 từ: 接受, 影响, 控制, 内心, 勇气, 害怕",
-                "practiceMinutes": 3,
                 "data": {
                     "text": (
                         "Hãy cùng học 6 từ vựng mới của buổi hôm nay. Những từ này nằm ở phần giữa "
@@ -523,7 +509,6 @@ def build_content():
                 "activityType": "viewFlashcards",
                 "title": "Flashcards: Đối mặt và chấp nhận",
                 "description": "Học 6 từ: 接受, 影响, 控制, 内心, 勇气, 害怕",
-                "practiceMinutes": 2,
                 "data": {"vocabList": VOCAB_GROUP_2[:], "audioSpeed": 0},
             },
             # 4. speakFlashcards
@@ -531,7 +516,6 @@ def build_content():
                 "activityType": "speakFlashcards",
                 "title": "Flashcards: Tập nói từ vựng buổi 2",
                 "description": "Tập nói 6 từ: 接受, 影响, 控制, 内心, 勇气, 害怕",
-                "practiceMinutes": 2,
                 "data": {"vocabList": VOCAB_GROUP_2[:], "audioSpeed": 0},
             },
             # 5. vocabLevel1
@@ -539,7 +523,6 @@ def build_content():
                 "activityType": "vocabLevel1",
                 "title": "Flashcards: Nhận biết từ vựng buổi 2",
                 "description": "Nhận biết 6 từ: 接受, 影响, 控制, 内心, 勇气, 害怕",
-                "practiceMinutes": 2,
                 "data": {"vocabList": VOCAB_GROUP_2[:], "audioSpeed": 0},
             },
             # 6. vocabLevel2
@@ -547,7 +530,6 @@ def build_content():
                 "activityType": "vocabLevel2",
                 "title": "Flashcards: Ghép nghĩa từ vựng buổi 2",
                 "description": "Ghép nghĩa 6 từ: 接受, 影响, 控制, 内心, 勇气, 害怕",
-                "practiceMinutes": 3,
                 "data": {"vocabList": VOCAB_GROUP_2[:], "audioSpeed": 0},
             },
             # 7. vocabLevel3
@@ -555,7 +537,6 @@ def build_content():
                 "activityType": "vocabLevel3",
                 "title": "Flashcards: Viết từ vựng buổi 2",
                 "description": "Viết 6 từ: 接受, 影响, 控制, 内心, 勇气, 害怕",
-                "practiceMinutes": 3,
                 "data": {"vocabList": VOCAB_GROUP_2[:], "audioSpeed": 0},
             },
             # 8. introAudio — grammar/usage
@@ -563,7 +544,6 @@ def build_content():
                 "activityType": "introAudio",
                 "title": "Ngữ pháp và cách dùng",
                 "description": "Hướng dẫn cách sử dụng từ vựng buổi 2 trong câu",
-                "practiceMinutes": 2,
                 "data": {
                     "text": (
                         "Rất tốt! Bạn đã nắm được 6 từ mới. Hãy cùng xem cách dùng chúng tự nhiên hơn.\n\n"
@@ -589,7 +569,6 @@ def build_content():
                 "activityType": "reading",
                 "title": "Đọc: Đoạn trích bài nói chuyện (phần 2)",
                 "description": "所以，我们应该怎么做呢？第一步，就是接受。接受你现在的感觉。",
-                "practiceMinutes": 9,
                 "data": {"text": READING_2, "audioSpeed": 0},
             },
             # 10. speakReading
@@ -597,7 +576,6 @@ def build_content():
                 "activityType": "speakReading",
                 "title": "Tập nói: Đoạn trích bài nói chuyện (phần 2)",
                 "description": "Luyện nói theo đoạn trích về việc chấp nhận cảm xúc",
-                "practiceMinutes": 15,
                 "data": {"text": READING_2, "audioSpeed": 0},
             },
             # 11. readAlong
@@ -605,7 +583,6 @@ def build_content():
                 "activityType": "readAlong",
                 "title": "Nghe: Đoạn trích bài nói chuyện (phần 2)",
                 "description": "Nghe đoạn văn vừa đọc và theo dõi.",
-                "practiceMinutes": 3,
                 "data": {"text": READING_2, "audioSpeed": 0},
             },
             # 12. writingSentence
@@ -613,7 +590,6 @@ def build_content():
                 "activityType": "writingSentence",
                 "title": "Viết: Đối mặt và chấp nhận",
                 "description": "Viết câu sử dụng 6 từ vựng buổi 2",
-                "practiceMinutes": 12,
                 "data": {
                     "items": [
                         {
@@ -683,7 +659,6 @@ def build_content():
                 "activityType": "introAudio",
                 "title": "Giới thiệu buổi 3",
                 "description": "Ôn lại buổi 1-2 và giới thiệu chủ đề buổi 3",
-                "practiceMinutes": 2,
                 "data": {
                     "text": (
                         "Chào mừng bạn đến với buổi học thứ ba — buổi cuối cùng trước khi ôn tập! "
@@ -704,7 +679,6 @@ def build_content():
                 "activityType": "introAudio",
                 "title": "Giới thiệu từ vựng buổi 3",
                 "description": "Học 6 từ: 愤怒, 悲伤, 理解, 成长, 经历, 力量",
-                "practiceMinutes": 3,
                 "data": {
                     "text": (
                         "Hãy cùng học 6 từ vựng cuối cùng. Đây là những từ nằm ở phần kết của bài nói chuyện, "
@@ -777,7 +751,6 @@ def build_content():
                 "activityType": "viewFlashcards",
                 "title": "Flashcards: Sức mạnh của cảm xúc",
                 "description": "Học 6 từ: 愤怒, 悲伤, 理解, 成长, 经历, 力量",
-                "practiceMinutes": 2,
                 "data": {"vocabList": VOCAB_GROUP_3[:], "audioSpeed": 0},
             },
             # 4. speakFlashcards
@@ -785,7 +758,6 @@ def build_content():
                 "activityType": "speakFlashcards",
                 "title": "Flashcards: Tập nói từ vựng buổi 3",
                 "description": "Tập nói 6 từ: 愤怒, 悲伤, 理解, 成长, 经历, 力量",
-                "practiceMinutes": 2,
                 "data": {"vocabList": VOCAB_GROUP_3[:], "audioSpeed": 0},
             },
             # 5. vocabLevel1
@@ -793,7 +765,6 @@ def build_content():
                 "activityType": "vocabLevel1",
                 "title": "Flashcards: Nhận biết từ vựng buổi 3",
                 "description": "Nhận biết 6 từ: 愤怒, 悲伤, 理解, 成长, 经历, 力量",
-                "practiceMinutes": 2,
                 "data": {"vocabList": VOCAB_GROUP_3[:], "audioSpeed": 0},
             },
             # 6. vocabLevel2
@@ -801,7 +772,6 @@ def build_content():
                 "activityType": "vocabLevel2",
                 "title": "Flashcards: Ghép nghĩa từ vựng buổi 3",
                 "description": "Ghép nghĩa 6 từ: 愤怒, 悲伤, 理解, 成长, 经历, 力量",
-                "practiceMinutes": 3,
                 "data": {"vocabList": VOCAB_GROUP_3[:], "audioSpeed": 0},
             },
             # 7. vocabLevel3
@@ -809,7 +779,6 @@ def build_content():
                 "activityType": "vocabLevel3",
                 "title": "Flashcards: Viết từ vựng buổi 3",
                 "description": "Viết 6 từ: 愤怒, 悲伤, 理解, 成长, 经历, 力量",
-                "practiceMinutes": 3,
                 "data": {"vocabList": VOCAB_GROUP_3[:], "audioSpeed": 0},
             },
             # 8. introAudio — grammar/usage
@@ -817,7 +786,6 @@ def build_content():
                 "activityType": "introAudio",
                 "title": "Ngữ pháp và cách dùng",
                 "description": "Hướng dẫn cách sử dụng từ vựng buổi 3 trong câu",
-                "practiceMinutes": 2,
                 "data": {
                     "text": (
                         "Xuất sắc! Bạn đã hoàn thành 18 từ vựng. Hãy cùng xem cách dùng 6 từ cuối "
@@ -848,7 +816,6 @@ def build_content():
                 "activityType": "reading",
                 "title": "Đọc: Đoạn trích bài nói chuyện (phần 3)",
                 "description": "愤怒、悲伤、害怕——这些情绪都有它们存在的理由。",
-                "practiceMinutes": 5,
                 "data": {"text": READING_3, "audioSpeed": 0},
             },
             # 10. speakReading
@@ -856,7 +823,6 @@ def build_content():
                 "activityType": "speakReading",
                 "title": "Tập nói: Đoạn trích bài nói chuyện (phần 3)",
                 "description": "Luyện nói theo đoạn trích về sức mạnh của cảm xúc",
-                "practiceMinutes": 5,
                 "data": {"text": READING_3, "audioSpeed": 0},
             },
             # 11. readAlong
@@ -864,7 +830,6 @@ def build_content():
                 "activityType": "readAlong",
                 "title": "Nghe: Đoạn trích bài nói chuyện (phần 3)",
                 "description": "Nghe đoạn văn vừa đọc và theo dõi.",
-                "practiceMinutes": 3,
                 "data": {"text": READING_3, "audioSpeed": 0},
             },
             # 12. writingSentence
@@ -872,7 +837,6 @@ def build_content():
                 "activityType": "writingSentence",
                 "title": "Viết: Sức mạnh của cảm xúc",
                 "description": "Viết câu sử dụng 6 từ vựng buổi 3",
-                "practiceMinutes": 12,
                 "data": {
                     "items": [
                         {
@@ -942,7 +906,6 @@ def build_content():
                 "activityType": "introAudio",
                 "title": "Chúc mừng và ôn tập",
                 "description": "Ôn lại toàn bộ 18 từ vựng đã học",
-                "practiceMinutes": 2,
                 "data": {
                     "text": (
                         "Chúc mừng bạn! Bạn đã hoàn thành 3 buổi học và nắm được 18 từ vựng tiếng Trung "
@@ -966,7 +929,6 @@ def build_content():
                 "activityType": "viewFlashcards",
                 "title": "Flashcards: Ôn tập toàn bộ 18 từ vựng",
                 "description": "Ôn tập 18 từ: 情绪, 负面, 感觉, 表达, 压力, 健康, 接受, 影响, 控制, 内心, 勇气, 害怕, 愤怒, 悲伤, 理解, 成长, 经历, 力量",
-                "practiceMinutes": 5,
                 "data": {"vocabList": ALL_VOCAB[:], "audioSpeed": 0},
             },
             # 3. speakFlashcards — all 18 words
@@ -974,7 +936,6 @@ def build_content():
                 "activityType": "speakFlashcards",
                 "title": "Flashcards: Tập nói toàn bộ 18 từ vựng",
                 "description": "Tập nói 18 từ: 情绪, 负面, 感觉, 表达, 压力, 健康, 接受, 影响, 控制, 内心, 勇气, 害怕, 愤怒, 悲伤, 理解, 成长, 经历, 力量",
-                "practiceMinutes": 5,
                 "data": {"vocabList": ALL_VOCAB[:], "audioSpeed": 0},
             },
             # 4. vocabLevel1 — all 18 words
@@ -982,7 +943,6 @@ def build_content():
                 "activityType": "vocabLevel1",
                 "title": "Flashcards: Nhận biết toàn bộ từ vựng",
                 "description": "Nhận biết 18 từ: 情绪, 负面, 感觉, 表达, 压力, 健康, 接受, 影响, 控制, 内心, 勇气, 害怕, 愤怒, 悲伤, 理解, 成长, 经历, 力量",
-                "practiceMinutes": 6,
                 "data": {"vocabList": ALL_VOCAB[:], "audioSpeed": 0},
             },
         ],
@@ -999,7 +959,6 @@ def build_content():
                 "activityType": "introAudio",
                 "title": "Giới thiệu buổi đọc trọn vẹn",
                 "description": "Giới thiệu buổi đọc toàn bộ bài nói chuyện",
-                "practiceMinutes": 1,
                 "data": {
                     "text": (
                         "Chào mừng bạn đến với buổi cuối cùng! Hôm nay bạn sẽ đọc toàn bộ bài nói chuyện "
@@ -1016,7 +975,6 @@ def build_content():
                 "activityType": "reading",
                 "title": "Đọc: Toàn bộ bài nói chuyện",
                 "description": "大家好，我是陈永仪。今天我想跟大家聊一个话题：负面情绪真的是坏事吗？",
-                "practiceMinutes": 5,
                 "data": {"text": FULL_TRANSCRIPT, "audioSpeed": 0},
             },
             # 3. speakReading — full transcript
@@ -1024,7 +982,6 @@ def build_content():
                 "activityType": "speakReading",
                 "title": "Tập nói: Toàn bộ bài nói chuyện",
                 "description": "Luyện nói theo toàn bộ bài nói chuyện",
-                "practiceMinutes": 5,
                 "data": {"text": FULL_TRANSCRIPT, "audioSpeed": 0},
             },
             # 4. readAlong — full transcript
@@ -1032,7 +989,6 @@ def build_content():
                 "activityType": "readAlong",
                 "title": "Nghe: Toàn bộ bài nói chuyện",
                 "description": "Nghe toàn bộ bài nói chuyện và theo dõi.",
-                "practiceMinutes": 3,
                 "data": {"text": FULL_TRANSCRIPT, "audioSpeed": 0},
             },
             # 5. introAudio — farewell reviewing all 18 words
@@ -1040,7 +996,6 @@ def build_content():
                 "activityType": "introAudio",
                 "title": "Lời chia tay và ôn tập từ vựng",
                 "description": "Ôn tập 18 từ vựng và lời chia tay",
-                "practiceMinutes": 3,
                 "data": {
                     "text": (
                         "Chúc mừng bạn đã hoàn thành toàn bộ khóa học! Bạn đã đi một chặng đường tuyệt vời. "

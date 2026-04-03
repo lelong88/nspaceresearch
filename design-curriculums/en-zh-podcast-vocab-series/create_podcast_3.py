@@ -74,12 +74,12 @@ def validate(content):
     if "podcast" not in content.get("contentTypeTags", []):
         errors.append("Missing 'podcast' in contentTypeTags")
 
-    # Every activity has title, description, practiceMinutes
+    # Every activity has title, description
     for i, session in enumerate(content["learningSessions"]):
         if "title" not in session:
             errors.append(f"Session {i} missing title")
         for j, act in enumerate(session["activities"]):
-            for field in ("title", "description", "practiceMinutes"):
+            for field in ("title", "description"):
                 if field not in act:
                     errors.append(f"Session {i}, Activity {j} missing '{field}'")
 
@@ -216,7 +216,6 @@ def build_content():
                 "activityType": "introAudio",
                 "title": "Introduction to the Talk",
                 "description": "Introduction to Tzui Chuang's TED Shanghai talk on food and sustainability",
-                "practiceMinutes": 2,
                 "data": {
                     "text": (
                         "Welcome to the Chinese vocabulary podcast course! "
@@ -244,7 +243,6 @@ def build_content():
                 "activityType": "introAudio",
                 "title": "Session 1 Vocabulary",
                 "description": "Learn 6 words: 食物, 做饭, 健康, 环境, 选择, 未来",
-                "practiceMinutes": 3,
                 "data": {
                     "text": (
                         "Let's learn our first 6 vocabulary words. Each one is closely tied to the content "
@@ -315,7 +313,6 @@ def build_content():
                 "activityType": "viewFlashcards",
                 "title": "Flashcards: Food and the Future",
                 "description": "Learn 6 words: 食物, 做饭, 健康, 环境, 选择, 未来",
-                "practiceMinutes": 2,
                 "data": {"vocabList": VOCAB_GROUP_1[:], "audioSpeed": 0},
             },
             # 4. speakFlashcards
@@ -323,7 +320,6 @@ def build_content():
                 "activityType": "speakFlashcards",
                 "title": "Flashcards: Speak Session 1 Vocabulary",
                 "description": "Practice speaking 6 words: 食物, 做饭, 健康, 环境, 选择, 未来",
-                "practiceMinutes": 2,
                 "data": {"vocabList": VOCAB_GROUP_1[:], "audioSpeed": 0},
             },
             # 5. vocabLevel1
@@ -331,7 +327,6 @@ def build_content():
                 "activityType": "vocabLevel1",
                 "title": "Flashcards: Recognize Session 1 Vocabulary",
                 "description": "Recognize 6 words: 食物, 做饭, 健康, 环境, 选择, 未来",
-                "practiceMinutes": 2,
                 "data": {"vocabList": VOCAB_GROUP_1[:], "audioSpeed": 0},
             },
             # 6. vocabLevel2
@@ -339,7 +334,6 @@ def build_content():
                 "activityType": "vocabLevel2",
                 "title": "Flashcards: Match Session 1 Vocabulary",
                 "description": "Match meanings for 6 words: 食物, 做饭, 健康, 环境, 选择, 未来",
-                "practiceMinutes": 3,
                 "data": {"vocabList": VOCAB_GROUP_1[:], "audioSpeed": 0},
             },
             # 7. vocabLevel3
@@ -347,7 +341,6 @@ def build_content():
                 "activityType": "vocabLevel3",
                 "title": "Flashcards: Write Session 1 Vocabulary",
                 "description": "Write 6 words: 食物, 做饭, 健康, 环境, 选择, 未来",
-                "practiceMinutes": 3,
                 "data": {"vocabList": VOCAB_GROUP_1[:], "audioSpeed": 0},
             },
             # 8. introAudio — grammar/usage
@@ -355,7 +348,6 @@ def build_content():
                 "activityType": "introAudio",
                 "title": "Grammar and Usage Tips",
                 "description": "How to use Session 1 vocabulary naturally in sentences",
-                "practiceMinutes": 2,
                 "data": {
                     "text": (
                         "Great work! You've met your first 6 vocabulary words. Now let's look at how "
@@ -400,7 +392,6 @@ def build_content():
                 "activityType": "reading",
                 "title": "Read: Talk Excerpt (Part 1)",
                 "description": "大家好，我是庄祖宜。今天我想跟大家聊一个我最喜欢的话题：食物。",
-                "practiceMinutes": 9,
                 "data": {"text": READING_1, "audioSpeed": 0},
             },
             # 10. speakReading
@@ -408,7 +399,6 @@ def build_content():
                 "activityType": "speakReading",
                 "title": "Speak: Talk Excerpt (Part 1)",
                 "description": "Practice speaking along with the excerpt about food and culture",
-                "practiceMinutes": 15,
                 "data": {"text": READING_1, "audioSpeed": 0},
             },
             # 11. readAlong
@@ -416,7 +406,6 @@ def build_content():
                 "activityType": "readAlong",
                 "title": "Listen: Talk Excerpt (Part 1)",
                 "description": "Listen to the passage you just read and follow along.",
-                "practiceMinutes": 3,
                 "data": {"text": READING_1, "audioSpeed": 0},
             },
             # 12. writingSentence
@@ -424,7 +413,6 @@ def build_content():
                 "activityType": "writingSentence",
                 "title": "Write: Food and the Future",
                 "description": "Write sentences using Session 1 vocabulary",
-                "practiceMinutes": 12,
                 "data": {
                     "items": [
                         {
@@ -495,7 +483,6 @@ def build_content():
                 "activityType": "introAudio",
                 "title": "Session 2 Introduction",
                 "description": "Recap Session 1 and introduce Session 2 theme",
-                "practiceMinutes": 2,
                 "data": {
                     "text": (
                         "Welcome back to Session 2! In the previous session, we learned 6 important words: "
@@ -517,7 +504,6 @@ def build_content():
                 "activityType": "introAudio",
                 "title": "Session 2 Vocabulary",
                 "description": "Learn 6 words: 新鲜, 农民, 市场, 味道, 传统, 文化",
-                "practiceMinutes": 3,
                 "data": {
                     "text": (
                         "Let's learn today's 6 new vocabulary words. These come from the middle section "
@@ -587,7 +573,6 @@ def build_content():
                 "activityType": "viewFlashcards",
                 "title": "Flashcards: Markets and Traditions",
                 "description": "Learn 6 words: 新鲜, 农民, 市场, 味道, 传统, 文化",
-                "practiceMinutes": 2,
                 "data": {"vocabList": VOCAB_GROUP_2[:], "audioSpeed": 0},
             },
             # 4. speakFlashcards
@@ -595,7 +580,6 @@ def build_content():
                 "activityType": "speakFlashcards",
                 "title": "Flashcards: Speak Session 2 Vocabulary",
                 "description": "Practice speaking 6 words: 新鲜, 农民, 市场, 味道, 传统, 文化",
-                "practiceMinutes": 2,
                 "data": {"vocabList": VOCAB_GROUP_2[:], "audioSpeed": 0},
             },
             # 5. vocabLevel1
@@ -603,7 +587,6 @@ def build_content():
                 "activityType": "vocabLevel1",
                 "title": "Flashcards: Recognize Session 2 Vocabulary",
                 "description": "Recognize 6 words: 新鲜, 农民, 市场, 味道, 传统, 文化",
-                "practiceMinutes": 2,
                 "data": {"vocabList": VOCAB_GROUP_2[:], "audioSpeed": 0},
             },
             # 6. vocabLevel2
@@ -611,7 +594,6 @@ def build_content():
                 "activityType": "vocabLevel2",
                 "title": "Flashcards: Match Session 2 Vocabulary",
                 "description": "Match meanings for 6 words: 新鲜, 农民, 市场, 味道, 传统, 文化",
-                "practiceMinutes": 3,
                 "data": {"vocabList": VOCAB_GROUP_2[:], "audioSpeed": 0},
             },
             # 7. vocabLevel3
@@ -619,7 +601,6 @@ def build_content():
                 "activityType": "vocabLevel3",
                 "title": "Flashcards: Write Session 2 Vocabulary",
                 "description": "Write 6 words: 新鲜, 农民, 市场, 味道, 传统, 文化",
-                "practiceMinutes": 3,
                 "data": {"vocabList": VOCAB_GROUP_2[:], "audioSpeed": 0},
             },
             # 8. introAudio — grammar/usage
@@ -627,7 +608,6 @@ def build_content():
                 "activityType": "introAudio",
                 "title": "Grammar and Usage Tips",
                 "description": "How to use Session 2 vocabulary naturally in sentences",
-                "practiceMinutes": 2,
                 "data": {
                     "text": (
                         "Well done! You've got 6 new words under your belt. Let's see how to use them "
@@ -675,7 +655,6 @@ def build_content():
                 "activityType": "reading",
                 "title": "Read: Talk Excerpt (Part 2)",
                 "description": "那我们能做什么呢？其实很简单。第一步，就是回到厨房，自己做饭。",
-                "practiceMinutes": 9,
                 "data": {"text": READING_2, "audioSpeed": 0},
             },
             # 10. speakReading
@@ -683,7 +662,6 @@ def build_content():
                 "activityType": "speakReading",
                 "title": "Speak: Talk Excerpt (Part 2)",
                 "description": "Practice speaking along with the excerpt about farmers' markets and traditions",
-                "practiceMinutes": 15,
                 "data": {"text": READING_2, "audioSpeed": 0},
             },
             # 11. readAlong
@@ -691,7 +669,6 @@ def build_content():
                 "activityType": "readAlong",
                 "title": "Listen: Talk Excerpt (Part 2)",
                 "description": "Listen to the passage you just read and follow along.",
-                "practiceMinutes": 3,
                 "data": {"text": READING_2, "audioSpeed": 0},
             },
             # 12. writingSentence
@@ -699,7 +676,6 @@ def build_content():
                 "activityType": "writingSentence",
                 "title": "Write: Markets and Traditions",
                 "description": "Write sentences using Session 2 vocabulary",
-                "practiceMinutes": 12,
                 "data": {
                     "items": [
                         {
@@ -770,7 +746,6 @@ def build_content():
                 "activityType": "introAudio",
                 "title": "Session 3 Introduction",
                 "description": "Recap Sessions 1-2 and introduce Session 3 theme",
-                "practiceMinutes": 2,
                 "data": {
                     "text": (
                         "Welcome to Session 3 — the final learning session before review! "
@@ -795,7 +770,6 @@ def build_content():
                 "activityType": "introAudio",
                 "title": "Session 3 Vocabulary",
                 "description": "Learn 6 words: 责任, 改变, 习惯, 自然, 简单, 幸福",
-                "practiceMinutes": 3,
                 "data": {
                     "text": (
                         "Let's learn our final 6 vocabulary words. These come from the closing section of the talk, "
@@ -867,7 +841,6 @@ def build_content():
                 "activityType": "viewFlashcards",
                 "title": "Flashcards: Responsibility and Happiness",
                 "description": "Learn 6 words: 责任, 改变, 习惯, 自然, 简单, 幸福",
-                "practiceMinutes": 2,
                 "data": {"vocabList": VOCAB_GROUP_3[:], "audioSpeed": 0},
             },
             # 4. speakFlashcards
@@ -875,7 +848,6 @@ def build_content():
                 "activityType": "speakFlashcards",
                 "title": "Flashcards: Speak Session 3 Vocabulary",
                 "description": "Practice speaking 6 words: 责任, 改变, 习惯, 自然, 简单, 幸福",
-                "practiceMinutes": 2,
                 "data": {"vocabList": VOCAB_GROUP_3[:], "audioSpeed": 0},
             },
             # 5. vocabLevel1
@@ -883,7 +855,6 @@ def build_content():
                 "activityType": "vocabLevel1",
                 "title": "Flashcards: Recognize Session 3 Vocabulary",
                 "description": "Recognize 6 words: 责任, 改变, 习惯, 自然, 简单, 幸福",
-                "practiceMinutes": 2,
                 "data": {"vocabList": VOCAB_GROUP_3[:], "audioSpeed": 0},
             },
             # 6. vocabLevel2
@@ -891,7 +862,6 @@ def build_content():
                 "activityType": "vocabLevel2",
                 "title": "Flashcards: Match Session 3 Vocabulary",
                 "description": "Match meanings for 6 words: 责任, 改变, 习惯, 自然, 简单, 幸福",
-                "practiceMinutes": 3,
                 "data": {"vocabList": VOCAB_GROUP_3[:], "audioSpeed": 0},
             },
             # 7. vocabLevel3
@@ -899,7 +869,6 @@ def build_content():
                 "activityType": "vocabLevel3",
                 "title": "Flashcards: Write Session 3 Vocabulary",
                 "description": "Write 6 words: 责任, 改变, 习惯, 自然, 简单, 幸福",
-                "practiceMinutes": 3,
                 "data": {"vocabList": VOCAB_GROUP_3[:], "audioSpeed": 0},
             },
             # 8. introAudio — grammar/usage
@@ -907,7 +876,6 @@ def build_content():
                 "activityType": "introAudio",
                 "title": "Grammar and Usage Tips",
                 "description": "How to use Session 3 vocabulary naturally in sentences",
-                "practiceMinutes": 2,
                 "data": {
                     "text": (
                         "Outstanding! You've completed all 18 vocabulary words. Let's look at how to use "
@@ -960,7 +928,6 @@ def build_content():
                 "activityType": "reading",
                 "title": "Read: Talk Excerpt (Part 3)",
                 "description": "我知道有人会说：我很忙，没有时间做饭。",
-                "practiceMinutes": 5,
                 "data": {"text": READING_3, "audioSpeed": 0},
             },
             # 10. speakReading
@@ -968,7 +935,6 @@ def build_content():
                 "activityType": "speakReading",
                 "title": "Speak: Talk Excerpt (Part 3)",
                 "description": "Practice speaking along with the excerpt about responsibility and happiness",
-                "practiceMinutes": 5,
                 "data": {"text": READING_3, "audioSpeed": 0},
             },
             # 11. readAlong
@@ -976,7 +942,6 @@ def build_content():
                 "activityType": "readAlong",
                 "title": "Listen: Talk Excerpt (Part 3)",
                 "description": "Listen to the passage you just read and follow along.",
-                "practiceMinutes": 3,
                 "data": {"text": READING_3, "audioSpeed": 0},
             },
             # 12. writingSentence
@@ -984,7 +949,6 @@ def build_content():
                 "activityType": "writingSentence",
                 "title": "Write: Responsibility and Happiness",
                 "description": "Write sentences using Session 3 vocabulary",
-                "practiceMinutes": 12,
                 "data": {
                     "items": [
                         {
@@ -1055,7 +1019,6 @@ def build_content():
                 "activityType": "introAudio",
                 "title": "Congratulations and Review",
                 "description": "Review all 18 vocabulary words learned so far",
-                "practiceMinutes": 2,
                 "data": {
                     "text": (
                         "Congratulations! You've completed 3 learning sessions and mastered 18 Chinese vocabulary "
@@ -1082,7 +1045,6 @@ def build_content():
                 "activityType": "viewFlashcards",
                 "title": "Flashcards: Review All 18 Words",
                 "description": "Review 18 words: 食物, 做饭, 健康, 环境, 选择, 未来, 新鲜, 农民, 市场, 味道, 传统, 文化, 责任, 改变, 习惯, 自然, 简单, 幸福",
-                "practiceMinutes": 5,
                 "data": {"vocabList": ALL_VOCAB[:], "audioSpeed": 0},
             },
             # 3. speakFlashcards — all 18 words
@@ -1090,7 +1052,6 @@ def build_content():
                 "activityType": "speakFlashcards",
                 "title": "Flashcards: Speak All 18 Words",
                 "description": "Practice speaking 18 words: 食物, 做饭, 健康, 环境, 选择, 未来, 新鲜, 农民, 市场, 味道, 传统, 文化, 责任, 改变, 习惯, 自然, 简单, 幸福",
-                "practiceMinutes": 5,
                 "data": {"vocabList": ALL_VOCAB[:], "audioSpeed": 0},
             },
             # 4. vocabLevel1 — all 18 words
@@ -1098,7 +1059,6 @@ def build_content():
                 "activityType": "vocabLevel1",
                 "title": "Flashcards: Recognize All Vocabulary",
                 "description": "Recognize 18 words: 食物, 做饭, 健康, 环境, 选择, 未来, 新鲜, 农民, 市场, 味道, 传统, 文化, 责任, 改变, 习惯, 自然, 简单, 幸福",
-                "practiceMinutes": 6,
                 "data": {"vocabList": ALL_VOCAB[:], "audioSpeed": 0},
             },
         ],
@@ -1115,7 +1075,6 @@ def build_content():
                 "activityType": "introAudio",
                 "title": "Introduction to Full Reading",
                 "description": "Introduction to the complete talk reading session",
-                "practiceMinutes": 1,
                 "data": {
                     "text": (
                         "Welcome to the final session! Today you'll read the complete talk "
@@ -1132,7 +1091,6 @@ def build_content():
                 "activityType": "reading",
                 "title": "Read: The Complete Talk",
                 "description": "大家好，我是庄祖宜。今天我想跟大家聊一个我最喜欢的话题：食物。",
-                "practiceMinutes": 5,
                 "data": {"text": FULL_TRANSCRIPT, "audioSpeed": 0},
             },
             # 3. speakReading — full transcript
@@ -1140,7 +1098,6 @@ def build_content():
                 "activityType": "speakReading",
                 "title": "Speak: The Complete Talk",
                 "description": "Practice speaking along with the complete talk",
-                "practiceMinutes": 5,
                 "data": {"text": FULL_TRANSCRIPT, "audioSpeed": 0},
             },
             # 4. readAlong — full transcript
@@ -1148,7 +1105,6 @@ def build_content():
                 "activityType": "readAlong",
                 "title": "Listen: The Complete Talk",
                 "description": "Listen to the complete talk and follow along.",
-                "practiceMinutes": 3,
                 "data": {"text": FULL_TRANSCRIPT, "audioSpeed": 0},
             },
             # 5. introAudio — farewell reviewing all 18 words
@@ -1156,7 +1112,6 @@ def build_content():
                 "activityType": "introAudio",
                 "title": "Farewell and Vocabulary Review",
                 "description": "Review all 18 vocabulary words and farewell",
-                "practiceMinutes": 3,
                 "data": {
                     "text": (
                         "Congratulations on completing the entire course! You've come an incredible way. "

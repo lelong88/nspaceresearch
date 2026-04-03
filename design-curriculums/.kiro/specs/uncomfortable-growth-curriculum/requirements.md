@@ -155,18 +155,17 @@ Each curriculum is placed in the feature collection appropriate for its language
 
 ### Requirement 8: Activity Metadata
 
-**User Story:** As a content manager, I want every activity to have proper title, description, and practiceMinutes fields, so that server-side logging and client display work correctly.
+**User Story:** As a content manager, I want every activity to have proper title and description fields, so that server-side logging and client display work correctly.
 
 #### Acceptance Criteria
 
-1. THE Activity SHALL include `title`, `description`, and `practiceMinutes` fields for every activity in every session.
+1. THE Activity SHALL include `title` and `description` fields for every activity in every session.
 2. WHEN a `viewFlashcards`, `speakFlashcards`, `vocabLevel1`, or `vocabLevel2` activity is created, THE Activity title SHALL follow the format "Flashcards: <topic>" (single-language) or the equivalent in the user language (bilingual), and the description SHALL list the words being learned.
 3. WHEN a `reading` or `speakReading` activity is created, THE Activity title SHALL follow the format "Read: <topic>" (en-en, en-zh) or "Đọc: <topic>" (vi-en, vi-zh), and the description SHALL contain the first ~80 characters of the reading text.
 4. WHEN a `readAlong` activity is created, THE Activity title SHALL follow the format "Listen: <topic>" (en-en, en-zh) or "Nghe: <topic>" (vi-en, vi-zh).
 5. WHEN an `introAudio` activity is created, THE Activity title SHALL be a descriptive label and the description SHALL be a brief summary.
 6. WHEN a `writingSentence` or `writingParagraph` activity is created, THE Activity title SHALL follow the format "Write: <topic>" (en-en, en-zh) or "Viết: <topic>" (vi-en, vi-zh).
 7. THE Session object SHALL include a `title` field appropriate to the user language.
-8. THE `practiceMinutes` SHALL follow the standard defaults: introAudio=3, viewFlashcards=6, speakFlashcards=6, vocabLevel1=10, vocabLevel2=10, reading=5, speakReading=5, readAlong=3, writingSentence=10, writingParagraph=10.
 
 ### Requirement 9: Strip-Keys Compliance
 

@@ -22,7 +22,7 @@ Create 4 mini `balanced_skills` curriculums on the theme "Get comfortable being 
     - 5 vocabulary words about cognitive psychology, neuroplasticity, growth mindset
     - Session 1 (8 activities): introAudio, viewFlashcards, speakFlashcards, vocabLevel1, reading, speakReading, readAlong, writingSentence
     - Session 2 (6 activities): introAudio, reading, speakReading, readAlong, writingParagraph, introAudio (farewell)
-    - All activities must have title, description, practiceMinutes
+    - All activities must have title, description
     - Set `language: "en"`, `userLanguage: "en"` as top-level body params
     - _Requirements: 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 5.2, 6.1, 6.2, 6.3, 6.4, 7.1, 7.2, 7.3, 7.4, 8.1-8.8, 12.1, 12.2, 13.1, 13.2, 13.3, 14.1, 14.3, 14.4, 17.1, 17.5_
 

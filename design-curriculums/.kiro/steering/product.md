@@ -60,4 +60,3 @@ Keep earliest, delete extras. Remove duplicate series entries before deleting cu
 - `CURRICULUM_CREATION_RULES.md` — activity schema requirements, DB column limits, story-oriented rules. Read when creating new curriculums.
 - `CURRICULUM_QUALITY_STANDARDS.md` — persuasive copy style, introAudio scripts, writing prompts. Read when writing learner-facing content.
 - `CURRICULUM_UPDATE_RULES.md` — what to preserve, what to strip when rewriting. Read when editing existing curriculums.
-- `CURRICULUM_RULES.md` — practiceMinutes calculation overrides. Read when setting activity durations.

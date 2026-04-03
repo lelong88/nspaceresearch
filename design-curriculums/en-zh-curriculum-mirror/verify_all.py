@@ -273,10 +273,6 @@ def check_property_2(results, mirror_id, source_id, mirror_content, source_conte
             if s_speed is not None and m_speed != s_speed:
                 errors.append(f"{mirror_id} {loc}: audioSpeed differs")
 
-            # Check practiceMinutes preserved
-            if ma.get("practiceMinutes") != sa.get("practiceMinutes"):
-                errors.append(f"{mirror_id} {loc}: practiceMinutes differs: {ma.get('practiceMinutes')} vs {sa.get('practiceMinutes')}")
-
     # Check top-level youtubeUrl
     if source_content.get("youtubeUrl") and mirror_content.get("youtubeUrl") != source_content.get("youtubeUrl"):
         errors.append(f"{mirror_id}: top-level youtubeUrl differs")

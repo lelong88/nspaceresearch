@@ -141,14 +141,12 @@ The curriculum content is a JSON object with this shape (simplified):
           "type": "introAudio",
           "title": "Giới thiệu bài học",
           "description": "Vietnamese description",
-          "practiceMinutes": 3,
           "script": "Vietnamese teaching script with pinyin..."
         },
         {
           "type": "viewFlashcards",
           "title": "Flashcards: Từ vựng buổi 1",
           "description": "Học 6 từ: 月亮, 代表, ...",
-          "practiceMinutes": 6,
           "words": [
             { "word": "月亮", "pinyin": "yuèliang", "definition": "Vietnamese def" }
           ]
@@ -157,28 +155,24 @@ The curriculum content is a JSON object with this shape (simplified):
           "type": "reading",
           "title": "Đọc: Lời bài hát",
           "description": "月亮代表我的心...",
-          "practiceMinutes": 5,
           "text": "Chinese reading passage text"
         },
         {
           "type": "readAlong",
           "title": "Nghe: Lời bài hát",
           "description": "Nghe đoạn văn vừa đọc và theo dõi.",
-          "practiceMinutes": 3,
           "text": "Same Chinese text as reading"
         },
         {
           "type": "writingSentence",
           "title": "Viết: Dùng từ '月亮'",
           "description": "Viết câu...",
-          "practiceMinutes": 10,
           "prompt": "Vietnamese prompt with Chinese example sentence"
         },
         {
           "type": "writingParagraph",
           "title": "Viết: Đoạn văn",
           "description": "Viết đoạn văn...",
-          "practiceMinutes": 10,
           "prompt": "Vietnamese prompt"
         }
       ]
@@ -205,14 +199,12 @@ Same JSON shape, but all Vietnamese text replaced with English:
           "type": "introAudio",
           "title": "Introduction to the Song",
           "description": "English description",
-          "practiceMinutes": 3,
           "script": "English teaching script with pinyin..."
         },
         {
           "type": "viewFlashcards",
           "title": "Flashcards: Session 1 Vocabulary",
           "description": "Learn 6 words: 月亮, 代表, ...",
-          "practiceMinutes": 6,
           "words": [
             { "word": "月亮", "pinyin": "yuèliang", "definition": "English def" }
           ]
@@ -248,7 +240,6 @@ Same JSON shape, but all Vietnamese text replaced with English:
 | `words[].pinyin` | Romanization |
 | `youtubeUrl` | External link |
 | `audioSpeed` | Playback setting |
-| `practiceMinutes` | Activity duration |
 | Activity types and order | Structural preservation |
 | Session count and order | Structural preservation |
 
@@ -297,7 +288,7 @@ Same JSON shape, but all Vietnamese text replaced with English:
 
 ### Property 2: Chinese content preservation
 
-*For any* mirror curriculum and its corresponding source curriculum, all Chinese content fields must be identical: reading passage text, vocabulary word characters, vocabulary pinyin, song lyrics, movie dialogue, novel chapter text, readAlong text, youtubeUrl values, audioSpeed values, and practiceMinutes values. Formally: for each activity at position (session_index, activity_index), the Chinese content fields in the mirror must byte-equal the same fields in the source.
+*For any* mirror curriculum and its corresponding source curriculum, all Chinese content fields must be identical: reading passage text, vocabulary word characters, vocabulary pinyin, song lyrics, movie dialogue, novel chapter text, readAlong text, youtubeUrl values, and audioSpeed values. Formally: for each activity at position (session_index, activity_index), the Chinese content fields in the mirror must byte-equal the same fields in the source.
 
 **Validates: Requirements 5.1, 5.2, 5.3, 5.4, 5.5, 5.6, 5.7, 5.10, 5.11**
 

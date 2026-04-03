@@ -35,7 +35,7 @@ Series ID: `qm9pj07x` (display_order: 200)
 ## How They Were Created
 
 - 8 standalone Python scripts (one per curriculum) built complete curriculum content JSON inline with hand-written Chinese text — all introAudio scripts, reading passages, descriptions, previews, and writing prompts individually crafted per topic
-- Each script called `curriculum/create` with `language:"zh"`, `userLanguage:"zh"`, verified the result via `curriculum/getOne` (checking language fields, 4 sessions, activity counts [11,11,6,6], activity type sequences, vocab counts, Chinese-only text, no strip-keys, reading excerpt ⊂ article, practiceMinutes values), and checked for duplicates
+- Each script called `curriculum/create` with `language:"zh"`, `userLanguage:"zh"`, verified the result via `curriculum/getOne` (checking language fields, 4 sessions, activity counts [11,11,6,6], activity type sequences, vocab counts, Chinese-only text, no strip-keys, reading excerpt ⊂ article), and checked for duplicates
 - An orchestrator script created the collection and 2 series, added curriculums to series, added series to collection, and set all display orders
 - All 9 Python scripts were deleted after successful creation and verification, per workspace conventions
 

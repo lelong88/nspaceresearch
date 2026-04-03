@@ -134,7 +134,6 @@ The transformation workflow for each curriculum is: (1) fetch the vi-zh source f
 8. THE Mirror_Curriculum SHALL preserve the activity structure (types, order, count per session) from the Source_Curriculum without modification.
 9. THE Mirror_Curriculum SHALL preserve the session structure (number of sessions, session order) from the Source_Curriculum without modification.
 10. THE Mirror_Curriculum SHALL preserve all `audioSpeed` values from the Source_Curriculum without modification.
-11. THE Mirror_Curriculum SHALL preserve all `practiceMinutes` values from the Source_Curriculum without modification.
 
 ### Requirement 6: Vietnamese-to-English Text Transformation
 

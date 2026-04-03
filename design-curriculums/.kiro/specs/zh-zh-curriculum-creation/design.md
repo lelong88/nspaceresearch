@@ -236,7 +236,6 @@ After all scripts are deleted, the README documents:
           "activityType": "introAudio",
           "title": "课程介绍",
           "description": "介绍本课主题和五个核心词汇。",
-          "practiceMinutes": 3,
           "data": {
             "text": "欢迎来到...(500-800 chars teaching script)"
           }
@@ -245,7 +244,6 @@ After all scripts are deleted, the README documents:
           "activityType": "viewFlashcards",
           "title": "词卡：认知偏差",
           "description": "学习5个词：词1、词2、词3、词4、词5",
-          "practiceMinutes": 6,
           "data": {
             "vocabList": [
               {
@@ -261,7 +259,6 @@ After all scripts are deleted, the README documents:
           "activityType": "speakFlashcards",
           "title": "词卡朗读：认知偏差",
           "description": "学习5个词：词1、词2、词3、词4、词5",
-          "practiceMinutes": 6,
           "data": {
             "vocabList": [/* same as viewFlashcards */],
             "audioSpeed": 1
@@ -271,7 +268,6 @@ After all scripts are deleted, the README documents:
           "activityType": "vocabLevel1",
           "title": "词汇练习一：认知偏差",
           "description": "学习5个词：词1、词2、词3、词4、词5",
-          "practiceMinutes": 10,
           "data": {
             "vocabList": [/* same vocab */],
             "audioSpeed": 1
@@ -281,7 +277,6 @@ After all scripts are deleted, the README documents:
           "activityType": "vocabLevel2",
           "title": "词汇练习二：认知偏差",
           "description": "学习5个词：词1、词2、词3、词4、词5",
-          "practiceMinutes": 10,
           "data": {
             "vocabList": [/* same vocab */],
             "audioSpeed": 1
@@ -291,7 +286,6 @@ After all scripts are deleted, the README documents:
           "activityType": "vocabLevel3",
           "title": "词汇练习三：认知偏差",
           "description": "学习5个词：词1、词2、词3、词4、词5",
-          "practiceMinutes": 10,
           "data": {
             "vocabList": [/* same vocab */],
             "audioSpeed": 1
@@ -301,7 +295,6 @@ After all scripts are deleted, the README documents:
           "activityType": "reading",
           "title": "阅读：认知偏差",
           "description": "当我们自信满满地做出一个决定时...",
-          "practiceMinutes": 5,
           "data": {
             "text": "当我们自信满满地做出一个决定时...(excerpt with W1 words)"
           }
@@ -310,7 +303,6 @@ After all scripts are deleted, the README documents:
           "activityType": "speakReading",
           "title": "朗读：认知偏差",
           "description": "当我们自信满满地做出一个决定时...",
-          "practiceMinutes": 5,
           "data": {
             "text": "(same as reading)"
           }
@@ -319,7 +311,6 @@ After all scripts are deleted, the README documents:
           "activityType": "readAlong",
           "title": "听读：认知偏差",
           "description": "听文章朗读并跟随阅读。",
-          "practiceMinutes": 3,
           "data": {
             "text": "(same as reading)"
           }
@@ -328,7 +319,6 @@ After all scripts are deleted, the README documents:
           "activityType": "writingSentence",
           "title": "造句：认知偏差",
           "description": "用本课词汇造句练习。",
-          "practiceMinutes": 10,
           "data": {
             "items": [
               {
@@ -342,7 +332,6 @@ After all scripts are deleted, the README documents:
           "activityType": "writingParagraph",
           "title": "写作：认知偏差",
           "description": "运用本课词汇写一段分析性文字。",
-          "practiceMinutes": 10,
           "data": {
             "rubric": "使用至少3个本课词汇，逻辑清晰，论述有深度。",
             "prompts": ["请分析日常生活中最常见的认知偏差..."],
@@ -485,7 +474,6 @@ Keys that must never appear in new curriculum content:
 
 *For any* activity in any session of any ZH-ZH curriculum:
 - The activity must have non-empty `title` and `description` string fields
-- The activity must have a `practiceMinutes` integer field matching the expected value for its `activityType` (introAudio: 3, viewFlashcards: 6, speakFlashcards: 6, vocabLevel1: 10, vocabLevel2: 10, vocabLevel3: 10, reading: 5, speakReading: 5, readAlong: 3, writingSentence: 10, writingParagraph: 10)
 - Each session must have a non-empty `title` string field
 
 **Validates: Requirements 9.1, 9.2, 9.3, 9.4, 9.5, 9.6, 9.7, 9.8, 9.9**
@@ -582,7 +570,7 @@ The correctness properties (Properties 1–12) map to specific verification chec
 | P5: Chinese-only text | `verify_curriculum()` scans text fields for Latin characters |
 | P6: IntroAudio vocab | `verify_curriculum()` checks vocab words appear in introAudio text |
 | P7: Reading integrity | `verify_curriculum()` checks article length, vocab presence, excerpt⊂article |
-| P8: Activity metadata | `verify_curriculum()` checks title/description/practiceMinutes on every activity |
+| P8: Activity metadata | `verify_curriculum()` checks title/description on every activity |
 | P9: No strip-keys | `verify_curriculum()` recursively scans for forbidden keys |
 | P10: WritingSentence coverage | `verify_curriculum()` checks targetVocab matches session vocab |
 | P11: S3 writingParagraph scope | `verify_curriculum()` checks vocabList spans both W1 and W2 |

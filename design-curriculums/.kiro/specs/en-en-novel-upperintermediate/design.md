@@ -167,7 +167,6 @@ token = get_firebase_id_token(UID)
             "activityType": "viewFlashcards",
             "title": "Flashcards: [topic]",
             "description": "Learn 4 words: word1, word2, word3, word4",
-            "practiceMinutes": 2,
             "data": {
                 "vocabList": ["word1", "word2", "word3", "word4"],
                 "audioSpeed": -0.2
@@ -177,7 +176,6 @@ token = get_firebase_id_token(UID)
             "activityType": "reading",
             "title": "Read: [topic]",
             "description": "First ~80 characters of the reading text...",
-            "practiceMinutes": 5,
             "data": {
                 "text": "...(150–290 words English passage)...",
                 "audioSpeed": -0.2
@@ -187,7 +185,6 @@ token = get_firebase_id_token(UID)
             "activityType": "readAlong",
             "title": "Listen: [topic]",
             "description": "Listen to the passage and follow along.",
-            "practiceMinutes": 5,
             "data": {
                 "text": "...(same passage text as reading)...",
                 "audioSpeed": -0.2
@@ -207,7 +204,6 @@ token = get_firebase_id_token(UID)
             "activityType": "viewFlashcards",
             "title": "Flashcards: Review all vocabulary",
             "description": "Learn 20 words: word1, word2, ..., word20",
-            "practiceMinutes": 5,
             "data": {
                 "vocabList": [
                     # All 20 vocabulary words from the chapter
@@ -219,7 +215,6 @@ token = get_firebase_id_token(UID)
             "activityType": "readAlong",
             "title": "Listen: Full Chapter",
             "description": "Listen to the full chapter and follow along.",
-            "practiceMinutes": 15,
             "data": {
                 "text": "...(all 5 passages concatenated with \\n\\n)...",
                 "audioSpeed": -0.2
@@ -336,7 +331,7 @@ original-novels/[novel-folder-name]/
 
 ### Property 12: Activity titles, descriptions, and required fields
 
-*For any* activity across all chapters: all activities shall have non-empty `activityType`, `title`, `description`, `practiceMinutes`, and `data` fields. viewFlashcards titles shall start with "Flashcards:", reading titles shall start with "Read:", readAlong titles in sessions 1–5 shall start with "Listen:", and session 6 readAlong title shall contain "Full Chapter".
+*For any* activity across all chapters: all activities shall have non-empty `activityType`, `title`, `description`, and `data` fields. viewFlashcards titles shall start with "Flashcards:", reading titles shall start with "Read:", readAlong titles in sessions 1–5 shall start with "Listen:", and session 6 readAlong title shall contain "Full Chapter".
 
 **Validates: Requirements 5.6, 5.7, 5.8, 5.9, 7.9, 11.4**
 

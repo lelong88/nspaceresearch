@@ -73,12 +73,12 @@ def validate(content):
     if "movie" not in content.get("contentTypeTags", []):
         errors.append("Missing 'movie' in contentTypeTags")
 
-    # Every activity has title, description, practiceMinutes
+    # Every activity has title, description
     for i, session in enumerate(content["learningSessions"]):
         if "title" not in session:
             errors.append(f"Session {i} missing title")
         for j, act in enumerate(session["activities"]):
-            for field in ("title", "description", "practiceMinutes"):
+            for field in ("title", "description"):
                 if field not in act:
                     errors.append(f"Session {i}, Activity {j} ({act.get('activityType','?')}) missing '{field}'")
 

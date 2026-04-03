@@ -27,7 +27,6 @@ Deterministic rules derived from all 377 curriculum rows. Excludes strip-keys (`
 | Each activity is an object | `jsonb_typeof = 'object'` |
 | Has `activityType` | string. Must NOT use `type` (old schema — corrupted) |
 | Valid activityType value | one of: `introAudio`, `viewFlashcards`, `speakFlashcards`, `vocabLevel1`, `vocabLevel2`, `vocabLevel3`, `reading`, `speakReading`, `readAlong`, `writingSentence`, `writingParagraph` |
-| Has `practiceMinutes` | number, > 0 |
 | Has `title` | string |
 | Has `description` | string |
 | Has `data` field | object. Content fields must be inside `data`, NOT inline on the activity (inline = corrupted) |

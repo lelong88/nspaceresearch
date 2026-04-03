@@ -9,6 +9,7 @@
     "curriculumTags",
     "taskId",
     "imageId",
+    "practiceMinutes",
     "practiceTime",
     "difficultyTags",
     "skillFocusTags"

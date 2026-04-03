@@ -184,7 +184,7 @@ Create 61 en-zh mirror curriculums from existing vi-zh curriculums across 7 seri
     - Create `en-zh-curriculum-mirror/verify_all.py`
     - Fetches all 61 en-zh curriculums and their 61 vi-zh source counterparts
     - For each pair, verifies:
-      - Property 2: Chinese content identical (reading text, vocab words, pinyin, youtubeUrl, audioSpeed, practiceMinutes)
+      - Property 2: Chinese content identical (reading text, vocab words, pinyin, youtubeUrl, audioSpeed)
       - Property 3: Structural preservation (session count, activity count, activity type sequence)
       - Property 4: Language params correct (`language=zh`, `userLanguage=en`)
       - Property 10: `is_public` is false

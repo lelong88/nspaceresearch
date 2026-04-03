@@ -110,6 +110,6 @@ All descriptions across curriculums, series, and collections on the platform cur
 2. WHEN the Update_Script rewrites a Farewell_IntroAudio, THE Update_Script SHALL rewrite the `text` field with a fresh, individually crafted farewell that reviews vocabulary and provides a warm sign-off — following the quality standard for introAudio Session 4 farewell (~400-600 words)
 3. WHEN the Update_Script rewrites farewell scripts, THE Update_Script SHALL vary the tone across the Tone_Palette — no two curriculums in the same series SHALL use the same farewell rhetorical approach
 4. WHEN the Update_Script updates a farewell introAudio, THE Update_Script SHALL strip the `mp3Url` from that specific activity so audio is regenerated from the new text
-5. WHEN the Update_Script updates a farewell introAudio, THE Update_Script SHALL preserve all other keys on the activity (title, description, practiceMinutes, etc.) and all other activities and fields in the curriculum content JSON
+5. WHEN the Update_Script updates a farewell introAudio, THE Update_Script SHALL preserve all other keys on the activity (title, description, etc.) and all other activities and fields in the curriculum content JSON
 6. THE Update_Script SHALL authenticate using `firebase_token.get_firebase_id_token` with UID `zs5AMpVfqkcfDf8CJ9qrXdH58d73`
 7. THE Update_Script SHALL craft each farewell script individually — no template functions, string interpolation, or fill-in-the-blank generation

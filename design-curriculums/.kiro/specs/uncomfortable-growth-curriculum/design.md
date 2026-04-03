@@ -172,20 +172,20 @@ def set_display_order(curriculum_id, order):
 
 ### Component 3: Activity Types
 
-Each activity requires `title`, `description`, and `practiceMinutes` fields.
+Each activity requires `title` and `description` fields.
 
-| Activity Type | practiceMinutes | Title Format | Description |
-|---------------|-----------------|--------------|-------------|
-| `introAudio` | 3 | Descriptive label | Brief summary |
-| `viewFlashcards` | 6 | "Flashcards: <topic>" | Word list |
-| `speakFlashcards` | 6 | "Flashcards: <topic>" | Word list |
-| `vocabLevel1` | 10 | "Flashcards: <topic>" | Word list |
-| `vocabLevel2` | 10 | "Flashcards: <topic>" | Word list |
-| `reading` | 5 | "Read: <topic>" / "Đọc: <topic>" | First ~80 chars |
-| `speakReading` | 5 | "Read: <topic>" / "Đọc: <topic>" | First ~80 chars |
-| `readAlong` | 3 | "Listen: <topic>" / "Nghe: <topic>" | Brief description |
-| `writingSentence` | 10 | "Write: <topic>" / "Viết: <topic>" | Task summary |
-| `writingParagraph` | 10 | "Write: <topic>" / "Viết: <topic>" | Task summary |
+| Activity Type | Title Format | Description |
+|---------------|--------------|-------------|
+| `introAudio` | Descriptive label | Brief summary |
+| `viewFlashcards` | "Flashcards: <topic>" | Word list |
+| `speakFlashcards` | "Flashcards: <topic>" | Word list |
+| `vocabLevel1` | "Flashcards: <topic>" | Word list |
+| `vocabLevel2` | "Flashcards: <topic>" | Word list |
+| `reading` | "Read: <topic>" / "Đọc: <topic>" | First ~80 chars |
+| `speakReading` | "Read: <topic>" / "Đọc: <topic>" | First ~80 chars |
+| `readAlong` | "Listen: <topic>" / "Nghe: <topic>" | Brief description |
+| `writingSentence` | "Write: <topic>" / "Viết: <topic>" | Task summary |
+| `writingParagraph` | "Write: <topic>" / "Viết: <topic>" | Task summary |
 
 ### Component 4: API Endpoints Used
 
@@ -275,7 +275,6 @@ Each activity requires `title`, `description`, and `practiceMinutes` fields.
     "type": "introAudio",
     "title": "Introduction" | "Giới thiệu",
     "description": "Brief summary of what this intro covers",
-    "practiceMinutes": 3,
     "text": "Full script (400-600 words for mini)..."
 }
 ```
@@ -286,7 +285,6 @@ Each activity requires `title`, `description`, and `practiceMinutes` fields.
     "type": "viewFlashcards",  # or "speakFlashcards"
     "title": "Flashcards: Uncomfortable Growth",
     "description": "Learn 5 words: word1, word2, word3, word4, word5",
-    "practiceMinutes": 6,
     "words": [
         {
             "word": "resilience",
@@ -305,7 +303,6 @@ Each activity requires `title`, `description`, and `practiceMinutes` fields.
     "type": "vocabLevel1",  # or "vocabLevel2"
     "title": "Flashcards: Uncomfortable Growth",
     "description": "Practice 5 words: word1, word2, word3, word4, word5",
-    "practiceMinutes": 10,
     "words": [...]  # Same structure as flashcards
 }
 ```
@@ -316,7 +313,6 @@ Each activity requires `title`, `description`, and `practiceMinutes` fields.
     "type": "reading",  # or "speakReading"
     "title": "Read: The Science of Discomfort",
     "description": "Every meaningful skill you've ever acquired began with...",
-    "practiceMinutes": 5,
     "text": "Full reading passage...",
     "words": [...]  # Vocabulary words for highlighting
 }
@@ -328,7 +324,6 @@ Each activity requires `title`, `description`, and `practiceMinutes` fields.
     "type": "readAlong",
     "title": "Listen: The Science of Discomfort",
     "description": "Listen to the passage and follow along",
-    "practiceMinutes": 3,
     "text": "Same text as reading activity"
 }
 ```
@@ -339,7 +334,6 @@ Each activity requires `title`, `description`, and `practiceMinutes` fields.
     "type": "writingSentence",
     "title": "Write: Using New Vocabulary",
     "description": "Practice using vocabulary in sentences",
-    "practiceMinutes": 10,
     "items": [
         {
             "word": "resilience",
@@ -356,7 +350,6 @@ Each activity requires `title`, `description`, and `practiceMinutes` fields.
     "type": "writingParagraph",
     "title": "Write: Reflection on Growth",
     "description": "Compose a paragraph using all vocabulary words",
-    "practiceMinutes": 10,
     "prompt": "Write a paragraph reflecting on a time when discomfort led to growth in your learning journey. Use all 5 vocabulary words: resilience, neuroplasticity, cognitive, threshold, perseverance.",
     "vocabList": ["resilience", "neuroplasticity", "cognitive", "threshold", "perseverance"]
 }
@@ -458,9 +451,9 @@ Each curriculum is placed in the appropriate feature collection for its language
 
 ### Property 7: All Required Metadata Fields Are Present
 
-*For any* curriculum, all activities SHALL have `title`, `description`, and `practiceMinutes` fields, all sessions SHALL have a `title` field, and `practiceMinutes` values SHALL match the standard defaults for each activity type.
+*For any* curriculum, all activities SHALL have `title` and `description` fields, and all sessions SHALL have a `title` field.
 
-**Validates: Requirements 8.1, 8.7, 8.8**
+**Validates: Requirements 8.1, 8.7**
 
 ### Property 8: No Auto-Generated Keys in New Curriculum Content
 
@@ -601,8 +594,6 @@ def test_required_metadata_fields(curriculum):
         for activity in session["activities"]:
             assert "title" in activity
             assert "description" in activity
-            assert "practiceMinutes" in activity
-            assert isinstance(activity["practiceMinutes"], int)
 
 # Feature: uncomfortable-growth-curriculum, Property 8: No auto-generated keys
 @given(curriculum=curriculum_strategy())
@@ -669,7 +660,6 @@ def validate_content(content, variant, language_pair):
         if "title" not in session:
             errors.append(f"Session {i} missing title")
         for j, activity in enumerate(session["activities"]):
-            for field in ["title", "description", "practiceMinutes"]:
                 if field not in activity:
                     errors.append(f"Session {i} Activity {j} missing {field}")
     

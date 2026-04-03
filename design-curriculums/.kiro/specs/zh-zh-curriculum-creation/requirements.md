@@ -45,7 +45,6 @@ Each curriculum contains 10 advanced Chinese vocabulary words (成语、书面�
 - **Orchestrator_Script**: A Python script that creates the collection, series, adds curriculums to series, adds series to collection, and sets display orders.
 - **API**: The helloapi.step.is REST API used for all CRUD operations.
 - **learningSessions**: The JSON key used for the sessions array in the curriculum content (not `sessions`).
-- **practiceMinutes**: Required integer field on every activity specifying expected duration.
 
 ## Requirements
 
@@ -172,7 +171,6 @@ Each curriculum contains 10 advanced Chinese vocabulary words (成语、书面�
 6. WHEN a writingSentence activity is created, THE Activity title SHALL follow the format "造句：<主题>" and the description SHALL briefly summarize the writing task in Chinese.
 7. WHEN a writingParagraph activity is created, THE Activity title SHALL follow the format "写作：<主题>" and the description SHALL briefly summarize the writing task in Chinese.
 8. THE Session object SHALL include a `title` field in Chinese (e.g., "第一课", "第二课", "复习", "全文阅读").
-9. THE Activity SHALL include a `practiceMinutes` field with appropriate values: introAudio (3), viewFlashcards (6), speakFlashcards (6), vocabLevel1 (10), vocabLevel2 (10), vocabLevel3 (10), reading (5), speakReading (5), readAlong (3), writingSentence (10), writingParagraph (10).
 
 ### Requirement 10: Strip-Keys Compliance
 

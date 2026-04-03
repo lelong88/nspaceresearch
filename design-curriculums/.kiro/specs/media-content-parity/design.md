@@ -108,7 +108,7 @@ def validate(content):
     """Validate structural properties before upload."""
     # 18 unique vocab words
     # 5 sessions with activity counts [12, 12, 12, 4, 5]
-    # Every activity has title, description, practiceMinutes
+    # Every activity has title, description
     # youtubeUrl present at top level
     # contentTypeTags present
     # No strip keys in content
@@ -207,12 +207,12 @@ def validate(content, content_type):
     if content_type not in content.get("contentTypeTags", []):
         errors.append(f"Missing contentTypeTags containing '{content_type}'")
     
-    # Every activity has title, description, practiceMinutes
+    # Every activity has title, description
     for i, session in enumerate(content["sessions"]):
         if "title" not in session:
             errors.append(f"Session {i} missing title")
         for j, act in enumerate(session["activities"]):
-            for field in ("title", "description", "practiceMinutes"):
+            for field in ("title", "description"):
                 if field not in act:
                     errors.append(f"S{i}A{j} missing {field}")
     
@@ -354,7 +354,7 @@ All scripts deleted after verification; only READMEs remain.
 
 ### Property 4: Activity Metadata Completeness
 
-*For any* curriculum, every activity SHALL have `title`, `description`, and `practiceMinutes` fields, and every session SHALL have a `title` field.
+*For any* curriculum, every activity SHALL have `title` and `description` fields, and every session SHALL have a `title` field.
 
 **Validates: Requirements 2.7, 3.8, 4.6, 5.6, 6.6**
 
@@ -482,8 +482,6 @@ def test_activity_metadata(curriculum):
         for activity in session["activities"]:
             assert "title" in activity
             assert "description" in activity
-            assert "practiceMinutes" in activity
-            assert isinstance(activity["practiceMinutes"], int)
 ```
 
 ### Unit Test Examples

@@ -21,9 +21,9 @@ Create 8 ZH-ZH curriculums (Chinese-for-Chinese-speakers) organized into 1 colle
       - Session 2 (11 activities): same pattern with W2 words, introAudio recaps W1 before teaching W2
       - Session 3 review (6 activities): introAudio reviewing all 10 words, viewFlashcards (all 10), vocabLevel1-3 (all 10), writingParagraph using both W1+W2
       - Session 4 full article (6 activities): introAudio intro, reading (full article 800-1200 chars with all 10 words), speakReading, readAlong, writingParagraph (culminating task), introAudio farewell reviewing all 10 words
-    - All activity metadata: Chinese titles, descriptions, correct practiceMinutes per activity type
+    - All activity metadata: Chinese titles, descriptions
     - `create_curriculum()`: POST to `curriculum/create` with `language:"zh"`, `userLanguage:"zh"`, content as JSON string
-    - `verify_curriculum()`: fetch via `curriculum/getOne`, verify language fields, 4 sessions, activity counts [11,11,6,6], activity type sequences, vocab counts, Chinese-only text, no strip-keys, reading excerpt ⊂ article, practiceMinutes values
+    - `verify_curriculum()`: fetch via `curriculum/getOne`, verify language fields, 4 sessions, activity counts [11,11,6,6], activity type sequences, vocab counts, Chinese-only text, no strip-keys, reading excerpt ⊂ article
     - `check_duplicates()`: query by title + UID, keep earliest, remove from series + delete extras
     - Print curriculum ID and title on success
     - _Requirements: 2.1, 2.2, 2.3, 2.4, 3.1–3.11, 4.1–4.6, 5.1–5.9, 6.1–6.6, 7.1–7.7, 8.1–8.5, 9.1–9.9, 10.1, 10.2, 13.1, 13.3, 13.4, 14.1–14.3, 16.1, 16.3, 19.1–19.4, 20.1–20.3_

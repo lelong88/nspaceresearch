@@ -188,7 +188,7 @@ The novel cannot be placed in the existing "Truyện (Fiction)" collection (ID: 
 1. THE viewFlashcards Activity SHALL have an activityType field set to "viewFlashcards" and a data object containing vocabList (array of word strings) and audioSpeed (-0.2)
 2. THE reading Activity SHALL have an activityType field set to "reading" and a data object containing text (the passage string) and audioSpeed (-0.2)
 3. THE readAlong Activity SHALL have an activityType field set to "readAlong" and a data object containing text (the passage string) and audioSpeed (-0.2)
-4. THE Activity object SHALL contain activityType, title, description, practiceMinutes, and data fields
+4. THE Activity object SHALL contain activityType, title, description, and data fields
 5. THE vocabList in viewFlashcards data SHALL be a simple array of word strings (e.g., ["elaborate", "threshold", "compelling", "ambiguous"]) — no translation objects, no example sentence objects
 
 ### Requirement 12: Novel Source Folder Naming

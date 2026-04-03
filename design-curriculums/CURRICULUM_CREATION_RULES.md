@@ -4,25 +4,6 @@ Rules that apply specifically when creating new curriculums (via `curriculum/cre
 
 ## Activity Schema Requirements
 
-### practiceMinutes Required on Every Activity
-Every activity must have a `practiceMinutes` field (integer). Default values by activity type:
-
-| Activity Type | practiceMinutes |
-|---|---|
-| `introAudio` | 3 |
-| `viewFlashcards` | 6 |
-| `speakFlashcards` | 6 |
-| `vocabLevel1` | 10 |
-| `vocabLevel2` | 10 |
-| `vocabLevel3` | 10 |
-| `reading` | 5 |
-| `speakReading` | 5 |
-| `readAlong` | 3 |
-| `writingSentence` | 10 |
-| `writingParagraph` | 10 |
-
-Adjust if the activity is unusually long or short (e.g., a short welcome introAudio can be 1 minute). Never create activities without `practiceMinutes`.
-
 ### vocabList Required on Vocab Activities
 `speakFlashcards`, `viewFlashcards`, and `vocabLevel*` (`vocabLevel1`, `vocabLevel2`, `vocabLevel3`) activities must include a `vocabList` field — an array of lowercase strings listing the vocabulary words for that activity.
 
