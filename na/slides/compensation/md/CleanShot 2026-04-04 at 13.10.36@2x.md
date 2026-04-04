@@ -1,0 +1,30 @@
+# Risk controls in bonus design
+
+![Source](../images/CleanShot 2026-04-04 at 13.10.36@2x.png)
+
+*Three circled percentage indicators at the top of the slide:*
+
+**(100%)** Compensation expenses either based on production net-off or apply freelook | **(39%)** Compensation expenses with claw back condition | **(8.6%)** Compensation expenses are deferred payment
+
+| Eligible | Bonus Items | P13 | DC modifier | Net production | Apply freelook | Capped or fixed amount | Deferred payment | Claw back | Other Controls |
+|----------|-------------|-----|-------------|----------------|----------------|----------------------|------------------|-----------|----------------|
+| **Agent** | 1. Monthly Production Bonus | ☑ | ☑ | ☑ | | | | ☑ | • Claw back if policy is cancelled |
+| | 2. Quarterly Production Bonus | ☑ | | ☑ | | | ☑ | ☑ | • Claw back if policy is cancelled |
+| | 3. New Agent M1-M2 Bonus | ☑ | ☑ | | ☑ | | ☑ | | • Claw back if termination within 12 months, exclude rehire <24mths |
+| | 4. New Agent Silver Fast track Bonus | ☑ | ☑ | | | | ☑ | | • Claw back if termination within 12 months, exclude rehire <24mths |
+| | 5. Monthly Manulife Pro Allowance | ☑ | ☑ | | ☑ | ☑ | | | |
+| | 6. Manulife Pro Agent Retention Bonus | ☑ | ☑ | | | ☑ | ☑ | | • Capped at 100 mil; Deferred payment; P13 is required for both bonus qualification and at payment timeline |
+| | 7. MDRT Quarterly Bonus | ☑ | ☑ | ☑ | | ☑ | | ☑ | • Claw back if termination before March next year |
+| | 8. MDRT Year-end catchup Bonus | ☑ | ☑ | | ☑ | ☑ | | | |
+| | 9. Referral Bonus | ☑ | ☑ | | ☑ | | ☑ | | • Claw back if policy is cancelled, exclude rehire <24mths |
+| **UM+** | 1. Override | | | ☑ | | | | ☑ | • Claw back if policy is cancelled |
+| | 2. Monthly Team Activation Bonus | ☑ | | ☑ | | | | ☑ | • Claw back if policy is cancelled |
+| | 3. New Agent development bonus | ☑ | | | ☑ | | | | |
+| | 4. Developing New UM bonus | | | ☑ | | ☑ | | ☑ | • Exclude new UM in GTF program • Both new UM and direct manager need to maintain UM rank at time of payment |
+| | 5. MBA Pro UM+ Retention bonus | ☑ | | ☑ | | | ☑ | | • Need to maintain UM+/ PSM+, and P13 is required for both bonus qualification and at payment timeline |
+| **PSM+** | 1. SM+ fix allowance | | | ☑ | | ☑ | ☑ | | • Maximum 120% fix amount by rank |
+| | 2. SM+ Monthly Production Bonus | ☑ | | ☑ | | | | | |
+| | 3. SM+ Quarterly Production Bonus | ☑ | | | | | | | |
+| | 4. SM+ Retention bonus | ☑ | | ☑ | | ☑ | ☑ | ☑ | • Maximum 12 months of fix allowance (by rank at year-end) • P13 is required for both bonus qualification and at payment timeline • Need to maintain PSM+ at payment timeline • Exclude termination because of company's decision/ DC violation |
+
+*Highly Confidential* | 27
