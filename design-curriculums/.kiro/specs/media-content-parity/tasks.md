@@ -178,8 +178,8 @@ Fill 6 content gaps across the language pair × content type matrix so every com
 - [x] 9. Checkpoint — en-en movies and songs verified
   - Ensure all 8 en-en curriculums (4 movies + 4 songs) exist with correct structure, collections wired, ask the user if questions arise.
 
-- [ ] 10. en-en podcast curriculums (mirror from vi-en)
-  - [-] 10.1 Write `en-en-podcast-vocab-series/create_podcast_0_tim_urban.py` — mirror Tim Urban
+- [x] 10. en-en podcast curriculums (mirror from vi-en)
+  - [x] 10.1 Write `en-en-podcast-vocab-series/create_podcast_0_tim_urban.py` — mirror Tim Urban
     - Fetch vi-en source `lPa8rC1ua4rJrOUl` via `curriculum/getOne`
     - `strip_keys()` to remove auto-generated keys
     - Transform all Vietnamese user-facing text → hand-written English
@@ -188,64 +188,64 @@ Fill 6 content gaps across the language pair × content type matrix so every com
     - Set `is_public = false`
     - _Requirements: 6.1, 6.2, 6.3, 6.4, 6.5, 6.6, 9.1, 9.2, 9.3, 9.4, 9.5_
 
-  - [ ] 10.2 Write `en-en-podcast-vocab-series/create_podcast_1_amy_cuddy.py` — mirror Amy Cuddy
+  - [x] 10.2 Write `en-en-podcast-vocab-series/create_podcast_1_amy_cuddy.py` — mirror Amy Cuddy
     - Fetch vi-en source `6r63yMCmoRH4AcWr`, strip keys, transform Vietnamese → English
     - Same mirror pattern as 10.1
     - _Requirements: 6.1, 6.2, 6.3, 6.4, 6.5, 6.6, 9.1, 9.2, 9.3, 9.4, 9.5_
 
-  - [ ] 10.3 Write `en-en-podcast-vocab-series/create_podcast_2_julian_treasure.py` — mirror Julian Treasure
+  - [x] 10.3 Write `en-en-podcast-vocab-series/create_podcast_2_julian_treasure.py` — mirror Julian Treasure
     - Fetch vi-en source `DUfee1HEWcBcNEXp`, strip keys, transform Vietnamese → English
     - Same mirror pattern as 10.1
     - _Requirements: 6.1, 6.2, 6.3, 6.4, 6.5, 6.6, 9.1, 9.2, 9.3, 9.4, 9.5_
 
-  - [ ] 10.4 Write `en-en-podcast-vocab-series/create_podcast_3_brene_brown.py` — mirror Brené Brown
+  - [x] 10.4 Write `en-en-podcast-vocab-series/create_podcast_3_brene_brown.py` — mirror Brené Brown
     - Fetch vi-en source `z0qB88II5SgkKYrp`, strip keys, transform Vietnamese → English
     - Same mirror pattern as 10.1
     - _Requirements: 6.1, 6.2, 6.3, 6.4, 6.5, 6.6, 9.1, 9.2, 9.3, 9.4, 9.5_
 
-  - [ ] 10.5 Write `en-en-podcast-vocab-series/create_en_en_podcast_collection.py` orchestrator
+  - [x] 10.5 Write `en-en-podcast-vocab-series/create_en_en_podcast_collection.py` orchestrator
     - Create Collection "Learn Vocabulary Through Podcasts"
     - Add all 4 curriculums directly to the collection via `curriculum-collection/addCurriculum`, set display orders 0–3
     - _Requirements: 6.7_
 
-  - [ ] 10.6 Run all 4 mirror scripts and orchestrator, verify in database
+  - [x] 10.6 Run all 4 mirror scripts and orchestrator, verify in database
     - Execute each `create_podcast_N_*.py` script, collect curriculum IDs
     - Execute orchestrator to wire collection
     - Check for duplicates by title + language + uid
     - _Requirements: 6.7, 6.8_
 
-- [ ] 11. Checkpoint — en-en podcasts verified
+- [x] 11. Checkpoint — en-en podcasts verified
   - Ensure all 4 en-en podcast curriculums exist with correct structure, collection wired, ask the user if questions arise.
 
-- [ ] 12. Parity verification
-  - [ ] 12.1 Run parity matrix query
+- [x] 12. Parity verification
+  - [x] 12.1 Run parity matrix query
     - Query database for all curriculums grouped by (language, userLanguage, contentTypeTags)
     - Verify exactly 4 curriculums per cell for all 12 cells (4 language pairs × 3 content types = 48 total)
     - _Requirements: 8.1, 8.2_
 
-  - [ ] 12.2 Verify collection membership
+  - [x] 12.2 Verify collection membership
     - Confirm every media curriculum belongs to exactly one Collection (directly, not via series)
     - _Requirements: 8.3_
 
-  - [ ] 12.3 Verify no duplicates across all 48 curriculums
+  - [x] 12.3 Verify no duplicates across all 48 curriculums
     - Check for multiple curriculums with same title + language + userLanguage + uid
     - _Requirements: 8.5_
 
-  - [ ] 12.4 Verify Chinese podcast source differentiation
+  - [x] 12.4 Verify Chinese podcast source differentiation
     - Confirm vi-zh and en-zh podcast `youtubeUrl` values differ from all vi-en and en-en podcast `youtubeUrl` values
     - Confirm vi-zh and en-zh podcast pairs share the same 4 `youtubeUrl` values
     - _Requirements: 7.1, 7.2_
 
-- [ ] 13. Cleanup
-  - [ ] 13.1 Delete all creation and orchestrator scripts from all 6 folders
+- [x] 13. Cleanup
+  - [x] 13.1 Delete all creation and orchestrator scripts from all 6 folders
     - Remove all `.py` files from: `en-zh-music-series/`, `vi-zh-podcast-vocab-series/`, `en-zh-podcast-vocab-series/`, `en-en-movie-vocab-series/`, `en-en-song-vocab-series/`, `en-en-podcast-vocab-series/`
     - _Requirements: 2.10, 3.11, 4.9, 5.9, 6.9_
 
-  - [ ] 13.2 Create README.md in each of the 6 folders
+  - [x] 13.2 Create README.md in each of the 6 folders
     - Document: how content was created, collection/series IDs and titles, curriculum IDs and titles, SQL queries to find content in DB, recreation instructions
     - _Requirements: 2.10, 3.11, 4.9, 5.9, 6.9_
 
-- [ ] 14. Final checkpoint — Full parity achieved
+- [x] 14. Final checkpoint — Full parity achieved
   - Ensure all 48 curriculums exist, all collections wired, all scripts deleted, all READMEs created, ask the user if questions arise.
 
 ## Notes
