@@ -6,7 +6,7 @@ Rewrite all descriptions across collections, series, and curriculums, plus all f
 
 ## Tasks
 
-- [ ] 1. Inventory current descriptions via MCP Postgres
+- [x] 1. Inventory current descriptions via MCP Postgres
   - [x] 1.1 Query all collections with IDs, titles, and current descriptions
     - `SELECT id, title, description FROM curriculum_collections ORDER BY display_order;`
     - Record count and note which descriptions need rewriting
@@ -39,10 +39,70 @@ Rewrite all descriptions across collections, series, and curriculums, plus all f
     - **Description status:** 12 series have NULL descriptions, 34 have existing descriptions (many formulaic/short)
     - _Requirements: 1.2_
 
-  - [ ] 1.3 Query all curriculums grouped by series with IDs, titles, current descriptions, and farewell introAudio text
-    - `SELECT csc.curriculum_series_id, c.id, c.title, c.content->>'description' as description FROM curriculum c JOIN curriculum_series_curriculums csc ON c.id = csc.curriculum_id WHERE c.uid = 'zs5AMpVfqkcfDf8CJ9qrXdH58d73' ORDER BY csc.curriculum_series_id, c.display_order;`
-    - Also note the last introAudio activity text in each curriculum's last session (farewell script)
-    - Record count per series and total
+  - [x] 1.3 Query all curriculums grouped by series with IDs, titles, current descriptions, and farewell introAudio text
+    - Corrected query (actual table is `curriculum_series_items`, title is in `content` jsonb):
+      `SELECT csi.curriculum_series_id, c.id, c.content->>'title' as title, c.content->>'description' as description FROM curriculum c JOIN curriculum_series_items csi ON c.id = csi.curriculum_id WHERE c.uid = 'zs5AMpVfqkcfDf8CJ9qrXdH58d73' ORDER BY csi.curriculum_series_id, c.display_order;`
+    - Farewell introAudio query (last introAudio in last session):
+      `SELECT c.id, (SELECT a->'data'->>'text' FROM jsonb_array_elements(c.content->'learningSessions'->-1->'activities') WITH ORDINALITY AS t(a, idx) WHERE a->>'activityType' = 'introAudio' ORDER BY idx DESC LIMIT 1) as farewell_text FROM curriculum c WHERE c.id = '<id>';`
+    - **Total: 326 unique curriculums across 45 series** (327 rows; 1 curriculum "Nấu Cá Hồi Áp Chảo" appears in 2 series)
+    - **374 total curriculums owned by this UID; 48 not in any series**
+    - **Farewell status: 197 curriculums have farewell introAudio, 130 do not** (novels/stories with readAlong-heavy final sessions may lack a farewell introAudio)
+    - **Curriculum counts per series (for per-series script planning):**
+      - `009194da` **Dành cho bé gái 10-14 tuổi** — 2 curriculums
+      - `04kh7nyk` **Audio Guide** — 2 curriculums
+      - `09o7ke5d` **How the World Really Works** — 8 curriculums
+      - `0ofwj9eg` **Wisdom in Chinese Characters** — 4 curriculums
+      - `1e6e8a71` **Hướng Dẫn Viên Du Lịch (Tour Guides)** — 4 curriculums
+      - `1r0l5nos` **Big Ideas, Bigger Words** — 8 curriculums
+      - `2wlmlwpz` **The Signal Beyond** — 20 curriculums
+      - `3d836654` **World News** — 4 curriculums
+      - `6aqul3cz` **Khám Phá Châu Âu (Discover Europe)** — 4 curriculums
+      - `6k2ij0ut` **Tâm Lý & Phát Triển Bản Thân** — 3 curriculums
+      - `70b5bb22` **Ánh Sáng Cuối Cùng (The Last Light of Alder House)** — 20 curriculums
+      - `85d6512e` **Chủ Doanh Nghiệp (Business Owner)** — 5 curriculums
+      - `8c79a794` **Leadership - Cơ bản** — 1 curriculum
+      - `8ncovquk` **Speaking Focus** — 2 curriculums
+      - `8vwp780s` **Memories of Flavor (en-zh)** — 10 curriculums
+      - `9gfei23g` **The Boardroom** — 8 curriculums
+      - `bapehjcu` **Từ Vựng Học Thuật Qua Bài Đọc** — 8 curriculums
+      - `db5930f6` **Curious Minds** — 10 curriculums
+      - `dqce6wbh` **Hán Ngữ Phổ Thông - Sơ cấp 2** — 25 curriculums
+      - `e24f29c4` **Sức Khỏe & Lối Sống** — 8 curriculums
+      - `f5ort29f` **Khu Vườn Những Lá Thư** — 10 curriculums
+      - `jdi8d27v` **Tăng Trưởng Qua Khó Khăn** — 2 curriculums
+      - `kxxkeo1f` **Mind & Society** — 11 curriculums
+      - `mg9ud60h` **Môi Trường & Phát Triển Bền Vững** — 4 curriculums
+      - `mkxbcpty` **思维与认知** — 4 curriculums
+      - `n1jopztf` **Writing Focus** — 2 curriculums
+      - `n4y9zm3v` **Tiệm Sách Nhỏ Bên Biển** — 10 curriculums
+      - `n7qs5dwv` **Văn Hóa & Xã Hội** — 4 curriculums
+      - `nywzaazm` **The Vanishing Painting (en-zh)** — 10 curriculums
+      - `qm9pj07x` **社会与文明** — 4 curriculums
+      - `r01mrt51` **Học Qua Nghe** — 2 curriculums
+      - `r8vwa6hv` **Tháp Đồng Hồ Im Lặng** — 10 curriculums
+      - `ry534vdc` **Explore China (en-zh)** — 4 curriculums
+      - `sltfah2w` **Standard Chinese — Elementary 2** — 25 curriculums
+      - `strxp8gn` **Luyện Viết Tiếng Anh** — 2 curriculums
+      - `sv3uijyq` **Khoa Học & Công Nghệ** — 4 curriculums
+      - `u6mywecv` **Kinh Tế & Tài Chính** — 4 curriculums
+      - `ui33faux` **Luyện Nói Tiếng Anh** — 4 curriculums
+      - `uq7ezeuh` **味道的记忆 (vi-zh)** — 10 curriculums
+      - `vxvh04b5` **Triết Lý Trong Chữ Hán (vi-zh)** — 4 curriculums
+      - `wlzqfag8` **Bức Tranh Biến Mất (vi-zh)** — 10 curriculums
+      - `xb4mrvfp` **The Sound of Music by the Lake (en-zh)** — 10 curriculums
+      - `xwznpgdr` **The Science Shelf** — 7 curriculums
+      - `yjwuyhtk` **Khám Phá Trung Quốc (vi-zh)** — 4 curriculums
+      - `z6xddztr` **Tiếng Đàn Bên Hồ (vi-zh)** — 10 curriculums
+    - **Farewell introAudio patterns observed:**
+      - English vocab curriculums: ~1900-2800 chars, review each word with definition + example, warm sign-off
+      - Vietnamese vocab curriculums: ~600-1000 chars, shorter review, warm sign-off in Vietnamese
+      - Chinese character curriculums: ~1300-1500 chars, review radical + characters, philosophical sign-off
+      - Novel/story curriculums: Many lack farewell introAudio (final session is readAlong-heavy)
+    - **Content structure notes for update scripts:**
+      - Sessions key: `learningSessions` (not `sessions`)
+      - Activity type key: `activityType` (not `type`)
+      - Activity text is at: `activity.data.text` (not `activity.text`)
+      - Activity mp3Url is at: `activity.data.mp3Url`
     - _Requirements: 1.4, 8.1_
 
 - [ ] 2. Create folder and write collection description update script
@@ -66,8 +126,8 @@ Rewrite all descriptions across collections, series, and curriculums, plus all f
     - Confirm no "Did you know" remnants
     - _Requirements: 4.1, 4.2_
 
-- [ ] 3. Write and run series description update script
-  - [ ] 3.1 Write `description-tone-variety/update_series_descriptions.py`
+- [x] 3. Write and run series description update script
+  - [x] 3.1 Write `description-tone-variety/update_series_descriptions.py`
     - Query all series IDs, titles, and parent collections from DB at runtime
     - Hand-write each series description individually using varied tones
     - Validate every description is ≤ 255 characters before sending
@@ -84,13 +144,60 @@ Rewrite all descriptions across collections, series, and curriculums, plus all f
     - Confirm no "Did you know" remnants
     - _Requirements: 3.1, 3.2, 3.4_
 
-- [ ] 4. Checkpoint — Collections and series descriptions verified
+- [x] 4. Checkpoint — Collections and series descriptions verified
   - Ensure all collection and series descriptions are updated with varied tones, ask the user if questions arise.
 
-- [ ] 5. Write and run curriculum description update scripts (one per series)
-  - [ ] 5.1 Identify all series and their curriculum counts from the inventory (task 1)
+- [x] 5. Write and run curriculum description update scripts (one per series)
+  - [x] 5.1 Identify all series and their curriculum counts from the inventory (task 1)
     - List each series ID, title, and number of curriculums
     - Plan one script per series
+    - **Live query results (45 series, 326 curriculums total):**
+      - `009194da` **Dành cho bé gái 10-14 tuổi** — 2 curriculums → `update_curriculum_series_be_gai.py`
+      - `04kh7nyk` **Audio Guide** — 2 curriculums → `update_curriculum_series_audio_guide.py`
+      - `09o7ke5d` **How the World Really Works** — 8 curriculums → `update_curriculum_series_how_world_works.py`
+      - `0ofwj9eg` **Wisdom in Chinese Characters (汉字中的智慧)** — 4 curriculums → `update_curriculum_series_wisdom_chars_enzh.py`
+      - `1e6e8a71` **Hướng Dẫn Viên Du Lịch (Tour Guides)** — 4 curriculums → `update_curriculum_series_tour_guides.py`
+      - `1r0l5nos` **Big Ideas, Bigger Words** — 8 curriculums → `update_curriculum_series_big_ideas.py`
+      - `2wlmlwpz` **The Signal Beyond** — 20 curriculums → `update_curriculum_series_signal_beyond.py`
+      - `3d836654` **World News** — 4 curriculums → `update_curriculum_series_world_news.py`
+      - `6aqul3cz` **Khám Phá Châu Âu (Discover Europe)** — 4 curriculums → `update_curriculum_series_chau_au.py`
+      - `6k2ij0ut` **Tâm Lý & Phát Triển Bản Thân** — 3 curriculums → `update_curriculum_series_tam_ly.py`
+      - `70b5bb22` **Ánh Sáng Cuối Cùng (The Last Light of Alder House)** — 20 curriculums → `update_curriculum_series_anh_sang.py`
+      - `85d6512e` **Chủ Doanh Nghiệp (Business Owner)** — 5 curriculums → `update_curriculum_series_chu_doanh_nghiep.py`
+      - `8c79a794` **Leadership - Cơ bản** — 1 curriculum → `update_curriculum_series_leadership.py`
+      - `8ncovquk` **Speaking Focus** — 2 curriculums → `update_curriculum_series_speaking_focus.py`
+      - `8vwp780s` **Memories of Flavor (味道的记忆)** — 10 curriculums → `update_curriculum_series_memories_flavor_enzh.py`
+      - `9gfei23g` **The Boardroom** — 8 curriculums → `update_curriculum_series_boardroom.py`
+      - `bapehjcu` **Từ Vựng Học Thuật Qua Bài Đọc** — 8 curriculums → `update_curriculum_series_tu_vung_hoc_thuat.py`
+      - `db5930f6` **Curious Minds** — 10 curriculums → `update_curriculum_series_curious_minds.py`
+      - `dqce6wbh` **Hán Ngữ Phổ Thông - Sơ cấp 2** — 25 curriculums → `update_curriculum_series_han_ngu_so_cap.py`
+      - `e24f29c4` **Sức Khỏe & Lối Sống** — 8 curriculums → `update_curriculum_series_suc_khoe.py`
+      - `f5ort29f` **Khu Vườn Những Lá Thư (The Garden of Forgotten Letters)** — 10 curriculums → `update_curriculum_series_khu_vuon.py`
+      - `jdi8d27v` **Tăng Trưởng Qua Khó Khăn** — 2 curriculums → `update_curriculum_series_tang_truong.py`
+      - `kxxkeo1f` **Mind & Society** — 11 curriculums → `update_curriculum_series_mind_society.py`
+      - `mg9ud60h` **Môi Trường & Phát Triển Bền Vững** — 4 curriculums → `update_curriculum_series_moi_truong.py`
+      - `mkxbcpty` **思维与认知** — 4 curriculums → `update_curriculum_series_siwei_yuren.py`
+      - `n1jopztf` **Writing Focus** — 2 curriculums → `update_curriculum_series_writing_focus.py`
+      - `n4y9zm3v` **Tiệm Sách Nhỏ Bên Biển** — 10 curriculums → `update_curriculum_series_tiem_sach.py`
+      - `n7qs5dwv` **Văn Hóa & Xã Hội** — 4 curriculums → `update_curriculum_series_van_hoa.py`
+      - `nywzaazm` **The Vanishing Painting (消失的画)** — 10 curriculums → `update_curriculum_series_vanishing_painting_enzh.py`
+      - `qm9pj07x` **社会与文明** — 4 curriculums → `update_curriculum_series_shehui_wenming.py`
+      - `r01mrt51` **Học Qua Nghe** — 2 curriculums → `update_curriculum_series_hoc_qua_nghe.py`
+      - `r8vwa6hv` **Tháp Đồng Hồ Im Lặng** — 10 curriculums → `update_curriculum_series_thap_dong_ho.py`
+      - `ry534vdc` **Explore China (探索中国)** — 4 curriculums → `update_curriculum_series_explore_china_enzh.py`
+      - `sltfah2w` **Standard Chinese — Elementary 2** — 25 curriculums → `update_curriculum_series_standard_chinese.py`
+      - `strxp8gn` **Luyện Viết Tiếng Anh** — 2 curriculums → `update_curriculum_series_luyen_viet.py`
+      - `sv3uijyq` **Khoa Học & Công Nghệ** — 4 curriculums → `update_curriculum_series_khoa_hoc.py`
+      - `u6mywecv` **Kinh Tế & Tài Chính** — 4 curriculums → `update_curriculum_series_kinh_te.py`
+      - `ui33faux` **Luyện Nói Tiếng Anh** — 4 curriculums → `update_curriculum_series_luyen_noi.py`
+      - `uq7ezeuh` **味道的记忆 (Ký Ức Hương Vị)** — 10 curriculums → `update_curriculum_series_memories_flavor_vizh.py`
+      - `vxvh04b5` **Triết Lý Trong Chữ Hán** — 4 curriculums → `update_curriculum_series_triet_ly_chu_han.py`
+      - `wlzqfag8` **Bức Tranh Biến Mất (消失的画)** — 10 curriculums → `update_curriculum_series_buc_tranh_vizh.py`
+      - `xb4mrvfp` **The Sound of Music by the Lake (湖边的琴声)** — 10 curriculums → `update_curriculum_series_sound_music_enzh.py`
+      - `xwznpgdr` **The Science Shelf** — 7 curriculums → `update_curriculum_series_science_shelf.py`
+      - `yjwuyhtk` **Khám Phá Trung Quốc (探索中国)** — 4 curriculums → `update_curriculum_series_kham_pha_tq.py`
+      - `z6xddztr` **Tiếng Đàn Bên Hồ (湖边的琴声)** — 10 curriculums → `update_curriculum_series_tieng_dan_vizh.py`
+    - **Plan: 45 scripts total, one per series**
     - _Requirements: 7.1_
 
   - [ ] 5.2 Write first batch of per-series curriculum update scripts

@@ -108,6 +108,62 @@ Good: "Use the word 'circadian' in a sentence about biological rhythms. Example:
 Bad: "Explain a key concept from the invisible architecture of sleep using Session 1 vocabulary."
 Good: "Explain how the brain uses circadian rhythms and neurological processes to perform cognitive consolidation during sleep. What happens when this process is disrupted by deprivation?"
 
+## Description Tone Variety
+
+All descriptions — series-level and curriculum-level — must use varied rhetorical approaches to avoid monotony. Never write adjacent descriptions in the same tone.
+
+### The 6-Tone Palette
+
+Every description must use one of these six rhetorical openers:
+
+| Tone | What it does | Example opener |
+|---|---|---|
+| `provocative_question` | Opens with a question that hits a pain point or curiosity gap | "BẠN CÓ DÁM NÓI THẲNG VỚI SẾP RẰNG SẾP SAI KHÔNG?" |
+| `bold_declaration` | Opens with a confident, assertive statement | "BARCELONA KHÔNG PHẢI THÀNH PHỐ BẠN THAM QUAN — MÀ LÀ THÀNH PHỐ BẠN CẢM NHẬN." |
+| `vivid_scenario` | Opens with "imagine yourself" or a sensory scene | "HÃY TƯỞNG TƯỢNG BẠN ĐANG ĐỨNG TRÊN VÁCH ĐÁ TRẮNG, NHÌN MẶT TRỜI CHÌM VÀO BIỂN AEGEAN" |
+| `empathetic_observation` | Opens by naming a feeling or struggle the learner recognizes | "BẠN ĐÃ MƠ VỀ PARIS BAO LÂU RỒI — NHƯNG CHƯA BAO GIỜ CÓ ĐỦ TỪ ĐỂ NÓI VỀ NÓ?" |
+| `surprising_fact` | Opens with a striking statistic or counterintuitive fact | "80% quyết định tài chính bị chi phối bởi cảm xúc, không phải logic." |
+| `metaphor_led` | Opens with a metaphor that frames the entire description | "Psychology is the lens; society is the subject." |
+
+### Distribution Rules
+
+- All 6 tones must be used across any batch of descriptions. No tone may exceed 30% of the total.
+- Adjacent series within the same collection must use different tones. Annotate tone assignments in comments for tracking.
+- When writing a new series or collection, check existing tone assignments and pick a tone that maintains variety.
+
+### Series Descriptions (≤ 255 characters)
+
+Series descriptions are short persuasive hooks — one or two sentences max. They must:
+- Fit within the 255-character DB varchar limit
+- Use one of the 6 tones from the palette
+- Be concise but emotionally resonant — not dry catalog summaries
+- Avoid repeating the series title verbatim
+
+### Collection Descriptions (no char limit)
+
+Collection descriptions are short category summaries — NOT persuasive copy. They describe what the collection contains in a neutral, informative voice. Each should use a slightly different angle to avoid monotony, but they don't follow the 6-tone palette.
+
+### Curriculum Descriptions (multi-paragraph persuasive copy)
+
+Curriculum-level descriptions follow the full Persuasive Copy Style (see above) AND must use a tone from the 6-tone palette for their opening. Within a series, adjacent curriculums must use different tones. The structure:
+
+1. ALL-CAPS headline using the assigned tone (provocative question, bold declaration, vivid scenario, etc.)
+2. Concrete examples that make it personal
+3. Reveal the hidden mechanism with a vivid metaphor
+4. Promise of transformation
+5. Tie learning to personal growth
+
+### Farewell introAudio Tone Variety
+
+Farewell scripts (the last introAudio in the final session) must also vary in emotional register across curriculums in a series. Use different farewell tones:
+- `introspective guide` — reflective, asks the learner to look inward
+- `warm accountability` — challenges the learner to apply what they learned
+- `team-building energy` — upbeat, forward-looking, community-oriented
+- `quiet awe` — contemplative, poetic, leaves the learner with a feeling
+- `practical momentum` — action-oriented, gives the learner a next step
+
+Each farewell must: review 5-6 key vocabulary words with definitions and fresh example sentences, connect the words back to the curriculum's theme, and close with a warm personal sign-off.
+
 ## No Templated Content Generation
 Every piece of learner-facing text — introAudio scripts, reading passages, descriptions, previews, writing prompts, farewell scripts — must be individually crafted for its specific curriculum topic. Never use template functions, string interpolation patterns, or generic fill-in-the-blank approaches to generate content. Each curriculum's content must read as if a human subject-matter expert wrote it from scratch for that specific topic.
 

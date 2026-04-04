@@ -139,8 +139,8 @@ Fill 6 content gaps across the language pair × content type matrix so every com
     - Check for duplicates by title + language + uid
     - _Requirements: 4.7, 4.8_
 
-- [ ] 8. en-en song curriculums (mirror from vi-en)
-  - [ ] 8.1 Write `en-en-song-vocab-series/create_song_0_heal_the_world.py` — mirror Heal the World
+- [x] 8. en-en song curriculums (mirror from vi-en)
+  - [x] 8.1 Write `en-en-song-vocab-series/create_song_0_heal_the_world.py` — mirror Heal the World
     - Fetch vi-en source `qVv18hr5L4sTQs6i` via `curriculum/getOne`
     - `strip_keys()` to remove auto-generated keys
     - Transform all Vietnamese user-facing text → hand-written English
@@ -149,37 +149,37 @@ Fill 6 content gaps across the language pair × content type matrix so every com
     - Set `is_public = false`
     - _Requirements: 5.1, 5.2, 5.3, 5.4, 5.5, 5.6, 9.1, 9.2, 9.3, 9.4, 9.5_
 
-  - [ ] 8.2 Write `en-en-song-vocab-series/create_song_1_imagine.py` — mirror Imagine
+  - [x] 8.2 Write `en-en-song-vocab-series/create_song_1_imagine.py` — mirror Imagine
     - Fetch vi-en source `jHM7Pekp6LtLjqok`, strip keys, transform Vietnamese → English
     - Same mirror pattern as 8.1
     - _Requirements: 5.1, 5.2, 5.3, 5.4, 5.5, 5.6, 9.1, 9.2, 9.3, 9.4, 9.5_
 
-  - [ ] 8.3 Write `en-en-song-vocab-series/create_song_2_lean_on_me.py` — mirror Lean on Me
+  - [x] 8.3 Write `en-en-song-vocab-series/create_song_2_lean_on_me.py` — mirror Lean on Me
     - Fetch vi-en source `4Ho0bZURRPz2TiJA`, strip keys, transform Vietnamese → English
     - Same mirror pattern as 8.1
     - _Requirements: 5.1, 5.2, 5.3, 5.4, 5.5, 5.6, 9.1, 9.2, 9.3, 9.4, 9.5_
 
-  - [ ] 8.4 Write `en-en-song-vocab-series/create_song_3_wonderful_world.py` — mirror What a Wonderful World
+  - [x] 8.4 Write `en-en-song-vocab-series/create_song_3_wonderful_world.py` — mirror What a Wonderful World
     - Fetch vi-en source `5WdGkIlyRDO4dzsL`, strip keys, transform Vietnamese → English
     - Same mirror pattern as 8.1
     - _Requirements: 5.1, 5.2, 5.3, 5.4, 5.5, 5.6, 9.1, 9.2, 9.3, 9.4, 9.5_
 
-  - [ ] 8.5 Write `en-en-song-vocab-series/create_en_en_song_collection.py` orchestrator
+  - [x] 8.5 Write `en-en-song-vocab-series/create_en_en_song_collection.py` orchestrator
     - Create Collection "Learn Vocabulary Through Music"
     - Add all 4 curriculums directly to the collection via `curriculum-collection/addCurriculum`, set display orders 0–3
     - _Requirements: 5.7_
 
-  - [ ] 8.6 Run all 4 mirror scripts and orchestrator, verify in database
+  - [x] 8.6 Run all 4 mirror scripts and orchestrator, verify in database
     - Execute each `create_song_N_*.py` script, collect curriculum IDs
     - Execute orchestrator to wire collection
     - Check for duplicates by title + language + uid
     - _Requirements: 5.7, 5.8_
 
-- [ ] 9. Checkpoint — en-en movies and songs verified
+- [x] 9. Checkpoint — en-en movies and songs verified
   - Ensure all 8 en-en curriculums (4 movies + 4 songs) exist with correct structure, collections wired, ask the user if questions arise.
 
 - [ ] 10. en-en podcast curriculums (mirror from vi-en)
-  - [ ] 10.1 Write `en-en-podcast-vocab-series/create_podcast_0_tim_urban.py` — mirror Tim Urban
+  - [-] 10.1 Write `en-en-podcast-vocab-series/create_podcast_0_tim_urban.py` — mirror Tim Urban
     - Fetch vi-en source `lPa8rC1ua4rJrOUl` via `curriculum/getOne`
     - `strip_keys()` to remove auto-generated keys
     - Transform all Vietnamese user-facing text → hand-written English

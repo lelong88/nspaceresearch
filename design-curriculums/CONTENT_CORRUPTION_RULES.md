@@ -55,13 +55,14 @@ Deterministic rules derived from all 377 curriculum rows. Excludes strip-keys (`
 | `data.vocabList` | non-empty array of strings |
 | `data.items` | non-empty array |
 | Each item has `prompt` | non-empty string |
-| Each item has `targetVocab` | non-empty string. Must NOT use `word` (old schema — corrupted) |
+| Each item has `targetVocab` | non-empty string
 
 ### writingParagraph
 | Rule | Check |
 |---|---|
 | `data.vocabList` | array of strings |
-| Has prompt content | either `data.prompts` or `data.prompt` present |
+| `data.instructions` | non-empty string |
+| `data.prompts` | array of strings, length ≥ 2
 
 ## 5. Cross-Field Consistency
 

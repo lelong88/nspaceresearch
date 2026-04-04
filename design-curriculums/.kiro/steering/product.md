@@ -26,6 +26,10 @@ Do not call `curriculum/setPublic` with `isPublic: true` on newly created curric
 
 Two-level hierarchy: Collections → Series → Curriculums. Query current state from DB in real-time (MCP postgres or API).
 
+## Deleted Curriculums
+
+Ignore any curriculum whose `uid` ends with `_deleted`. These are soft-deleted records and should be excluded from queries, listings, and any processing.
+
 ## No Ephemeral Code
 
 No hardcoded IDs or static ID-to-name mappings. Query MCP postgres in real-time. Delete one-time scripts after execution. Source materials deleted after import — only README remains.
@@ -39,8 +43,20 @@ No hardcoded IDs or static ID-to-name mappings. Query MCP postgres in real-time.
 - Max 1 level gap within a series/collection. Check via `curriculum_series_level_gap` and `curriculum_collections_level_gap` views.
 - No difficulty level in titles (level is metadata, not title content).
 
+## Description Tone Variety
+
+All descriptions (series, collection, curriculum) must use varied rhetorical approaches. Six tones: `provocative_question`, `bold_declaration`, `vivid_scenario`, `empathetic_observation`, `surprising_fact`, `metaphor_led`. Rules:
+- Adjacent items in the same parent must use different tones
+- No single tone may exceed 30% of a batch
+- Series descriptions: ≤ 255 chars, short persuasive hooks using the 6-tone palette
+- Collection descriptions: short category summaries (not persuasive copy), varied angle but not palette-bound
+- Curriculum descriptions: full multi-paragraph persuasive copy with tone-assigned ALL-CAPS headline opener
+- Farewell introAudio scripts: vary emotional register (introspective, warm accountability, team energy, quiet awe, practical momentum); each reviews 5-6 vocab words with definitions and fresh examples
+
+Full rules in `CURRICULUM_QUALITY_STANDARDS.md` under "Description Tone Variety."
+
 ## Detailed Rules (in repo root — read when relevant to the task)
 
 - `CURRICULUM_CREATION_RULES.md` — activity schema requirements, DB column limits, story-oriented rules. Read when creating new curriculums.
-- `CURRICULUM_QUALITY_STANDARDS.md` — persuasive copy style, introAudio scripts, writing prompts. Read when writing learner-facing content.
+- `CURRICULUM_QUALITY_STANDARDS.md` — persuasive copy style, description tone variety, introAudio scripts, writing prompts, farewell quality. Read when writing learner-facing content.
 - `CURRICULUM_UPDATE_RULES.md` — what to preserve, what to strip when rewriting. Read when editing existing curriculums.
