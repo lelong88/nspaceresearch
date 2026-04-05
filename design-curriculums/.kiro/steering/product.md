@@ -60,3 +60,6 @@ Full rules in `CURRICULUM_QUALITY_STANDARDS.md` under "Description Tone Variety.
 - `CURRICULUM_CREATION_RULES.md` — activity schema requirements, DB column limits, story-oriented rules. Read when creating new curriculums.
 - `CURRICULUM_QUALITY_STANDARDS.md` — persuasive copy style, description tone variety, introAudio scripts, writing prompts, farewell quality. Read when writing learner-facing content.
 - `CURRICULUM_UPDATE_RULES.md` — what to preserve, what to strip when rewriting. Read when editing existing curriculums.
+
+## Check for curriulum corruptions
+- Always verify against the content-corruption.md rules after creating / editing curriculums
