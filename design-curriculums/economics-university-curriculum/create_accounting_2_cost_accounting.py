@@ -1,1186 +1,493 @@
-"""
-Create curriculum: Cost Accounting – Kế Toán Chi Phí
-Series D — Kế Toán & Tài Chính Doanh Nghiệp (Accounting & Corporate Finance), curriculum #2
-18 words | 5 sessions | metaphor_led tone | practical momentum farewell
-"""
-
-import sys
-import json
-import requests
-
+import sys, json, requests
 sys.path.insert(0, "/home/ubuntu/nspaceresearch/design-curriculums")
 from firebase_token import get_firebase_id_token
-
-sys.path.insert(0, "/home/ubuntu/nspaceresearch/design-curriculums/economics-university-curriculum")
-from validate_curriculum import validate_all
 
 UID = "zs5AMpVfqkcfDf8CJ9qrXdH58d73"
 API_BASE = "https://helloapi.step.is"
 
-# ── Word groups ──────────────────────────────────────────────
-W1 = ["cost", "budget", "variance", "overhead", "allocation", "direct"]
-W2 = ["indirect", "standard", "actual", "absorption", "marginal", "contribution"]
-W3 = ["breakeven", "forecast", "performance", "benchmark", "controllable", "uncontrollable"]
-ALL_WORDS = W1 + W2 + W3
+# Series D, Curriculum 2: Cost Accounting – Kế Toán Chi Phí
+# Description tone: metaphor_led
+# Farewell tone: practical momentum
+# W1: cost, budget, variance, overhead, allocation, direct
+# W2: indirect, standard, actual, absorption, marginal, contribution
+# W3: breakeven, forecast, performance, benchmark, controllable, uncontrollable
 
-# ── Content ──────────────────────────────────────────────────
 content = {
     "title": "Cost Accounting – Kế Toán Chi Phí",
     "contentTypeTags": [],
-    "description": (
-        "KẾ TOÁN CHI PHÍ GIỐNG NHƯ TẤM BẢN ĐỒ NHIỆT CỦA DOANH NGHIỆP — NƠI NÀO ĐANG 'NÓNG' VÌ CHI TIÊU QUÁ MỨC, NƠI NÀO ĐANG 'LẠNH' VÌ THIẾU ĐẦU TƯ.\n\n"
-        "Bạn ngồi trong phòng họp, giám đốc tài chính chiếu bảng phân tích chi phí sản xuất lên màn hình. "
-        "Bạn hiểu 'chi phí trực tiếp' và 'chi phí gián tiếp' bằng tiếng Việt, "
-        "nhưng khi đối tác Nhật Bản hỏi về variance analysis và absorption costing — "
-        "bạn chỉ biết gật đầu mà không thể phản hồi. "
-        "Những thuật ngữ này không phức tạp về logic, "
-        "nhưng chúng là ngôn ngữ chung của mọi hệ thống quản trị chi phí trên thế giới.\n\n"
-        "Hãy nghĩ về 18 từ vựng kế toán chi phí này như bộ cảm biến tài chính — "
-        "một khi bạn gắn chúng vào tư duy, bạn sẽ 'đọc' được sức khỏe chi phí "
-        "của bất kỳ doanh nghiệp nào chỉ qua một bảng báo cáo. "
-        "Từ budget đến breakeven, từ overhead đến benchmark — "
-        "bạn sẽ nắm được 'nhịp thở' tài chính mà mọi nhà quản lý cần hiểu.\n\n"
-        "Sau khóa học, bạn sẽ tự tin phân tích báo cáo chi phí bằng tiếng Anh, "
-        "thảo luận về variance analysis trong buổi họp đa quốc gia, "
-        "và viết nhận xét về hiệu quả chi phí doanh nghiệp bằng ngôn ngữ chuyên ngành.\n\n"
-        "18 từ vựng — từ cost đến uncontrollable — được dạy qua bài đọc, flashcard, luyện nói và viết. "
-        "Bạn vừa nâng cấp tư duy quản trị chi phí, vừa nâng trình tiếng Anh chuyên ngành một cách vượt bậc."
-    ),
+    "description": "KẾ TOÁN CHI PHÍ LÀ CHIẾC LA BÀN — NẾU BẠN KHÔNG BIẾT ĐỌC, BẠN SẼ ĐI LẠC GIỮA RỪNG SỐ LIỆU.\n\nBạn đã bao giờ ngồi trong lớp kế toán quản trị, nghe giảng viên nói về 'variance analysis' hay 'absorption costing' mà cảm thấy như đang nghe một ngôn ngữ khác? Bạn hiểu chi phí trực tiếp, chi phí gián tiếp bằng tiếng Việt — nhưng khi mở một bản báo cáo ngân sách của công ty đa quốc gia, mọi thứ trở nên mờ mịt.\n\nHãy nghĩ về kế toán chi phí như chiếc la bàn giữa khu rừng kinh doanh. Mỗi con số chi phí là một dấu hiệu trên đường đi — nếu bạn đọc đúng, bạn biết mình đang ở đâu và cần đi đâu. Nếu bạn đọc sai, bạn sẽ đưa ra quyết định sai — và trong kinh doanh, quyết định sai về chi phí có thể khiến cả doanh nghiệp lạc hướng.\n\n18 từ vựng trong bài học này — từ cost đến uncontrollable — sẽ trang bị cho bạn ngôn ngữ để đọc hiểu báo cáo chi phí, phân tích ngân sách, và thảo luận về hiệu quả hoạt động bằng tiếng Anh chuyên ngành.\n\nTừ budget variance đến breakeven analysis — bạn vừa nâng cấp tư duy quản trị chi phí, vừa nâng trình tiếng Anh kế toán một cách vượt bậc.",
     "preview": {
-        "text": (
-            "Khám phá 18 từ vựng tiếng Anh cốt lõi về kế toán chi phí — "
-            "ngôn ngữ mà mọi nhà quản lý dùng để kiểm soát và tối ưu hóa chi tiêu doanh nghiệp. "
-            "Bạn sẽ học cost, budget, variance, overhead, allocation, direct trong phần đầu tiên, "
-            "nơi bài đọc giải thích cách doanh nghiệp phân loại và theo dõi chi phí sản xuất. "
-            "Tiếp theo là indirect, standard, actual, absorption, marginal, contribution — "
-            "những từ giúp bạn hiểu các phương pháp tính giá thành sản phẩm. "
-            "Cuối cùng, breakeven, forecast, performance, benchmark, controllable, uncontrollable "
-            "đưa bạn vào thế giới phân tích hòa vốn và đánh giá hiệu quả chi phí. "
-            "Qua 3 bài đọc tiếng Anh, 1 phần ôn tập toàn diện và 1 bài đọc tổng hợp, "
-            "bạn sẽ tự tin đọc hiểu báo cáo chi phí bằng tiếng Anh — "
-            "không cần dừng lại tra từ điển mỗi dòng."
-        )
+        "text": "Khám phá 18 từ vựng tiếng Anh cốt lõi về kế toán chi phí và lập ngân sách — công cụ mà mọi kế toán viên quản trị và nhà quản lý tài chính đều cần thành thạo. Bạn sẽ bắt đầu với cost, budget, variance, overhead, allocation, direct — bộ từ nền tảng giúp bạn hiểu cách doanh nghiệp phân loại và phân bổ chi phí. Tiếp theo là indirect, standard, actual, absorption, marginal, contribution — những từ giúp bạn phân biệt các phương pháp tính giá thành sản phẩm và phân tích lợi nhuận biên. Cuối cùng, breakeven, forecast, performance, benchmark, controllable, uncontrollable đưa bạn vào thế giới phân tích hòa vốn, dự báo tài chính và đánh giá hiệu quả hoạt động. Qua 3 bài đọc tiếng Anh về kế toán chi phí thực tế, 1 phần ôn tập toàn diện và 1 bài đọc tổng hợp, bạn sẽ tự tin đọc hiểu cost reports và budget analyses bằng tiếng Anh mà không cần dừng lại tra từ."
     },
     "learningSessions": [
-        # ── SESSION 1: Words 1-6 ─────────────────────────────
         {
             "title": "Phần 1",
             "activities": [
                 {
                     "activityType": "introAudio",
                     "title": "Giới thiệu từ vựng phần 1",
-                    "description": "Chào mừng bạn đến với bài học về kế toán chi phí.",
+                    "description": "Chào mừng bạn đến với bài học về kế toán chi phí — nền tảng của mọi quyết định quản trị.",
                     "data": {
-                        "text": (
-                            "Chào mừng bạn đến với bài học thứ hai trong chuỗi từ vựng Kế toán và Tài chính doanh nghiệp — "
-                            "chủ đề hôm nay là Kế toán chi phí, hay trong tiếng Anh là Cost Accounting. "
-                            "Nếu báo cáo tài chính cho bạn bức tranh tổng thể về doanh nghiệp, "
-                            "thì kế toán chi phí đi sâu vào bên trong — phân tích từng đồng chi tiêu, "
-                            "từ nguyên vật liệu đến tiền lương, từ chi phí nhà xưởng đến quảng cáo.\n\n"
-                            "Trong phần này, bạn sẽ học 6 từ vựng: cost, budget, variance, overhead, allocation, và direct. "
-                            "Đây là những từ nền tảng nhất trong kế toán chi phí — "
-                            "bạn sẽ gặp chúng trong mọi báo cáo quản trị.\n\n"
-                            "Từ đầu tiên là cost — danh từ — nghĩa là chi phí, "
-                            "tổng số tiền mà doanh nghiệp phải bỏ ra để sản xuất hàng hóa hoặc cung cấp dịch vụ. "
-                            "Ví dụ: 'The total cost of producing one thousand units includes raw materials, labor, and factory maintenance.' "
-                            "Trong bài đọc, cost là khái niệm trung tâm — "
-                            "mọi quyết định quản trị đều xoay quanh việc kiểm soát và tối ưu hóa chi phí.\n\n"
-                            "Từ thứ hai là budget — danh từ — nghĩa là ngân sách, "
-                            "kế hoạch tài chính dự kiến cho một khoảng thời gian nhất định. "
-                            "Ví dụ: 'The marketing department submitted a budget of five billion dong for the next quarter, covering advertising, events, and digital campaigns.' "
-                            "Trong bài đọc, budget là công cụ kiểm soát — "
-                            "nó đặt ra giới hạn chi tiêu và mục tiêu tài chính cho từng bộ phận.\n\n"
-                            "Từ thứ ba là variance — danh từ — nghĩa là chênh lệch, "
-                            "sự khác biệt giữa con số dự kiến trong ngân sách và con số thực tế. "
-                            "Ví dụ: 'The production department reported a favorable variance of two hundred million dong because raw material prices dropped unexpectedly.' "
-                            "Trong bài đọc, variance là tín hiệu cảnh báo — "
-                            "nó cho biết bộ phận nào đang chi tiêu đúng kế hoạch và bộ phận nào đang vượt ngân sách.\n\n"
-                            "Từ thứ tư là overhead — danh từ — nghĩa là chi phí chung, "
-                            "những chi phí không liên quan trực tiếp đến sản xuất nhưng cần thiết để vận hành doanh nghiệp. "
-                            "Ví dụ: 'Factory overhead includes electricity, equipment maintenance, and the salaries of supervisors who do not work directly on the production line.' "
-                            "Trong bài đọc, overhead là phần chi phí khó kiểm soát nhất — "
-                            "nó không gắn trực tiếp với sản phẩm nhưng ảnh hưởng lớn đến giá thành.\n\n"
-                            "Từ thứ năm là allocation — danh từ — nghĩa là phân bổ, "
-                            "quá trình chia chi phí chung cho các sản phẩm, bộ phận hoặc dự án khác nhau. "
-                            "Ví dụ: 'The accountant used machine hours as the basis for allocation of factory overhead to each product line.' "
-                            "Trong bài đọc, allocation là nghệ thuật — "
-                            "cách bạn phân bổ chi phí ảnh hưởng trực tiếp đến giá thành sản phẩm.\n\n"
-                            "Từ cuối cùng là direct — tính từ — nghĩa là trực tiếp, "
-                            "mô tả chi phí có thể gắn trực tiếp với một sản phẩm hoặc dịch vụ cụ thể. "
-                            "Ví dụ: 'Direct costs for the furniture factory include the wood, fabric, and wages of workers who assemble each piece by hand.' "
-                            "Trong bài đọc, direct costs là phần dễ theo dõi nhất — "
-                            "bạn biết chính xác bao nhiêu tiền đã chi cho từng sản phẩm.\n\n"
-                            "Bây giờ bạn đã biết 6 từ vựng đầu tiên. Hãy bắt đầu với flashcard, "
-                            "sau đó đọc bài viết về cách doanh nghiệp phân loại và kiểm soát chi phí nhé!"
-                        )
+                        "text": "Chào mừng bạn đến với bài học thứ hai trong chuỗi Kế toán và Tài chính doanh nghiệp — chủ đề hôm nay là Kế toán chi phí, hay trong tiếng Anh là Cost Accounting. Nếu bài học trước về Financial Statements giúp bạn đọc được bức tranh tổng thể của doanh nghiệp, thì bài học hôm nay sẽ đưa bạn vào bên trong — nơi mà mỗi đồng chi phí được theo dõi, phân loại, và phân tích để đưa ra quyết định kinh doanh.\n\nTrong phần này, bạn sẽ học 6 từ vựng đầu tiên: cost, budget, variance, overhead, allocation, và direct. Đây là những từ xuất hiện trong mọi cuộc họp ngân sách, mọi báo cáo chi phí, và mọi quyết định định giá sản phẩm.\n\nTừ đầu tiên là cost — danh từ — nghĩa là chi phí. Cost là tổng số tiền mà doanh nghiệp phải bỏ ra để sản xuất hàng hóa hoặc cung cấp dịch vụ. Trong kế toán chi phí, cost được phân loại theo nhiều cách — theo hành vi (cố định hay biến đổi), theo chức năng (sản xuất hay bán hàng), hoặc theo khả năng truy xuất (trực tiếp hay gián tiếp). Ví dụ: 'The total cost of manufacturing one unit includes raw materials, labor, and a share of factory overhead.' Trong bài đọc, cost là từ khóa trung tâm — mọi phân tích đều bắt đầu từ việc hiểu chi phí.\n\nTừ thứ hai là budget — danh từ và động từ — nghĩa là ngân sách, lập ngân sách. Budget là kế hoạch tài chính chi tiết cho một khoảng thời gian — thường là một năm — dự kiến doanh thu, chi phí, và lợi nhuận. Lập ngân sách là quá trình dự đoán và phân bổ nguồn lực tài chính. Ví dụ: 'The marketing department submitted a budget of two hundred thousand dollars for the next quarter, but management approved only one hundred and fifty thousand.' Trong bài đọc, budget là công cụ kiểm soát — nó đặt ra giới hạn và kỳ vọng cho mỗi bộ phận.\n\nTừ thứ ba là variance — danh từ — nghĩa là chênh lệch, phương sai. Trong kế toán chi phí, variance là sự khác biệt giữa con số dự kiến (ngân sách hoặc tiêu chuẩn) và con số thực tế. Favorable variance nghĩa là chi phí thực tế thấp hơn dự kiến; unfavorable variance nghĩa là chi phí thực tế cao hơn. Ví dụ: 'The production department reported an unfavorable labor variance of thirty thousand dollars because overtime hours exceeded the budgeted amount.' Trong bài đọc, variance là tín hiệu cảnh báo — nó cho nhà quản lý biết khi nào mọi thứ đi chệch kế hoạch.\n\nTừ thứ tư là overhead — danh từ — nghĩa là chi phí chung, chi phí gián tiếp sản xuất. Overhead bao gồm tất cả chi phí sản xuất mà không thể truy xuất trực tiếp đến một sản phẩm cụ thể — tiền thuê nhà xưởng, điện nước, bảo trì máy móc, lương quản đốc. Ví dụ: 'Factory overhead accounts for nearly forty percent of total production costs, making it the largest single cost category after raw materials.' Trong bài đọc, overhead là thách thức lớn nhất của kế toán chi phí — vì nó phải được phân bổ cho từng sản phẩm một cách hợp lý.\n\nTừ thứ năm là allocation — danh từ — nghĩa là phân bổ. Allocation là quá trình chia sẻ chi phí chung cho các sản phẩm, bộ phận, hoặc hoạt động khác nhau dựa trên một tiêu chí hợp lý — như số giờ máy, số giờ lao động, hoặc diện tích sử dụng. Ví dụ: 'The company uses machine hours as the basis for overhead allocation, assigning more cost to products that require longer processing time.' Trong bài đọc, allocation là nghệ thuật — không có cách phân bổ nào hoàn hảo, nhưng cách phân bổ tốt giúp nhà quản lý hiểu đúng chi phí thực sự của mỗi sản phẩm.\n\nTừ cuối cùng là direct — tính từ — nghĩa là trực tiếp. Direct cost là chi phí có thể truy xuất trực tiếp đến một sản phẩm hoặc dịch vụ cụ thể — nguyên vật liệu trực tiếp và nhân công trực tiếp. Ví dụ: 'The direct cost of producing a wooden chair includes the timber, screws, and the wages of the carpenter who assembled it.' Trong bài đọc, direct đối lập với indirect — và sự phân biệt này là nền tảng của toàn bộ hệ thống kế toán chi phí.\n\nBạn đã có 6 từ vựng đầu tiên. Hãy bắt đầu với flashcard, sau đó đọc bài viết về cách doanh nghiệp phân loại và kiểm soát chi phí nhé!"
                     }
                 },
                 {
                     "activityType": "viewFlashcards",
-                    "title": "Flashcards: Chi phí, ngân sách và phân bổ",
+                    "title": "Flashcards: Nền tảng kế toán chi phí",
                     "description": "Học 6 từ: cost, budget, variance, overhead, allocation, direct",
-                    "data": {"vocabList": ["cost", "budget", "variance", "overhead", "allocation", "direct"]}
+                    "data": {
+                        "vocabList": ["cost", "budget", "variance", "overhead", "allocation", "direct"]
+                    }
                 },
                 {
                     "activityType": "speakFlashcards",
-                    "title": "Flashcards: Chi phí, ngân sách và phân bổ",
+                    "title": "Flashcards: Nền tảng kế toán chi phí",
                     "description": "Học 6 từ: cost, budget, variance, overhead, allocation, direct",
-                    "data": {"vocabList": ["cost", "budget", "variance", "overhead", "allocation", "direct"]}
+                    "data": {
+                        "vocabList": ["cost", "budget", "variance", "overhead", "allocation", "direct"]
+                    }
                 },
                 {
                     "activityType": "vocabLevel1",
-                    "title": "Flashcards: Chi phí, ngân sách và phân bổ",
+                    "title": "Flashcards: Nền tảng kế toán chi phí",
                     "description": "Học 6 từ: cost, budget, variance, overhead, allocation, direct",
-                    "data": {"vocabList": ["cost", "budget", "variance", "overhead", "allocation", "direct"]}
+                    "data": {
+                        "vocabList": ["cost", "budget", "variance", "overhead", "allocation", "direct"]
+                    }
                 },
                 {
                     "activityType": "vocabLevel2",
-                    "title": "Flashcards: Chi phí, ngân sách và phân bổ",
+                    "title": "Flashcards: Nền tảng kế toán chi phí",
                     "description": "Học 6 từ: cost, budget, variance, overhead, allocation, direct",
-                    "data": {"vocabList": ["cost", "budget", "variance", "overhead", "allocation", "direct"]}
+                    "data": {
+                        "vocabList": ["cost", "budget", "variance", "overhead", "allocation", "direct"]
+                    }
                 },
                 {
                     "activityType": "vocabLevel3",
-                    "title": "Flashcards: Chi phí, ngân sách và phân bổ",
+                    "title": "Flashcards: Nền tảng kế toán chi phí",
                     "description": "Học 6 từ: cost, budget, variance, overhead, allocation, direct",
-                    "data": {"vocabList": ["cost", "budget", "variance", "overhead", "allocation", "direct"]}
+                    "data": {
+                        "vocabList": ["cost", "budget", "variance", "overhead", "allocation", "direct"]
+                    }
                 },
                 {
                     "activityType": "reading",
-                    "title": "Đọc: Phân loại và kiểm soát chi phí",
-                    "description": "Every business, whether it makes shoes or software, needs to understand where its money goes.",
+                    "title": "Đọc: Phân loại chi phí và lập ngân sách",
+                    "description": "Every business decision begins with a simple question: how much does it cost?",
                     "data": {
-                        "text": (
-                            "Every business, whether it makes shoes or software, "
-                            "needs to understand where its money goes. "
-                            "Cost accounting is the branch of accounting that tracks, classifies, "
-                            "and analyzes every dong a company spends. "
-                            "Without it, managers would be making decisions in the dark.\n\n"
-                            "The most basic concept is cost itself. "
-                            "In accounting, a cost is any expenditure incurred to produce goods or deliver services. "
-                            "A Vietnamese garment factory, for example, has many types of costs: "
-                            "the fabric it buys, the wages it pays to sewing workers, "
-                            "the electricity that powers the machines, and the rent for the factory building. "
-                            "Some of these costs are easy to trace to a specific product. "
-                            "Others are shared across the entire operation.\n\n"
-                            "Costs that can be traced directly to a product are called direct costs. "
-                            "In the garment factory, the fabric used to make a shirt is a direct cost — "
-                            "you can measure exactly how many meters of fabric go into each shirt "
-                            "and calculate the cost precisely. "
-                            "The wages of the worker who sews that shirt are also a direct cost. "
-                            "Direct costs are straightforward to track "
-                            "because they have a clear, measurable link to the product.\n\n"
-                            "But not all costs are so easy to assign. "
-                            "The factory's electricity bill, the salary of the quality control manager, "
-                            "and the cost of maintaining the sewing machines — "
-                            "these are overhead costs. "
-                            "Overhead refers to expenses that support the production process "
-                            "but cannot be traced to a single product. "
-                            "A factory might produce ten different styles of clothing, "
-                            "and the electricity powers all of them equally.\n\n"
-                            "This is where allocation becomes important. "
-                            "Allocation is the process of distributing overhead costs "
-                            "across different products or departments. "
-                            "The accountant must choose a fair basis for allocation. "
-                            "For example, if Product A uses sixty percent of the machine hours "
-                            "and Product B uses forty percent, "
-                            "the factory might allocate sixty percent of the electricity cost to Product A "
-                            "and forty percent to Product B. "
-                            "The choice of allocation method can significantly affect "
-                            "the reported cost of each product.\n\n"
-                            "To keep costs under control, companies create a budget. "
-                            "A budget is a financial plan that sets spending limits "
-                            "for each department and each category of cost. "
-                            "At the beginning of the year, the production manager might receive "
-                            "a budget of eight billion dong for raw materials. "
-                            "The marketing team might get three billion dong for advertising. "
-                            "The budget serves as a roadmap — "
-                            "it tells everyone how much they can spend and what results are expected.\n\n"
-                            "At the end of each month or quarter, accountants compare "
-                            "actual spending to the budget. "
-                            "The difference between what was planned and what actually happened "
-                            "is called a variance. "
-                            "If the production department spent seven billion dong on materials "
-                            "instead of the budgeted eight billion, "
-                            "there is a favorable variance of one billion dong — "
-                            "the department spent less than expected. "
-                            "If it spent nine billion, there is an unfavorable variance — "
-                            "the department exceeded its budget. "
-                            "Variance analysis helps managers identify problems early "
-                            "and take corrective action before costs spiral out of control."
-                        )
+                        "text": "Every business decision begins with a simple question: how much does it cost? But in practice, answering that question is far more complex than it seems. Cost accounting is the branch of accounting that tracks, classifies, and analyzes costs to help managers make better decisions.\n\nThe first step in cost accounting is classification. Costs are divided into categories based on how they relate to the product or service being produced. The most fundamental distinction is between direct costs and indirect costs.\n\nA direct cost is one that can be traced specifically to a product, service, or project. If a furniture factory makes wooden tables, the timber used for each table is a direct material cost. The wages paid to the carpenter who assembles the table are a direct labor cost. These costs are easy to measure and assign because they have a clear, one-to-one relationship with the product.\n\nIndirect costs, by contrast, cannot be traced to a single product. The electricity that powers the entire factory, the salary of the factory manager, the insurance on the building — these costs benefit all products equally and cannot be assigned to any one table or chair. In manufacturing, indirect production costs are collectively called overhead.\n\nOverhead is often the largest and most difficult cost category to manage. A Vietnamese garment factory might spend millions of dong each month on rent, utilities, equipment maintenance, and quality control staff. None of these costs can be directly linked to a single shirt or pair of trousers. Yet they are real costs that must be recovered through product pricing.\n\nThis is where allocation becomes essential. Allocation is the process of distributing overhead costs across products using a reasonable basis. A factory might allocate overhead based on machine hours — products that require more machine time receive a larger share of overhead. Another factory might use direct labor hours or units produced as the allocation basis. The choice of allocation method can significantly affect the reported cost of each product.\n\nOnce costs are classified and allocated, managers need a plan. This is the role of the budget. A budget is a detailed financial plan that estimates revenues, costs, and profits for a future period — typically a quarter or a year. The production budget estimates how many units will be manufactured. The materials budget estimates how much raw material will be needed. The overhead budget estimates indirect costs. Together, these budgets create a roadmap for the entire organization.\n\nBut no plan survives contact with reality unchanged. Actual results almost always differ from the budget. The difference between budgeted and actual figures is called a variance. If the factory budgeted fifty million dong for raw materials but actually spent forty-five million, the five million difference is a favorable variance — costs were lower than expected. If actual spending was fifty-five million, the variance is unfavorable.\n\nVariance analysis is one of the most powerful tools in cost accounting. By breaking down variances into their components — price variances, quantity variances, efficiency variances — managers can identify exactly where and why costs deviated from the plan. A large unfavorable material price variance might indicate that a supplier raised prices. A large unfavorable labor efficiency variance might indicate that workers needed more training.\n\nFrom classifying costs as direct or indirect, to allocating overhead fairly, to building budgets and analyzing variances — cost accounting gives managers the information they need to control spending and improve profitability. The language of cost accounting is precise, and learning it in English opens the door to working with multinational companies where these concepts are discussed every day."
                     }
                 },
                 {
                     "activityType": "speakReading",
-                    "title": "Đọc: Phân loại và kiểm soát chi phí",
-                    "description": "Every business, whether it makes shoes or software, needs to understand where its money goes.",
+                    "title": "Đọc: Phân loại chi phí và lập ngân sách",
+                    "description": "Every business decision begins with a simple question: how much does it cost?",
                     "data": {
-                        "text": (
-                            "Every business, whether it makes shoes or software, "
-                            "needs to understand where its money goes. "
-                            "Cost accounting is the branch of accounting that tracks, classifies, "
-                            "and analyzes every dong a company spends. "
-                            "Without it, managers would be making decisions in the dark.\n\n"
-                            "The most basic concept is cost itself. "
-                            "In accounting, a cost is any expenditure incurred to produce goods or deliver services. "
-                            "A Vietnamese garment factory, for example, has many types of costs: "
-                            "the fabric it buys, the wages it pays to sewing workers, "
-                            "the electricity that powers the machines, and the rent for the factory building. "
-                            "Some of these costs are easy to trace to a specific product. "
-                            "Others are shared across the entire operation.\n\n"
-                            "Costs that can be traced directly to a product are called direct costs. "
-                            "In the garment factory, the fabric used to make a shirt is a direct cost — "
-                            "you can measure exactly how many meters of fabric go into each shirt "
-                            "and calculate the cost precisely. "
-                            "The wages of the worker who sews that shirt are also a direct cost. "
-                            "Direct costs are straightforward to track "
-                            "because they have a clear, measurable link to the product.\n\n"
-                            "But not all costs are so easy to assign. "
-                            "The factory's electricity bill, the salary of the quality control manager, "
-                            "and the cost of maintaining the sewing machines — "
-                            "these are overhead costs. "
-                            "Overhead refers to expenses that support the production process "
-                            "but cannot be traced to a single product. "
-                            "A factory might produce ten different styles of clothing, "
-                            "and the electricity powers all of them equally.\n\n"
-                            "This is where allocation becomes important. "
-                            "Allocation is the process of distributing overhead costs "
-                            "across different products or departments. "
-                            "The accountant must choose a fair basis for allocation. "
-                            "For example, if Product A uses sixty percent of the machine hours "
-                            "and Product B uses forty percent, "
-                            "the factory might allocate sixty percent of the electricity cost to Product A "
-                            "and forty percent to Product B. "
-                            "The choice of allocation method can significantly affect "
-                            "the reported cost of each product.\n\n"
-                            "To keep costs under control, companies create a budget. "
-                            "A budget is a financial plan that sets spending limits "
-                            "for each department and each category of cost. "
-                            "At the beginning of the year, the production manager might receive "
-                            "a budget of eight billion dong for raw materials. "
-                            "The marketing team might get three billion dong for advertising. "
-                            "The budget serves as a roadmap — "
-                            "it tells everyone how much they can spend and what results are expected.\n\n"
-                            "At the end of each month or quarter, accountants compare "
-                            "actual spending to the budget. "
-                            "The difference between what was planned and what actually happened "
-                            "is called a variance. "
-                            "If the production department spent seven billion dong on materials "
-                            "instead of the budgeted eight billion, "
-                            "there is a favorable variance of one billion dong — "
-                            "the department spent less than expected. "
-                            "If it spent nine billion, there is an unfavorable variance — "
-                            "the department exceeded its budget. "
-                            "Variance analysis helps managers identify problems early "
-                            "and take corrective action before costs spiral out of control."
-                        )
+                        "text": "Every business decision begins with a simple question: how much does it cost? But in practice, answering that question is far more complex than it seems. Cost accounting is the branch of accounting that tracks, classifies, and analyzes costs to help managers make better decisions.\n\nThe first step in cost accounting is classification. Costs are divided into categories based on how they relate to the product or service being produced. The most fundamental distinction is between direct costs and indirect costs.\n\nA direct cost is one that can be traced specifically to a product, service, or project. If a furniture factory makes wooden tables, the timber used for each table is a direct material cost. The wages paid to the carpenter who assembles the table are a direct labor cost. These costs are easy to measure and assign because they have a clear, one-to-one relationship with the product.\n\nIndirect costs, by contrast, cannot be traced to a single product. The electricity that powers the entire factory, the salary of the factory manager, the insurance on the building — these costs benefit all products equally and cannot be assigned to any one table or chair. In manufacturing, indirect production costs are collectively called overhead.\n\nOverhead is often the largest and most difficult cost category to manage. A Vietnamese garment factory might spend millions of dong each month on rent, utilities, equipment maintenance, and quality control staff. None of these costs can be directly linked to a single shirt or pair of trousers. Yet they are real costs that must be recovered through product pricing.\n\nThis is where allocation becomes essential. Allocation is the process of distributing overhead costs across products using a reasonable basis. A factory might allocate overhead based on machine hours — products that require more machine time receive a larger share of overhead. Another factory might use direct labor hours or units produced as the allocation basis. The choice of allocation method can significantly affect the reported cost of each product.\n\nOnce costs are classified and allocated, managers need a plan. This is the role of the budget. A budget is a detailed financial plan that estimates revenues, costs, and profits for a future period — typically a quarter or a year. The production budget estimates how many units will be manufactured. The materials budget estimates how much raw material will be needed. The overhead budget estimates indirect costs. Together, these budgets create a roadmap for the entire organization.\n\nBut no plan survives contact with reality unchanged. Actual results almost always differ from the budget. The difference between budgeted and actual figures is called a variance. If the factory budgeted fifty million dong for raw materials but actually spent forty-five million, the five million difference is a favorable variance — costs were lower than expected. If actual spending was fifty-five million, the variance is unfavorable.\n\nVariance analysis is one of the most powerful tools in cost accounting. By breaking down variances into their components — price variances, quantity variances, efficiency variances — managers can identify exactly where and why costs deviated from the plan. A large unfavorable material price variance might indicate that a supplier raised prices. A large unfavorable labor efficiency variance might indicate that workers needed more training.\n\nFrom classifying costs as direct or indirect, to allocating overhead fairly, to building budgets and analyzing variances — cost accounting gives managers the information they need to control spending and improve profitability. The language of cost accounting is precise, and learning it in English opens the door to working with multinational companies where these concepts are discussed every day."
                     }
                 },
                 {
                     "activityType": "readAlong",
-                    "title": "Nghe: Phân loại và kiểm soát chi phí",
+                    "title": "Nghe: Phân loại chi phí và lập ngân sách",
                     "description": "Nghe đoạn văn vừa đọc và theo dõi.",
                     "data": {
-                        "text": (
-                            "Every business, whether it makes shoes or software, "
-                            "needs to understand where its money goes. "
-                            "Cost accounting is the branch of accounting that tracks, classifies, "
-                            "and analyzes every dong a company spends. "
-                            "Without it, managers would be making decisions in the dark.\n\n"
-                            "The most basic concept is cost itself. "
-                            "In accounting, a cost is any expenditure incurred to produce goods or deliver services. "
-                            "A Vietnamese garment factory, for example, has many types of costs: "
-                            "the fabric it buys, the wages it pays to sewing workers, "
-                            "the electricity that powers the machines, and the rent for the factory building. "
-                            "Some of these costs are easy to trace to a specific product. "
-                            "Others are shared across the entire operation.\n\n"
-                            "Costs that can be traced directly to a product are called direct costs. "
-                            "In the garment factory, the fabric used to make a shirt is a direct cost — "
-                            "you can measure exactly how many meters of fabric go into each shirt "
-                            "and calculate the cost precisely. "
-                            "The wages of the worker who sews that shirt are also a direct cost. "
-                            "Direct costs are straightforward to track "
-                            "because they have a clear, measurable link to the product.\n\n"
-                            "But not all costs are so easy to assign. "
-                            "The factory's electricity bill, the salary of the quality control manager, "
-                            "and the cost of maintaining the sewing machines — "
-                            "these are overhead costs. "
-                            "Overhead refers to expenses that support the production process "
-                            "but cannot be traced to a single product. "
-                            "A factory might produce ten different styles of clothing, "
-                            "and the electricity powers all of them equally.\n\n"
-                            "This is where allocation becomes important. "
-                            "Allocation is the process of distributing overhead costs "
-                            "across different products or departments. "
-                            "The accountant must choose a fair basis for allocation. "
-                            "For example, if Product A uses sixty percent of the machine hours "
-                            "and Product B uses forty percent, "
-                            "the factory might allocate sixty percent of the electricity cost to Product A "
-                            "and forty percent to Product B. "
-                            "The choice of allocation method can significantly affect "
-                            "the reported cost of each product.\n\n"
-                            "To keep costs under control, companies create a budget. "
-                            "A budget is a financial plan that sets spending limits "
-                            "for each department and each category of cost. "
-                            "At the beginning of the year, the production manager might receive "
-                            "a budget of eight billion dong for raw materials. "
-                            "The marketing team might get three billion dong for advertising. "
-                            "The budget serves as a roadmap — "
-                            "it tells everyone how much they can spend and what results are expected.\n\n"
-                            "At the end of each month or quarter, accountants compare "
-                            "actual spending to the budget. "
-                            "The difference between what was planned and what actually happened "
-                            "is called a variance. "
-                            "If the production department spent seven billion dong on materials "
-                            "instead of the budgeted eight billion, "
-                            "there is a favorable variance of one billion dong — "
-                            "the department spent less than expected. "
-                            "If it spent nine billion, there is an unfavorable variance — "
-                            "the department exceeded its budget. "
-                            "Variance analysis helps managers identify problems early "
-                            "and take corrective action before costs spiral out of control."
-                        )
+                        "text": "Every business decision begins with a simple question: how much does it cost? But in practice, answering that question is far more complex than it seems. Cost accounting is the branch of accounting that tracks, classifies, and analyzes costs to help managers make better decisions.\n\nThe first step in cost accounting is classification. Costs are divided into categories based on how they relate to the product or service being produced. The most fundamental distinction is between direct costs and indirect costs.\n\nA direct cost is one that can be traced specifically to a product, service, or project. If a furniture factory makes wooden tables, the timber used for each table is a direct material cost. The wages paid to the carpenter who assembles the table are a direct labor cost. These costs are easy to measure and assign because they have a clear, one-to-one relationship with the product.\n\nIndirect costs, by contrast, cannot be traced to a single product. The electricity that powers the entire factory, the salary of the factory manager, the insurance on the building — these costs benefit all products equally and cannot be assigned to any one table or chair. In manufacturing, indirect production costs are collectively called overhead.\n\nOverhead is often the largest and most difficult cost category to manage. A Vietnamese garment factory might spend millions of dong each month on rent, utilities, equipment maintenance, and quality control staff. None of these costs can be directly linked to a single shirt or pair of trousers. Yet they are real costs that must be recovered through product pricing.\n\nThis is where allocation becomes essential. Allocation is the process of distributing overhead costs across products using a reasonable basis. A factory might allocate overhead based on machine hours — products that require more machine time receive a larger share of overhead. Another factory might use direct labor hours or units produced as the allocation basis. The choice of allocation method can significantly affect the reported cost of each product.\n\nOnce costs are classified and allocated, managers need a plan. This is the role of the budget. A budget is a detailed financial plan that estimates revenues, costs, and profits for a future period — typically a quarter or a year. The production budget estimates how many units will be manufactured. The materials budget estimates how much raw material will be needed. The overhead budget estimates indirect costs. Together, these budgets create a roadmap for the entire organization.\n\nBut no plan survives contact with reality unchanged. Actual results almost always differ from the budget. The difference between budgeted and actual figures is called a variance. If the factory budgeted fifty million dong for raw materials but actually spent forty-five million, the five million difference is a favorable variance — costs were lower than expected. If actual spending was fifty-five million, the variance is unfavorable.\n\nVariance analysis is one of the most powerful tools in cost accounting. By breaking down variances into their components — price variances, quantity variances, efficiency variances — managers can identify exactly where and why costs deviated from the plan. A large unfavorable material price variance might indicate that a supplier raised prices. A large unfavorable labor efficiency variance might indicate that workers needed more training.\n\nFrom classifying costs as direct or indirect, to allocating overhead fairly, to building budgets and analyzing variances — cost accounting gives managers the information they need to control spending and improve profitability. The language of cost accounting is precise, and learning it in English opens the door to working with multinational companies where these concepts are discussed every day."
                     }
                 },
                 {
                     "activityType": "writingSentence",
-                    "title": "Viết: Chi phí, ngân sách và phân bổ",
-                    "description": "Viết câu sử dụng 6 từ vựng về phân loại và kiểm soát chi phí.",
+                    "title": "Viết: Nền tảng kế toán chi phí",
+                    "description": "Viết câu sử dụng 6 từ vựng về nền tảng kế toán chi phí.",
                     "data": {
                         "vocabList": ["cost", "budget", "variance", "overhead", "allocation", "direct"],
                         "items": [
                             {
-                                "targetVocab": "cost",
-                                "prompt": "Dùng từ 'cost' để viết một câu về tổng chi phí sản xuất của một doanh nghiệp và các yếu tố cấu thành. Ví dụ: The total cost of manufacturing one bicycle includes the metal frame, rubber tires, labor wages, and a share of the factory's electricity bill."
+                                "prompt": "Dùng từ 'cost' để viết một câu về cách doanh nghiệp phân loại chi phí để đưa ra quyết định định giá. Ví dụ: The total cost of producing each smartphone includes raw materials, assembly labor, and a proportional share of factory rent and utilities.",
+                                "targetVocab": "cost"
                             },
                             {
-                                "targetVocab": "budget",
-                                "prompt": "Dùng từ 'budget' để viết một câu về cách một bộ phận lập kế hoạch chi tiêu cho quý tới. Ví dụ: The production manager prepared a quarterly budget of six billion dong, allocating four billion for raw materials and two billion for temporary workers during peak season."
+                                "prompt": "Dùng từ 'budget' để viết một câu về vai trò của ngân sách trong việc kiểm soát chi tiêu của doanh nghiệp. Ví dụ: The operations team exceeded its quarterly budget by fifteen percent after an unexpected surge in shipping costs forced the company to use premium freight services.",
+                                "targetVocab": "budget"
                             },
                             {
-                                "targetVocab": "variance",
-                                "prompt": "Dùng từ 'variance' để viết một câu về sự chênh lệch giữa chi phí dự kiến và chi phí thực tế. Ví dụ: The unfavorable variance of eight hundred million dong in the logistics department was caused by a sudden increase in fuel prices during the monsoon season."
+                                "prompt": "Dùng từ 'variance' để viết một câu về phân tích chênh lệch giữa chi phí dự kiến và thực tế. Ví dụ: A detailed variance analysis revealed that the unfavorable material cost was caused by a twenty percent price increase from the primary steel supplier.",
+                                "targetVocab": "variance"
                             },
                             {
-                                "targetVocab": "overhead",
-                                "prompt": "Dùng từ 'overhead' để viết một câu về chi phí chung của nhà máy và cách chúng ảnh hưởng đến giá thành. Ví dụ: Rising overhead costs, including factory rent and insurance premiums, forced the company to raise the selling price of its products by five percent."
+                                "prompt": "Dùng từ 'overhead' để viết một câu về chi phí chung của nhà máy và cách chúng ảnh hưởng đến giá thành sản phẩm. Ví dụ: When the factory operated at only fifty percent capacity, the overhead cost per unit doubled because fixed expenses like rent and insurance were spread across fewer products.",
+                                "targetVocab": "overhead"
                             },
                             {
-                                "targetVocab": "allocation",
-                                "prompt": "Dùng từ 'allocation' để viết một câu về cách phân bổ chi phí chung cho các sản phẩm khác nhau. Ví dụ: The new allocation method based on machine hours gave a more accurate picture of each product's true cost than the old method based on direct labor hours."
+                                "prompt": "Dùng từ 'allocation' để viết một câu về phương pháp phân bổ chi phí gián tiếp cho các sản phẩm khác nhau. Ví dụ: The company switched its overhead allocation basis from direct labor hours to machine hours after automation reduced the workforce but increased equipment usage.",
+                                "targetVocab": "allocation"
                             },
                             {
-                                "targetVocab": "direct",
-                                "prompt": "Dùng từ 'direct' để viết một câu về chi phí trực tiếp trong sản xuất và cách theo dõi chúng. Ví dụ: Direct costs such as wood and varnish accounted for sixty percent of the total production cost of each handmade table at the furniture workshop."
+                                "prompt": "Dùng từ 'direct' để viết một câu về chi phí trực tiếp và cách chúng được truy xuất đến sản phẩm cụ thể. Ví dụ: The direct costs of building a custom website included the developer's salary for three months and the licensing fees for the design software used exclusively on that project.",
+                                "targetVocab": "direct"
                             }
                         ]
                     }
                 }
             ]
         },
-        # ── SESSION 2: Words 7-12 ─────────────────────────────
         {
             "title": "Phần 2",
             "activities": [
                 {
                     "activityType": "introAudio",
                     "title": "Giới thiệu từ vựng phần 2",
-                    "description": "Ôn lại phần 1 và học 6 từ mới về phương pháp tính giá thành sản phẩm.",
+                    "description": "Ôn lại phần 1 và học 6 từ mới về phương pháp tính giá thành và phân tích lợi nhuận biên.",
                     "data": {
-                        "text": (
-                            "Chào mừng bạn trở lại! Trong phần trước, bạn đã học 6 từ vựng nền tảng: "
-                            "cost — chi phí, budget — ngân sách, variance — chênh lệch, "
-                            "overhead — chi phí chung, allocation — phân bổ, và direct — trực tiếp. "
-                            "Bạn đã hiểu cách doanh nghiệp phân loại chi phí và kiểm soát ngân sách. "
-                            "Bây giờ, chúng ta sẽ đi sâu hơn vào các phương pháp tính giá thành sản phẩm — "
-                            "cách kế toán viên quyết định mỗi sản phẩm 'gánh' bao nhiêu chi phí.\n\n"
-                            "Trong phần 2, bạn sẽ học 6 từ mới: indirect, standard, actual, absorption, marginal, và contribution. "
-                            "Đây là bộ từ vựng giúp bạn hiểu các hệ thống tính giá thành khác nhau.\n\n"
-                            "Từ đầu tiên là indirect — tính từ — nghĩa là gián tiếp, "
-                            "mô tả chi phí không thể gắn trực tiếp với một sản phẩm cụ thể. "
-                            "Ví dụ: 'Indirect costs such as factory security, cleaning services, and equipment depreciation are shared across all products manufactured in the plant.' "
-                            "Trong bài đọc, indirect costs là đối lập của direct costs — "
-                            "chúng cần được phân bổ vì không thể đo lường chính xác cho từng sản phẩm.\n\n"
-                            "Từ thứ hai là standard — tính từ/danh từ — nghĩa là tiêu chuẩn, "
-                            "mức chi phí dự kiến được thiết lập trước cho mỗi đơn vị sản phẩm. "
-                            "Ví dụ: 'The standard cost for producing one pair of shoes was set at one hundred and fifty thousand dong, based on expected material prices and labor efficiency.' "
-                            "Trong bài đọc, standard cost là thước đo — "
-                            "nó cho phép so sánh chi phí thực tế với kỳ vọng.\n\n"
-                            "Từ thứ ba là actual — tính từ — nghĩa là thực tế, "
-                            "chi phí thực sự phát sinh trong quá trình sản xuất. "
-                            "Ví dụ: 'The actual cost of production was higher than expected because the price of imported leather increased by twenty percent during the quarter.' "
-                            "Trong bài đọc, actual cost được so sánh với standard cost "
-                            "để tính variance — chênh lệch giữa kế hoạch và thực tế.\n\n"
-                            "Từ thứ tư là absorption — danh từ — nghĩa là hấp thụ, "
-                            "phương pháp tính giá thành trong đó mỗi sản phẩm 'hấp thụ' "
-                            "cả chi phí trực tiếp lẫn một phần chi phí chung. "
-                            "Ví dụ: 'Under absorption costing, each unit of output carries a share of fixed overhead, so the cost per unit changes when production volume increases or decreases.' "
-                            "Trong bài đọc, absorption costing là phương pháp phổ biến nhất — "
-                            "nó đảm bảo mọi chi phí đều được phản ánh trong giá thành sản phẩm.\n\n"
-                            "Từ thứ năm là marginal — tính từ — nghĩa là biên, "
-                            "chi phí phát sinh thêm khi sản xuất thêm một đơn vị sản phẩm. "
-                            "Ví dụ: 'The marginal cost of producing one additional smartphone was only eighty thousand dong because the factory already had spare capacity and raw materials in stock.' "
-                            "Trong bài đọc, marginal costing chỉ tính chi phí biến đổi vào giá thành — "
-                            "chi phí cố định được xem là chi phí của kỳ, không phải của sản phẩm.\n\n"
-                            "Từ cuối cùng là contribution — danh từ — nghĩa là đóng góp biên, "
-                            "phần doanh thu còn lại sau khi trừ chi phí biến đổi. "
-                            "Ví dụ: 'Each unit sold generates a contribution of fifty thousand dong, which goes toward covering the company's fixed costs and eventually generating profit.' "
-                            "Trong bài đọc, contribution là chỉ số quan trọng — "
-                            "nó cho biết mỗi sản phẩm đóng góp bao nhiêu vào việc bù đắp chi phí cố định.\n\n"
-                            "Sáu từ mới đã sẵn sàng. Hãy bắt đầu với flashcard rồi đọc bài viết "
-                            "về các phương pháp tính giá thành sản phẩm nhé!"
-                        )
+                        "text": "Chào mừng bạn trở lại! Trong phần trước, bạn đã học 6 từ vựng nền tảng: cost — chi phí, budget — ngân sách, variance — chênh lệch, overhead — chi phí chung, allocation — phân bổ, và direct — trực tiếp. Bạn đã hiểu cách doanh nghiệp phân loại chi phí, lập ngân sách, và phân tích chênh lệch. Bây giờ, chúng ta sẽ đi sâu hơn vào các phương pháp tính giá thành sản phẩm và phân tích lợi nhuận.\n\nTrong phần 2, bạn sẽ học 6 từ mới: indirect, standard, actual, absorption, marginal, và contribution. Những từ này giúp bạn hiểu cách kế toán viên tính toán chi phí sản phẩm và đánh giá khả năng sinh lời.\n\nTừ đầu tiên là indirect — tính từ — nghĩa là gián tiếp. Indirect cost là chi phí không thể truy xuất trực tiếp đến một sản phẩm cụ thể. Tiền thuê nhà xưởng, lương bảo vệ, chi phí bảo hiểm — tất cả đều là indirect costs vì chúng phục vụ toàn bộ hoạt động sản xuất, không riêng sản phẩm nào. Ví dụ: 'Indirect costs such as factory security, building insurance, and equipment depreciation must be allocated across all product lines using a fair and consistent method.' Trong bài đọc, indirect đối lập với direct — và cách xử lý chi phí gián tiếp là thách thức lớn nhất của kế toán chi phí.\n\nTừ thứ hai là standard — danh từ và tính từ — nghĩa là tiêu chuẩn. Standard cost là chi phí tiêu chuẩn — mức chi phí dự kiến để sản xuất một đơn vị sản phẩm trong điều kiện hoạt động bình thường. Nó bao gồm standard material cost, standard labor cost, và standard overhead cost. Ví dụ: 'The standard cost for producing one kilogram of chocolate was set at fifteen dollars, based on expected cocoa prices and normal production efficiency.' Trong bài đọc, standard là thước đo — nó cho phép nhà quản lý so sánh kết quả thực tế với kỳ vọng.\n\nTừ thứ ba là actual — tính từ — nghĩa là thực tế. Actual cost là chi phí thực tế phát sinh — con số thật sự ghi nhận được sau khi sản xuất hoàn tất. Sự khác biệt giữa standard cost và actual cost chính là variance. Ví dụ: 'The actual cost of production exceeded the standard by eight percent, primarily due to higher-than-expected energy prices during the summer months.' Trong bài đọc, actual là sự thật — nó cho thấy điều gì thực sự xảy ra, không phải điều bạn dự kiến.\n\nTừ thứ tư là absorption — danh từ — nghĩa là hấp thụ. Absorption costing là phương pháp tính giá thành hấp thụ toàn bộ — mỗi sản phẩm gánh chịu cả chi phí trực tiếp lẫn một phần chi phí gián tiếp (overhead). Đây là phương pháp được yêu cầu bởi chuẩn mực kế toán quốc tế cho báo cáo tài chính bên ngoài. Ví dụ: 'Under absorption costing, each unit of output absorbs a portion of fixed manufacturing overhead, which means that producing more units lowers the cost per unit.' Trong bài đọc, absorption là phương pháp chính thống — nó đảm bảo mọi chi phí sản xuất đều được phản ánh trong giá thành sản phẩm.\n\nTừ thứ năm là marginal — tính từ — nghĩa là biên, cận biên. Marginal cost là chi phí biên — chi phí tăng thêm khi sản xuất thêm một đơn vị sản phẩm. Marginal costing (hay variable costing) là phương pháp chỉ tính chi phí biến đổi vào giá thành sản phẩm, còn chi phí cố định được xem là chi phí kỳ. Ví dụ: 'The marginal cost of producing one additional bicycle was only forty dollars because the factory already had spare capacity and the fixed costs were already covered.' Trong bài đọc, marginal giúp nhà quản lý trả lời câu hỏi: có nên nhận thêm đơn hàng này không?\n\nTừ cuối cùng là contribution — danh từ — nghĩa là đóng góp, lợi nhuận gộp biên. Contribution margin là phần doanh thu còn lại sau khi trừ chi phí biến đổi — phần này dùng để bù đắp chi phí cố định và tạo lợi nhuận. Ví dụ: 'Each unit sold at a price of one hundred dollars with variable costs of sixty dollars generates a contribution of forty dollars toward covering fixed costs and profit.' Trong bài đọc, contribution là thước đo sức mạnh — sản phẩm nào có contribution margin cao nhất sẽ được ưu tiên sản xuất.\n\nSáu từ mới đã sẵn sàng. Hãy bắt đầu với flashcard rồi đọc bài viết về các phương pháp tính giá thành và phân tích lợi nhuận biên nhé!"
                     }
                 },
                 {
                     "activityType": "viewFlashcards",
                     "title": "Flashcards: Phương pháp tính giá thành",
                     "description": "Học 6 từ: indirect, standard, actual, absorption, marginal, contribution",
-                    "data": {"vocabList": ["indirect", "standard", "actual", "absorption", "marginal", "contribution"]}
+                    "data": {
+                        "vocabList": ["indirect", "standard", "actual", "absorption", "marginal", "contribution"]
+                    }
                 },
                 {
                     "activityType": "speakFlashcards",
                     "title": "Flashcards: Phương pháp tính giá thành",
                     "description": "Học 6 từ: indirect, standard, actual, absorption, marginal, contribution",
-                    "data": {"vocabList": ["indirect", "standard", "actual", "absorption", "marginal", "contribution"]}
+                    "data": {
+                        "vocabList": ["indirect", "standard", "actual", "absorption", "marginal", "contribution"]
+                    }
                 },
                 {
                     "activityType": "vocabLevel1",
                     "title": "Flashcards: Phương pháp tính giá thành",
                     "description": "Học 6 từ: indirect, standard, actual, absorption, marginal, contribution",
-                    "data": {"vocabList": ["indirect", "standard", "actual", "absorption", "marginal", "contribution"]}
+                    "data": {
+                        "vocabList": ["indirect", "standard", "actual", "absorption", "marginal", "contribution"]
+                    }
                 },
                 {
                     "activityType": "vocabLevel2",
                     "title": "Flashcards: Phương pháp tính giá thành",
                     "description": "Học 6 từ: indirect, standard, actual, absorption, marginal, contribution",
-                    "data": {"vocabList": ["indirect", "standard", "actual", "absorption", "marginal", "contribution"]}
+                    "data": {
+                        "vocabList": ["indirect", "standard", "actual", "absorption", "marginal", "contribution"]
+                    }
                 },
                 {
                     "activityType": "vocabLevel3",
                     "title": "Flashcards: Phương pháp tính giá thành",
                     "description": "Học 6 từ: indirect, standard, actual, absorption, marginal, contribution",
-                    "data": {"vocabList": ["indirect", "standard", "actual", "absorption", "marginal", "contribution"]}
+                    "data": {
+                        "vocabList": ["indirect", "standard", "actual", "absorption", "marginal", "contribution"]
+                    }
                 },
                 {
                     "activityType": "reading",
-                    "title": "Đọc: Phương pháp tính giá thành sản phẩm",
-                    "description": "Once a company has classified its costs into direct and indirect categories, the next question is how to calculate the total cost of each product.",
+                    "title": "Đọc: Phương pháp tính giá thành và phân tích lợi nhuận biên",
+                    "description": "Two accountants can look at the same factory and calculate two different costs for the same product.",
                     "data": {
-                        "text": (
-                            "Once a company has classified its costs into direct and indirect categories, "
-                            "the next question is how to calculate the total cost of each product. "
-                            "This is where costing methods come in — "
-                            "and the method a company chooses can change the numbers dramatically.\n\n"
-                            "The most widely used approach is absorption costing. "
-                            "Under this method, every product absorbs a share of all production costs — "
-                            "both direct costs like materials and labor, "
-                            "and indirect costs like factory rent and equipment maintenance. "
-                            "If a Vietnamese ceramics factory produces ten thousand vases in a month "
-                            "and the total overhead is two billion dong, "
-                            "each vase absorbs two hundred thousand dong of overhead "
-                            "on top of its direct material and labor costs. "
-                            "Absorption costing gives a complete picture of what each product truly costs to make.\n\n"
-                            "However, absorption costing has a limitation. "
-                            "Because fixed overhead is spread across all units produced, "
-                            "the cost per unit changes when production volume changes. "
-                            "If the factory makes twenty thousand vases instead of ten thousand, "
-                            "each vase absorbs only one hundred thousand dong of overhead — "
-                            "making it appear cheaper to produce, even though total overhead has not changed.\n\n"
-                            "An alternative approach is marginal costing. "
-                            "Under marginal costing, only variable costs are included in the product cost. "
-                            "Fixed overhead is treated as a period expense — "
-                            "a cost of running the business for that time period, "
-                            "not a cost of making any specific product. "
-                            "The marginal cost of producing one additional vase "
-                            "includes only the clay, glaze, and the labor to shape and fire it. "
-                            "This approach is useful for short-term decisions "
-                            "like whether to accept a special order at a lower price.\n\n"
-                            "A key concept in marginal costing is contribution. "
-                            "Contribution is the amount left over after subtracting variable costs from revenue. "
-                            "If a vase sells for five hundred thousand dong "
-                            "and its variable costs are three hundred thousand dong, "
-                            "the contribution is two hundred thousand dong per unit. "
-                            "This contribution goes toward covering the factory's fixed costs. "
-                            "Once enough units are sold to cover all fixed costs, "
-                            "every additional contribution becomes pure profit.\n\n"
-                            "To set realistic targets, companies establish standard costs. "
-                            "A standard cost is a predetermined estimate of what a product should cost "
-                            "under normal operating conditions. "
-                            "The standard might specify that each vase should use "
-                            "two kilograms of clay at fifty thousand dong per kilogram "
-                            "and require thirty minutes of labor at one hundred thousand dong per hour. "
-                            "The total standard cost would then be one hundred and fifty thousand dong.\n\n"
-                            "At the end of the period, accountants compare the standard cost "
-                            "to the actual cost — what the company really spent. "
-                            "If the actual cost of clay was higher because prices rose, "
-                            "or if workers took longer than expected, "
-                            "the actual cost will exceed the standard. "
-                            "The difference is a variance, and managers investigate "
-                            "whether it was caused by price changes, efficiency problems, "
-                            "or changes in production volume.\n\n"
-                            "Understanding the difference between indirect and direct costs, "
-                            "between absorption and marginal approaches, "
-                            "and between standard and actual figures "
-                            "is essential for anyone who wants to manage costs effectively. "
-                            "These concepts form the foundation of cost accounting "
-                            "and appear in every management report around the world."
-                        )
+                        "text": "Two accountants can look at the same factory and calculate two different costs for the same product. This is not a mistake — it is a consequence of choosing different costing methods. The two most important methods in cost accounting are absorption costing and marginal costing, and understanding the difference between them is essential for any manager.\n\nAbsorption costing — also called full costing — assigns all manufacturing costs to each unit of production. This includes both direct costs (materials and labor that can be traced to the product) and indirect costs (overhead that cannot be traced to any single product). Under absorption costing, every unit produced absorbs a share of the factory's fixed overhead. If a factory has fixed overhead of one million dollars per month and produces ten thousand units, each unit absorbs one hundred dollars of overhead.\n\nThis method is required by international accounting standards for external financial reporting. The logic is straightforward: all costs incurred to manufacture a product should be included in its cost. When a company reports its cost of goods sold on the income statement, absorption costing ensures that both variable and fixed manufacturing costs are reflected.\n\nHowever, absorption costing has a significant limitation. Because fixed overhead is allocated based on production volume, the cost per unit changes when production volume changes. If the factory produces twenty thousand units instead of ten thousand, the overhead per unit drops to fifty dollars. This can create the illusion that costs are falling when in reality the total overhead has not changed at all. Managers who focus only on absorption cost per unit might make poor decisions — for example, overproducing just to spread overhead across more units.\n\nMarginal costing — also called variable costing — takes a different approach. It assigns only variable costs to each unit of production. Variable costs are those that change in proportion to output: direct materials, direct labor, and variable overhead. Fixed overhead is treated as a period cost — an expense of the time period, not of the product. Under marginal costing, the cost of a product does not change when production volume changes.\n\nThe key concept in marginal costing is the contribution margin. Contribution is calculated as selling price minus variable cost per unit. If a product sells for two hundred dollars and its variable cost is one hundred and twenty dollars, the contribution is eighty dollars. This eighty dollars contributes toward covering fixed costs and generating profit.\n\nContribution analysis is a powerful decision-making tool. When a manager needs to decide whether to accept a special order at a lower price, the relevant question is not whether the price covers the full absorption cost, but whether it covers the variable cost and generates a positive contribution. If the factory has spare capacity and the special order price exceeds the marginal cost, accepting the order increases total profit — even if the price is below the standard full cost.\n\nThe difference between standard and actual costs adds another layer of analysis. Standard costs are predetermined estimates of what production should cost under normal conditions. They are set at the beginning of a period based on expected material prices, labor rates, and overhead levels. Actual costs are the real costs recorded during production. When actual costs differ from standard costs, the difference is a variance.\n\nIndirect costs present the greatest challenge in standard costing. Because overhead cannot be traced directly to products, accountants must estimate both the total overhead and the allocation basis in advance. If actual overhead or actual production volume differs from the estimate, the allocated overhead per unit will be wrong. This overhead variance must be analyzed and explained.\n\nWhether a company uses absorption costing for its annual report or marginal costing for internal decisions, the goal is the same: to understand the true cost of what it produces. And in a world where Vietnamese companies increasingly work with international partners, auditors, and investors, the ability to discuss these concepts in English is not a luxury — it is a necessity."
                     }
                 },
                 {
                     "activityType": "speakReading",
-                    "title": "Đọc: Phương pháp tính giá thành sản phẩm",
-                    "description": "Once a company has classified its costs into direct and indirect categories, the next question is how to calculate the total cost of each product.",
+                    "title": "Đọc: Phương pháp tính giá thành và phân tích lợi nhuận biên",
+                    "description": "Two accountants can look at the same factory and calculate two different costs for the same product.",
                     "data": {
-                        "text": (
-                            "Once a company has classified its costs into direct and indirect categories, "
-                            "the next question is how to calculate the total cost of each product. "
-                            "This is where costing methods come in — "
-                            "and the method a company chooses can change the numbers dramatically.\n\n"
-                            "The most widely used approach is absorption costing. "
-                            "Under this method, every product absorbs a share of all production costs — "
-                            "both direct costs like materials and labor, "
-                            "and indirect costs like factory rent and equipment maintenance. "
-                            "If a Vietnamese ceramics factory produces ten thousand vases in a month "
-                            "and the total overhead is two billion dong, "
-                            "each vase absorbs two hundred thousand dong of overhead "
-                            "on top of its direct material and labor costs. "
-                            "Absorption costing gives a complete picture of what each product truly costs to make.\n\n"
-                            "However, absorption costing has a limitation. "
-                            "Because fixed overhead is spread across all units produced, "
-                            "the cost per unit changes when production volume changes. "
-                            "If the factory makes twenty thousand vases instead of ten thousand, "
-                            "each vase absorbs only one hundred thousand dong of overhead — "
-                            "making it appear cheaper to produce, even though total overhead has not changed.\n\n"
-                            "An alternative approach is marginal costing. "
-                            "Under marginal costing, only variable costs are included in the product cost. "
-                            "Fixed overhead is treated as a period expense — "
-                            "a cost of running the business for that time period, "
-                            "not a cost of making any specific product. "
-                            "The marginal cost of producing one additional vase "
-                            "includes only the clay, glaze, and the labor to shape and fire it. "
-                            "This approach is useful for short-term decisions "
-                            "like whether to accept a special order at a lower price.\n\n"
-                            "A key concept in marginal costing is contribution. "
-                            "Contribution is the amount left over after subtracting variable costs from revenue. "
-                            "If a vase sells for five hundred thousand dong "
-                            "and its variable costs are three hundred thousand dong, "
-                            "the contribution is two hundred thousand dong per unit. "
-                            "This contribution goes toward covering the factory's fixed costs. "
-                            "Once enough units are sold to cover all fixed costs, "
-                            "every additional contribution becomes pure profit.\n\n"
-                            "To set realistic targets, companies establish standard costs. "
-                            "A standard cost is a predetermined estimate of what a product should cost "
-                            "under normal operating conditions. "
-                            "The standard might specify that each vase should use "
-                            "two kilograms of clay at fifty thousand dong per kilogram "
-                            "and require thirty minutes of labor at one hundred thousand dong per hour. "
-                            "The total standard cost would then be one hundred and fifty thousand dong.\n\n"
-                            "At the end of the period, accountants compare the standard cost "
-                            "to the actual cost — what the company really spent. "
-                            "If the actual cost of clay was higher because prices rose, "
-                            "or if workers took longer than expected, "
-                            "the actual cost will exceed the standard. "
-                            "The difference is a variance, and managers investigate "
-                            "whether it was caused by price changes, efficiency problems, "
-                            "or changes in production volume.\n\n"
-                            "Understanding the difference between indirect and direct costs, "
-                            "between absorption and marginal approaches, "
-                            "and between standard and actual figures "
-                            "is essential for anyone who wants to manage costs effectively. "
-                            "These concepts form the foundation of cost accounting "
-                            "and appear in every management report around the world."
-                        )
+                        "text": "Two accountants can look at the same factory and calculate two different costs for the same product. This is not a mistake — it is a consequence of choosing different costing methods. The two most important methods in cost accounting are absorption costing and marginal costing, and understanding the difference between them is essential for any manager.\n\nAbsorption costing — also called full costing — assigns all manufacturing costs to each unit of production. This includes both direct costs (materials and labor that can be traced to the product) and indirect costs (overhead that cannot be traced to any single product). Under absorption costing, every unit produced absorbs a share of the factory's fixed overhead. If a factory has fixed overhead of one million dollars per month and produces ten thousand units, each unit absorbs one hundred dollars of overhead.\n\nThis method is required by international accounting standards for external financial reporting. The logic is straightforward: all costs incurred to manufacture a product should be included in its cost. When a company reports its cost of goods sold on the income statement, absorption costing ensures that both variable and fixed manufacturing costs are reflected.\n\nHowever, absorption costing has a significant limitation. Because fixed overhead is allocated based on production volume, the cost per unit changes when production volume changes. If the factory produces twenty thousand units instead of ten thousand, the overhead per unit drops to fifty dollars. This can create the illusion that costs are falling when in reality the total overhead has not changed at all. Managers who focus only on absorption cost per unit might make poor decisions — for example, overproducing just to spread overhead across more units.\n\nMarginal costing — also called variable costing — takes a different approach. It assigns only variable costs to each unit of production. Variable costs are those that change in proportion to output: direct materials, direct labor, and variable overhead. Fixed overhead is treated as a period cost — an expense of the time period, not of the product. Under marginal costing, the cost of a product does not change when production volume changes.\n\nThe key concept in marginal costing is the contribution margin. Contribution is calculated as selling price minus variable cost per unit. If a product sells for two hundred dollars and its variable cost is one hundred and twenty dollars, the contribution is eighty dollars. This eighty dollars contributes toward covering fixed costs and generating profit.\n\nContribution analysis is a powerful decision-making tool. When a manager needs to decide whether to accept a special order at a lower price, the relevant question is not whether the price covers the full absorption cost, but whether it covers the variable cost and generates a positive contribution. If the factory has spare capacity and the special order price exceeds the marginal cost, accepting the order increases total profit — even if the price is below the standard full cost.\n\nThe difference between standard and actual costs adds another layer of analysis. Standard costs are predetermined estimates of what production should cost under normal conditions. They are set at the beginning of a period based on expected material prices, labor rates, and overhead levels. Actual costs are the real costs recorded during production. When actual costs differ from standard costs, the difference is a variance.\n\nIndirect costs present the greatest challenge in standard costing. Because overhead cannot be traced directly to products, accountants must estimate both the total overhead and the allocation basis in advance. If actual overhead or actual production volume differs from the estimate, the allocated overhead per unit will be wrong. This overhead variance must be analyzed and explained.\n\nWhether a company uses absorption costing for its annual report or marginal costing for internal decisions, the goal is the same: to understand the true cost of what it produces. And in a world where Vietnamese companies increasingly work with international partners, auditors, and investors, the ability to discuss these concepts in English is not a luxury — it is a necessity."
                     }
                 },
                 {
                     "activityType": "readAlong",
-                    "title": "Nghe: Phương pháp tính giá thành sản phẩm",
+                    "title": "Nghe: Phương pháp tính giá thành và phân tích lợi nhuận biên",
                     "description": "Nghe đoạn văn vừa đọc và theo dõi.",
                     "data": {
-                        "text": (
-                            "Once a company has classified its costs into direct and indirect categories, "
-                            "the next question is how to calculate the total cost of each product. "
-                            "This is where costing methods come in — "
-                            "and the method a company chooses can change the numbers dramatically.\n\n"
-                            "The most widely used approach is absorption costing. "
-                            "Under this method, every product absorbs a share of all production costs — "
-                            "both direct costs like materials and labor, "
-                            "and indirect costs like factory rent and equipment maintenance. "
-                            "If a Vietnamese ceramics factory produces ten thousand vases in a month "
-                            "and the total overhead is two billion dong, "
-                            "each vase absorbs two hundred thousand dong of overhead "
-                            "on top of its direct material and labor costs. "
-                            "Absorption costing gives a complete picture of what each product truly costs to make.\n\n"
-                            "However, absorption costing has a limitation. "
-                            "Because fixed overhead is spread across all units produced, "
-                            "the cost per unit changes when production volume changes. "
-                            "If the factory makes twenty thousand vases instead of ten thousand, "
-                            "each vase absorbs only one hundred thousand dong of overhead — "
-                            "making it appear cheaper to produce, even though total overhead has not changed.\n\n"
-                            "An alternative approach is marginal costing. "
-                            "Under marginal costing, only variable costs are included in the product cost. "
-                            "Fixed overhead is treated as a period expense — "
-                            "a cost of running the business for that time period, "
-                            "not a cost of making any specific product. "
-                            "The marginal cost of producing one additional vase "
-                            "includes only the clay, glaze, and the labor to shape and fire it. "
-                            "This approach is useful for short-term decisions "
-                            "like whether to accept a special order at a lower price.\n\n"
-                            "A key concept in marginal costing is contribution. "
-                            "Contribution is the amount left over after subtracting variable costs from revenue. "
-                            "If a vase sells for five hundred thousand dong "
-                            "and its variable costs are three hundred thousand dong, "
-                            "the contribution is two hundred thousand dong per unit. "
-                            "This contribution goes toward covering the factory's fixed costs. "
-                            "Once enough units are sold to cover all fixed costs, "
-                            "every additional contribution becomes pure profit.\n\n"
-                            "To set realistic targets, companies establish standard costs. "
-                            "A standard cost is a predetermined estimate of what a product should cost "
-                            "under normal operating conditions. "
-                            "The standard might specify that each vase should use "
-                            "two kilograms of clay at fifty thousand dong per kilogram "
-                            "and require thirty minutes of labor at one hundred thousand dong per hour. "
-                            "The total standard cost would then be one hundred and fifty thousand dong.\n\n"
-                            "At the end of the period, accountants compare the standard cost "
-                            "to the actual cost — what the company really spent. "
-                            "If the actual cost of clay was higher because prices rose, "
-                            "or if workers took longer than expected, "
-                            "the actual cost will exceed the standard. "
-                            "The difference is a variance, and managers investigate "
-                            "whether it was caused by price changes, efficiency problems, "
-                            "or changes in production volume.\n\n"
-                            "Understanding the difference between indirect and direct costs, "
-                            "between absorption and marginal approaches, "
-                            "and between standard and actual figures "
-                            "is essential for anyone who wants to manage costs effectively. "
-                            "These concepts form the foundation of cost accounting "
-                            "and appear in every management report around the world."
-                        )
+                        "text": "Two accountants can look at the same factory and calculate two different costs for the same product. This is not a mistake — it is a consequence of choosing different costing methods. The two most important methods in cost accounting are absorption costing and marginal costing, and understanding the difference between them is essential for any manager.\n\nAbsorption costing — also called full costing — assigns all manufacturing costs to each unit of production. This includes both direct costs (materials and labor that can be traced to the product) and indirect costs (overhead that cannot be traced to any single product). Under absorption costing, every unit produced absorbs a share of the factory's fixed overhead. If a factory has fixed overhead of one million dollars per month and produces ten thousand units, each unit absorbs one hundred dollars of overhead.\n\nThis method is required by international accounting standards for external financial reporting. The logic is straightforward: all costs incurred to manufacture a product should be included in its cost. When a company reports its cost of goods sold on the income statement, absorption costing ensures that both variable and fixed manufacturing costs are reflected.\n\nHowever, absorption costing has a significant limitation. Because fixed overhead is allocated based on production volume, the cost per unit changes when production volume changes. If the factory produces twenty thousand units instead of ten thousand, the overhead per unit drops to fifty dollars. This can create the illusion that costs are falling when in reality the total overhead has not changed at all. Managers who focus only on absorption cost per unit might make poor decisions — for example, overproducing just to spread overhead across more units.\n\nMarginal costing — also called variable costing — takes a different approach. It assigns only variable costs to each unit of production. Variable costs are those that change in proportion to output: direct materials, direct labor, and variable overhead. Fixed overhead is treated as a period cost — an expense of the time period, not of the product. Under marginal costing, the cost of a product does not change when production volume changes.\n\nThe key concept in marginal costing is the contribution margin. Contribution is calculated as selling price minus variable cost per unit. If a product sells for two hundred dollars and its variable cost is one hundred and twenty dollars, the contribution is eighty dollars. This eighty dollars contributes toward covering fixed costs and generating profit.\n\nContribution analysis is a powerful decision-making tool. When a manager needs to decide whether to accept a special order at a lower price, the relevant question is not whether the price covers the full absorption cost, but whether it covers the variable cost and generates a positive contribution. If the factory has spare capacity and the special order price exceeds the marginal cost, accepting the order increases total profit — even if the price is below the standard full cost.\n\nThe difference between standard and actual costs adds another layer of analysis. Standard costs are predetermined estimates of what production should cost under normal conditions. They are set at the beginning of a period based on expected material prices, labor rates, and overhead levels. Actual costs are the real costs recorded during production. When actual costs differ from standard costs, the difference is a variance.\n\nIndirect costs present the greatest challenge in standard costing. Because overhead cannot be traced directly to products, accountants must estimate both the total overhead and the allocation basis in advance. If actual overhead or actual production volume differs from the estimate, the allocated overhead per unit will be wrong. This overhead variance must be analyzed and explained.\n\nWhether a company uses absorption costing for its annual report or marginal costing for internal decisions, the goal is the same: to understand the true cost of what it produces. And in a world where Vietnamese companies increasingly work with international partners, auditors, and investors, the ability to discuss these concepts in English is not a luxury — it is a necessity."
                     }
                 },
                 {
                     "activityType": "writingSentence",
                     "title": "Viết: Phương pháp tính giá thành",
-                    "description": "Viết câu sử dụng 6 từ vựng về phương pháp tính giá thành sản phẩm.",
+                    "description": "Viết câu sử dụng 6 từ vựng về phương pháp tính giá thành và phân tích lợi nhuận biên.",
                     "data": {
                         "vocabList": ["indirect", "standard", "actual", "absorption", "marginal", "contribution"],
                         "items": [
                             {
-                                "targetVocab": "indirect",
-                                "prompt": "Dùng từ 'indirect' để viết một câu về chi phí gián tiếp trong nhà máy và cách chúng được xử lý. Ví dụ: Indirect costs such as factory insurance and the plant manager's salary were distributed equally among the three product lines manufactured at the facility."
+                                "prompt": "Dùng từ 'indirect' để viết một câu về chi phí gián tiếp và thách thức trong việc phân bổ chúng cho sản phẩm. Ví dụ: The company struggled to allocate indirect costs fairly because the three product lines used the factory's shared resources in very different ways.",
+                                "targetVocab": "indirect"
                             },
                             {
-                                "targetVocab": "standard",
-                                "prompt": "Dùng từ 'standard' để viết một câu về chi phí tiêu chuẩn và vai trò của nó trong kiểm soát chi phí. Ví dụ: The company set a standard cost of two hundred thousand dong per unit, which served as the target for the production team to measure their efficiency against."
+                                "prompt": "Dùng từ 'standard' để viết một câu về cách doanh nghiệp sử dụng chi phí tiêu chuẩn để đánh giá hiệu quả sản xuất. Ví dụ: Management set a standard cost of twelve dollars per unit at the beginning of the year, based on expected material prices and normal labor productivity.",
+                                "targetVocab": "standard"
                             },
                             {
-                                "targetVocab": "actual",
-                                "prompt": "Dùng từ 'actual' để viết một câu về chi phí thực tế và sự khác biệt với chi phí dự kiến. Ví dụ: The actual cost of producing the batch was fifteen percent higher than planned because a key supplier raised prices without warning in the middle of the quarter."
+                                "prompt": "Dùng từ 'actual' để viết một câu về sự khác biệt giữa chi phí thực tế và chi phí dự kiến. Ví dụ: The actual cost of the construction project came in twenty percent over budget because the price of steel rose sharply during the six-month building period.",
+                                "targetVocab": "actual"
                             },
                             {
-                                "targetVocab": "absorption",
-                                "prompt": "Dùng từ 'absorption' để viết một câu về phương pháp tính giá thành hấp thụ toàn bộ. Ví dụ: Under absorption costing, the factory allocated its entire monthly overhead of three billion dong across all units produced, increasing the reported cost per unit significantly."
+                                "prompt": "Dùng từ 'absorption' để viết một câu về phương pháp tính giá thành hấp thụ toàn bộ và yêu cầu của chuẩn mực kế toán. Ví dụ: International accounting standards require companies to use absorption costing for external reporting, ensuring that all manufacturing costs are included in the value of inventory.",
+                                "targetVocab": "absorption"
                             },
                             {
-                                "targetVocab": "marginal",
-                                "prompt": "Dùng từ 'marginal' để viết một câu về chi phí biên và ứng dụng trong quyết định kinh doanh. Ví dụ: The marginal cost of adding one more passenger to the tour bus was almost zero, so the travel company offered last-minute discounts to fill empty seats."
+                                "prompt": "Dùng từ 'marginal' để viết một câu về chi phí biên và quyết định nhận đơn hàng đặc biệt. Ví dụ: The export manager accepted the order at a lower price because the marginal cost of producing the extra units was well below the offered price, generating additional profit.",
+                                "targetVocab": "marginal"
                             },
                             {
-                                "targetVocab": "contribution",
-                                "prompt": "Dùng từ 'contribution' để viết một câu về đóng góp biên của sản phẩm vào việc bù đắp chi phí cố định. Ví dụ: Each cup of coffee sold at the campus cafe generates a contribution of thirty thousand dong, which helps cover the monthly rent and staff salaries."
+                                "prompt": "Dùng từ 'contribution' để viết một câu về lợi nhuận gộp biên và cách nó giúp đánh giá sản phẩm. Ví dụ: Product A had a contribution margin of sixty percent while Product B had only thirty-five percent, leading management to shift marketing resources toward Product A.",
+                                "targetVocab": "contribution"
                             }
                         ]
                     }
                 }
             ]
         },
-        # ── SESSION 3: Words 13-18 ────────────────────────────
         {
             "title": "Phần 3",
             "activities": [
                 {
                     "activityType": "introAudio",
                     "title": "Giới thiệu từ vựng phần 3",
-                    "description": "Ôn lại phần 1-2 và học 6 từ mới về phân tích hòa vốn và đánh giá hiệu quả.",
+                    "description": "Ôn lại phần 1-2 và học 6 từ mới về phân tích hòa vốn, dự báo và đánh giá hiệu quả.",
                     "data": {
-                        "text": (
-                            "Chào mừng bạn đến với phần cuối cùng của chuỗi từ vựng! "
-                            "Hãy cùng ôn lại nhanh những gì bạn đã học. "
-                            "Trong phần 1, bạn đã nắm được 6 từ nền tảng: cost, budget, variance, overhead, allocation, direct — "
-                            "những khái niệm cốt lõi về phân loại và kiểm soát chi phí. "
-                            "Trong phần 2, bạn đã học thêm indirect, standard, actual, absorption, marginal, contribution — "
-                            "bộ từ vựng về các phương pháp tính giá thành sản phẩm.\n\n"
-                            "Bây giờ, trong phần 3, chúng ta sẽ bước vào một khía cạnh thực tiễn hơn: "
-                            "phân tích hòa vốn, dự báo chi phí, và đánh giá hiệu quả hoạt động. "
-                            "Bạn sẽ học 6 từ mới: breakeven, forecast, performance, benchmark, controllable, và uncontrollable.\n\n"
-                            "Từ đầu tiên là breakeven — danh từ/tính từ — nghĩa là hòa vốn, "
-                            "điểm mà tại đó tổng doanh thu bằng tổng chi phí — doanh nghiệp không lãi cũng không lỗ. "
-                            "Ví dụ: 'The new restaurant needs to sell at least three hundred meals per day to reach its breakeven point and start generating profit.' "
-                            "Trong bài đọc, breakeven là mục tiêu tối thiểu — "
-                            "nếu doanh nghiệp chưa đạt breakeven, mỗi ngày hoạt động là một ngày lỗ.\n\n"
-                            "Từ thứ hai là forecast — danh từ/động từ — nghĩa là dự báo, "
-                            "ước tính về chi phí, doanh thu hoặc nhu cầu trong tương lai. "
-                            "Ví dụ: 'The finance team prepared a cost forecast for the next fiscal year, predicting a ten percent increase in raw material prices due to global supply chain disruptions.' "
-                            "Trong bài đọc, forecast là công cụ lập kế hoạch — "
-                            "nó giúp doanh nghiệp chuẩn bị ngân sách và đưa ra quyết định trước khi chi phí thực tế phát sinh.\n\n"
-                            "Từ thứ ba là performance — danh từ — nghĩa là hiệu quả hoạt động, "
-                            "mức độ mà một bộ phận hoặc doanh nghiệp đạt được so với mục tiêu đề ra. "
-                            "Ví dụ: 'The production department's performance exceeded expectations this quarter, with output increasing by twelve percent while costs remained within budget.' "
-                            "Trong bài đọc, performance được đo lường bằng nhiều chỉ số — "
-                            "từ chi phí trên mỗi đơn vị đến tỷ lệ sản phẩm lỗi.\n\n"
-                            "Từ thứ tư là benchmark — danh từ/động từ — nghĩa là chuẩn đối sánh, "
-                            "tiêu chuẩn hoặc điểm tham chiếu dùng để so sánh hiệu quả. "
-                            "Ví dụ: 'The company uses industry benchmarks to evaluate whether its production costs are competitive compared to other manufacturers in the region.' "
-                            "Trong bài đọc, benchmark giúp doanh nghiệp biết mình đang ở đâu — "
-                            "tốt hơn hay kém hơn so với đối thủ và tiêu chuẩn ngành.\n\n"
-                            "Từ thứ năm là controllable — tính từ — nghĩa là có thể kiểm soát, "
-                            "mô tả chi phí mà nhà quản lý có quyền và khả năng tác động. "
-                            "Ví dụ: 'The factory manager focused on reducing controllable costs such as overtime wages and material waste, which were within her authority to change.' "
-                            "Trong bài đọc, controllable costs là trọng tâm đánh giá — "
-                            "nhà quản lý chỉ nên chịu trách nhiệm về những chi phí mà họ có thể kiểm soát.\n\n"
-                            "Từ cuối cùng là uncontrollable — tính từ — nghĩa là không thể kiểm soát, "
-                            "mô tả chi phí nằm ngoài tầm ảnh hưởng của nhà quản lý cấp bộ phận. "
-                            "Ví dụ: 'The increase in electricity tariffs was an uncontrollable cost for the plant manager, as it was determined by the national energy regulator.' "
-                            "Trong bài đọc, uncontrollable costs vẫn ảnh hưởng đến kết quả — "
-                            "nhưng chúng không nên được dùng để đánh giá hiệu quả của nhà quản lý.\n\n"
-                            "Tuyệt vời! Bạn đã có đủ 18 từ vựng. Hãy hoàn thành flashcard "
-                            "và đọc bài viết cuối cùng về phân tích hòa vốn và đánh giá hiệu quả nhé!"
-                        )
+                        "text": "Chào mừng bạn đến với phần cuối cùng của chuỗi từ vựng! Hãy cùng ôn lại nhanh những gì bạn đã học. Trong phần 1, bạn đã nắm được 6 từ nền tảng: cost — chi phí, budget — ngân sách, variance — chênh lệch, overhead — chi phí chung, allocation — phân bổ, và direct — trực tiếp. Đây là bộ khung cơ bản để phân loại và kiểm soát chi phí. Trong phần 2, bạn đã học thêm indirect — gián tiếp, standard — tiêu chuẩn, actual — thực tế, absorption — hấp thụ, marginal — biên, và contribution — đóng góp. Những từ này giúp bạn hiểu các phương pháp tính giá thành và phân tích lợi nhuận biên.\n\nBây giờ, trong phần 3, chúng ta sẽ bước vào những công cụ phân tích quan trọng nhất của kế toán quản trị — những công cụ giúp nhà quản lý nhìn về phía trước và đánh giá hiệu quả hoạt động. Bạn sẽ học 6 từ mới: breakeven, forecast, performance, benchmark, controllable, và uncontrollable.\n\nTừ đầu tiên là breakeven — danh từ và tính từ — nghĩa là hòa vốn. Breakeven point là điểm hòa vốn — mức sản lượng hoặc doanh thu mà tại đó tổng doanh thu bằng đúng tổng chi phí, doanh nghiệp không lãi cũng không lỗ. Breakeven analysis sử dụng contribution margin để tính: Breakeven = Fixed Costs ÷ Contribution per Unit. Ví dụ: 'The startup calculated that it needed to sell at least eight hundred units per month to reach breakeven, after which every additional sale would generate pure profit.' Trong bài đọc, breakeven là ranh giới sống còn — dưới điểm hòa vốn là lỗ, trên điểm hòa vốn là lãi.\n\nTừ thứ hai là forecast — danh từ và động từ — nghĩa là dự báo. Forecast trong kế toán quản trị là việc ước tính doanh thu, chi phí, dòng tiền, hoặc nhu cầu sản xuất cho tương lai dựa trên dữ liệu lịch sử, xu hướng thị trường, và giả định kinh doanh. Ví dụ: 'The finance team revised its revenue forecast downward after the government announced new import restrictions that would reduce demand for the company's products.' Trong bài đọc, forecast là cầu nối giữa quá khứ và tương lai — nó giúp nhà quản lý chuẩn bị thay vì phản ứng.\n\nTừ thứ ba là performance — danh từ — nghĩa là hiệu quả hoạt động, thành tích. Performance trong kế toán quản trị là thước đo kết quả thực tế so với mục tiêu — doanh thu có đạt kế hoạch không, chi phí có trong ngân sách không, lợi nhuận có đạt kỳ vọng không. Ví dụ: 'The quarterly performance report showed that the Northern region exceeded its sales target by twelve percent while the Southern region fell short by eight percent.' Trong bài đọc, performance là tấm gương — nó phản ánh trung thực kết quả của mỗi bộ phận, mỗi sản phẩm, mỗi nhà quản lý.\n\nTừ thứ tư là benchmark — danh từ và động từ — nghĩa là chuẩn đối sánh, tiêu chuẩn so sánh. Benchmark là mức hiệu quả tham chiếu — có thể là kết quả của đối thủ cạnh tranh, trung bình ngành, hoặc thành tích tốt nhất trong quá khứ — dùng để đánh giá hiệu quả hiện tại. Ví dụ: 'The company benchmarked its production costs against three leading competitors and discovered that its overhead per unit was thirty percent higher than the industry average.' Trong bài đọc, benchmark là la bàn bên ngoài — nó cho bạn biết mình đang ở đâu so với phần còn lại của thị trường.\n\nTừ thứ năm là controllable — tính từ — nghĩa là có thể kiểm soát được. Controllable cost là chi phí mà một nhà quản lý cụ thể có quyền và khả năng ảnh hưởng — ví dụ, trưởng phòng sản xuất có thể kiểm soát chi phí nguyên vật liệu và giờ làm thêm, nhưng không kiểm soát được tiền thuê nhà xưởng. Ví dụ: 'The factory manager was evaluated only on controllable costs such as materials usage and overtime hours, not on rent or corporate overhead that she had no authority to change.' Trong bài đọc, controllable là nguyên tắc công bằng — nhà quản lý chỉ nên chịu trách nhiệm về những gì họ có thể kiểm soát.\n\nTừ cuối cùng là uncontrollable — tính từ — nghĩa là không thể kiểm soát được. Uncontrollable cost là chi phí nằm ngoài quyền quyết định của nhà quản lý — như thay đổi thuế suất, biến động tỷ giá, hoặc quyết định phân bổ chi phí từ trụ sở chính. Ví dụ: 'The branch manager argued that the unfavorable variance was caused by uncontrollable factors — a sudden increase in electricity tariffs imposed by the government and a corporate decision to raise the IT service charge.' Trong bài đọc, uncontrollable nhắc nhở rằng không phải mọi chênh lệch đều là lỗi của nhà quản lý — một số yếu tố nằm ngoài tầm kiểm soát.\n\nTuyệt vời! Bạn đã có đủ 18 từ vựng. Hãy hoàn thành flashcard và đọc bài viết cuối cùng về phân tích hòa vốn và đánh giá hiệu quả nhé!"
                     }
                 },
                 {
                     "activityType": "viewFlashcards",
-                    "title": "Flashcards: Hòa vốn và đánh giá hiệu quả",
+                    "title": "Flashcards: Phân tích hòa vốn và đánh giá hiệu quả",
                     "description": "Học 6 từ: breakeven, forecast, performance, benchmark, controllable, uncontrollable",
-                    "data": {"vocabList": ["breakeven", "forecast", "performance", "benchmark", "controllable", "uncontrollable"]}
+                    "data": {
+                        "vocabList": ["breakeven", "forecast", "performance", "benchmark", "controllable", "uncontrollable"]
+                    }
                 },
                 {
                     "activityType": "speakFlashcards",
-                    "title": "Flashcards: Hòa vốn và đánh giá hiệu quả",
+                    "title": "Flashcards: Phân tích hòa vốn và đánh giá hiệu quả",
                     "description": "Học 6 từ: breakeven, forecast, performance, benchmark, controllable, uncontrollable",
-                    "data": {"vocabList": ["breakeven", "forecast", "performance", "benchmark", "controllable", "uncontrollable"]}
+                    "data": {
+                        "vocabList": ["breakeven", "forecast", "performance", "benchmark", "controllable", "uncontrollable"]
+                    }
                 },
                 {
                     "activityType": "vocabLevel1",
-                    "title": "Flashcards: Hòa vốn và đánh giá hiệu quả",
+                    "title": "Flashcards: Phân tích hòa vốn và đánh giá hiệu quả",
                     "description": "Học 6 từ: breakeven, forecast, performance, benchmark, controllable, uncontrollable",
-                    "data": {"vocabList": ["breakeven", "forecast", "performance", "benchmark", "controllable", "uncontrollable"]}
+                    "data": {
+                        "vocabList": ["breakeven", "forecast", "performance", "benchmark", "controllable", "uncontrollable"]
+                    }
                 },
                 {
                     "activityType": "vocabLevel2",
-                    "title": "Flashcards: Hòa vốn và đánh giá hiệu quả",
+                    "title": "Flashcards: Phân tích hòa vốn và đánh giá hiệu quả",
                     "description": "Học 6 từ: breakeven, forecast, performance, benchmark, controllable, uncontrollable",
-                    "data": {"vocabList": ["breakeven", "forecast", "performance", "benchmark", "controllable", "uncontrollable"]}
+                    "data": {
+                        "vocabList": ["breakeven", "forecast", "performance", "benchmark", "controllable", "uncontrollable"]
+                    }
                 },
                 {
                     "activityType": "vocabLevel3",
-                    "title": "Flashcards: Hòa vốn và đánh giá hiệu quả",
+                    "title": "Flashcards: Phân tích hòa vốn và đánh giá hiệu quả",
                     "description": "Học 6 từ: breakeven, forecast, performance, benchmark, controllable, uncontrollable",
-                    "data": {"vocabList": ["breakeven", "forecast", "performance", "benchmark", "controllable", "uncontrollable"]}
+                    "data": {
+                        "vocabList": ["breakeven", "forecast", "performance", "benchmark", "controllable", "uncontrollable"]
+                    }
                 },
                 {
                     "activityType": "reading",
-                    "title": "Đọc: Phân tích hòa vốn và đánh giá hiệu quả chi phí",
-                    "description": "Every manager wants to know one thing: how many units do we need to sell before we start making money?",
+                    "title": "Đọc: Phân tích hòa vốn, dự báo và đánh giá hiệu quả",
+                    "description": "A manager who cannot measure performance cannot improve it.",
                     "data": {
-                        "text": (
-                            "Every manager wants to know one thing: "
-                            "how many units do we need to sell before we start making money? "
-                            "The answer comes from breakeven analysis — "
-                            "one of the most practical tools in cost accounting.\n\n"
-                            "The breakeven point is where total revenue equals total costs. "
-                            "Below this point, the company loses money. Above it, the company earns profit. "
-                            "To calculate the breakeven point, you need to know three things: "
-                            "the selling price per unit, the variable cost per unit, "
-                            "and the total fixed costs for the period. "
-                            "For example, a Vietnamese bakery sells each cake for one hundred thousand dong. "
-                            "The variable cost — flour, eggs, sugar, and packaging — is sixty thousand dong per cake. "
-                            "The contribution per cake is forty thousand dong. "
-                            "If the bakery's fixed costs — rent, equipment, and salaries — total "
-                            "twenty million dong per month, "
-                            "the breakeven point is five hundred cakes per month. "
-                            "Sell fewer than five hundred, and the bakery loses money. "
-                            "Sell more, and every additional cake adds forty thousand dong of pure profit.\n\n"
-                            "But breakeven analysis looks backward at current costs. "
-                            "To plan for the future, companies need a forecast. "
-                            "A cost forecast estimates what expenses will look like "
-                            "in the coming months or years. "
-                            "The finance team might forecast that raw material prices will rise "
-                            "by eight percent next year based on commodity market trends. "
-                            "They might also forecast that labor costs will increase "
-                            "as the government raises the minimum wage. "
-                            "A good forecast helps the company adjust its budget in advance "
-                            "rather than reacting to surprises after they happen.\n\n"
-                            "Once the budget is set and the period ends, "
-                            "managers need to evaluate performance. "
-                            "Performance measurement in cost accounting means comparing "
-                            "what actually happened to what was planned. "
-                            "Did the production department stay within its budget? "
-                            "Did the sales team generate enough revenue to cover costs? "
-                            "Performance reports break down results by department, product line, "
-                            "and cost category so that managers can see exactly where things went well "
-                            "and where they went wrong.\n\n"
-                            "To make performance evaluation meaningful, "
-                            "companies use benchmarks. "
-                            "A benchmark is a standard of comparison — "
-                            "it could be the company's own historical performance, "
-                            "an industry average, or the results of a leading competitor. "
-                            "If the average production cost in the Vietnamese textile industry "
-                            "is eighty thousand dong per meter of fabric, "
-                            "and your factory's cost is ninety thousand dong, "
-                            "the benchmark tells you that there is room for improvement. "
-                            "Without benchmarks, a company might think it is doing well "
-                            "simply because it is better than last year — "
-                            "even if competitors are doing much better.\n\n"
-                            "A fair performance evaluation must also distinguish "
-                            "between controllable and uncontrollable costs. "
-                            "A controllable cost is one that a manager can influence through decisions. "
-                            "The factory manager can control overtime hours, material usage, "
-                            "and the number of temporary workers hired. "
-                            "These are controllable costs, and the manager should be held accountable for them.\n\n"
-                            "An uncontrollable cost, on the other hand, "
-                            "is determined by forces outside the manager's authority. "
-                            "The price of imported steel, changes in tax rates, "
-                            "and government-mandated wage increases are all uncontrollable "
-                            "from the factory manager's perspective. "
-                            "It would be unfair to blame a manager for cost increases "
-                            "that were caused by external factors beyond their control. "
-                            "Good cost accounting systems separate controllable from uncontrollable costs "
-                            "so that each manager is evaluated only on what they can actually influence."
-                        )
+                        "text": "A manager who cannot measure performance cannot improve it. This principle lies at the heart of management accounting, where the tools of breakeven analysis, forecasting, and performance evaluation help businesses plan for the future and learn from the past.\n\nBreakeven analysis is one of the simplest yet most powerful tools available to managers. It answers a fundamental question: how much do we need to sell before we start making a profit? The breakeven point is the level of sales at which total revenue exactly equals total costs — the company neither makes money nor loses it.\n\nCalculating the breakeven point requires understanding the relationship between fixed costs, variable costs, and the contribution margin. Fixed costs — rent, salaries of permanent staff, insurance — remain constant regardless of how many units are produced. Variable costs — raw materials, packaging, shipping — increase with each additional unit. The contribution margin is the difference between the selling price and the variable cost per unit.\n\nIf a company sells handmade bags at eighty dollars each, with variable costs of thirty dollars per bag, the contribution margin is fifty dollars. If fixed costs are one hundred thousand dollars per year, the breakeven point is two thousand bags — one hundred thousand divided by fifty. Below two thousand bags, the company loses money. Above two thousand, every additional bag generates fifty dollars of profit.\n\nBreakeven analysis becomes even more valuable when combined with forecasting. A forecast is an estimate of future financial results based on historical data, market trends, and management assumptions. Sales forecasts predict how many units the company expects to sell. Cost forecasts estimate how expenses will change. Cash flow forecasts project when money will come in and go out.\n\nGood forecasting is not about predicting the future perfectly — it is about preparing for multiple scenarios. A conservative forecast might assume flat sales growth and rising material costs. An optimistic forecast might assume a new product launch will boost demand by twenty percent. By comparing the breakeven point against different forecast scenarios, managers can assess risk and make informed decisions about pricing, production levels, and investment.\n\nOnce the period ends and actual results are available, the focus shifts to performance evaluation. Performance measurement compares what actually happened against what was planned — the budget, the forecast, or the standard. Did the sales team hit its revenue target? Did the factory keep costs within budget? Did the company achieve its profit goals?\n\nPerformance evaluation must be fair, and fairness requires distinguishing between controllable and uncontrollable factors. A controllable cost is one that a specific manager has the authority and ability to influence. The head of purchasing can negotiate better prices with suppliers — material costs are controllable for that manager. The production supervisor can manage overtime hours and reduce waste — labor efficiency is controllable.\n\nAn uncontrollable cost, by contrast, is one that a manager cannot influence. A sudden government tax increase, a natural disaster that disrupts supply chains, or a corporate decision to reallocate overhead from headquarters — these are uncontrollable factors. Holding a manager accountable for uncontrollable costs is unfair and demotivating. Effective performance evaluation systems separate controllable from uncontrollable variances so that each manager is judged only on what they can actually affect.\n\nBenchmarking adds an external dimension to performance evaluation. While budgets and standards provide internal targets, benchmarks compare a company's performance against external reference points — competitors, industry averages, or best-in-class companies. A Vietnamese textile manufacturer might benchmark its production cost per meter against factories in Bangladesh and China. If its costs are significantly higher, the benchmark reveals a competitive gap that needs to be addressed.\n\nBenchmarking is not just about cost. Companies benchmark quality metrics, delivery times, customer satisfaction scores, and employee productivity. The goal is to identify areas where the company lags behind and to learn from those who perform better.\n\nFrom calculating the breakeven point to building forecasts, from measuring performance against budgets to benchmarking against competitors — these tools transform raw cost data into actionable intelligence. They help managers answer not just what happened, but why it happened and what to do next. And in the language of international business, these conversations happen in English."
                     }
                 },
                 {
                     "activityType": "speakReading",
-                    "title": "Đọc: Phân tích hòa vốn và đánh giá hiệu quả chi phí",
-                    "description": "Every manager wants to know one thing: how many units do we need to sell before we start making money?",
+                    "title": "Đọc: Phân tích hòa vốn, dự báo và đánh giá hiệu quả",
+                    "description": "A manager who cannot measure performance cannot improve it.",
                     "data": {
-                        "text": (
-                            "Every manager wants to know one thing: "
-                            "how many units do we need to sell before we start making money? "
-                            "The answer comes from breakeven analysis — "
-                            "one of the most practical tools in cost accounting.\n\n"
-                            "The breakeven point is where total revenue equals total costs. "
-                            "Below this point, the company loses money. Above it, the company earns profit. "
-                            "To calculate the breakeven point, you need to know three things: "
-                            "the selling price per unit, the variable cost per unit, "
-                            "and the total fixed costs for the period. "
-                            "For example, a Vietnamese bakery sells each cake for one hundred thousand dong. "
-                            "The variable cost — flour, eggs, sugar, and packaging — is sixty thousand dong per cake. "
-                            "The contribution per cake is forty thousand dong. "
-                            "If the bakery's fixed costs — rent, equipment, and salaries — total "
-                            "twenty million dong per month, "
-                            "the breakeven point is five hundred cakes per month. "
-                            "Sell fewer than five hundred, and the bakery loses money. "
-                            "Sell more, and every additional cake adds forty thousand dong of pure profit.\n\n"
-                            "But breakeven analysis looks backward at current costs. "
-                            "To plan for the future, companies need a forecast. "
-                            "A cost forecast estimates what expenses will look like "
-                            "in the coming months or years. "
-                            "The finance team might forecast that raw material prices will rise "
-                            "by eight percent next year based on commodity market trends. "
-                            "They might also forecast that labor costs will increase "
-                            "as the government raises the minimum wage. "
-                            "A good forecast helps the company adjust its budget in advance "
-                            "rather than reacting to surprises after they happen.\n\n"
-                            "Once the budget is set and the period ends, "
-                            "managers need to evaluate performance. "
-                            "Performance measurement in cost accounting means comparing "
-                            "what actually happened to what was planned. "
-                            "Did the production department stay within its budget? "
-                            "Did the sales team generate enough revenue to cover costs? "
-                            "Performance reports break down results by department, product line, "
-                            "and cost category so that managers can see exactly where things went well "
-                            "and where they went wrong.\n\n"
-                            "To make performance evaluation meaningful, "
-                            "companies use benchmarks. "
-                            "A benchmark is a standard of comparison — "
-                            "it could be the company's own historical performance, "
-                            "an industry average, or the results of a leading competitor. "
-                            "If the average production cost in the Vietnamese textile industry "
-                            "is eighty thousand dong per meter of fabric, "
-                            "and your factory's cost is ninety thousand dong, "
-                            "the benchmark tells you that there is room for improvement. "
-                            "Without benchmarks, a company might think it is doing well "
-                            "simply because it is better than last year — "
-                            "even if competitors are doing much better.\n\n"
-                            "A fair performance evaluation must also distinguish "
-                            "between controllable and uncontrollable costs. "
-                            "A controllable cost is one that a manager can influence through decisions. "
-                            "The factory manager can control overtime hours, material usage, "
-                            "and the number of temporary workers hired. "
-                            "These are controllable costs, and the manager should be held accountable for them.\n\n"
-                            "An uncontrollable cost, on the other hand, "
-                            "is determined by forces outside the manager's authority. "
-                            "The price of imported steel, changes in tax rates, "
-                            "and government-mandated wage increases are all uncontrollable "
-                            "from the factory manager's perspective. "
-                            "It would be unfair to blame a manager for cost increases "
-                            "that were caused by external factors beyond their control. "
-                            "Good cost accounting systems separate controllable from uncontrollable costs "
-                            "so that each manager is evaluated only on what they can actually influence."
-                        )
+                        "text": "A manager who cannot measure performance cannot improve it. This principle lies at the heart of management accounting, where the tools of breakeven analysis, forecasting, and performance evaluation help businesses plan for the future and learn from the past.\n\nBreakeven analysis is one of the simplest yet most powerful tools available to managers. It answers a fundamental question: how much do we need to sell before we start making a profit? The breakeven point is the level of sales at which total revenue exactly equals total costs — the company neither makes money nor loses it.\n\nCalculating the breakeven point requires understanding the relationship between fixed costs, variable costs, and the contribution margin. Fixed costs — rent, salaries of permanent staff, insurance — remain constant regardless of how many units are produced. Variable costs — raw materials, packaging, shipping — increase with each additional unit. The contribution margin is the difference between the selling price and the variable cost per unit.\n\nIf a company sells handmade bags at eighty dollars each, with variable costs of thirty dollars per bag, the contribution margin is fifty dollars. If fixed costs are one hundred thousand dollars per year, the breakeven point is two thousand bags — one hundred thousand divided by fifty. Below two thousand bags, the company loses money. Above two thousand, every additional bag generates fifty dollars of profit.\n\nBreakeven analysis becomes even more valuable when combined with forecasting. A forecast is an estimate of future financial results based on historical data, market trends, and management assumptions. Sales forecasts predict how many units the company expects to sell. Cost forecasts estimate how expenses will change. Cash flow forecasts project when money will come in and go out.\n\nGood forecasting is not about predicting the future perfectly — it is about preparing for multiple scenarios. A conservative forecast might assume flat sales growth and rising material costs. An optimistic forecast might assume a new product launch will boost demand by twenty percent. By comparing the breakeven point against different forecast scenarios, managers can assess risk and make informed decisions about pricing, production levels, and investment.\n\nOnce the period ends and actual results are available, the focus shifts to performance evaluation. Performance measurement compares what actually happened against what was planned — the budget, the forecast, or the standard. Did the sales team hit its revenue target? Did the factory keep costs within budget? Did the company achieve its profit goals?\n\nPerformance evaluation must be fair, and fairness requires distinguishing between controllable and uncontrollable factors. A controllable cost is one that a specific manager has the authority and ability to influence. The head of purchasing can negotiate better prices with suppliers — material costs are controllable for that manager. The production supervisor can manage overtime hours and reduce waste — labor efficiency is controllable.\n\nAn uncontrollable cost, by contrast, is one that a manager cannot influence. A sudden government tax increase, a natural disaster that disrupts supply chains, or a corporate decision to reallocate overhead from headquarters — these are uncontrollable factors. Holding a manager accountable for uncontrollable costs is unfair and demotivating. Effective performance evaluation systems separate controllable from uncontrollable variances so that each manager is judged only on what they can actually affect.\n\nBenchmarking adds an external dimension to performance evaluation. While budgets and standards provide internal targets, benchmarks compare a company's performance against external reference points — competitors, industry averages, or best-in-class companies. A Vietnamese textile manufacturer might benchmark its production cost per meter against factories in Bangladesh and China. If its costs are significantly higher, the benchmark reveals a competitive gap that needs to be addressed.\n\nBenchmarking is not just about cost. Companies benchmark quality metrics, delivery times, customer satisfaction scores, and employee productivity. The goal is to identify areas where the company lags behind and to learn from those who perform better.\n\nFrom calculating the breakeven point to building forecasts, from measuring performance against budgets to benchmarking against competitors — these tools transform raw cost data into actionable intelligence. They help managers answer not just what happened, but why it happened and what to do next. And in the language of international business, these conversations happen in English."
                     }
                 },
                 {
                     "activityType": "readAlong",
-                    "title": "Nghe: Phân tích hòa vốn và đánh giá hiệu quả chi phí",
+                    "title": "Nghe: Phân tích hòa vốn, dự báo và đánh giá hiệu quả",
                     "description": "Nghe đoạn văn vừa đọc và theo dõi.",
                     "data": {
-                        "text": (
-                            "Every manager wants to know one thing: "
-                            "how many units do we need to sell before we start making money? "
-                            "The answer comes from breakeven analysis — "
-                            "one of the most practical tools in cost accounting.\n\n"
-                            "The breakeven point is where total revenue equals total costs. "
-                            "Below this point, the company loses money. Above it, the company earns profit. "
-                            "To calculate the breakeven point, you need to know three things: "
-                            "the selling price per unit, the variable cost per unit, "
-                            "and the total fixed costs for the period. "
-                            "For example, a Vietnamese bakery sells each cake for one hundred thousand dong. "
-                            "The variable cost — flour, eggs, sugar, and packaging — is sixty thousand dong per cake. "
-                            "The contribution per cake is forty thousand dong. "
-                            "If the bakery's fixed costs — rent, equipment, and salaries — total "
-                            "twenty million dong per month, "
-                            "the breakeven point is five hundred cakes per month. "
-                            "Sell fewer than five hundred, and the bakery loses money. "
-                            "Sell more, and every additional cake adds forty thousand dong of pure profit.\n\n"
-                            "But breakeven analysis looks backward at current costs. "
-                            "To plan for the future, companies need a forecast. "
-                            "A cost forecast estimates what expenses will look like "
-                            "in the coming months or years. "
-                            "The finance team might forecast that raw material prices will rise "
-                            "by eight percent next year based on commodity market trends. "
-                            "They might also forecast that labor costs will increase "
-                            "as the government raises the minimum wage. "
-                            "A good forecast helps the company adjust its budget in advance "
-                            "rather than reacting to surprises after they happen.\n\n"
-                            "Once the budget is set and the period ends, "
-                            "managers need to evaluate performance. "
-                            "Performance measurement in cost accounting means comparing "
-                            "what actually happened to what was planned. "
-                            "Did the production department stay within its budget? "
-                            "Did the sales team generate enough revenue to cover costs? "
-                            "Performance reports break down results by department, product line, "
-                            "and cost category so that managers can see exactly where things went well "
-                            "and where they went wrong.\n\n"
-                            "To make performance evaluation meaningful, "
-                            "companies use benchmarks. "
-                            "A benchmark is a standard of comparison — "
-                            "it could be the company's own historical performance, "
-                            "an industry average, or the results of a leading competitor. "
-                            "If the average production cost in the Vietnamese textile industry "
-                            "is eighty thousand dong per meter of fabric, "
-                            "and your factory's cost is ninety thousand dong, "
-                            "the benchmark tells you that there is room for improvement. "
-                            "Without benchmarks, a company might think it is doing well "
-                            "simply because it is better than last year — "
-                            "even if competitors are doing much better.\n\n"
-                            "A fair performance evaluation must also distinguish "
-                            "between controllable and uncontrollable costs. "
-                            "A controllable cost is one that a manager can influence through decisions. "
-                            "The factory manager can control overtime hours, material usage, "
-                            "and the number of temporary workers hired. "
-                            "These are controllable costs, and the manager should be held accountable for them.\n\n"
-                            "An uncontrollable cost, on the other hand, "
-                            "is determined by forces outside the manager's authority. "
-                            "The price of imported steel, changes in tax rates, "
-                            "and government-mandated wage increases are all uncontrollable "
-                            "from the factory manager's perspective. "
-                            "It would be unfair to blame a manager for cost increases "
-                            "that were caused by external factors beyond their control. "
-                            "Good cost accounting systems separate controllable from uncontrollable costs "
-                            "so that each manager is evaluated only on what they can actually influence."
-                        )
+                        "text": "A manager who cannot measure performance cannot improve it. This principle lies at the heart of management accounting, where the tools of breakeven analysis, forecasting, and performance evaluation help businesses plan for the future and learn from the past.\n\nBreakeven analysis is one of the simplest yet most powerful tools available to managers. It answers a fundamental question: how much do we need to sell before we start making a profit? The breakeven point is the level of sales at which total revenue exactly equals total costs — the company neither makes money nor loses it.\n\nCalculating the breakeven point requires understanding the relationship between fixed costs, variable costs, and the contribution margin. Fixed costs — rent, salaries of permanent staff, insurance — remain constant regardless of how many units are produced. Variable costs — raw materials, packaging, shipping — increase with each additional unit. The contribution margin is the difference between the selling price and the variable cost per unit.\n\nIf a company sells handmade bags at eighty dollars each, with variable costs of thirty dollars per bag, the contribution margin is fifty dollars. If fixed costs are one hundred thousand dollars per year, the breakeven point is two thousand bags — one hundred thousand divided by fifty. Below two thousand bags, the company loses money. Above two thousand, every additional bag generates fifty dollars of profit.\n\nBreakeven analysis becomes even more valuable when combined with forecasting. A forecast is an estimate of future financial results based on historical data, market trends, and management assumptions. Sales forecasts predict how many units the company expects to sell. Cost forecasts estimate how expenses will change. Cash flow forecasts project when money will come in and go out.\n\nGood forecasting is not about predicting the future perfectly — it is about preparing for multiple scenarios. A conservative forecast might assume flat sales growth and rising material costs. An optimistic forecast might assume a new product launch will boost demand by twenty percent. By comparing the breakeven point against different forecast scenarios, managers can assess risk and make informed decisions about pricing, production levels, and investment.\n\nOnce the period ends and actual results are available, the focus shifts to performance evaluation. Performance measurement compares what actually happened against what was planned — the budget, the forecast, or the standard. Did the sales team hit its revenue target? Did the factory keep costs within budget? Did the company achieve its profit goals?\n\nPerformance evaluation must be fair, and fairness requires distinguishing between controllable and uncontrollable factors. A controllable cost is one that a specific manager has the authority and ability to influence. The head of purchasing can negotiate better prices with suppliers — material costs are controllable for that manager. The production supervisor can manage overtime hours and reduce waste — labor efficiency is controllable.\n\nAn uncontrollable cost, by contrast, is one that a manager cannot influence. A sudden government tax increase, a natural disaster that disrupts supply chains, or a corporate decision to reallocate overhead from headquarters — these are uncontrollable factors. Holding a manager accountable for uncontrollable costs is unfair and demotivating. Effective performance evaluation systems separate controllable from uncontrollable variances so that each manager is judged only on what they can actually affect.\n\nBenchmarking adds an external dimension to performance evaluation. While budgets and standards provide internal targets, benchmarks compare a company's performance against external reference points — competitors, industry averages, or best-in-class companies. A Vietnamese textile manufacturer might benchmark its production cost per meter against factories in Bangladesh and China. If its costs are significantly higher, the benchmark reveals a competitive gap that needs to be addressed.\n\nBenchmarking is not just about cost. Companies benchmark quality metrics, delivery times, customer satisfaction scores, and employee productivity. The goal is to identify areas where the company lags behind and to learn from those who perform better.\n\nFrom calculating the breakeven point to building forecasts, from measuring performance against budgets to benchmarking against competitors — these tools transform raw cost data into actionable intelligence. They help managers answer not just what happened, but why it happened and what to do next. And in the language of international business, these conversations happen in English."
                     }
                 },
                 {
                     "activityType": "writingSentence",
-                    "title": "Viết: Hòa vốn và đánh giá hiệu quả",
-                    "description": "Viết câu sử dụng 6 từ vựng về phân tích hòa vốn và đánh giá hiệu quả.",
+                    "title": "Viết: Phân tích hòa vốn và đánh giá hiệu quả",
+                    "description": "Viết câu sử dụng 6 từ vựng về phân tích hòa vốn, dự báo và đánh giá hiệu quả.",
                     "data": {
                         "vocabList": ["breakeven", "forecast", "performance", "benchmark", "controllable", "uncontrollable"],
                         "items": [
                             {
-                                "targetVocab": "breakeven",
-                                "prompt": "Dùng từ 'breakeven' để viết một câu về điểm hòa vốn của một doanh nghiệp mới. Ví dụ: The startup calculated that it needed to sell at least two thousand subscriptions per month to reach its breakeven point and stop burning through investor capital."
+                                "prompt": "Dùng từ 'breakeven' để viết một câu về điểm hòa vốn và ý nghĩa của nó đối với quyết định kinh doanh. Ví dụ: The new coffee shop needed to sell at least three hundred cups per day to reach breakeven, which the owner considered achievable given the location's heavy foot traffic.",
+                                "targetVocab": "breakeven"
                             },
                             {
-                                "targetVocab": "forecast",
-                                "prompt": "Dùng từ 'forecast' để viết một câu về dự báo chi phí cho năm tài chính tiếp theo. Ví dụ: The finance department's forecast predicted that energy costs would rise by twelve percent next year, prompting the company to invest in solar panels for the factory roof."
+                                "prompt": "Dùng từ 'forecast' để viết một câu về dự báo tài chính và cách nó giúp doanh nghiệp chuẩn bị cho tương lai. Ví dụ: The CFO presented three forecast scenarios to the board — optimistic, moderate, and conservative — so that the company could prepare contingency plans for each outcome.",
+                                "targetVocab": "forecast"
                             },
                             {
-                                "targetVocab": "performance",
-                                "prompt": "Dùng từ 'performance' để viết một câu về đánh giá hiệu quả hoạt động của một bộ phận. Ví dụ: The quarterly performance report showed that the logistics department reduced delivery costs by eighteen percent while maintaining the same level of customer satisfaction."
+                                "prompt": "Dùng từ 'performance' để viết một câu về đánh giá hiệu quả hoạt động của một bộ phận trong doanh nghiệp. Ví dụ: The annual performance review revealed that the logistics department had reduced delivery times by eighteen percent while keeping transportation costs flat.",
+                                "targetVocab": "performance"
                             },
                             {
-                                "targetVocab": "benchmark",
-                                "prompt": "Dùng từ 'benchmark' để viết một câu về việc so sánh hiệu quả với tiêu chuẩn ngành. Ví dụ: The company benchmarked its production costs against five leading competitors in Southeast Asia and discovered that its labor efficiency was twenty percent below the regional average."
+                                "prompt": "Dùng từ 'benchmark' để viết một câu về cách doanh nghiệp so sánh hiệu quả với đối thủ hoặc trung bình ngành. Ví dụ: After benchmarking its customer service response time against the top five competitors, the company invested in a new call center system to close the gap.",
+                                "targetVocab": "benchmark"
                             },
                             {
-                                "targetVocab": "controllable",
-                                "prompt": "Dùng từ 'controllable' để viết một câu về chi phí mà nhà quản lý có thể tác động. Ví dụ: The plant manager reduced controllable costs by renegotiating contracts with local suppliers and implementing a strict policy on overtime hours for production workers."
+                                "prompt": "Dùng từ 'controllable' để viết một câu về chi phí có thể kiểm soát và trách nhiệm của nhà quản lý. Ví dụ: The plant manager focused her cost reduction efforts on controllable items like raw material waste and overtime scheduling, where her decisions could make an immediate difference.",
+                                "targetVocab": "controllable"
                             },
                             {
-                                "targetVocab": "uncontrollable",
-                                "prompt": "Dùng từ 'uncontrollable' để viết một câu về chi phí nằm ngoài tầm kiểm soát của nhà quản lý. Ví dụ: The sharp increase in import duties was an uncontrollable cost that affected every manufacturer in the industry, regardless of how efficiently they managed their internal operations."
+                                "prompt": "Dùng từ 'uncontrollable' để viết một câu về yếu tố nằm ngoài tầm kiểm soát của nhà quản lý và cách hệ thống đánh giá nên xử lý chúng. Ví dụ: The regional director's performance report separated uncontrollable costs like the new government carbon tax from controllable costs, ensuring a fair evaluation of her management decisions.",
+                                "targetVocab": "uncontrollable"
                             }
                         ]
                     }
                 }
             ]
         },
-        # ── SESSION 4: Review (all 18 words) ─────────────────
         {
             "title": "Ôn tập",
             "activities": [
                 {
                     "activityType": "introAudio",
                     "title": "Giới thiệu ôn tập",
-                    "description": "Chúc mừng bạn đã học xong 18 từ vựng! Cùng ôn lại trước khi đọc bài tổng hợp.",
+                    "description": "Chúc mừng bạn đã học xong 18 từ vựng! Ôn lại toàn bộ trước khi đọc bài tổng hợp.",
                     "data": {
-                        "text": (
-                            "Chúc mừng bạn! Bạn đã hoàn thành cả 3 phần học từ vựng về Kế toán chi phí. "
-                            "Hãy cùng nhìn lại hành trình của bạn.\n\n"
-                            "Trong phần 1, bạn đã học những khái niệm nền tảng nhất: "
-                            "cost — chi phí, budget — ngân sách, variance — chênh lệch, "
-                            "overhead — chi phí chung, allocation — phân bổ, và direct — trực tiếp. "
-                            "Đây là bộ từ vựng cốt lõi về phân loại và kiểm soát chi phí.\n\n"
-                            "Trong phần 2, bạn đã đi sâu vào các phương pháp tính giá thành: "
-                            "indirect — gián tiếp, standard — tiêu chuẩn, actual — thực tế, "
-                            "absorption — hấp thụ, marginal — biên, và contribution — đóng góp biên. "
-                            "Những từ này giúp bạn hiểu cách doanh nghiệp tính chi phí cho từng sản phẩm.\n\n"
-                            "Trong phần 3, bạn đã khám phá: "
-                            "breakeven — hòa vốn, forecast — dự báo, performance — hiệu quả, "
-                            "benchmark — chuẩn đối sánh, controllable — có thể kiểm soát, "
-                            "và uncontrollable — không thể kiểm soát. "
-                            "Đây là những từ về phân tích hòa vốn và đánh giá hiệu quả chi phí.\n\n"
-                            "Bây giờ, phần ôn tập này sẽ giúp bạn củng cố toàn bộ 18 từ vựng. "
-                            "Bạn sẽ xem lại flashcard, luyện phát âm, và viết câu với tất cả các từ. "
-                            "Sau phần ôn tập, bạn sẽ sẵn sàng cho bài đọc tổng hợp — "
-                            "một bài viết dài hơn sử dụng cả 18 từ trong một ngữ cảnh liền mạch. "
-                            "Hãy bắt đầu nào!"
-                        )
+                        "text": "Chúc mừng bạn! Bạn đã hoàn thành ba phần học từ vựng và bây giờ nắm trong tay 18 từ vựng tiếng Anh về kế toán chi phí. Hãy cùng ôn lại nhanh trước khi bước vào phần luyện tập tổng hợp.\n\nTrong phần 1, bạn đã học: cost — chi phí, budget — ngân sách, variance — chênh lệch, overhead — chi phí chung, allocation — phân bổ, và direct — trực tiếp. Đây là bộ từ nền tảng giúp bạn hiểu cách doanh nghiệp phân loại chi phí, lập kế hoạch tài chính, và phát hiện khi chi phí thực tế lệch khỏi ngân sách.\n\nTrong phần 2, bạn đã học: indirect — gián tiếp, standard — tiêu chuẩn, actual — thực tế, absorption — hấp thụ, marginal — biên, và contribution — đóng góp. Những từ này đưa bạn vào thế giới phương pháp tính giá thành — từ absorption costing cho báo cáo tài chính đến marginal costing cho quyết định quản trị.\n\nTrong phần 3, bạn đã học: breakeven — hòa vốn, forecast — dự báo, performance — hiệu quả, benchmark — chuẩn đối sánh, controllable — có thể kiểm soát, và uncontrollable — không thể kiểm soát. Đây là bộ công cụ phân tích giúp nhà quản lý nhìn về phía trước và đánh giá kết quả một cách công bằng.\n\nBây giờ, bạn sẽ ôn tập toàn bộ 18 từ qua flashcard và bài viết câu. Hãy tập trung vào những từ bạn cảm thấy chưa chắc chắn nhất. Sau phần ôn tập này, bạn sẽ đọc một bài viết dài sử dụng tất cả 18 từ trong một câu chuyện hoàn chỉnh về kế toán chi phí. Bắt đầu thôi!"
                     }
                 },
                 {
                     "activityType": "viewFlashcards",
                     "title": "Flashcards: Ôn tập toàn bộ từ vựng",
-                    "description": "Học 18 từ: cost, budget, variance, overhead, allocation, direct, indirect, standard, actual, absorption, marginal, contribution, breakeven, forecast, performance, benchmark, controllable, uncontrollable",
-                    "data": {"vocabList": ALL_WORDS}
+                    "description": "Ôn tập 18 từ: cost, budget, variance, overhead, allocation, direct, indirect, standard, actual, absorption, marginal, contribution, breakeven, forecast, performance, benchmark, controllable, uncontrollable",
+                    "data": {
+                        "vocabList": ["cost", "budget", "variance", "overhead", "allocation", "direct", "indirect", "standard", "actual", "absorption", "marginal", "contribution", "breakeven", "forecast", "performance", "benchmark", "controllable", "uncontrollable"]
+                    }
                 },
                 {
                     "activityType": "speakFlashcards",
                     "title": "Flashcards: Ôn tập toàn bộ từ vựng",
-                    "description": "Học 18 từ: cost, budget, variance, overhead, allocation, direct, indirect, standard, actual, absorption, marginal, contribution, breakeven, forecast, performance, benchmark, controllable, uncontrollable",
-                    "data": {"vocabList": ALL_WORDS}
+                    "description": "Ôn tập 18 từ: cost, budget, variance, overhead, allocation, direct, indirect, standard, actual, absorption, marginal, contribution, breakeven, forecast, performance, benchmark, controllable, uncontrollable",
+                    "data": {
+                        "vocabList": ["cost", "budget", "variance", "overhead", "allocation", "direct", "indirect", "standard", "actual", "absorption", "marginal", "contribution", "breakeven", "forecast", "performance", "benchmark", "controllable", "uncontrollable"]
+                    }
                 },
                 {
                     "activityType": "vocabLevel1",
                     "title": "Flashcards: Ôn tập toàn bộ từ vựng",
-                    "description": "Học 18 từ: cost, budget, variance, overhead, allocation, direct, indirect, standard, actual, absorption, marginal, contribution, breakeven, forecast, performance, benchmark, controllable, uncontrollable",
-                    "data": {"vocabList": ALL_WORDS}
+                    "description": "Ôn tập 18 từ: cost, budget, variance, overhead, allocation, direct, indirect, standard, actual, absorption, marginal, contribution, breakeven, forecast, performance, benchmark, controllable, uncontrollable",
+                    "data": {
+                        "vocabList": ["cost", "budget", "variance", "overhead", "allocation", "direct", "indirect", "standard", "actual", "absorption", "marginal", "contribution", "breakeven", "forecast", "performance", "benchmark", "controllable", "uncontrollable"]
+                    }
                 },
                 {
                     "activityType": "vocabLevel2",
                     "title": "Flashcards: Ôn tập toàn bộ từ vựng",
-                    "description": "Học 18 từ: cost, budget, variance, overhead, allocation, direct, indirect, standard, actual, absorption, marginal, contribution, breakeven, forecast, performance, benchmark, controllable, uncontrollable",
-                    "data": {"vocabList": ALL_WORDS}
+                    "description": "Ôn tập 18 từ: cost, budget, variance, overhead, allocation, direct, indirect, standard, actual, absorption, marginal, contribution, breakeven, forecast, performance, benchmark, controllable, uncontrollable",
+                    "data": {
+                        "vocabList": ["cost", "budget", "variance", "overhead", "allocation", "direct", "indirect", "standard", "actual", "absorption", "marginal", "contribution", "breakeven", "forecast", "performance", "benchmark", "controllable", "uncontrollable"]
+                    }
                 },
                 {
                     "activityType": "vocabLevel3",
                     "title": "Flashcards: Ôn tập toàn bộ từ vựng",
-                    "description": "Học 18 từ: cost, budget, variance, overhead, allocation, direct, indirect, standard, actual, absorption, marginal, contribution, breakeven, forecast, performance, benchmark, controllable, uncontrollable",
-                    "data": {"vocabList": ALL_WORDS}
+                    "description": "Ôn tập 18 từ: cost, budget, variance, overhead, allocation, direct, indirect, standard, actual, absorption, marginal, contribution, breakeven, forecast, performance, benchmark, controllable, uncontrollable",
+                    "data": {
+                        "vocabList": ["cost", "budget", "variance", "overhead", "allocation", "direct", "indirect", "standard", "actual", "absorption", "marginal", "contribution", "breakeven", "forecast", "performance", "benchmark", "controllable", "uncontrollable"]
+                    }
                 },
                 {
                     "activityType": "writingSentence",
-                    "title": "Viết: Ôn tập toàn bộ từ vựng kế toán chi phí",
-                    "description": "Viết câu sử dụng tất cả 18 từ vựng đã học.",
+                    "title": "Viết: Ôn tập kế toán chi phí",
+                    "description": "Viết câu sử dụng 18 từ vựng đã học về kế toán chi phí.",
                     "data": {
-                        "vocabList": ALL_WORDS,
+                        "vocabList": ["cost", "budget", "variance", "overhead", "allocation", "direct", "indirect", "standard", "actual", "absorption", "marginal", "contribution", "breakeven", "forecast", "performance", "benchmark", "controllable", "uncontrollable"],
                         "items": [
                             {
-                                "targetVocab": "cost",
-                                "prompt": "Dùng từ 'cost' để viết một câu về cách doanh nghiệp phân tích cấu trúc chi phí để tìm cơ hội tiết kiệm. Ví dụ: A detailed cost analysis revealed that packaging materials accounted for fifteen percent of the total production cost, prompting the company to switch to a cheaper but equally durable supplier."
+                                "prompt": "Dùng từ 'cost' để viết một câu về tầm quan trọng của việc hiểu cấu trúc chi phí khi định giá sản phẩm xuất khẩu. Ví dụ: Understanding the full cost structure — including materials, labor, overhead, and shipping — is essential before setting an export price that remains competitive in international markets.",
+                                "targetVocab": "cost"
                             },
                             {
-                                "targetVocab": "budget",
-                                "prompt": "Dùng từ 'budget' để viết một câu về quy trình lập ngân sách hàng năm của doanh nghiệp. Ví dụ: The annual budget meeting lasted three days as each department head presented their spending plans and negotiated for additional resources to meet next year's growth targets."
+                                "prompt": "Dùng từ 'budget' để viết một câu về quy trình lập ngân sách hàng năm và sự tham gia của các bộ phận. Ví dụ: The annual budget process required each department head to submit detailed spending plans, which were then consolidated and reviewed by the finance committee before final approval.",
+                                "targetVocab": "budget"
                             },
                             {
-                                "targetVocab": "variance",
-                                "prompt": "Dùng từ 'variance' để viết một câu về cách nhà quản lý phản ứng khi phát hiện chênh lệch chi phí. Ví dụ: When the monthly report showed an unfavorable variance of one billion dong in the raw materials category, the procurement team immediately investigated whether suppliers had raised prices without notice."
+                                "prompt": "Dùng từ 'variance' để viết một câu về cách phân tích chênh lệch giúp cải thiện quy trình sản xuất. Ví dụ: Monthly variance reports helped the operations team identify a recurring pattern of material waste on the night shift, leading to targeted retraining that saved the company over fifty thousand dollars per quarter.",
+                                "targetVocab": "variance"
                             },
                             {
-                                "targetVocab": "overhead",
-                                "prompt": "Dùng từ 'overhead' để viết một câu về tác động của chi phí chung đến khả năng cạnh tranh. Ví dụ: The company relocated its factory from central Ho Chi Minh City to an industrial zone in Long An province to reduce overhead costs, saving two billion dong per year in rent alone."
+                                "prompt": "Dùng từ 'overhead' để viết một câu về tác động của chi phí chung khi nhà máy hoạt động dưới công suất. Ví dụ: During the slow season, overhead costs per unit nearly doubled because the same fixed expenses were spread across only half the normal production volume.",
+                                "targetVocab": "overhead"
                             },
                             {
-                                "targetVocab": "allocation",
-                                "prompt": "Dùng từ 'allocation' để viết một câu về tranh luận nội bộ về phương pháp phân bổ chi phí. Ví dụ: The two product managers disagreed about the allocation of shared marketing expenses, with each arguing that the other's product line should bear a larger share of the cost."
+                                "prompt": "Dùng từ 'allocation' để viết một câu về tranh luận nội bộ khi thay đổi phương pháp phân bổ chi phí. Ví dụ: The switch from labor-based to activity-based cost allocation revealed that the premium product line was far more profitable than previously thought, while the basic line was barely breaking even.",
+                                "targetVocab": "allocation"
                             },
                             {
-                                "targetVocab": "direct",
-                                "prompt": "Dùng từ 'direct' để viết một câu về tỷ trọng chi phí trực tiếp trong tổng giá thành sản phẩm. Ví dụ: In the electronics assembly plant, direct costs including imported components and assembly labor represented over seventy percent of the total cost per unit."
+                                "prompt": "Dùng từ 'direct' để viết một câu về chi phí trực tiếp trong ngành dịch vụ so với ngành sản xuất. Ví dụ: In a consulting firm, the direct cost of a project consists mainly of consultant salaries and travel expenses, unlike manufacturing where direct costs include raw materials and production labor.",
+                                "targetVocab": "direct"
                             },
                             {
-                                "targetVocab": "indirect",
-                                "prompt": "Dùng từ 'indirect' để viết một câu về thách thức trong việc theo dõi chi phí gián tiếp. Ví dụ: Tracking indirect costs proved challenging because the shared warehouse served four different product divisions, making it difficult to determine how much space each division actually used."
+                                "prompt": "Dùng từ 'indirect' để viết một câu về thách thức khi phân bổ chi phí gián tiếp trong doanh nghiệp đa sản phẩm. Ví dụ: Allocating indirect costs across twelve different product lines required a sophisticated activity-based costing system that tracked how each product consumed shared resources.",
+                                "targetVocab": "indirect"
                             },
                             {
-                                "targetVocab": "standard",
-                                "prompt": "Dùng từ 'standard' để viết một câu về cách thiết lập chi phí tiêu chuẩn cho sản phẩm mới. Ví dụ: The engineering team worked with the accounting department to establish a standard cost for the new product, estimating material usage, labor time, and machine hours based on prototype testing."
+                                "prompt": "Dùng từ 'standard' để viết một câu về cách cập nhật chi phí tiêu chuẩn khi điều kiện thị trường thay đổi. Ví dụ: The accounting team updated the standard cost for copper wiring after the commodity price rose by forty percent, ensuring that future variance reports would reflect realistic expectations.",
+                                "targetVocab": "standard"
                             },
                             {
-                                "targetVocab": "actual",
-                                "prompt": "Dùng từ 'actual' để viết một câu về sự khác biệt giữa chi phí thực tế và dự kiến trong dự án. Ví dụ: The actual cost of the construction project exceeded the original estimate by thirty percent because of unexpected soil conditions that required additional foundation work."
+                                "prompt": "Dùng từ 'actual' để viết một câu về sự bất ngờ khi chi phí thực tế khác xa dự kiến. Ví dụ: The actual cost of the new product launch was nearly double the original estimate because the marketing campaign required additional digital advertising that had not been planned.",
+                                "targetVocab": "actual"
                             },
                             {
-                                "targetVocab": "absorption",
-                                "prompt": "Dùng từ 'absorption' để viết một câu về ảnh hưởng của sản lượng đến giá thành theo phương pháp hấp thụ. Ví dụ: Under absorption costing, the cost per unit dropped significantly when the factory increased production from five thousand to eight thousand units because fixed overhead was spread across more products."
+                                "prompt": "Dùng từ 'absorption' để viết một câu về ảnh hưởng của phương pháp hấp thụ đến lợi nhuận báo cáo. Ví dụ: Under absorption costing, the company reported higher profits in the fourth quarter because increased production spread fixed overhead across more units, even though sales remained flat.",
+                                "targetVocab": "absorption"
                             },
                             {
-                                "targetVocab": "marginal",
-                                "prompt": "Dùng từ 'marginal' để viết một câu về quyết định nhận đơn hàng đặc biệt dựa trên chi phí biên. Ví dụ: The export manager accepted the special order at a lower price because the marginal cost of producing the extra units was well below the offered price, generating additional contribution."
+                                "prompt": "Dùng từ 'marginal' để viết một câu về quyết định ngừng sản xuất một sản phẩm dựa trên phân tích chi phí biên. Ví dụ: The board decided to discontinue the product line after analysis showed that the marginal cost of production exceeded the selling price, meaning every additional unit sold increased the company's losses.",
+                                "targetVocab": "marginal"
                             },
                             {
-                                "targetVocab": "contribution",
-                                "prompt": "Dùng từ 'contribution' để viết một câu về cách sử dụng đóng góp biên để đánh giá sản phẩm. Ví dụ: Although Product B had lower revenue than Product A, its contribution margin was higher because it used cheaper materials and required less labor per unit."
+                                "prompt": "Dùng từ 'contribution' để viết một câu về cách sử dụng lợi nhuận gộp biên để ưu tiên sản phẩm khi nguồn lực hạn chế. Ví dụ: When the factory faced a shortage of skilled labor, management prioritized products with the highest contribution margin per labor hour to maximize overall profitability.",
+                                "targetVocab": "contribution"
                             },
                             {
-                                "targetVocab": "breakeven",
-                                "prompt": "Dùng từ 'breakeven' để viết một câu về cách thay đổi giá bán ảnh hưởng đến điểm hòa vốn. Ví dụ: Raising the selling price by ten percent lowered the breakeven point from eight hundred to six hundred units per month, giving the company a larger margin of safety."
+                                "prompt": "Dùng từ 'breakeven' để viết một câu về cách nhà đầu tư sử dụng phân tích hòa vốn để đánh giá rủi ro. Ví dụ: The venture capitalist was impressed that the startup's breakeven point was only six months away, suggesting low risk and a quick path to profitability.",
+                                "targetVocab": "breakeven"
                             },
                             {
-                                "targetVocab": "forecast",
-                                "prompt": "Dùng từ 'forecast' để viết một câu về tầm quan trọng của dự báo chính xác trong lập ngân sách. Ví dụ: The inaccurate sales forecast led to overproduction and excess inventory, costing the company three billion dong in storage fees and product markdowns."
+                                "prompt": "Dùng từ 'forecast' để viết một câu về tầm quan trọng của dự báo chính xác trong quản lý chuỗi cung ứng. Ví dụ: An inaccurate demand forecast led to excess inventory of winter clothing that had to be sold at a steep discount, wiping out most of the season's expected profit.",
+                                "targetVocab": "forecast"
                             },
                             {
-                                "targetVocab": "performance",
-                                "prompt": "Dùng từ 'performance' để viết một câu về hệ thống đánh giá hiệu quả theo bộ phận. Ví dụ: The new performance evaluation system linked each department manager's bonus to their ability to control costs within budget while maintaining product quality standards."
+                                "prompt": "Dùng từ 'performance' để viết một câu về hệ thống đánh giá hiệu quả gắn với thưởng cho nhân viên. Ví dụ: The company linked quarterly bonuses to performance metrics including cost reduction targets, on-time delivery rates, and customer satisfaction scores.",
+                                "targetVocab": "performance"
                             },
                             {
-                                "targetVocab": "benchmark",
-                                "prompt": "Dùng từ 'benchmark' để viết một câu về việc sử dụng chuẩn đối sánh quốc tế. Ví dụ: After benchmarking against Japanese manufacturers, the Vietnamese auto parts company realized its defect rate was three times higher than the industry standard and launched a quality improvement program."
+                                "prompt": "Dùng từ 'benchmark' để viết một câu về cách doanh nghiệp Việt Nam sử dụng chuẩn đối sánh quốc tế. Ví dụ: The Vietnamese electronics manufacturer benchmarked its defect rate against Japanese competitors and set a three-year plan to reduce quality issues by sixty percent.",
+                                "targetVocab": "benchmark"
                             },
                             {
-                                "targetVocab": "controllable",
-                                "prompt": "Dùng từ 'controllable' để viết một câu về trách nhiệm của nhà quản lý đối với chi phí kiểm soát được. Ví dụ: The performance review focused exclusively on controllable costs, recognizing that the department head had no influence over the corporate-level decisions that increased insurance premiums."
+                                "prompt": "Dùng từ 'controllable' để viết một câu về nguyên tắc trách nhiệm trong đánh giá nhà quản lý. Ví dụ: The new evaluation system focused exclusively on controllable costs, which motivated department heads to find creative ways to reduce waste and improve efficiency within their own teams.",
+                                "targetVocab": "controllable"
                             },
                             {
-                                "targetVocab": "uncontrollable",
-                                "prompt": "Dùng từ 'uncontrollable' để viết một câu về cách doanh nghiệp ứng phó với chi phí không kiểm soát được. Ví dụ: To mitigate the impact of uncontrollable costs like fluctuating exchange rates, the company signed forward contracts to lock in the price of imported raw materials for six months."
+                                "prompt": "Dùng từ 'uncontrollable' để viết một câu về cách báo cáo tách biệt yếu tố không kiểm soát được để đánh giá công bằng. Ví dụ: The performance report clearly separated uncontrollable factors like currency fluctuations and regulatory changes from controllable operational decisions, giving the board a fair picture of management effectiveness.",
+                                "targetVocab": "uncontrollable"
                             }
                         ]
                     }
                 }
             ]
         },
-        # ── SESSION 5: Full reading + farewell ────────────────
         {
             "title": "Đọc toàn bài",
             "activities": [
@@ -1189,353 +496,43 @@ content = {
                     "title": "Giới thiệu bài đọc tổng hợp",
                     "description": "Giới thiệu bài đọc dài sử dụng toàn bộ 18 từ vựng về kế toán chi phí.",
                     "data": {
-                        "text": (
-                            "Chào mừng bạn đến với phần cuối cùng — bài đọc tổng hợp! "
-                            "Bạn đã học và ôn tập 18 từ vựng qua ba phần trước. "
-                            "Bây giờ, tất cả 18 từ sẽ xuất hiện trong một bài viết duy nhất, "
-                            "kể câu chuyện hoàn chỉnh về kế toán chi phí — từ phân loại chi phí, "
-                            "phương pháp tính giá thành, đến phân tích hòa vốn và đánh giá hiệu quả.\n\n"
-                            "Bạn sẽ gặp lại cost, budget, variance, overhead, allocation, direct "
-                            "trong phần mở đầu về cách doanh nghiệp theo dõi và kiểm soát chi phí. "
-                            "Tiếp theo, indirect, standard, actual, absorption, marginal, contribution "
-                            "sẽ giúp bạn hiểu cách tính giá thành sản phẩm bằng các phương pháp khác nhau. "
-                            "Và cuối cùng, breakeven, forecast, performance, benchmark, controllable, uncontrollable "
-                            "sẽ đưa bạn vào thế giới phân tích và đánh giá hiệu quả chi phí.\n\n"
-                            "Hãy đọc chậm, chú ý cách mỗi từ được sử dụng trong ngữ cảnh, "
-                            "và thử đoán nghĩa trước khi nhìn lại định nghĩa. "
-                            "Sau bài đọc, bạn sẽ viết một đoạn văn ngắn bằng tiếng Anh "
-                            "để tổng hợp những gì đã học. Bắt đầu thôi!"
-                        )
+                        "text": "Chào mừng bạn đến với phần cuối cùng — bài đọc tổng hợp! Bạn đã học và ôn tập 18 từ vựng qua ba phần trước. Bây giờ, tất cả 18 từ sẽ xuất hiện trong một bài viết duy nhất, kể câu chuyện hoàn chỉnh về kế toán chi phí — từ phân loại chi phí đến đánh giá hiệu quả hoạt động.\n\nBạn sẽ gặp lại cost, budget, variance, overhead, allocation, direct trong phần mở đầu về cách doanh nghiệp phân loại và kiểm soát chi phí. Tiếp theo, indirect, standard, actual, absorption, marginal, contribution sẽ giúp bạn hiểu các phương pháp tính giá thành và phân tích lợi nhuận. Và cuối cùng, breakeven, forecast, performance, benchmark, controllable, uncontrollable sẽ đưa bạn vào thế giới phân tích quản trị và ra quyết định.\n\nHãy đọc chậm, chú ý cách mỗi từ được sử dụng trong ngữ cảnh, và thử đoán nghĩa trước khi nhìn lại định nghĩa. Sau bài đọc, bạn sẽ viết một đoạn văn ngắn bằng tiếng Anh để tổng hợp những gì đã học. Bắt đầu thôi!"
                     }
                 },
                 {
                     "activityType": "reading",
-                    "title": "Đọc: Kế toán chi phí — Từ phân loại đến quyết định",
-                    "description": "A medium-sized Vietnamese furniture company has just won a contract to supply office desks to a multinational corporation.",
+                    "title": "Đọc: Kế toán chi phí — Từ phân loại đến ra quyết định",
+                    "description": "Cost accounting is the engine room of business decision-making.",
                     "data": {
-                        "text": (
-                            "A medium-sized Vietnamese furniture company has just won a contract "
-                            "to supply office desks to a multinational corporation. "
-                            "The order is large — five thousand desks over six months — "
-                            "and the management team needs to make sure the deal is profitable. "
-                            "To do that, they turn to cost accounting.\n\n"
-                            "The first step is to identify all the costs involved in producing the desks. "
-                            "The cost accountant separates them into two categories. "
-                            "Direct costs are those that can be traced to each desk: "
-                            "the wood, the metal legs, the screws, and the wages of the carpenters "
-                            "who cut, assemble, and sand each piece. "
-                            "These costs are straightforward — "
-                            "the company knows exactly how much material and labor goes into one desk.\n\n"
-                            "Then there are indirect costs — expenses that support production "
-                            "but cannot be linked to a single desk. "
-                            "The factory's electricity bill, the salary of the quality inspector, "
-                            "the cost of maintaining the cutting machines, "
-                            "and the rent for the warehouse where finished desks are stored — "
-                            "all of these are overhead. "
-                            "The challenge is figuring out how much overhead each desk should carry.\n\n"
-                            "This is where allocation comes in. "
-                            "The accountant decides to allocate overhead based on machine hours. "
-                            "If the total monthly overhead is one billion dong "
-                            "and the factory runs its machines for ten thousand hours, "
-                            "the allocation rate is one hundred thousand dong per machine hour. "
-                            "Each desk takes two machine hours to produce, "
-                            "so each desk is allocated two hundred thousand dong of overhead.\n\n"
-                            "Using absorption costing, the accountant calculates the full cost per desk. "
-                            "Direct materials cost three hundred thousand dong. "
-                            "Direct labor costs one hundred and fifty thousand dong. "
-                            "Allocated overhead adds two hundred thousand dong. "
-                            "The total absorption cost is six hundred and fifty thousand dong per desk. "
-                            "This method ensures that every cost — both direct and indirect — "
-                            "is reflected in the product's price.\n\n"
-                            "But the sales manager wants a different perspective. "
-                            "She asks: what is the marginal cost of producing one more desk? "
-                            "Under marginal costing, only variable costs count. "
-                            "The wood, metal, screws, and carpenter wages total four hundred and fifty thousand dong. "
-                            "Fixed overhead is excluded because it does not change "
-                            "whether the factory makes one more desk or one fewer. "
-                            "The contribution per desk — selling price minus variable cost — "
-                            "is three hundred and fifty thousand dong if the desk sells for eight hundred thousand. "
-                            "This contribution goes toward covering fixed costs and generating profit.\n\n"
-                            "Before signing the contract, the finance director runs a breakeven analysis. "
-                            "The company's total fixed costs for the six-month period are three billion dong. "
-                            "With a contribution of three hundred and fifty thousand dong per desk, "
-                            "the breakeven point is approximately eight thousand five hundred and seventy-one desks. "
-                            "Since the contract is for only five thousand desks, "
-                            "the company needs additional orders to reach breakeven. "
-                            "The director checks the sales forecast, "
-                            "which predicts total demand of twelve thousand desks across all customers. "
-                            "If the forecast is accurate, the company will comfortably pass breakeven "
-                            "and earn a healthy profit.\n\n"
-                            "To prepare for the project, the accounting team sets standard costs. "
-                            "The standard cost for wood is based on current supplier prices "
-                            "plus a small buffer for price fluctuations. "
-                            "The standard labor time is ninety minutes per desk, "
-                            "based on time studies conducted on the factory floor. "
-                            "These standards become the budget targets for the production team.\n\n"
-                            "Three months into the contract, the accountant compares "
-                            "actual costs to the standards. "
-                            "The actual cost of wood has risen by eight percent "
-                            "because a typhoon damaged timber plantations in the central region. "
-                            "This creates an unfavorable material price variance. "
-                            "However, the carpenters have become more efficient with practice, "
-                            "completing each desk in eighty minutes instead of ninety. "
-                            "This creates a favorable labor efficiency variance. "
-                            "The net effect is a small overall variance — "
-                            "the savings in labor nearly offset the increase in material costs.\n\n"
-                            "The management team reviews the performance report. "
-                            "The production department's performance is strong — "
-                            "output is on schedule, quality defects are below two percent, "
-                            "and controllable costs are within budget. "
-                            "The factory manager has done an excellent job managing overtime, "
-                            "reducing material waste, and negotiating with local suppliers. "
-                            "These are all controllable costs that she can directly influence.\n\n"
-                            "The increase in wood prices, however, is an uncontrollable cost. "
-                            "The factory manager had no way to prevent the typhoon "
-                            "or the resulting spike in timber prices. "
-                            "The performance evaluation system recognizes this distinction — "
-                            "the manager is praised for her controllable cost management "
-                            "and not penalized for the uncontrollable price increase.\n\n"
-                            "Finally, the finance director compares the company's cost structure "
-                            "to industry benchmarks. "
-                            "The benchmark data shows that the average furniture manufacturer in Vietnam "
-                            "spends thirty-five percent of revenue on direct materials "
-                            "and twenty percent on overhead. "
-                            "The company's numbers are close to the benchmark — "
-                            "thirty-three percent on materials and twenty-two percent on overhead. "
-                            "The slightly higher overhead is explained by the company's investment "
-                            "in modern CNC machines, which increase overhead "
-                            "but improve quality and reduce labor costs.\n\n"
-                            "By the end of the six-month contract, the company has delivered "
-                            "all five thousand desks on time and within budget. "
-                            "The cost accounting system — from allocation to variance analysis, "
-                            "from breakeven calculations to performance benchmarks — "
-                            "gave managers the information they needed to make smart decisions "
-                            "at every stage of the project."
-                        )
+                        "text": "Cost accounting is the engine room of business decision-making. While financial accounting looks backward to report what happened, cost accounting looks inward and forward — analyzing how resources are consumed and guiding managers toward better choices. For any company that makes products or delivers services, understanding costs is not optional. It is the foundation of pricing, planning, and performance management.\n\nEvery cost in a business can be classified in multiple ways, but the most fundamental distinction is between direct and indirect costs. A direct cost can be traced to a specific product or service. When a Vietnamese shoe manufacturer buys leather for a particular model, the leather is a direct material cost. The wages of the workers who stitch that model are a direct labor cost. These costs are straightforward to measure and assign.\n\nIndirect costs are different. The electricity bill for the entire factory, the salary of the quality control manager, the depreciation of shared equipment — these costs support all products but cannot be traced to any single one. In manufacturing, indirect production costs are grouped together as overhead. Managing overhead is one of the greatest challenges in cost accounting because it must be distributed across products through a process called allocation.\n\nAllocation requires choosing a basis that reflects how products consume overhead resources. A factory might allocate overhead based on machine hours, direct labor hours, or the number of units produced. The choice matters enormously. If a high-volume product and a low-volume product share the same factory, the allocation method determines how much overhead each product bears — and therefore how profitable each appears to be.\n\nOnce costs are classified and allocated, the next step is planning. The budget is the financial blueprint for the coming period. It translates the company's strategic goals into specific numbers — how much revenue to expect, how much to spend on materials, labor, and overhead, and how much profit to target. A well-constructed budget aligns every department around common financial objectives.\n\nBut reality rarely matches the plan exactly. When the period ends, managers compare actual results against the budget. The difference is called a variance. A favorable variance means actual costs were lower than budgeted — good news. An unfavorable variance means costs exceeded the plan — a signal that something went wrong. Variance analysis breaks these differences into components, helping managers pinpoint whether the problem was price, quantity, efficiency, or volume.\n\nThe comparison between standard and actual costs is central to variance analysis. Standard costs are predetermined benchmarks — what each unit should cost under normal operating conditions. They include standard material costs, standard labor costs, and standard overhead rates. When actual costs deviate from these standards, the variance tells a story. A material price variance might reveal that a supplier raised prices. A labor efficiency variance might indicate that a new production process is slower than expected.\n\nHow costs are assigned to products depends on the costing method. Absorption costing — the method required for external financial reporting — assigns both direct and indirect costs to each unit. Every product absorbs a share of fixed overhead. This ensures that the full cost of manufacturing is reflected in inventory values and cost of goods sold. However, absorption costing can distort decision-making because the cost per unit changes with production volume.\n\nMarginal costing offers an alternative perspective. It assigns only variable costs to products and treats fixed overhead as a period expense. The key metric in marginal costing is the contribution margin — the difference between selling price and variable cost per unit. Contribution tells managers how much each product contributes toward covering fixed costs and generating profit.\n\nContribution analysis is especially useful for short-term decisions. Should the company accept a special order at a discounted price? If the price exceeds the marginal cost, the order generates a positive contribution — even if it does not cover the full absorption cost. Should the company discontinue a product line? If the product still generates a positive contribution, dropping it would actually reduce total profit because the fixed costs would remain.\n\nBreakeven analysis ties these concepts together. The breakeven point is the sales volume at which total contribution exactly covers total fixed costs — the company earns zero profit. Below breakeven, the company loses money. Above breakeven, every additional unit sold generates profit equal to its contribution margin. Knowing the breakeven point helps managers set sales targets, evaluate pricing strategies, and assess the risk of new ventures.\n\nLooking ahead requires forecasting. A forecast uses historical data, market intelligence, and management judgment to estimate future revenues, costs, and cash flows. Unlike a budget, which is a fixed target, a forecast is updated regularly as new information becomes available. Rolling forecasts — updated monthly or quarterly — give managers a continuously refreshed view of where the business is heading.\n\nWhen forecasts are compared against actual results, the focus shifts to performance evaluation. Performance measurement answers the question: how well did we do? But meaningful evaluation requires context. Comparing a factory's costs against its budget is useful. Comparing those costs against a benchmark — an industry average, a competitor's published figures, or the company's own best historical result — adds an external perspective that budgets alone cannot provide.\n\nFair performance evaluation also requires distinguishing between controllable and uncontrollable factors. A plant manager can control material usage, labor scheduling, and maintenance spending — these are controllable costs. But she cannot control a government decision to raise electricity tariffs, a global commodity price spike, or a corporate headquarters decision to reallocate shared service charges. These are uncontrollable costs. Holding managers accountable only for controllable costs creates a system that is both fair and motivating.\n\nFrom the direct cost of raw materials to the indirect overhead of a shared factory, from the standard cost set at the beginning of the year to the actual cost recorded at the end, from the absorption of fixed costs into product values to the marginal contribution that guides short-term decisions — cost accounting weaves together a comprehensive framework for understanding how businesses spend money and create value. The breakeven point marks the threshold of survival. Forecasts illuminate the path ahead. Performance benchmarks reveal where improvement is needed. And the distinction between controllable and uncontrollable costs ensures that accountability is fair.\n\nIn a world where Vietnamese companies compete globally, negotiate with international partners, and report to foreign investors, the ability to discuss cost accounting in English is not just an academic skill — it is a professional necessity. These eighteen words are your foundation."
                     }
                 },
                 {
                     "activityType": "speakReading",
-                    "title": "Đọc: Kế toán chi phí — Từ phân loại đến quyết định",
-                    "description": "A medium-sized Vietnamese furniture company has just won a contract to supply office desks to a multinational corporation.",
+                    "title": "Đọc: Kế toán chi phí — Từ phân loại đến ra quyết định",
+                    "description": "Cost accounting is the engine room of business decision-making.",
                     "data": {
-                        "text": (
-                            "A medium-sized Vietnamese furniture company has just won a contract "
-                            "to supply office desks to a multinational corporation. "
-                            "The order is large — five thousand desks over six months — "
-                            "and the management team needs to make sure the deal is profitable. "
-                            "To do that, they turn to cost accounting.\n\n"
-                            "The first step is to identify all the costs involved in producing the desks. "
-                            "The cost accountant separates them into two categories. "
-                            "Direct costs are those that can be traced to each desk: "
-                            "the wood, the metal legs, the screws, and the wages of the carpenters "
-                            "who cut, assemble, and sand each piece. "
-                            "These costs are straightforward — "
-                            "the company knows exactly how much material and labor goes into one desk.\n\n"
-                            "Then there are indirect costs — expenses that support production "
-                            "but cannot be linked to a single desk. "
-                            "The factory's electricity bill, the salary of the quality inspector, "
-                            "the cost of maintaining the cutting machines, "
-                            "and the rent for the warehouse where finished desks are stored — "
-                            "all of these are overhead. "
-                            "The challenge is figuring out how much overhead each desk should carry.\n\n"
-                            "This is where allocation comes in. "
-                            "The accountant decides to allocate overhead based on machine hours. "
-                            "If the total monthly overhead is one billion dong "
-                            "and the factory runs its machines for ten thousand hours, "
-                            "the allocation rate is one hundred thousand dong per machine hour. "
-                            "Each desk takes two machine hours to produce, "
-                            "so each desk is allocated two hundred thousand dong of overhead.\n\n"
-                            "Using absorption costing, the accountant calculates the full cost per desk. "
-                            "Direct materials cost three hundred thousand dong. "
-                            "Direct labor costs one hundred and fifty thousand dong. "
-                            "Allocated overhead adds two hundred thousand dong. "
-                            "The total absorption cost is six hundred and fifty thousand dong per desk. "
-                            "This method ensures that every cost — both direct and indirect — "
-                            "is reflected in the product's price.\n\n"
-                            "But the sales manager wants a different perspective. "
-                            "She asks: what is the marginal cost of producing one more desk? "
-                            "Under marginal costing, only variable costs count. "
-                            "The wood, metal, screws, and carpenter wages total four hundred and fifty thousand dong. "
-                            "Fixed overhead is excluded because it does not change "
-                            "whether the factory makes one more desk or one fewer. "
-                            "The contribution per desk — selling price minus variable cost — "
-                            "is three hundred and fifty thousand dong if the desk sells for eight hundred thousand. "
-                            "This contribution goes toward covering fixed costs and generating profit.\n\n"
-                            "Before signing the contract, the finance director runs a breakeven analysis. "
-                            "The company's total fixed costs for the six-month period are three billion dong. "
-                            "With a contribution of three hundred and fifty thousand dong per desk, "
-                            "the breakeven point is approximately eight thousand five hundred and seventy-one desks. "
-                            "Since the contract is for only five thousand desks, "
-                            "the company needs additional orders to reach breakeven. "
-                            "The director checks the sales forecast, "
-                            "which predicts total demand of twelve thousand desks across all customers. "
-                            "If the forecast is accurate, the company will comfortably pass breakeven "
-                            "and earn a healthy profit.\n\n"
-                            "To prepare for the project, the accounting team sets standard costs. "
-                            "The standard cost for wood is based on current supplier prices "
-                            "plus a small buffer for price fluctuations. "
-                            "The standard labor time is ninety minutes per desk, "
-                            "based on time studies conducted on the factory floor. "
-                            "These standards become the budget targets for the production team.\n\n"
-                            "Three months into the contract, the accountant compares "
-                            "actual costs to the standards. "
-                            "The actual cost of wood has risen by eight percent "
-                            "because a typhoon damaged timber plantations in the central region. "
-                            "This creates an unfavorable material price variance. "
-                            "However, the carpenters have become more efficient with practice, "
-                            "completing each desk in eighty minutes instead of ninety. "
-                            "This creates a favorable labor efficiency variance. "
-                            "The net effect is a small overall variance — "
-                            "the savings in labor nearly offset the increase in material costs.\n\n"
-                            "The management team reviews the performance report. "
-                            "The production department's performance is strong — "
-                            "output is on schedule, quality defects are below two percent, "
-                            "and controllable costs are within budget. "
-                            "The factory manager has done an excellent job managing overtime, "
-                            "reducing material waste, and negotiating with local suppliers. "
-                            "These are all controllable costs that she can directly influence.\n\n"
-                            "The increase in wood prices, however, is an uncontrollable cost. "
-                            "The factory manager had no way to prevent the typhoon "
-                            "or the resulting spike in timber prices. "
-                            "The performance evaluation system recognizes this distinction — "
-                            "the manager is praised for her controllable cost management "
-                            "and not penalized for the uncontrollable price increase.\n\n"
-                            "Finally, the finance director compares the company's cost structure "
-                            "to industry benchmarks. "
-                            "The benchmark data shows that the average furniture manufacturer in Vietnam "
-                            "spends thirty-five percent of revenue on direct materials "
-                            "and twenty percent on overhead. "
-                            "The company's numbers are close to the benchmark — "
-                            "thirty-three percent on materials and twenty-two percent on overhead. "
-                            "The slightly higher overhead is explained by the company's investment "
-                            "in modern CNC machines, which increase overhead "
-                            "but improve quality and reduce labor costs.\n\n"
-                            "By the end of the six-month contract, the company has delivered "
-                            "all five thousand desks on time and within budget. "
-                            "The cost accounting system — from allocation to variance analysis, "
-                            "from breakeven calculations to performance benchmarks — "
-                            "gave managers the information they needed to make smart decisions "
-                            "at every stage of the project."
-                        )
+                        "text": "Cost accounting is the engine room of business decision-making. While financial accounting looks backward to report what happened, cost accounting looks inward and forward — analyzing how resources are consumed and guiding managers toward better choices. For any company that makes products or delivers services, understanding costs is not optional. It is the foundation of pricing, planning, and performance management.\n\nEvery cost in a business can be classified in multiple ways, but the most fundamental distinction is between direct and indirect costs. A direct cost can be traced to a specific product or service. When a Vietnamese shoe manufacturer buys leather for a particular model, the leather is a direct material cost. The wages of the workers who stitch that model are a direct labor cost. These costs are straightforward to measure and assign.\n\nIndirect costs are different. The electricity bill for the entire factory, the salary of the quality control manager, the depreciation of shared equipment — these costs support all products but cannot be traced to any single one. In manufacturing, indirect production costs are grouped together as overhead. Managing overhead is one of the greatest challenges in cost accounting because it must be distributed across products through a process called allocation.\n\nAllocation requires choosing a basis that reflects how products consume overhead resources. A factory might allocate overhead based on machine hours, direct labor hours, or the number of units produced. The choice matters enormously. If a high-volume product and a low-volume product share the same factory, the allocation method determines how much overhead each product bears — and therefore how profitable each appears to be.\n\nOnce costs are classified and allocated, the next step is planning. The budget is the financial blueprint for the coming period. It translates the company's strategic goals into specific numbers — how much revenue to expect, how much to spend on materials, labor, and overhead, and how much profit to target. A well-constructed budget aligns every department around common financial objectives.\n\nBut reality rarely matches the plan exactly. When the period ends, managers compare actual results against the budget. The difference is called a variance. A favorable variance means actual costs were lower than budgeted — good news. An unfavorable variance means costs exceeded the plan — a signal that something went wrong. Variance analysis breaks these differences into components, helping managers pinpoint whether the problem was price, quantity, efficiency, or volume.\n\nThe comparison between standard and actual costs is central to variance analysis. Standard costs are predetermined benchmarks — what each unit should cost under normal operating conditions. They include standard material costs, standard labor costs, and standard overhead rates. When actual costs deviate from these standards, the variance tells a story. A material price variance might reveal that a supplier raised prices. A labor efficiency variance might indicate that a new production process is slower than expected.\n\nHow costs are assigned to products depends on the costing method. Absorption costing — the method required for external financial reporting — assigns both direct and indirect costs to each unit. Every product absorbs a share of fixed overhead. This ensures that the full cost of manufacturing is reflected in inventory values and cost of goods sold. However, absorption costing can distort decision-making because the cost per unit changes with production volume.\n\nMarginal costing offers an alternative perspective. It assigns only variable costs to products and treats fixed overhead as a period expense. The key metric in marginal costing is the contribution margin — the difference between selling price and variable cost per unit. Contribution tells managers how much each product contributes toward covering fixed costs and generating profit.\n\nContribution analysis is especially useful for short-term decisions. Should the company accept a special order at a discounted price? If the price exceeds the marginal cost, the order generates a positive contribution — even if it does not cover the full absorption cost. Should the company discontinue a product line? If the product still generates a positive contribution, dropping it would actually reduce total profit because the fixed costs would remain.\n\nBreakeven analysis ties these concepts together. The breakeven point is the sales volume at which total contribution exactly covers total fixed costs — the company earns zero profit. Below breakeven, the company loses money. Above breakeven, every additional unit sold generates profit equal to its contribution margin. Knowing the breakeven point helps managers set sales targets, evaluate pricing strategies, and assess the risk of new ventures.\n\nLooking ahead requires forecasting. A forecast uses historical data, market intelligence, and management judgment to estimate future revenues, costs, and cash flows. Unlike a budget, which is a fixed target, a forecast is updated regularly as new information becomes available. Rolling forecasts — updated monthly or quarterly — give managers a continuously refreshed view of where the business is heading.\n\nWhen forecasts are compared against actual results, the focus shifts to performance evaluation. Performance measurement answers the question: how well did we do? But meaningful evaluation requires context. Comparing a factory's costs against its budget is useful. Comparing those costs against a benchmark — an industry average, a competitor's published figures, or the company's own best historical result — adds an external perspective that budgets alone cannot provide.\n\nFair performance evaluation also requires distinguishing between controllable and uncontrollable factors. A plant manager can control material usage, labor scheduling, and maintenance spending — these are controllable costs. But she cannot control a government decision to raise electricity tariffs, a global commodity price spike, or a corporate headquarters decision to reallocate shared service charges. These are uncontrollable costs. Holding managers accountable only for controllable costs creates a system that is both fair and motivating.\n\nFrom the direct cost of raw materials to the indirect overhead of a shared factory, from the standard cost set at the beginning of the year to the actual cost recorded at the end, from the absorption of fixed costs into product values to the marginal contribution that guides short-term decisions — cost accounting weaves together a comprehensive framework for understanding how businesses spend money and create value. The breakeven point marks the threshold of survival. Forecasts illuminate the path ahead. Performance benchmarks reveal where improvement is needed. And the distinction between controllable and uncontrollable costs ensures that accountability is fair.\n\nIn a world where Vietnamese companies compete globally, negotiate with international partners, and report to foreign investors, the ability to discuss cost accounting in English is not just an academic skill — it is a professional necessity. These eighteen words are your foundation."
                     }
                 },
                 {
                     "activityType": "readAlong",
-                    "title": "Nghe: Kế toán chi phí — Từ phân loại đến quyết định",
+                    "title": "Nghe: Kế toán chi phí — Từ phân loại đến ra quyết định",
                     "description": "Nghe đoạn văn vừa đọc và theo dõi.",
                     "data": {
-                        "text": (
-                            "A medium-sized Vietnamese furniture company has just won a contract "
-                            "to supply office desks to a multinational corporation. "
-                            "The order is large — five thousand desks over six months — "
-                            "and the management team needs to make sure the deal is profitable. "
-                            "To do that, they turn to cost accounting.\n\n"
-                            "The first step is to identify all the costs involved in producing the desks. "
-                            "The cost accountant separates them into two categories. "
-                            "Direct costs are those that can be traced to each desk: "
-                            "the wood, the metal legs, the screws, and the wages of the carpenters "
-                            "who cut, assemble, and sand each piece. "
-                            "These costs are straightforward — "
-                            "the company knows exactly how much material and labor goes into one desk.\n\n"
-                            "Then there are indirect costs — expenses that support production "
-                            "but cannot be linked to a single desk. "
-                            "The factory's electricity bill, the salary of the quality inspector, "
-                            "the cost of maintaining the cutting machines, "
-                            "and the rent for the warehouse where finished desks are stored — "
-                            "all of these are overhead. "
-                            "The challenge is figuring out how much overhead each desk should carry.\n\n"
-                            "This is where allocation comes in. "
-                            "The accountant decides to allocate overhead based on machine hours. "
-                            "If the total monthly overhead is one billion dong "
-                            "and the factory runs its machines for ten thousand hours, "
-                            "the allocation rate is one hundred thousand dong per machine hour. "
-                            "Each desk takes two machine hours to produce, "
-                            "so each desk is allocated two hundred thousand dong of overhead.\n\n"
-                            "Using absorption costing, the accountant calculates the full cost per desk. "
-                            "Direct materials cost three hundred thousand dong. "
-                            "Direct labor costs one hundred and fifty thousand dong. "
-                            "Allocated overhead adds two hundred thousand dong. "
-                            "The total absorption cost is six hundred and fifty thousand dong per desk. "
-                            "This method ensures that every cost — both direct and indirect — "
-                            "is reflected in the product's price.\n\n"
-                            "But the sales manager wants a different perspective. "
-                            "She asks: what is the marginal cost of producing one more desk? "
-                            "Under marginal costing, only variable costs count. "
-                            "The wood, metal, screws, and carpenter wages total four hundred and fifty thousand dong. "
-                            "Fixed overhead is excluded because it does not change "
-                            "whether the factory makes one more desk or one fewer. "
-                            "The contribution per desk — selling price minus variable cost — "
-                            "is three hundred and fifty thousand dong if the desk sells for eight hundred thousand. "
-                            "This contribution goes toward covering fixed costs and generating profit.\n\n"
-                            "Before signing the contract, the finance director runs a breakeven analysis. "
-                            "The company's total fixed costs for the six-month period are three billion dong. "
-                            "With a contribution of three hundred and fifty thousand dong per desk, "
-                            "the breakeven point is approximately eight thousand five hundred and seventy-one desks. "
-                            "Since the contract is for only five thousand desks, "
-                            "the company needs additional orders to reach breakeven. "
-                            "The director checks the sales forecast, "
-                            "which predicts total demand of twelve thousand desks across all customers. "
-                            "If the forecast is accurate, the company will comfortably pass breakeven "
-                            "and earn a healthy profit.\n\n"
-                            "To prepare for the project, the accounting team sets standard costs. "
-                            "The standard cost for wood is based on current supplier prices "
-                            "plus a small buffer for price fluctuations. "
-                            "The standard labor time is ninety minutes per desk, "
-                            "based on time studies conducted on the factory floor. "
-                            "These standards become the budget targets for the production team.\n\n"
-                            "Three months into the contract, the accountant compares "
-                            "actual costs to the standards. "
-                            "The actual cost of wood has risen by eight percent "
-                            "because a typhoon damaged timber plantations in the central region. "
-                            "This creates an unfavorable material price variance. "
-                            "However, the carpenters have become more efficient with practice, "
-                            "completing each desk in eighty minutes instead of ninety. "
-                            "This creates a favorable labor efficiency variance. "
-                            "The net effect is a small overall variance — "
-                            "the savings in labor nearly offset the increase in material costs.\n\n"
-                            "The management team reviews the performance report. "
-                            "The production department's performance is strong — "
-                            "output is on schedule, quality defects are below two percent, "
-                            "and controllable costs are within budget. "
-                            "The factory manager has done an excellent job managing overtime, "
-                            "reducing material waste, and negotiating with local suppliers. "
-                            "These are all controllable costs that she can directly influence.\n\n"
-                            "The increase in wood prices, however, is an uncontrollable cost. "
-                            "The factory manager had no way to prevent the typhoon "
-                            "or the resulting spike in timber prices. "
-                            "The performance evaluation system recognizes this distinction — "
-                            "the manager is praised for her controllable cost management "
-                            "and not penalized for the uncontrollable price increase.\n\n"
-                            "Finally, the finance director compares the company's cost structure "
-                            "to industry benchmarks. "
-                            "The benchmark data shows that the average furniture manufacturer in Vietnam "
-                            "spends thirty-five percent of revenue on direct materials "
-                            "and twenty percent on overhead. "
-                            "The company's numbers are close to the benchmark — "
-                            "thirty-three percent on materials and twenty-two percent on overhead. "
-                            "The slightly higher overhead is explained by the company's investment "
-                            "in modern CNC machines, which increase overhead "
-                            "but improve quality and reduce labor costs.\n\n"
-                            "By the end of the six-month contract, the company has delivered "
-                            "all five thousand desks on time and within budget. "
-                            "The cost accounting system — from allocation to variance analysis, "
-                            "from breakeven calculations to performance benchmarks — "
-                            "gave managers the information they needed to make smart decisions "
-                            "at every stage of the project."
-                        )
+                        "text": "Cost accounting is the engine room of business decision-making. While financial accounting looks backward to report what happened, cost accounting looks inward and forward — analyzing how resources are consumed and guiding managers toward better choices. For any company that makes products or delivers services, understanding costs is not optional. It is the foundation of pricing, planning, and performance management.\n\nEvery cost in a business can be classified in multiple ways, but the most fundamental distinction is between direct and indirect costs. A direct cost can be traced to a specific product or service. When a Vietnamese shoe manufacturer buys leather for a particular model, the leather is a direct material cost. The wages of the workers who stitch that model are a direct labor cost. These costs are straightforward to measure and assign.\n\nIndirect costs are different. The electricity bill for the entire factory, the salary of the quality control manager, the depreciation of shared equipment — these costs support all products but cannot be traced to any single one. In manufacturing, indirect production costs are grouped together as overhead. Managing overhead is one of the greatest challenges in cost accounting because it must be distributed across products through a process called allocation.\n\nAllocation requires choosing a basis that reflects how products consume overhead resources. A factory might allocate overhead based on machine hours, direct labor hours, or the number of units produced. The choice matters enormously. If a high-volume product and a low-volume product share the same factory, the allocation method determines how much overhead each product bears — and therefore how profitable each appears to be.\n\nOnce costs are classified and allocated, the next step is planning. The budget is the financial blueprint for the coming period. It translates the company's strategic goals into specific numbers — how much revenue to expect, how much to spend on materials, labor, and overhead, and how much profit to target. A well-constructed budget aligns every department around common financial objectives.\n\nBut reality rarely matches the plan exactly. When the period ends, managers compare actual results against the budget. The difference is called a variance. A favorable variance means actual costs were lower than budgeted — good news. An unfavorable variance means costs exceeded the plan — a signal that something went wrong. Variance analysis breaks these differences into components, helping managers pinpoint whether the problem was price, quantity, efficiency, or volume.\n\nThe comparison between standard and actual costs is central to variance analysis. Standard costs are predetermined benchmarks — what each unit should cost under normal operating conditions. They include standard material costs, standard labor costs, and standard overhead rates. When actual costs deviate from these standards, the variance tells a story. A material price variance might reveal that a supplier raised prices. A labor efficiency variance might indicate that a new production process is slower than expected.\n\nHow costs are assigned to products depends on the costing method. Absorption costing — the method required for external financial reporting — assigns both direct and indirect costs to each unit. Every product absorbs a share of fixed overhead. This ensures that the full cost of manufacturing is reflected in inventory values and cost of goods sold. However, absorption costing can distort decision-making because the cost per unit changes with production volume.\n\nMarginal costing offers an alternative perspective. It assigns only variable costs to products and treats fixed overhead as a period expense. The key metric in marginal costing is the contribution margin — the difference between selling price and variable cost per unit. Contribution tells managers how much each product contributes toward covering fixed costs and generating profit.\n\nContribution analysis is especially useful for short-term decisions. Should the company accept a special order at a discounted price? If the price exceeds the marginal cost, the order generates a positive contribution — even if it does not cover the full absorption cost. Should the company discontinue a product line? If the product still generates a positive contribution, dropping it would actually reduce total profit because the fixed costs would remain.\n\nBreakeven analysis ties these concepts together. The breakeven point is the sales volume at which total contribution exactly covers total fixed costs — the company earns zero profit. Below breakeven, the company loses money. Above breakeven, every additional unit sold generates profit equal to its contribution margin. Knowing the breakeven point helps managers set sales targets, evaluate pricing strategies, and assess the risk of new ventures.\n\nLooking ahead requires forecasting. A forecast uses historical data, market intelligence, and management judgment to estimate future revenues, costs, and cash flows. Unlike a budget, which is a fixed target, a forecast is updated regularly as new information becomes available. Rolling forecasts — updated monthly or quarterly — give managers a continuously refreshed view of where the business is heading.\n\nWhen forecasts are compared against actual results, the focus shifts to performance evaluation. Performance measurement answers the question: how well did we do? But meaningful evaluation requires context. Comparing a factory's costs against its budget is useful. Comparing those costs against a benchmark — an industry average, a competitor's published figures, or the company's own best historical result — adds an external perspective that budgets alone cannot provide.\n\nFair performance evaluation also requires distinguishing between controllable and uncontrollable factors. A plant manager can control material usage, labor scheduling, and maintenance spending — these are controllable costs. But she cannot control a government decision to raise electricity tariffs, a global commodity price spike, or a corporate headquarters decision to reallocate shared service charges. These are uncontrollable costs. Holding managers accountable only for controllable costs creates a system that is both fair and motivating.\n\nFrom the direct cost of raw materials to the indirect overhead of a shared factory, from the standard cost set at the beginning of the year to the actual cost recorded at the end, from the absorption of fixed costs into product values to the marginal contribution that guides short-term decisions — cost accounting weaves together a comprehensive framework for understanding how businesses spend money and create value. The breakeven point marks the threshold of survival. Forecasts illuminate the path ahead. Performance benchmarks reveal where improvement is needed. And the distinction between controllable and uncontrollable costs ensures that accountability is fair.\n\nIn a world where Vietnamese companies compete globally, negotiate with international partners, and report to foreign investors, the ability to discuss cost accounting in English is not just an academic skill — it is a professional necessity. These eighteen words are your foundation."
                     }
                 },
                 {
                     "activityType": "writingParagraph",
-                    "title": "Viết: Phân tích chi phí sản xuất doanh nghiệp",
-                    "description": "Viết đoạn văn tiếng Anh phân tích chi phí sản xuất sử dụng 18 từ vựng đã học.",
+                    "title": "Viết: Phân tích kế toán chi phí",
+                    "description": "Viết đoạn văn tiếng Anh phân tích về kế toán chi phí sử dụng 18 từ vựng đã học.",
                     "data": {
-                        "vocabList": ALL_WORDS,
-                        "instructions": "Viết một đoạn văn bằng tiếng Anh (khoảng 100-150 từ) phân tích một khía cạnh của kế toán chi phí trong doanh nghiệp. Sử dụng ít nhất 8 từ vựng từ danh sách. Bạn có thể chọn một trong hai đề bài dưới đây.",
+                        "vocabList": ["cost", "budget", "variance", "overhead", "allocation", "direct", "indirect", "standard", "actual", "absorption", "marginal", "contribution", "breakeven", "forecast", "performance", "benchmark", "controllable", "uncontrollable"],
+                        "instructions": "Viết một đoạn văn bằng tiếng Anh (khoảng 100-150 từ) phân tích một tình huống thực tế liên quan đến kế toán chi phí. Sử dụng ít nhất 8 từ vựng từ danh sách. Bạn có thể chọn một trong hai đề bài dưới đây.",
                         "prompts": [
-                            "Hãy phân tích cách một nhà máy sản xuất Việt Nam sử dụng absorption costing và marginal costing để đưa ra quyết định khác nhau. Giải thích vai trò của direct costs, indirect costs, overhead allocation, và contribution trong việc tính giá thành sản phẩm.",
-                            "Hãy giải thích cách một doanh nghiệp sử dụng variance analysis và performance benchmarks để đánh giá hiệu quả chi phí. Phân tích sự khác biệt giữa standard costs và actual costs, vai trò của forecast trong lập budget, và tầm quan trọng của việc phân biệt controllable và uncontrollable costs."
+                            "Hãy phân tích cách một nhà máy sản xuất sử dụng kế toán chi phí để quyết định có nên nhận một đơn hàng đặc biệt với giá thấp hơn bình thường. Giải thích vai trò của marginal cost, contribution margin, và breakeven analysis trong quyết định này, và vì sao kết quả có thể khác nhau giữa absorption costing và marginal costing.",
+                            "Hãy phân tích cách một doanh nghiệp Việt Nam sử dụng hệ thống đánh giá hiệu quả dựa trên variance analysis và benchmarking. Giải thích vì sao việc phân biệt controllable và uncontrollable costs là quan trọng, và cách forecast giúp nhà quản lý chuẩn bị cho những thay đổi trong tương lai."
                         ]
                     }
                 },
@@ -1544,62 +541,7 @@ content = {
                     "title": "Lời kết",
                     "description": "Ôn lại từ vựng quan trọng và lời chia tay với tinh thần hành động thực tiễn.",
                     "data": {
-                        "text": (
-                            "Bạn vừa hoàn thành bài học về Kế toán chi phí. "
-                            "18 từ vựng này không chỉ là kiến thức — chúng là công cụ. "
-                            "Và công cụ chỉ có giá trị khi bạn sử dụng chúng. "
-                            "Vậy hãy cùng ôn lại 6 từ quan trọng nhất "
-                            "và nghĩ xem bạn sẽ dùng chúng ở đâu ngay tuần này.\n\n"
-                            "Variance — chênh lệch. Đây là từ mà mọi nhà quản lý cần biết, "
-                            "vì nó là tín hiệu sớm nhất cho thấy kế hoạch đang đi đúng hướng hay chệch hướng. "
-                            "Lần tới khi bạn đọc một báo cáo quản trị bằng tiếng Anh, "
-                            "hãy tìm cột variance — nó sẽ cho bạn biết câu chuyện thật. "
-                            "Ví dụ mới: The monthly variance report revealed that the packaging department "
-                            "had saved four hundred million dong by switching to a domestic supplier, "
-                            "creating a favorable material price variance that offset higher labor costs.\n\n"
-                            "Contribution — đóng góp biên. Từ này thay đổi cách bạn nhìn mỗi sản phẩm. "
-                            "Thay vì hỏi 'sản phẩm này lãi bao nhiêu?', bạn hỏi "
-                            "'sản phẩm này đóng góp bao nhiêu vào việc bù đắp chi phí cố định?' "
-                            "Đó là tư duy marginal costing — và nó cực kỳ hữu ích cho quyết định ngắn hạn. "
-                            "Ví dụ mới: The sales team used contribution analysis to decide which products "
-                            "to promote during the holiday season, focusing on items with the highest "
-                            "contribution margin rather than the highest selling price.\n\n"
-                            "Breakeven — hòa vốn. Mỗi doanh nghiệp, mỗi dự án, mỗi sản phẩm mới "
-                            "đều có một con số breakeven. Biết con số đó, bạn biết mình cần bán bao nhiêu "
-                            "trước khi bắt đầu kiếm lời. Đó là điểm xuất phát của mọi kế hoạch kinh doanh. "
-                            "Ví dụ mới: Before launching the new product line, the team calculated "
-                            "that the breakeven point was three thousand units per month — "
-                            "a target they believed was achievable based on pre-order data from distributors.\n\n"
-                            "Benchmark — chuẩn đối sánh. Bạn không thể cải thiện "
-                            "nếu bạn không biết mình đang ở đâu so với người khác. "
-                            "Benchmark cho bạn điểm tham chiếu — và từ đó, bạn biết cần làm gì tiếp theo. "
-                            "Ví dụ mới: After benchmarking against three competitors in the same industrial zone, "
-                            "the company discovered that its energy cost per unit was thirty percent higher "
-                            "and immediately began auditing its electricity usage patterns.\n\n"
-                            "Allocation — phân bổ. Cách bạn phân bổ chi phí chung "
-                            "quyết định giá thành sản phẩm — và giá thành quyết định giá bán. "
-                            "Một phương pháp allocation sai có thể khiến bạn định giá quá cao "
-                            "cho sản phẩm này và quá thấp cho sản phẩm kia. "
-                            "Ví dụ mới: The company switched from allocating overhead based on direct labor hours "
-                            "to machine hours, which more accurately reflected how each product line "
-                            "actually consumed factory resources.\n\n"
-                            "Forecast — dự báo. Ngân sách tốt bắt đầu từ dự báo tốt. "
-                            "Nếu bạn dự báo sai, ngân sách sẽ sai, và variance sẽ lớn. "
-                            "Forecast không cần hoàn hảo — nhưng nó cần dựa trên dữ liệu thực tế, "
-                            "không phải ước đoán cảm tính. "
-                            "Ví dụ mới: The finance team improved its cost forecast accuracy by twenty percent "
-                            "after incorporating real-time commodity price data and historical seasonal patterns "
-                            "into their budgeting model.\n\n"
-                            "Đây là điều tôi muốn bạn làm ngay sau bài học này: "
-                            "mở một báo cáo quản trị bằng tiếng Anh — có thể là báo cáo chi phí, "
-                            "báo cáo ngân sách, hoặc báo cáo hiệu quả bộ phận — "
-                            "và tìm xem bao nhiêu trong 18 từ vựng hôm nay xuất hiện trong đó. "
-                            "Bạn sẽ ngạc nhiên khi thấy chúng ở khắp nơi.\n\n"
-                            "Kế toán chi phí không phải lý thuyết trên giấy — "
-                            "nó là ngôn ngữ mà mọi nhà quản lý dùng mỗi ngày để ra quyết định. "
-                            "Và bây giờ, bạn đã nói được ngôn ngữ đó. "
-                            "Hãy dùng nó. Chúc bạn thành công — hẹn gặp lại ở bài học tiếp theo!"
-                        )
+                        "text": "Bạn vừa hoàn thành bài học về Kế toán chi phí — Cost Accounting. 18 từ vựng, 3 bài đọc, hàng chục ví dụ thực tế. Bây giờ, hãy biến kiến thức thành hành động.\n\nTôi muốn ôn lại 6 từ quan trọng nhất — lần này với góc nhìn thực tiễn, hướng về những gì bạn sẽ làm tiếp theo.\n\nVariance — chênh lệch. Đây là từ bạn sẽ gặp nhiều nhất trong sự nghiệp kế toán quản trị. Mỗi tháng, mỗi quý, bạn sẽ phải giải thích vì sao con số thực tế khác con số kế hoạch. Hành động: Lần tới khi bạn đọc một báo cáo tài chính, hãy tìm phần variance analysis và thử giải thích nguyên nhân bằng tiếng Anh. Ví dụ mới: The CEO asked the finance team to explain every variance exceeding five percent of the budget, turning the monthly review meeting into a rigorous accountability session.\n\nContribution — đóng góp, lợi nhuận gộp biên. Đây là thước đo mà mọi nhà quản lý giỏi đều dùng hàng ngày. Sản phẩm nào đóng góp nhiều nhất? Khách hàng nào mang lại giá trị cao nhất? Hành động: Thử tính contribution margin cho một sản phẩm bạn biết — giá bán trừ chi phí biến đổi. Ví dụ mới: The sales team was trained to focus on products with the highest contribution margin rather than simply chasing the highest revenue, which transformed the company's profitability within two quarters.\n\nBreakeven — hòa vốn. Mỗi dự án mới, mỗi sản phẩm mới, mỗi chi nhánh mới — câu hỏi đầu tiên luôn là: bao lâu thì hòa vốn? Hành động: Nếu bạn có ý tưởng kinh doanh, hãy thử tính breakeven point bằng tiếng Anh — Fixed Costs ÷ Contribution per Unit. Ví dụ mới: The franchise owner calculated that the new location would reach breakeven within fourteen months, making it a lower-risk investment compared to the previous store that took twenty-two months.\n\nForecast — dự báo. Trong thế giới kinh doanh, người nào nhìn xa hơn sẽ chuẩn bị tốt hơn. Forecast không phải là đoán — nó là phân tích có hệ thống. Hành động: Theo dõi một chỉ số kinh tế Việt Nam (CPI, tỷ giá, giá nguyên liệu) và thử viết một đoạn forecast ngắn bằng tiếng Anh. Ví dụ mới: The finance director updated the quarterly forecast after the central bank announced an interest rate cut, projecting lower borrowing costs and stronger consumer spending in the second half of the year.\n\nBenchmark — chuẩn đối sánh. Bạn không thể biết mình giỏi hay dở nếu không có điểm so sánh. Benchmark cho bạn bối cảnh — bạn đang ở đâu so với thị trường, so với đối thủ, so với chính mình năm ngoái. Hành động: Tìm một chỉ số ngành (industry benchmark) liên quan đến lĩnh vực bạn quan tâm và so sánh với một doanh nghiệp cụ thể. Ví dụ mới: After benchmarking employee productivity against regional competitors, the HR team proposed a skills development program that increased output per worker by twenty-three percent within one year.\n\nOverhead — chi phí chung. Đây là kẻ thù thầm lặng của lợi nhuận. Overhead không biến mất khi doanh thu giảm — nó vẫn ở đó, ăn mòn từng đồng lợi nhuận. Hiểu overhead là hiểu vì sao nhiều doanh nghiệp có doanh thu cao nhưng lợi nhuận thấp. Hành động: Liệt kê các khoản overhead của một doanh nghiệp bạn biết và thử phân bổ chúng cho từng sản phẩm. Ví dụ mới: The startup kept its overhead deliberately low by using co-working spaces and cloud-based tools, allowing it to reach breakeven with far fewer customers than traditional competitors.\n\nĐó là 6 từ — và 6 hành động cụ thể bạn có thể thực hiện ngay tuần này. Kế toán chi phí không phải là lý thuyết trên giảng đường — nó là công cụ thực tế mà bạn sẽ dùng mỗi ngày trong sự nghiệp.\n\nCòn ba bài học nữa trong chuỗi Kế toán và Tài chính doanh nghiệp — Auditing, Capital Structure, và Corporate Governance. Mỗi bài sẽ mở ra một góc nhìn mới. Nhưng hôm nay, hãy bắt đầu với những hành động nhỏ. Mở một báo cáo chi phí. Tính một contribution margin. Viết một câu variance analysis bằng tiếng Anh.\n\nKiến thức chỉ có giá trị khi bạn sử dụng nó. Hãy bắt đầu ngay hôm nay."
                     }
                 }
             ]
@@ -1607,27 +549,102 @@ content = {
     ]
 }
 
-# ── Validate before upload ───────────────────────────────────
-print("Validating content...")
-validate_all(content)
+# --- Validation ---
+def validate(content):
+    errors = []
+    sessions = content.get("learningSessions", [])
+    if len(sessions) != 5:
+        errors.append(f"Expected 5 sessions, got {len(sessions)}")
+
+    # Session 1-3: 10 activities each
+    expected_seq_123 = ["introAudio", "viewFlashcards", "speakFlashcards", "vocabLevel1", "vocabLevel2", "vocabLevel3", "reading", "speakReading", "readAlong", "writingSentence"]
+    for i in range(3):
+        acts = sessions[i]["activities"]
+        seq = [a["activityType"] for a in acts]
+        if seq != expected_seq_123:
+            errors.append(f"Session {i+1} activity sequence mismatch: {seq}")
+        # Check vocabList length = 6
+        for a in acts:
+            if a["activityType"] in ("viewFlashcards", "speakFlashcards", "vocabLevel1", "vocabLevel2", "vocabLevel3"):
+                vl = a["data"].get("vocabList", [])
+                if len(vl) != 6:
+                    errors.append(f"Session {i+1} {a['activityType']} vocabList length {len(vl)} != 6")
+        # Check viewFlashcards == speakFlashcards vocabList
+        vf = [a for a in acts if a["activityType"] == "viewFlashcards"][0]["data"]["vocabList"]
+        sf = [a for a in acts if a["activityType"] == "speakFlashcards"][0]["data"]["vocabList"]
+        if vf != sf:
+            errors.append(f"Session {i+1} viewFlashcards/speakFlashcards vocabList mismatch")
+
+    # Session 4: 7 activities
+    expected_seq_4 = ["introAudio", "viewFlashcards", "speakFlashcards", "vocabLevel1", "vocabLevel2", "vocabLevel3", "writingSentence"]
+    acts4 = sessions[3]["activities"]
+    seq4 = [a["activityType"] for a in acts4]
+    if seq4 != expected_seq_4:
+        errors.append(f"Session 4 activity sequence mismatch: {seq4}")
+    for a in acts4:
+        if a["activityType"] in ("viewFlashcards", "speakFlashcards", "vocabLevel1", "vocabLevel2", "vocabLevel3"):
+            vl = a["data"].get("vocabList", [])
+            if len(vl) != 18:
+                errors.append(f"Session 4 {a['activityType']} vocabList length {len(vl)} != 18")
+
+    # Session 5: 6 activities
+    expected_seq_5 = ["introAudio", "reading", "speakReading", "readAlong", "writingParagraph", "introAudio"]
+    acts5 = sessions[4]["activities"]
+    seq5 = [a["activityType"] for a in acts5]
+    if seq5 != expected_seq_5:
+        errors.append(f"Session 5 activity sequence mismatch: {seq5}")
+
+    # Check all activities have activityType, title, description, data
+    strip_keys = {"mp3Url", "illustrationSet", "chapterBookmarks", "segments", "whiteboardItems", "userReadingId", "lessonUniqueId", "curriculumTags", "taskId", "imageId"}
+    for si, s in enumerate(sessions):
+        for ai, a in enumerate(s["activities"]):
+            for field in ("activityType", "title", "description", "data"):
+                if field not in a:
+                    errors.append(f"Session {si+1} activity {ai+1} missing '{field}'")
+            # Check no strip keys
+            for key in strip_keys:
+                if key in a:
+                    errors.append(f"Session {si+1} activity {ai+1} has strip key '{key}' at activity level")
+                if key in a.get("data", {}):
+                    errors.append(f"Session {si+1} activity {ai+1} has strip key '{key}' in data")
+
+    # Check all vocabList entries are lowercase strings
+    for si, s in enumerate(sessions):
+        for ai, a in enumerate(s["activities"]):
+            vl = a.get("data", {}).get("vocabList", None)
+            if vl is not None:
+                for w in vl:
+                    if not isinstance(w, str) or w != w.lower():
+                        errors.append(f"Session {si+1} activity {ai+1} vocabList entry '{w}' not lowercase string")
+
+    # Check contentTypeTags
+    if content.get("contentTypeTags") != []:
+        errors.append(f"contentTypeTags should be [], got {content.get('contentTypeTags')}")
+
+    return errors
+
+errors = validate(content)
+if errors:
+    print("VALIDATION ERRORS:")
+    for e in errors:
+        print(f"  - {e}")
+    sys.exit(1)
 print("Validation passed!")
 
-# ── Upload ───────────────────────────────────────────────────
+# --- Create curriculum ---
 token = get_firebase_id_token(UID)
-res = requests.post(
-    f"{API_BASE}/curriculum/create",
-    json={
-        "firebaseIdToken": token,
-        "language": "en",
-        "userLanguage": "vi",
-        "content": json.dumps(content),
-    },
-)
+res = requests.post(f"{API_BASE}/curriculum/create", json={
+    "firebaseIdToken": token,
+    "language": "en",
+    "userLanguage": "vi",
+    "content": json.dumps(content)
+})
 res.raise_for_status()
 curriculum_id = res.json()["id"]
-print(f"Created curriculum: {curriculum_id}")
+print(f"Created: {curriculum_id}")
 print(f"Title: {content['title']}")
 
-# ── Duplicate check SQL ──────────────────────────────────────
-print("\n-- Duplicate check SQL (run manually): --")
-print(f"SELECT id, title, created_at FROM curriculum WHERE title = 'Cost Accounting – Kế Toán Chi Phí' AND uid = '{UID}' ORDER BY created_at;")
+# --- Duplicate check ---
+print("\n--- Duplicate Check ---")
+print(f"SELECT id, content->>'title' as title, created_at FROM curriculum")
+print(f"WHERE content->>'title' = '{content['title']}' AND uid = '{UID}' ORDER BY created_at;")

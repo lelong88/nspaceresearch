@@ -20,7 +20,7 @@ Create 100 new vi-en curriculums across 8 batches, filling gaps in difficulty le
     - Implement `validate_bilingual_prompts(content, level)` — checks Vietnamese in writingSentence prompts for bilingual curriculums, English example in beginner prompts
     - _Requirements: 5.1-5.7, 6.1-6.5, 7.1, 8.1-8.6, 9.1-9.5, 10.1-10.5, 11.2-11.4, 14.1-14.3, 15.1-15.7, 19.4_
 
-- [-] 2. Batch 1 — Beginner Foundation (15 curriculums: daily life, relationships, Vietnamese culture)
+- [x] 2. Batch 1 — Beginner Foundation (15 curriculums: daily life, relationships, Vietnamese culture)
   - [x] 2.1 Create `batch-01-beginner/create_daily_life_1_shopping.py` — Shopping & Bargaining (beginner, balanced_skills, [], 12 words, 4 sessions, bilingual, persuasive Vietnamese copy, simple reading passages)
     - _Requirements: 1.1, 4.1, 5.1-5.7, 12.1-12.6, 13.1-13.7, 14.1-14.2, 15.1-15.7, 18.1-18.6_
   - [x] 2.2 Create `batch-01-beginner/create_daily_life_2_cooking.py` — Cooking at Home (beginner, balanced_skills, [], 12 words)
@@ -31,145 +31,145 @@ Create 100 new vi-en curriculums across 8 batches, filling gaps in difficulty le
     - _Requirements: 1.1, 4.1, 5.1-5.7, 12.1-12.6, 13.1-13.7, 14.1-14.2, 15.1-15.7, 18.1-18.6_
   - [x] 2.5 Create `batch-01-beginner/create_relationships_1_friends.py` — Making Friends (beginner, balanced_skills, [], 12 words)
     - _Requirements: 1.1, 4.1, 5.1-5.7, 12.1-12.6, 13.1-13.7, 14.1-14.2, 15.1-15.7, 18.1-18.6_
-  - [ ] 2.6 Create `batch-01-beginner/create_relationships_2_family.py` — Family Dinners (beginner, balanced_skills, [], 12 words)
+  - [x] 2.6 Create `batch-01-beginner/create_relationships_2_family.py` — Family Dinners (beginner, balanced_skills, [], 12 words)
     - _Requirements: 1.1, 4.1, 5.1-5.7, 12.1-12.6, 13.1-13.7, 14.1-14.2, 15.1-15.7, 18.1-18.6_
-  - [ ] 2.7 Create `batch-01-beginner/create_relationships_3_sorry.py` — Saying Sorry (beginner, balanced_skills, [], 12 words)
+  - [x] 2.7 Create `batch-01-beginner/create_relationships_3_sorry.py` — Saying Sorry (beginner, balanced_skills, [], 12 words)
     - _Requirements: 1.1, 4.1, 5.1-5.7, 12.1-12.6, 13.1-13.7, 14.1-14.2, 15.1-15.7, 18.1-18.6_
-  - [ ] 2.8 Create `batch-01-beginner/create_vn_culture_1_tet.py` — Tết Nguyên Đán (beginner, balanced_skills, [], 12 words)
+  - [x] 2.8 Create `batch-01-beginner/create_vn_culture_1_tet.py` — Tết Nguyên Đán (beginner, balanced_skills, [], 12 words)
     - _Requirements: 1.1, 4.1, 5.1-5.7, 12.1-12.6, 13.1-13.7, 14.1-14.2, 15.1-15.7, 18.1-18.6_
-  - [ ] 2.9 Create `batch-01-beginner/create_vn_culture_2_street_food.py` — Vietnamese Street Food (beginner, balanced_skills, [], 12 words)
+  - [x] 2.9 Create `batch-01-beginner/create_vn_culture_2_street_food.py` — Vietnamese Street Food (beginner, balanced_skills, [], 12 words)
     - _Requirements: 1.1, 4.1, 5.1-5.7, 12.1-12.6, 13.1-13.7, 14.1-14.2, 15.1-15.7, 18.1-18.6_
-  - [ ] 2.10 Create `batch-01-beginner/create_vn_culture_3_ao_dai.py` — Áo Dài — The National Dress (beginner, balanced_skills, [], 12 words)
+  - [x] 2.10 Create `batch-01-beginner/create_vn_culture_3_ao_dai.py` — Áo Dài — The National Dress (beginner, balanced_skills, [], 12 words)
     - _Requirements: 1.1, 4.1, 5.1-5.7, 12.1-12.6, 13.1-13.7, 14.1-14.2, 15.1-15.7, 18.1-18.6_
-  - [ ] 2.11 Create `batch-01-beginner/create_vn_culture_4_pho.py` — Phở — A Bowl of History (beginner, balanced_skills, [], 12 words)
+  - [x] 2.11 Create `batch-01-beginner/create_vn_culture_4_pho.py` — Phở — A Bowl of History (beginner, balanced_skills, [], 12 words)
     - _Requirements: 1.1, 4.1, 5.1-5.7, 12.1-12.6, 13.1-13.7, 14.1-14.2, 15.1-15.7, 18.1-18.6_
-  - [ ] 2.12 Create `batch-01-beginner/create_writing_1_diary.py` — My First English Diary (beginner, writing_focus, [], 10 words, 4 sessions, no writingParagraph for beginner, heavy scaffolding)
+  - [x] 2.12 Create `batch-01-beginner/create_writing_1_diary.py` — My First English Diary (beginner, writing_focus, [], 10 words, 4 sessions, no writingParagraph for beginner, heavy scaffolding)
     - _Requirements: 1.1, 2.1, 4.1, 5.1-5.7, 8.1-8.6, 12.1-12.6, 13.1-13.7, 14.1-14.2, 15.1-15.7, 18.1-18.6_
-  - [ ] 2.13 Create `batch-01-beginner/create_speaking_1_my_day.py` — Talking About My Day (beginner, speaking_focus, [], 18 words, 5 sessions, pronunciation-focused introAudio)
+  - [x] 2.13 Create `batch-01-beginner/create_speaking_1_my_day.py` — Talking About My Day (beginner, speaking_focus, [], 18 words, 5 sessions, pronunciation-focused introAudio)
     - _Requirements: 1.1, 2.3, 4.1, 5.4, 9.1-9.5, 12.1-12.6, 13.1-13.7, 15.1-15.7, 18.1-18.6_
-  - [ ] 2.14 Create `batch-01-beginner/create_vocab_1_food_words.py` — Food Words Around Me (beginner, vocab_acquisition, [], 24 words, 6 sessions, intensive drill)
+  - [x] 2.14 Create `batch-01-beginner/create_vocab_1_food_words.py` — Food Words Around Me (beginner, vocab_acquisition, [], 24 words, 6 sessions, intensive drill)
     - _Requirements: 1.1, 2.2, 4.1, 10.1-10.5, 12.1-12.6, 13.1-13.7, 15.1-15.7, 18.1-18.6_
-  - [ ] 2.15 Create `batch-01-beginner/create_reader_1_bicycle.py` — The Little Red Bicycle (beginner, reader, ["story"], 12 words, 4 sessions, cohesive narrative, comprehensible input)
+  - [x] 2.15 Create `batch-01-beginner/create_reader_1_bicycle.py` — The Little Red Bicycle (beginner, reader, ["story"], 12 words, 4 sessions, cohesive narrative, comprehensible input)
     - _Requirements: 1.1, 2.4, 3.4, 3.9, 4.1, 11.1-11.5, 12.1-12.6, 13.1-13.7, 15.1-15.7, 18.1-18.6_
 
-- [ ] 3. Batch 1 — Execute, organize, verify, and document
-  - [ ] 3.1 Run all 15 batch-01 curriculum creation scripts and record returned IDs
+- [x] 3. Batch 1 — Execute, organize, verify, and document
+  - [x] 3.1 Run all 15 batch-01 curriculum creation scripts and record returned IDs
     - _Requirements: 18.1-18.3, 19.1_
-  - [ ] 3.2 Create `batch-01-beginner/create_batch_01_series.py` orchestrator — create series (Bước Đầu Tiên, Kết Nối, Việt Nam Qua Tiếng Anh — Cơ Bản, etc.), add curriculums to series, set display orders, add series to collections (Daily Life, Relationships, Vietnamese Culture, Writing Focus, Speaking Focus, Food, Story/Reader)
+  - [x] 3.2 Create `batch-01-beginner/create_batch_01_series.py` orchestrator — create series (Bước Đầu Tiên, Kết Nối, Việt Nam Qua Tiếng Anh — Cơ Bản, etc.), add curriculums to series, set display orders, add series to collections (Daily Life, Relationships, Vietnamese Culture, Writing Focus, Speaking Focus, Food, Story/Reader)
     - _Requirements: 16.1-16.7, 17.1-17.3_
-  - [ ] 3.3 Run orchestrator script
+  - [x] 3.3 Run orchestrator script
     - _Requirements: 16.1-16.7, 17.1-17.3_
-  - [ ] 3.4 Run duplicate-check SQL for all 15 curriculums, verify content against corruption rules, verify display orders and series/collection membership
+  - [x] 3.4 Run duplicate-check SQL for all 15 curriculums, verify content against corruption rules, verify display orders and series/collection membership
     - _Requirements: 19.1-19.4_
-  - [ ] 3.5 Create `batch-01-beginner/README.md` with all curriculum IDs, series IDs, collection IDs, SQL queries, creation method, and distribution counts for batch 1
+  - [x] 3.5 Create `batch-01-beginner/README.md` with all curriculum IDs, series IDs, collection IDs, SQL queries, creation method, and distribution counts for batch 1
     - _Requirements: 20.1, 20.3_
-  - [ ] 3.6 Delete all Python scripts from `batch-01-beginner/` (only README.md remains)
+  - [x] 3.6 Delete all Python scripts from `batch-01-beginner/` (only README.md remains)
     - _Requirements: 20.2_
 
-- [ ] 4. Checkpoint — Batch 1 complete
+- [x] 4. Checkpoint — Batch 1 complete
   - Ensure all 15 beginner curriculums are verified in the database, ask the user if questions arise.
 
-- [ ] 5. Batch 2 — Writing_Focus & Vocab_Acquisition (13 curriculums)
-  - [ ] 5.1 Create `batch-02-writing-vocab/create_writing_2_feelings.py` — Writing About Feelings (beginner, writing_focus, [], 10 words, Psychology topic)
+- [x] 5. Batch 2 — Writing_Focus & Vocab_Acquisition (13 curriculums)
+  - [x] 5.1 Create `batch-02-writing-vocab/create_writing_2_feelings.py` — Writing About Feelings (beginner, writing_focus, [], 10 words, Psychology topic)
     - _Requirements: 1.1, 2.1, 4.1, 5.1-5.7, 8.1-8.6, 12.1-12.6, 13.1-13.7, 14.1-14.2, 15.1-15.7, 18.1-18.6_
-  - [ ] 5.2 Create `batch-02-writing-vocab/create_writing_3_favorite_place.py` — My Favorite Place (beginner, writing_focus, [], 10 words, Vietnamese culture topic)
+  - [x] 5.2 Create `batch-02-writing-vocab/create_writing_3_favorite_place.py` — My Favorite Place (beginner, writing_focus, [], 10 words, Vietnamese culture topic)
     - _Requirements: 1.1, 2.1, 4.1, 5.1-5.7, 8.1-8.6, 12.1-12.6, 13.1-13.7, 14.1-14.2, 15.1-15.7, 18.1-18.6_
-  - [ ] 5.3 Create `batch-02-writing-vocab/create_writing_4_describing_people.py` — Describing People (beginner, writing_focus, [], 10 words, Relationships topic)
+  - [x] 5.3 Create `batch-02-writing-vocab/create_writing_4_describing_people.py` — Describing People (beginner, writing_focus, [], 10 words, Relationships topic)
     - _Requirements: 1.1, 2.1, 4.1, 5.1-5.7, 8.1-8.6, 12.1-12.6, 13.1-13.7, 14.1-14.2, 15.1-15.7, 18.1-18.6_
-  - [ ] 5.4 Create `batch-02-writing-vocab/create_writing_5_email_friend.py` — Email to a Friend (preintermediate, writing_focus, [], 10 words, Relationships topic)
+  - [x] 5.4 Create `batch-02-writing-vocab/create_writing_5_email_friend.py` — Email to a Friend (preintermediate, writing_focus, [], 10 words, Relationships topic)
     - _Requirements: 1.2, 2.1, 4.1, 8.1-8.6, 12.1-12.6, 13.1-13.7, 14.1-14.3, 15.1-15.7, 18.1-18.6_
-  - [ ] 5.5 Create `batch-02-writing-vocab/create_writing_6_restaurant_reviews.py` — Restaurant Reviews (preintermediate, writing_focus, [], 10 words, Food topic)
+  - [x] 5.5 Create `batch-02-writing-vocab/create_writing_6_restaurant_reviews.py` — Restaurant Reviews (preintermediate, writing_focus, [], 10 words, Food topic)
     - _Requirements: 1.2, 2.1, 4.1, 8.1-8.6, 12.1-12.6, 13.1-13.7, 14.1-14.3, 15.1-15.7, 18.1-18.6_
-  - [ ] 5.6 Create `batch-02-writing-vocab/create_writing_7_travel_blog.py` — Travel Blog Post (preintermediate, writing_focus, [], 10 words, Daily life topic)
+  - [x] 5.6 Create `batch-02-writing-vocab/create_writing_7_travel_blog.py` — Travel Blog Post (preintermediate, writing_focus, [], 10 words, Daily life topic)
     - _Requirements: 1.2, 2.1, 4.1, 8.1-8.6, 12.1-12.6, 13.1-13.7, 14.1-14.3, 15.1-15.7, 18.1-18.6_
-  - [ ] 5.7 Create `batch-02-writing-vocab/create_writing_8_social_media.py` — Opinion Essay: Social Media (intermediate, writing_focus, [], 10 words, Tech/digital life topic)
+  - [x] 5.7 Create `batch-02-writing-vocab/create_writing_8_social_media.py` — Opinion Essay: Social Media (intermediate, writing_focus, [], 10 words, Tech/digital life topic)
     - _Requirements: 1.3, 2.1, 4.1, 8.1-8.6, 12.1-12.6, 13.1-13.7, 14.1-14.4, 15.1-15.7, 18.1-18.6_
-  - [ ] 5.8 Create `batch-02-writing-vocab/create_writing_9_persuasive_letter.py` — Persuasive Letter: Environment (intermediate, writing_focus, [], 10 words, Arts topic)
+  - [x] 5.8 Create `batch-02-writing-vocab/create_writing_9_persuasive_letter.py` — Persuasive Letter: Environment (intermediate, writing_focus, [], 10 words, Arts topic)
     - _Requirements: 1.3, 2.1, 4.1, 8.1-8.6, 12.1-12.6, 13.1-13.7, 14.1-14.4, 15.1-15.7, 18.1-18.6_
-  - [ ] 5.9 Create `batch-02-writing-vocab/create_writing_10_film_review.py` — Film Review Writing (intermediate, writing_focus, ["movie"], 10 words, Arts topic)
+  - [x] 5.9 Create `batch-02-writing-vocab/create_writing_10_film_review.py` — Film Review Writing (intermediate, writing_focus, ["movie"], 10 words, Arts topic)
     - _Requirements: 1.3, 2.1, 3.1, 3.6, 4.1, 8.1-8.6, 12.1-12.6, 13.1-13.7, 14.1-14.4, 15.1-15.7, 18.1-18.6_
-  - [ ] 5.10 Create `batch-02-writing-vocab/create_writing_11_argument_essay.py` — Argument Essay: Education (upperintermediate, writing_focus, [], 10 words, Psychology topic)
+  - [x] 5.10 Create `batch-02-writing-vocab/create_writing_11_argument_essay.py` — Argument Essay: Education (upperintermediate, writing_focus, [], 10 words, Psychology topic)
     - _Requirements: 1.4, 2.1, 4.1, 7.2, 7.5, 8.1-8.6, 12.1-12.6, 13.1-13.7, 14.1-14.4, 15.1-15.7, 18.1-18.6_
-  - [ ] 5.11 Create `batch-02-writing-vocab/create_writing_12_critical_analysis.py` — Critical Analysis: News (upperintermediate, writing_focus, [], 10 words, Tech/digital life topic)
+  - [x] 5.11 Create `batch-02-writing-vocab/create_writing_12_critical_analysis.py` — Critical Analysis: News (upperintermediate, writing_focus, [], 10 words, Tech/digital life topic)
     - _Requirements: 1.4, 2.1, 4.1, 7.2, 7.5, 8.1-8.6, 12.1-12.6, 13.1-13.7, 14.1-14.4, 15.1-15.7, 18.1-18.6_
-  - [ ] 5.12 Create `batch-02-writing-vocab/create_writing_13_academic.py` — Academic Writing: Research (advanced, writing_focus, [], 10 words, History topic, English-only)
+  - [x] 5.12 Create `batch-02-writing-vocab/create_writing_13_academic.py` — Academic Writing: Research (advanced, writing_focus, [], 10 words, History topic, English-only)
     - _Requirements: 1.5, 2.1, 4.1, 7.3, 7.4, 7.5, 8.1-8.4, 12.1-12.6, 13.1-13.7, 14.1, 14.3-14.4, 15.1-15.7, 18.1-18.6_
-  - [ ] 5.13 Create `batch-02-writing-vocab/create_vocab_2_emotion_words.py` — Emotion Words (beginner, vocab_acquisition, [], 24 words, 6 sessions, Psychology topic)
+  - [x] 5.13 Create `batch-02-writing-vocab/create_vocab_2_emotion_words.py` — Emotion Words (beginner, vocab_acquisition, [], 24 words, 6 sessions, Psychology topic)
     - _Requirements: 1.1, 2.2, 4.1, 5.4, 10.1-10.5, 12.1-12.6, 13.1-13.7, 15.1-15.7, 18.1-18.6_
 
-- [ ] 6. Batch 2 — Execute, organize, verify, and document
-  - [ ] 6.1 Run all 13 batch-02 curriculum creation scripts and record returned IDs
+- [x] 6. Batch 2 — Execute, organize, verify, and document
+  - [x] 6.1 Run all 13 batch-02 curriculum creation scripts and record returned IDs
     - _Requirements: 18.1-18.3, 19.1_
-  - [ ] 6.2 Create `batch-02-writing-vocab/create_batch_02_series.py` orchestrator — create series (Luyện Viết — Cơ Bản, Luyện Viết — Trung Cấp, Luyện Viết — Nâng Cao), add curriculums to series, set display orders, add series to Writing Focus and Psychology collections
+  - [x] 6.2 Create `batch-02-writing-vocab/create_batch_02_series.py` orchestrator — create series (Luyện Viết — Cơ Bản, Luyện Viết — Trung Cấp, Luyện Viết — Nâng Cao), add curriculums to series, set display orders, add series to Writing Focus and Psychology collections
     - _Requirements: 16.1-16.7, 17.1-17.3_
-  - [ ] 6.3 Run orchestrator script
+  - [x] 6.3 Run orchestrator script
     - _Requirements: 16.1-16.7, 17.1-17.3_
-  - [ ] 6.4 Run duplicate-check SQL for all 13 curriculums, verify content against corruption rules, verify display orders and series/collection membership
+  - [x] 6.4 Run duplicate-check SQL for all 13 curriculums, verify content against corruption rules, verify display orders and series/collection membership
     - _Requirements: 19.1-19.4_
-  - [ ] 6.5 Create `batch-02-writing-vocab/README.md` with all IDs, SQL queries, creation method, and distribution counts
+  - [x] 6.5 Create `batch-02-writing-vocab/README.md` with all IDs, SQL queries, creation method, and distribution counts
     - _Requirements: 20.1, 20.3_
-  - [ ] 6.6 Delete all Python scripts from `batch-02-writing-vocab/` (only README.md remains)
+  - [x] 6.6 Delete all Python scripts from `batch-02-writing-vocab/` (only README.md remains)
     - _Requirements: 20.2_
 
-- [ ] 7. Checkpoint — Batches 1-2 complete
+- [x] 7. Checkpoint — Batches 1-2 complete
   - Ensure all 28 curriculums are verified in the database, ask the user if questions arise.
 
-- [ ] 8. Batch 3 — Movie & Music Content (12 curriculums)
-  - [ ] 8.1 Create `batch-03-movie-music/create_movie_1_inside_out.py` — Inside Out 2 (beginner, balanced_skills, ["movie"], 12 words, Psychology topic, reading adapted from movie themes)
+- [x] 8. Batch 3 — Movie & Music Content (12 curriculums)
+  - [x] 8.1 Create `batch-03-movie-music/create_movie_1_inside_out.py` — Inside Out 2 (beginner, balanced_skills, ["movie"], 12 words, Psychology topic, reading adapted from movie themes)
     - _Requirements: 1.1, 3.1, 3.6, 4.1, 5.1-5.7, 12.1-12.6, 13.1-13.7, 15.1-15.7, 18.1-18.6_
-  - [ ] 8.2 Create `batch-03-movie-music/create_movie_2_coco.py` — Coco (beginner, balanced_skills, ["movie"], 12 words, Vietnamese culture topic)
+  - [x] 8.2 Create `batch-03-movie-music/create_movie_2_coco.py` — Coco (beginner, balanced_skills, ["movie"], 12 words, Vietnamese culture topic)
     - _Requirements: 1.1, 3.1, 3.6, 4.1, 5.1-5.7, 12.1-12.6, 13.1-13.7, 15.1-15.7, 18.1-18.6_
-  - [ ] 8.3 Create `batch-03-movie-music/create_movie_3_pursuit.py` — The Pursuit of Happyness (preintermediate, balanced_skills, ["movie"], 18 words, Relationships topic)
+  - [x] 8.3 Create `batch-03-movie-music/create_movie_3_pursuit.py` — The Pursuit of Happyness (preintermediate, balanced_skills, ["movie"], 18 words, Relationships topic)
     - _Requirements: 1.2, 3.1, 3.6, 4.1, 6.1-6.6, 12.1-12.6, 13.1-13.7, 14.1-14.4, 15.1-15.7, 18.1-18.6_
-  - [ ] 8.4 Create `batch-03-movie-music/create_movie_4_ratatouille.py` — Ratatouille (preintermediate, balanced_skills, ["movie"], 18 words, Food topic)
+  - [x] 8.4 Create `batch-03-movie-music/create_movie_4_ratatouille.py` — Ratatouille (preintermediate, balanced_skills, ["movie"], 18 words, Food topic)
     - _Requirements: 1.2, 3.1, 3.6, 4.1, 6.1-6.6, 12.1-12.6, 13.1-13.7, 14.1-14.4, 15.1-15.7, 18.1-18.6_
-  - [ ] 8.5 Create `batch-03-movie-music/create_movie_5_social_network.py` — The Social Network (intermediate, balanced_skills, ["movie"], 18 words, Tech/digital life topic)
+  - [x] 8.5 Create `batch-03-movie-music/create_movie_5_social_network.py` — The Social Network (intermediate, balanced_skills, ["movie"], 18 words, Tech/digital life topic)
     - _Requirements: 1.3, 3.1, 3.6, 4.1, 6.1-6.6, 12.1-12.6, 13.1-13.7, 14.1-14.4, 15.1-15.7, 18.1-18.6_
-  - [ ] 8.6 Create `batch-03-movie-music/create_movie_6_12_angry_men.py` — 12 Angry Men (intermediate, balanced_skills, ["movie"], 18 words, Law topic)
+  - [x] 8.6 Create `batch-03-movie-music/create_movie_6_12_angry_men.py` — 12 Angry Men (intermediate, balanced_skills, ["movie"], 18 words, Law topic)
     - _Requirements: 1.3, 3.1, 3.6, 4.1, 6.1-6.6, 12.1-12.6, 13.1-13.7, 14.1-14.4, 15.1-15.7, 18.1-18.6_
-  - [ ] 8.7 Create `batch-03-movie-music/create_movie_7_inception.py` — Inception (upperintermediate, balanced_skills, ["movie"], 18 words, Psychology topic)
+  - [x] 8.7 Create `batch-03-movie-music/create_movie_7_inception.py` — Inception (upperintermediate, balanced_skills, ["movie"], 18 words, Psychology topic)
     - _Requirements: 1.4, 3.1, 3.6, 4.1, 7.1-7.2, 7.5, 12.1-12.6, 13.1-13.7, 14.1-14.4, 15.1-15.7, 18.1-18.6_
-  - [ ] 8.8 Create `batch-03-movie-music/create_music_1_count_on_me.py` — Count on Me — Bruno Mars (beginner, balanced_skills, ["music"], 12 words, Relationships topic)
+  - [x] 8.8 Create `batch-03-movie-music/create_music_1_count_on_me.py` — Count on Me — Bruno Mars (beginner, balanced_skills, ["music"], 12 words, Relationships topic)
     - _Requirements: 1.1, 3.2, 3.7, 4.1, 5.1-5.7, 12.1-12.6, 13.1-13.7, 15.1-15.7, 18.1-18.6_
-  - [ ] 8.9 Create `batch-03-movie-music/create_music_2_happy.py` — Happy — Pharrell Williams (beginner, balanced_skills, ["music"], 12 words, Psychology topic)
+  - [x] 8.9 Create `batch-03-movie-music/create_music_2_happy.py` — Happy — Pharrell Williams (beginner, balanced_skills, ["music"], 12 words, Psychology topic)
     - _Requirements: 1.1, 3.2, 3.7, 4.1, 5.1-5.7, 12.1-12.6, 13.1-13.7, 15.1-15.7, 18.1-18.6_
-  - [ ] 8.10 Create `batch-03-movie-music/create_music_3_viva_la_vida.py` — Viva La Vida — Coldplay (preintermediate, balanced_skills, ["music"], 18 words, History topic)
+  - [x] 8.10 Create `batch-03-movie-music/create_music_3_viva_la_vida.py` — Viva La Vida — Coldplay (preintermediate, balanced_skills, ["music"], 18 words, History topic)
     - _Requirements: 1.2, 3.2, 3.7, 4.1, 6.1-6.6, 12.1-12.6, 13.1-13.7, 14.1-14.4, 15.1-15.7, 18.1-18.6_
-  - [ ] 8.11 Create `batch-03-movie-music/create_music_4_imagine.py` — Imagine — John Lennon (preintermediate, balanced_skills, ["music"], 18 words, Law topic)
+  - [x] 8.11 Create `batch-03-movie-music/create_music_4_imagine.py` — Imagine — John Lennon (preintermediate, balanced_skills, ["music"], 18 words, Law topic)
     - _Requirements: 1.2, 3.2, 3.7, 4.1, 6.1-6.6, 12.1-12.6, 13.1-13.7, 14.1-14.4, 15.1-15.7, 18.1-18.6_
-  - [ ] 8.12 Create `batch-03-movie-music/create_music_5_bohemian_rhapsody.py` — Bohemian Rhapsody — Queen (intermediate, balanced_skills, ["music"], 18 words, Arts topic)
+  - [x] 8.12 Create `batch-03-movie-music/create_music_5_bohemian_rhapsody.py` — Bohemian Rhapsody — Queen (intermediate, balanced_skills, ["music"], 18 words, Arts topic)
     - _Requirements: 1.3, 3.2, 3.7, 4.1, 6.1-6.6, 12.1-12.6, 13.1-13.7, 14.1-14.4, 15.1-15.7, 18.1-18.6_
 
-- [ ] 9. Batch 3 — Execute, organize, verify, and document
-  - [ ] 9.1 Run all 12 batch-03 curriculum creation scripts and record returned IDs
+- [x] 9. Batch 3 — Execute, organize, verify, and document
+  - [x] 9.1 Run all 12 batch-03 curriculum creation scripts and record returned IDs
     - _Requirements: 18.1-18.3, 19.1_
-  - [ ] 9.2 Create `batch-03-movie-music/create_batch_03_series.py` orchestrator — create series (Phim Ảnh — Cơ Bản, Phim Ảnh — Nâng Cao, Âm Nhạc — Cơ Bản, Âm Nhạc — Nâng Cao), add curriculums, set display orders, add series to Movie and Music collections
+  - [x] 9.2 Create `batch-03-movie-music/create_batch_03_series.py` orchestrator — create series (Phim Ảnh — Cơ Bản, Phim Ảnh — Nâng Cao, Âm Nhạc — Cơ Bản, Âm Nhạc — Nâng Cao), add curriculums, set display orders, add series to Movie and Music collections
     - _Requirements: 16.1-16.7, 17.1-17.3_
-  - [ ] 9.3 Run orchestrator script
+  - [x] 9.3 Run orchestrator script
     - _Requirements: 16.1-16.7, 17.1-17.3_
-  - [ ] 9.4 Run duplicate-check SQL for all 12 curriculums, verify content against corruption rules, verify display orders and series/collection membership
+  - [x] 9.4 Run duplicate-check SQL for all 12 curriculums, verify content against corruption rules, verify display orders and series/collection membership
     - _Requirements: 19.1-19.4_
-  - [ ] 9.5 Create `batch-03-movie-music/README.md` with all IDs, SQL queries, creation method, and distribution counts
+  - [x] 9.5 Create `batch-03-movie-music/README.md` with all IDs, SQL queries, creation method, and distribution counts
     - _Requirements: 20.1, 20.3_
-  - [ ] 9.6 Delete all Python scripts from `batch-03-movie-music/` (only README.md remains)
+  - [x] 9.6 Delete all Python scripts from `batch-03-movie-music/` (only README.md remains)
     - _Requirements: 20.2_
 
-- [ ] 10. Batch 4 — Podcast & Story Content (12 curriculums)
-  - [ ] 10.1 Create `batch-04-podcast-story/create_podcast_1_morning_routines.py` — Easy English: Morning Routines (beginner, balanced_skills, ["podcast"], 12 words, Daily life topic)
+- [-] 10. Batch 4 — Podcast & Story Content (12 curriculums)
+  - [x] 10.1 Create `batch-04-podcast-story/create_podcast_1_morning_routines.py` — Easy English: Morning Routines (beginner, balanced_skills, ["podcast"], 12 words, Daily life topic)
     - _Requirements: 1.1, 3.3, 3.8, 4.1, 5.1-5.7, 12.1-12.6, 13.1-13.7, 15.1-15.7, 18.1-18.6_
-  - [ ] 10.2 Create `batch-04-podcast-story/create_podcast_2_market.py` — Easy English: At the Market (beginner, balanced_skills, ["podcast"], 12 words, Food topic)
+  - [x] 10.2 Create `batch-04-podcast-story/create_podcast_2_market.py` — Easy English: At the Market (beginner, balanced_skills, ["podcast"], 12 words, Food topic)
     - _Requirements: 1.1, 3.3, 3.8, 4.1, 5.1-5.7, 12.1-12.6, 13.1-13.7, 15.1-15.7, 18.1-18.6_
-  - [ ] 10.3 Create `batch-04-podcast-story/create_podcast_3_sleep.py` — TED-Ed: Why We Sleep (preintermediate, balanced_skills, ["podcast"], 18 words, Psychology topic)
+  - [x] 10.3 Create `batch-04-podcast-story/create_podcast_3_sleep.py` — TED-Ed: Why We Sleep (preintermediate, balanced_skills, ["podcast"], 18 words, Psychology topic)
     - _Requirements: 1.2, 3.3, 3.8, 4.1, 6.1-6.6, 12.1-12.6, 13.1-13.7, 14.1-14.4, 15.1-15.7, 18.1-18.6_
-  - [ ] 10.4 Create `batch-04-podcast-story/create_podcast_4_chocolate.py` — TED-Ed: The History of Chocolate (preintermediate, balanced_skills, ["podcast"], 18 words, Food topic)
+  - [x] 10.4 Create `batch-04-podcast-story/create_podcast_4_chocolate.py` — TED-Ed: The History of Chocolate (preintermediate, balanced_skills, ["podcast"], 18 words, Food topic)
     - _Requirements: 1.2, 3.3, 3.8, 4.1, 6.1-6.6, 12.1-12.6, 13.1-13.7, 14.1-14.4, 15.1-15.7, 18.1-18.6_
-  - [ ] 10.5 Create `batch-04-podcast-story/create_podcast_5_sports.py` — Freakonomics: Hidden Side of Sports (intermediate, balanced_skills, ["podcast"], 18 words, Sports topic)
+  - [x] 10.5 Create `batch-04-podcast-story/create_podcast_5_sports.py` — Freakonomics: Hidden Side of Sports (intermediate, balanced_skills, ["podcast"], 18 words, Sports topic)
     - _Requirements: 1.3, 3.3, 3.8, 4.1, 6.1-6.6, 12.1-12.6, 13.1-13.7, 14.1-14.4, 15.1-15.7, 18.1-18.6_
-  - [ ] 10.6 Create `batch-04-podcast-story/create_podcast_6_colors.py` — Radiolab: Colors (intermediate, balanced_skills, ["podcast"], 18 words, Arts topic)
+  - [x] 10.6 Create `batch-04-podcast-story/create_podcast_6_colors.py` — Radiolab: Colors (intermediate, balanced_skills, ["podcast"], 18 words, Arts topic)
     - _Requirements: 1.3, 3.3, 3.8, 4.1, 6.1-6.6, 12.1-12.6, 13.1-13.7, 14.1-14.4, 15.1-15.7, 18.1-18.6_
-  - [ ] 10.7 Create `batch-04-podcast-story/create_podcast_7_cities.py` — 99% Invisible: Design of Cities (upperintermediate, balanced_skills, ["podcast"], 18 words, Arts topic)
+  - [x] 10.7 Create `batch-04-podcast-story/create_podcast_7_cities.py` — 99% Invisible: Design of Cities (upperintermediate, balanced_skills, ["podcast"], 18 words, Arts topic)
     - _Requirements: 1.4, 3.3, 3.8, 4.1, 7.1-7.2, 7.5, 12.1-12.6, 13.1-13.7, 14.1-14.4, 15.1-15.7, 18.1-18.6_
-  - [ ] 10.8 Create `batch-04-podcast-story/create_story_1_lost_kite.py` — The Lost Kite (beginner, reader, ["story"], 12 words, Daily life topic, cohesive narrative, comprehensible input)
+  - [x] 10.8 Create `batch-04-podcast-story/create_story_1_lost_kite.py` — The Lost Kite (beginner, reader, ["story"], 12 words, Daily life topic, cohesive narrative, comprehensible input)
     - _Requirements: 1.1, 3.4, 3.9, 4.1, 5.3-5.4, 11.1-11.5, 12.1-12.6, 13.1-13.7, 15.1-15.7, 18.1-18.6_
   - [ ] 10.9 Create `batch-04-podcast-story/create_story_2_market_thief.py` — The Market Thief (preintermediate, reader, ["story"], 12-18 words, Daily life topic)
     - _Requirements: 1.2, 3.4, 3.9, 4.1, 11.1-11.5, 12.1-12.6, 13.1-13.7, 15.1-15.7, 18.1-18.6_

@@ -830,7 +830,7 @@ def validate_reader(content):
     ]
     expected_s2 = expected_s1
     expected_s3 = [
-        "introAudio", "viewFlashcards", "vocabLevel1", "vocabLevel2",
+        "introAudio", "viewFlashcards", "vocabLevel1", "vocabLevel2", "readAlong",
     ]
     expected_s4 = [
         "introAudio", "reading", "readAlong", "speakReading", "introAudio",

@@ -1,709 +1,358 @@
-"""
-Create curriculum: Supply Chains – Chuỗi Cung Ứng Toàn Cầu
-Series C — Thương Mại Quốc Tế & Toàn Cầu Hóa (International Trade), curriculum #5
-18 words | 5 sessions | metaphor_led tone | warm accountability farewell
-"""
-
-import sys
-import json
-import requests
-
+import sys, json, requests
 sys.path.insert(0, "/home/ubuntu/nspaceresearch/design-curriculums")
 from firebase_token import get_firebase_id_token
-
-sys.path.insert(0, "/home/ubuntu/nspaceresearch/design-curriculums/economics-university-curriculum")
-from validate_curriculum import validate_all
 
 UID = "zs5AMpVfqkcfDf8CJ9qrXdH58d73"
 API_BASE = "https://helloapi.step.is"
 
-# ── Word groups ──────────────────────────────────────────────
-W1 = ["logistics", "supply", "chain", "procurement", "inventory", "warehouse"]
-W2 = ["freight", "customs", "clearance", "shipment", "container", "transit"]
-W3 = ["disruption", "resilience", "diversification", "nearshoring", "traceability", "optimization"]
-ALL_WORDS = W1 + W2 + W3
+# Series C, Curriculum 5: Supply Chains – Chuỗi Cung Ứng Toàn Cầu
+# Description tone: metaphor_led
+# Farewell tone: warm accountability
+# W1: logistics, supply, chain, procurement, inventory, warehouse
+# W2: freight, customs, clearance, shipment, container, transit
+# W3: disruption, resilience, diversification, nearshoring, traceability, optimization
 
-# ── Session 1 reading text ───────────────────────────────────
-SESSION_1_READING = (
-    "Every product you use has a story — a journey that begins long before it reaches your hands. "
-    "That journey is called a supply chain, and understanding how it works is essential "
-    "for anyone studying international trade.\n\n"
-    "A supply chain is the entire chain of steps involved in creating and delivering a product. "
-    "It starts with raw materials and ends with the finished good in a customer's hands. "
-    "In between, there are factories, transportation networks, and storage facilities "
-    "that all need to work together smoothly. "
-    "A modern supply chain for a single smartphone, for example, "
-    "can involve components from over thirty countries.\n\n"
-    "The field that manages this movement of goods is called logistics. "
-    "Logistics covers everything from planning the most efficient shipping routes "
-    "to tracking packages in real time. "
-    "A company with strong logistics can deliver products faster and cheaper than its competitors. "
-    "In Vietnam, the logistics industry has grown rapidly as the country has become "
-    "a major manufacturing hub for electronics, textiles, and footwear.\n\n"
-    "Before any product can be made, a company must acquire the necessary materials. "
-    "This process is called procurement. "
-    "Procurement involves finding suppliers, negotiating prices, and signing contracts. "
-    "A procurement manager at a Vietnamese garment factory, for instance, "
-    "might source cotton from India, buttons from China, and zippers from Japan. "
-    "Good procurement means getting the right materials at the right price and the right time.\n\n"
-    "Once materials arrive, they become part of the company's inventory. "
-    "Inventory is the stock of goods a business holds — "
-    "raw materials waiting to be used, products being assembled, "
-    "and finished goods ready to be shipped. "
-    "Managing inventory is a delicate balance. "
-    "Too much inventory wastes money on storage and risks products becoming outdated. "
-    "Too little inventory means the company cannot fill orders when customers want to buy.\n\n"
-    "Goods that are not immediately needed are stored in a warehouse. "
-    "A warehouse is a large building designed for storing products safely and efficiently. "
-    "Modern warehouses use robots, barcode scanners, and computer systems "
-    "to track every item and fill orders quickly. "
-    "Vietnam's industrial zones now include massive warehouse complexes "
-    "built by international logistics companies to support the country's growing export sector.\n\n"
-    "Together, logistics, supply, chain, procurement, inventory, and warehouse "
-    "form the vocabulary of how goods move through the global economy. "
-    "Understanding these words is the first step toward understanding "
-    "why a disruption on the other side of the world can affect the price of goods in your local store."
-)
-
-
-# ── Session 2 reading text ───────────────────────────────────
-SESSION_2_READING = (
-    "Once a product is manufactured, it must travel — sometimes thousands of kilometers — "
-    "to reach its destination. This physical movement of goods across borders "
-    "is one of the most complex parts of international trade, "
-    "and it relies on a specialized vocabulary that every economics student should know.\n\n"
-    "The transportation of goods in large quantities is called freight. "
-    "Freight can move by sea, air, rail, or road. "
-    "Ocean freight is the cheapest option for heavy or bulky goods — "
-    "about ninety percent of the world's traded goods travel by ship at some point. "
-    "Air freight is much faster but far more expensive, "
-    "so it is typically reserved for high-value or time-sensitive products "
-    "like electronics, pharmaceuticals, and fresh seafood.\n\n"
-    "When freight crosses an international border, it must pass through customs. "
-    "Customs is the government authority responsible for controlling what enters and leaves a country. "
-    "Customs officers inspect goods, collect tariffs and taxes, "
-    "and enforce regulations on prohibited or restricted items. "
-    "For Vietnamese exporters, dealing with customs in destination countries "
-    "is a daily reality that can make or break delivery schedules.\n\n"
-    "The process of getting goods approved by customs is called clearance. "
-    "Customs clearance involves submitting documents that describe the goods — "
-    "what they are, where they came from, how much they are worth, "
-    "and whether they meet the importing country's standards. "
-    "Delays in clearance are one of the most common causes of supply chain slowdowns. "
-    "A missing document or an incorrect classification can hold goods at the border for days.\n\n"
-    "Each batch of goods sent from one place to another is called a shipment. "
-    "A shipment might be a single pallet of coffee beans or ten thousand boxes of shoes. "
-    "Tracking shipments in real time has become essential for modern supply chain management. "
-    "Companies use GPS, satellite systems, and digital platforms "
-    "to know exactly where every shipment is at any moment.\n\n"
-    "Most ocean freight travels in standardized metal boxes called containers. "
-    "The shipping container is one of the most important inventions in trade history. "
-    "Before containers, loading and unloading a ship took weeks. "
-    "With containers, the same process takes hours. "
-    "A single large container ship can carry over twenty thousand containers, "
-    "each one packed with goods from different companies and countries.\n\n"
-    "The time goods spend moving between locations is called transit. "
-    "Transit time varies enormously depending on the route and mode of transport. "
-    "A container shipped from Ho Chi Minh City to Rotterdam takes about twenty-five days by sea. "
-    "The same goods could arrive in two days by air — but at ten times the cost. "
-    "Reducing transit time without increasing costs is one of the central challenges of logistics."
-)
-
-
-# ── Session 3 reading text ───────────────────────────────────
-SESSION_3_READING = (
-    "In recent years, the world has learned a painful lesson: "
-    "global supply chains are powerful but fragile. "
-    "The COVID-19 pandemic, the blockage of the Suez Canal, "
-    "and geopolitical tensions between major trading nations "
-    "have all exposed how vulnerable modern supply chains can be. "
-    "This final set of vocabulary covers the concepts that businesses and governments "
-    "are now using to build stronger, smarter supply chains.\n\n"
-    "A disruption is any event that interrupts the normal flow of goods through a supply chain. "
-    "Disruptions can be natural — earthquakes, floods, pandemics — "
-    "or man-made — trade wars, factory fires, cyberattacks. "
-    "The 2021 blockage of the Suez Canal by a single container ship "
-    "caused a disruption that affected global trade for weeks, "
-    "delaying billions of dollars worth of goods.\n\n"
-    "The ability of a supply chain to recover quickly from a disruption is called resilience. "
-    "A resilient supply chain does not just survive shocks — it adapts and comes back stronger. "
-    "Building resilience means having backup suppliers, keeping safety stock, "
-    "and designing systems that can reroute goods when problems occur. "
-    "After the pandemic, resilience became the most important word "
-    "in every supply chain manager's vocabulary.\n\n"
-    "One key strategy for building resilience is diversification. "
-    "Diversification means spreading risk by using multiple suppliers, "
-    "manufacturing locations, or transportation routes instead of relying on just one. "
-    "A company that sources all its components from a single country "
-    "is far more vulnerable than one that has suppliers in three or four different regions. "
-    "Vietnam has benefited enormously from diversification, "
-    "as companies moved production out of China to reduce their dependence on a single source.\n\n"
-    "A related trend is nearshoring — moving production closer to the final market "
-    "instead of manufacturing in distant low-cost countries. "
-    "Nearshoring reduces transit times, lowers shipping costs, "
-    "and makes supply chains less vulnerable to disruptions in faraway regions. "
-    "For example, some American companies have shifted manufacturing from Asia to Mexico, "
-    "while European firms have moved production to Turkey or Eastern Europe.\n\n"
-    "As supply chains become more complex, traceability has become increasingly important. "
-    "Traceability is the ability to track a product's journey "
-    "from raw material to finished good at every step. "
-    "Consumers want to know where their food comes from, "
-    "whether their clothes were made ethically, "
-    "and whether the minerals in their electronics were sourced responsibly. "
-    "Technologies like blockchain and QR codes are making traceability easier and more transparent.\n\n"
-    "Finally, optimization is the process of making a supply chain as efficient as possible. "
-    "Optimization involves using data, algorithms, and technology "
-    "to reduce costs, speed up delivery, and minimize waste. "
-    "A well-optimized supply chain delivers the right product to the right place "
-    "at the right time and at the lowest possible cost. "
-    "For Vietnam's export-driven economy, supply chain optimization "
-    "is not just a business strategy — it is a national priority."
-)
-
-
-# ── Session 5 full reading text ──────────────────────────────
-SESSION_5_READING = (
-    "The global supply chain is one of the greatest achievements of modern commerce — "
-    "and one of its greatest vulnerabilities. "
-    "Every day, millions of containers cross oceans, trucks roll across borders, "
-    "and planes carry freight to every corner of the world. "
-    "This vast network of logistics connects factories in Vietnam to consumers in Europe, "
-    "farmers in Brazil to supermarkets in Japan, "
-    "and technology companies in California to assembly plants in Shenzhen.\n\n"
-    "At its core, a supply chain is a chain of interconnected steps. "
-    "It begins with procurement — the process of finding and purchasing raw materials. "
-    "A furniture manufacturer in Binh Duong province, for example, "
-    "might procure timber from Laos, hardware from China, and fabric from Thailand. "
-    "The procurement team must balance quality, cost, and reliability "
-    "when choosing among dozens of potential suppliers.\n\n"
-    "Once materials are procured, they enter the company's inventory. "
-    "Managing inventory is both an art and a science. "
-    "Too much inventory means money is tied up in goods sitting in a warehouse. "
-    "Too little means production stops when a key component runs out. "
-    "Modern companies use sophisticated software to predict demand "
-    "and keep inventory at just the right level.\n\n"
-    "The warehouse itself has evolved dramatically. "
-    "Today's warehouses are not just storage buildings — "
-    "they are high-tech distribution centers where robots sort packages, "
-    "sensors monitor temperature and humidity, "
-    "and algorithms decide the fastest way to fill each order. "
-    "Vietnam's logistics infrastructure is expanding rapidly, "
-    "with new warehouse complexes being built near major ports and airports.\n\n"
-    "When goods are ready to ship, they enter the freight network. "
-    "A shipment of Vietnamese coffee destined for Germany "
-    "might travel by truck from the Central Highlands to Ho Chi Minh City, "
-    "then by container ship through the South China Sea, the Indian Ocean, "
-    "and the Suez Canal to the port of Hamburg. "
-    "The entire transit takes about four weeks.\n\n"
-    "At every border crossing, the shipment must pass through customs. "
-    "Customs clearance requires accurate documentation — "
-    "invoices, certificates of origin, phytosanitary certificates for agricultural products, "
-    "and compliance declarations for regulated goods. "
-    "A single error in paperwork can delay clearance by days, "
-    "costing the exporter money and damaging relationships with buyers.\n\n"
-    "The standardized shipping container revolutionized global trade. "
-    "Before containerization, loading a ship was slow, expensive, and prone to theft. "
-    "The container made it possible to move goods seamlessly "
-    "from truck to train to ship without unpacking. "
-    "Today, the world's largest container ships carry over twenty thousand containers each, "
-    "and the supply of container capacity is itself a major factor in global shipping costs.\n\n"
-    "But this intricate system is vulnerable to disruption. "
-    "The COVID-19 pandemic showed how quickly a disruption can cascade through the entire chain. "
-    "Factory closures in one country led to component shortages in another, "
-    "which led to empty shelves in a third. "
-    "Port congestion, labor shortages, and container imbalances "
-    "created bottlenecks that took over a year to clear.\n\n"
-    "In response, companies and governments have embraced resilience as a guiding principle. "
-    "Building resilience means accepting that disruptions will happen "
-    "and designing systems that can absorb shocks and recover quickly. "
-    "This includes maintaining safety stock, developing alternative shipping routes, "
-    "and investing in digital tools that provide real-time visibility across the supply chain.\n\n"
-    "Diversification is one of the most powerful tools for resilience. "
-    "Instead of relying on a single supplier or a single country, "
-    "companies are spreading their sourcing across multiple regions. "
-    "Vietnam has been one of the biggest beneficiaries of this trend, "
-    "attracting factories from companies that previously manufactured only in China.\n\n"
-    "Nearshoring is another strategy gaining momentum. "
-    "By moving production closer to end markets, "
-    "companies can reduce transit times and respond more quickly to changes in demand. "
-    "Nearshoring does not eliminate the need for global supply chains, "
-    "but it adds a layer of flexibility that pure offshoring cannot provide.\n\n"
-    "As consumers and regulators demand more transparency, "
-    "traceability has become a competitive advantage. "
-    "Companies that can trace every component back to its source "
-    "can prove that their products are ethically made, environmentally sustainable, "
-    "and free from forced labor. "
-    "Blockchain technology is making traceability more reliable "
-    "by creating permanent, tamper-proof records of every transaction in the supply chain.\n\n"
-    "Tying all of these elements together is optimization. "
-    "Supply chain optimization uses data analytics, artificial intelligence, "
-    "and machine learning to find the most efficient way to move goods from origin to destination. "
-    "It answers questions like: Which shipping route minimizes cost and transit time? "
-    "How much inventory should each warehouse hold? "
-    "When should procurement contracts be renegotiated?\n\n"
-    "For Vietnam, a country whose economy depends heavily on exports, "
-    "mastering the vocabulary and concepts of global supply chains is not optional — it is essential. "
-    "From the logistics manager at a Hai Phong port to the procurement officer at a Hanoi electronics firm, "
-    "these eighteen words are the language of daily work. "
-    "And for economics students, understanding supply chains "
-    "means understanding how the modern global economy actually functions."
-)
-
-
-# ── Content ──────────────────────────────────────────────────
 content = {
     "title": "Supply Chains – Chuỗi Cung Ứng Toàn Cầu",
     "contentTypeTags": [],
-    "description": (
-        "CHUỖI CUNG ỨNG TOÀN CẦU NHƯ MẠCH MÁU CỦA NỀN KINH TẾ — KHI MỘT ĐOẠN TẮC NGHẼN, CẢ CƠ THỂ CHAO ĐẢO.\n\n"
-        "Bạn mua một chiếc điện thoại 'Made in Vietnam' — nhưng chip từ Đài Loan, "
-        "màn hình từ Hàn Quốc, pin từ Trung Quốc, và phần mềm từ Mỹ. "
-        "Mỗi linh kiện đi qua hàng chục cảng, kho hàng và trạm hải quan "
-        "trước khi đến tay bạn. Khi đại dịch COVID-19 làm tắc nghẽn cảng biển toàn cầu, "
-        "cả thế giới mới nhận ra chuỗi cung ứng mong manh đến mức nào.\n\n"
-        "Hãy hình dung chuỗi cung ứng như một dàn nhạc giao hưởng — "
-        "mỗi nhạc công là một mắt xích: logistics, procurement, freight, customs. "
-        "Chỉ cần một nhạc công lạc nhịp, cả bản giao hưởng thương mại toàn cầu sẽ lỗi nhịp theo. "
-        "18 từ vựng trong bài học này chính là bản nhạc mà bạn cần đọc được.\n\n"
-        "Sau khóa học, bạn sẽ đọc được báo cáo logistics bằng tiếng Anh mà không cần dừng lại mỗi dòng, "
-        "tự tin thảo luận về supply chain disruption trong lớp, "
-        "và viết bài phân tích về resilience và nearshoring bằng tiếng Anh chuyên ngành.\n\n"
-        "18 từ vựng — từ logistics đến optimization — được dạy qua bài đọc, flashcard, luyện nói và viết. "
-        "Bạn vừa nâng cấp tư duy chuỗi cung ứng toàn cầu, vừa nâng trình tiếng Anh chuyên ngành một cách vượt bậc."
-    ),
+    "description": "CHUỖI CUNG ỨNG LÀ MẠCH MÁU CỦA NỀN KINH TẾ TOÀN CẦU — VÀ BẠN CHƯA BIẾT ĐỌC NHỊP ĐẬP CỦA NÓ.\n\nMỗi chiếc điện thoại bạn cầm trên tay đã đi qua ít nhất 6 quốc gia trước khi đến Việt Nam — từ mỏ khoáng sản ở Congo, nhà máy chip ở Đài Loan, dây chuyền lắp ráp ở Trung Quốc, đến kho hàng ở Hải Phòng. Bạn biết điều đó, nhưng khi đọc báo cáo logistics bằng tiếng Anh, bạn có thật sự hiểu freight forwarding khác gì customs clearance không?\n\nHãy nghĩ về chuỗi cung ứng như hệ tuần hoàn của cơ thể — mỗi mắt xích là một mạch máu, mỗi sự gián đoạn là một cục máu đông. Khi đại dịch COVID-19 làm tắc nghẽn cảng biển toàn cầu, cả thế giới mới nhận ra chuỗi cung ứng mong manh đến mức nào. Và ngôn ngữ để hiểu, phân tích, và giải quyết vấn đề đó — là tiếng Anh.\n\n18 từ vựng trong bài học này sẽ giúp bạn đọc hiểu báo cáo về logistics, procurement, và supply chain management mà không cần dừng lại tra từ. Bạn sẽ tự tin thảo luận về disruption, resilience, và nearshoring trong lớp học hoặc phòng họp.\n\nTừ logistics đến optimization — bạn vừa nâng cấp tư duy về chuỗi cung ứng toàn cầu, vừa nâng trình tiếng Anh chuyên ngành một cách vượt bậc.",
     "preview": {
-        "text": (
-            "Khám phá 18 từ vựng tiếng Anh cốt lõi về chuỗi cung ứng toàn cầu — "
-            "từ kho hàng đến cảng biển, từ hải quan đến chiến lược phục hồi. "
-            "Bạn sẽ học logistics, supply, chain, procurement, inventory, warehouse trong phần đầu tiên, "
-            "nơi bài đọc giải thích cách hàng hóa di chuyển từ nhà máy đến tay người tiêu dùng. "
-            "Tiếp theo là freight, customs, clearance, shipment, container, transit — "
-            "những từ giúp bạn hiểu hành trình vật lý của hàng hóa qua biên giới. "
-            "Cuối cùng, disruption, resilience, diversification, nearshoring, traceability, optimization "
-            "đưa bạn vào thế giới chiến lược chuỗi cung ứng hiện đại — "
-            "nơi các doanh nghiệp học cách thích nghi sau đại dịch và xung đột thương mại. "
-            "Qua 3 bài đọc tiếng Anh, 1 phần ôn tập toàn diện và 1 bài đọc tổng hợp, "
-            "bạn sẽ tự tin đọc hiểu tài liệu về global supply chains bằng tiếng Anh — "
-            "không cần tra từ điển mỗi dòng."
-        )
+        "text": "Khám phá 18 từ vựng tiếng Anh cốt lõi về chuỗi cung ứng toàn cầu — hệ thống kết nối mọi sản phẩm bạn dùng hàng ngày với hàng trăm quốc gia trên thế giới. Bạn sẽ học logistics, supply, chain, procurement, inventory, warehouse trong phần đầu tiên, nơi bài đọc giải thích cách một sản phẩm đi từ nguyên liệu thô đến tay người tiêu dùng qua hệ thống kho bãi và mua sắm. Tiếp theo là freight, customs, clearance, shipment, container, transit — những từ giúp bạn hiểu dòng chảy hàng hóa qua biên giới, từ vận tải đường biển đến thông quan hải quan. Cuối cùng, disruption, resilience, diversification, nearshoring, traceability, optimization đưa bạn vào thế giới quản trị rủi ro chuỗi cung ứng — từ gián đoạn do đại dịch đến chiến lược đa dạng hóa nguồn cung. Qua 3 bài đọc tiếng Anh, 1 phần ôn tập toàn diện và 1 bài đọc tổng hợp, bạn sẽ tự tin đọc hiểu tài liệu về supply chain management bằng tiếng Anh."
     },
     "learningSessions": [
-        # ── SESSION 1: Words 1-6 ─────────────────────────────
         {
             "title": "Phần 1",
             "activities": [
                 {
                     "activityType": "introAudio",
                     "title": "Giới thiệu từ vựng phần 1",
-                    "description": "Chào mừng bạn đến với bài học về chuỗi cung ứng toàn cầu.",
+                    "description": "Chào mừng bạn đến với bài học về chuỗi cung ứng toàn cầu — hệ thống kết nối mọi sản phẩm với thế giới.",
                     "data": {
-                        "text": (
-                            "Chào mừng bạn đến với bài học cuối cùng trong chuỗi từ vựng Thương mại quốc tế — "
-                            "chủ đề hôm nay là Chuỗi cung ứng toàn cầu, hay trong tiếng Anh là Global Supply Chains. "
-                            "Mỗi sản phẩm bạn dùng hàng ngày — từ chiếc áo bạn mặc đến chiếc điện thoại trong tay — "
-                            "đều là kết quả của một chuỗi cung ứng phức tạp trải dài qua nhiều quốc gia. "
-                            "Nguyên liệu được khai thác ở một nơi, gia công ở nơi khác, "
-                            "lắp ráp ở nơi thứ ba, rồi vận chuyển đến tay bạn qua hàng nghìn kilomet đường biển và đường bộ.\n\n"
-                            "Trong phần này, bạn sẽ học 6 từ vựng: logistics, supply, chain, procurement, inventory, và warehouse. "
-                            "Đây là những từ nền tảng mà bạn sẽ gặp trong bất kỳ tài liệu nào về quản lý chuỗi cung ứng.\n\n"
-                            "Từ đầu tiên là logistics — danh từ — nghĩa là hậu cần, "
-                            "toàn bộ quá trình lập kế hoạch, thực hiện và kiểm soát việc vận chuyển và lưu trữ hàng hóa "
-                            "từ điểm xuất phát đến điểm tiêu thụ. "
-                            "Ví dụ: 'Efficient logistics can reduce delivery times from weeks to days, giving companies a significant competitive advantage.' "
-                            "Trong bài đọc, logistics mô tả hệ thống phức tạp đằng sau việc đưa hàng hóa "
-                            "từ nhà máy đến tay người tiêu dùng.\n\n"
-                            "Từ thứ hai là supply — danh từ và động từ — nghĩa là cung cấp hoặc nguồn cung, "
-                            "lượng hàng hóa hoặc dịch vụ sẵn có để đáp ứng nhu cầu. "
-                            "Ví dụ: 'The global supply of semiconductor chips fell sharply during the pandemic, causing shortages in the automobile industry.' "
-                            "Trong bài đọc, supply là khái niệm trung tâm — "
-                            "mọi hoạt động chuỗi cung ứng đều xoay quanh việc đảm bảo nguồn cung ổn định.\n\n"
-                            "Từ thứ ba là chain — danh từ — nghĩa là chuỗi, "
-                            "một chuỗi các bước hoặc mắt xích liên kết với nhau trong một quy trình. "
-                            "Ví dụ: 'A modern supply chain can involve dozens of companies across ten or more countries, all connected by contracts and shipping routes.' "
-                            "Trong bài đọc, chain nhấn mạnh rằng mỗi mắt xích đều quan trọng — "
-                            "nếu một mắt xích đứt, cả chuỗi bị ảnh hưởng.\n\n"
-                            "Từ thứ tư là procurement — danh từ — nghĩa là mua sắm, thu mua, "
-                            "quá trình tìm kiếm, lựa chọn và mua nguyên vật liệu hoặc dịch vụ từ nhà cung cấp. "
-                            "Ví dụ: 'The company's procurement team negotiated contracts with suppliers in five different countries to get the best prices for raw materials.' "
-                            "Trong bài đọc, procurement là bước đầu tiên trong chuỗi cung ứng — "
-                            "trước khi sản xuất, bạn phải mua được nguyên liệu.\n\n"
-                            "Từ thứ năm là inventory — danh từ — nghĩa là hàng tồn kho, "
-                            "toàn bộ hàng hóa mà một doanh nghiệp đang giữ để bán hoặc sử dụng trong sản xuất. "
-                            "Ví dụ: 'Keeping too much inventory ties up capital, but keeping too little risks running out of stock when demand spikes.' "
-                            "Trong bài đọc, inventory là bài toán cân bằng — "
-                            "doanh nghiệp phải quyết định giữ bao nhiêu hàng để vừa đủ mà không lãng phí.\n\n"
-                            "Từ cuối cùng là warehouse — danh từ — nghĩa là kho hàng, nhà kho, "
-                            "tòa nhà lớn dùng để lưu trữ hàng hóa trước khi phân phối. "
-                            "Ví dụ: 'Amazon operates hundreds of warehouses around the world, each one strategically located near major population centers.' "
-                            "Trong bài đọc, warehouse là nơi hàng hóa 'nghỉ chân' "
-                            "trên hành trình từ nhà sản xuất đến người tiêu dùng.\n\n"
-                            "Bây giờ bạn đã biết 6 từ vựng đầu tiên. Hãy bắt đầu với flashcard, "
-                            "sau đó đọc bài viết về cách chuỗi cung ứng toàn cầu vận hành nhé!"
-                        )
+                        "text": "Chào mừng bạn đến với bài học cuối cùng trong chuỗi từ vựng Thương mại quốc tế — chủ đề hôm nay là Chuỗi cung ứng toàn cầu, hay trong tiếng Anh là Global Supply Chains. Nếu thương mại quốc tế là dòng chảy hàng hóa giữa các quốc gia, thì chuỗi cung ứng chính là hệ thống ống dẫn — từ nguyên liệu thô ở một châu lục đến sản phẩm hoàn chỉnh trên kệ hàng ở châu lục khác.\n\nTrong phần này, bạn sẽ học 6 từ vựng: logistics, supply, chain, procurement, inventory, và warehouse. Đây là những từ nền tảng mà bạn sẽ gặp trong bất kỳ khóa học nào về quản trị chuỗi cung ứng.\n\nTừ đầu tiên là logistics — danh từ — nghĩa là hậu cần, hoạt động lập kế hoạch và quản lý dòng chảy hàng hóa từ điểm xuất phát đến điểm đến cuối cùng. Ví dụ: 'Efficient logistics can reduce delivery times from weeks to days, giving companies a significant competitive edge.' Trong bài đọc, logistics mô tả toàn bộ quá trình vận chuyển, lưu kho và phân phối hàng hóa — xương sống của mọi chuỗi cung ứng.\n\nTừ thứ hai là supply — danh từ và động từ — nghĩa là cung cấp, nguồn cung. Trong ngữ cảnh chuỗi cung ứng, supply là dòng hàng hóa và nguyên liệu chảy từ nhà sản xuất đến người tiêu dùng. Ví dụ: 'When supply cannot keep up with demand, prices rise and shortages appear on store shelves.' Trong bài đọc, supply là từ khóa trung tâm — mọi hoạt động trong chuỗi cung ứng đều nhằm đảm bảo nguồn cung liên tục.\n\nTừ thứ ba là chain — danh từ — nghĩa là chuỗi, dây chuyền. Supply chain là chuỗi cung ứng — mạng lưới các tổ chức, con người, hoạt động và tài nguyên liên kết với nhau để đưa sản phẩm từ nguyên liệu thô đến tay người tiêu dùng. Ví dụ: 'A modern supply chain can involve dozens of companies across multiple countries, each responsible for a different stage of production.' Trong bài đọc, chain nhấn mạnh tính liên kết — mỗi mắt xích yếu có thể làm sụp đổ toàn bộ hệ thống.\n\nTừ thứ tư là procurement — danh từ — nghĩa là mua sắm, thu mua. Procurement là quá trình tìm kiếm, đánh giá và mua nguyên vật liệu hoặc dịch vụ từ nhà cung cấp bên ngoài. Ví dụ: 'Strategic procurement helps companies find reliable suppliers who offer the best combination of quality, price, and delivery speed.' Trong bài đọc, procurement là bước đầu tiên trong chuỗi cung ứng — quyết định mua gì, từ ai, và với giá nào.\n\nTừ thứ năm là inventory — danh từ — nghĩa là hàng tồn kho, kho hàng. Inventory là toàn bộ hàng hóa mà một doanh nghiệp đang giữ — từ nguyên liệu thô đến thành phẩm chờ bán. Ví dụ: 'Holding too much inventory ties up capital, but holding too little risks running out of stock when customers place orders.' Trong bài đọc, inventory là bài toán cân bằng — giữ đủ để đáp ứng nhu cầu nhưng không quá nhiều để lãng phí.\n\nTừ cuối cùng là warehouse — danh từ — nghĩa là nhà kho, kho hàng. Warehouse là nơi lưu trữ hàng hóa trước khi chúng được phân phối đến điểm bán hoặc khách hàng cuối cùng. Ví dụ: 'Amazon operates hundreds of warehouses around the world, each strategically located to minimize delivery times to nearby customers.' Trong bài đọc, warehouse là mắt xích vật lý quan trọng — nơi hàng hóa dừng chân trước khi tiếp tục hành trình.\n\nBạn đã có 6 từ vựng đầu tiên. Hãy bắt đầu với flashcard, sau đó đọc bài viết về cách chuỗi cung ứng vận hành từ nguyên liệu đến sản phẩm nhé!"
                     }
                 },
                 {
                     "activityType": "viewFlashcards",
                     "title": "Flashcards: Nền tảng chuỗi cung ứng",
                     "description": "Học 6 từ: logistics, supply, chain, procurement, inventory, warehouse",
-                    "data": {"vocabList": W1}
+                    "data": {
+                        "vocabList": ["logistics", "supply", "chain", "procurement", "inventory", "warehouse"]
+                    }
                 },
                 {
                     "activityType": "speakFlashcards",
                     "title": "Flashcards: Nền tảng chuỗi cung ứng",
                     "description": "Học 6 từ: logistics, supply, chain, procurement, inventory, warehouse",
-                    "data": {"vocabList": W1}
+                    "data": {
+                        "vocabList": ["logistics", "supply", "chain", "procurement", "inventory", "warehouse"]
+                    }
                 },
                 {
                     "activityType": "vocabLevel1",
                     "title": "Flashcards: Nền tảng chuỗi cung ứng",
                     "description": "Học 6 từ: logistics, supply, chain, procurement, inventory, warehouse",
-                    "data": {"vocabList": W1}
+                    "data": {
+                        "vocabList": ["logistics", "supply", "chain", "procurement", "inventory", "warehouse"]
+                    }
                 },
                 {
                     "activityType": "vocabLevel2",
                     "title": "Flashcards: Nền tảng chuỗi cung ứng",
                     "description": "Học 6 từ: logistics, supply, chain, procurement, inventory, warehouse",
-                    "data": {"vocabList": W1}
+                    "data": {
+                        "vocabList": ["logistics", "supply", "chain", "procurement", "inventory", "warehouse"]
+                    }
                 },
                 {
                     "activityType": "vocabLevel3",
                     "title": "Flashcards: Nền tảng chuỗi cung ứng",
                     "description": "Học 6 từ: logistics, supply, chain, procurement, inventory, warehouse",
-                    "data": {"vocabList": W1}
+                    "data": {
+                        "vocabList": ["logistics", "supply", "chain", "procurement", "inventory", "warehouse"]
+                    }
                 },
                 {
                     "activityType": "reading",
-                    "title": "Đọc: Chuỗi cung ứng toàn cầu",
-                    "description": "Every product you use has a story — a journey that begins long before it reaches your hands.",
-                    "data": {"text": SESSION_1_READING}
+                    "title": "Đọc: Chuỗi cung ứng — từ nguyên liệu đến sản phẩm",
+                    "description": "Every product you use has a story that begins long before it reaches your hands.",
+                    "data": {
+                        "text": "Every product you use has a story that begins long before it reaches your hands. A smartphone, for example, contains minerals mined in Africa, chips fabricated in Taiwan, screens manufactured in South Korea, and batteries assembled in China. The system that connects all of these stages — from raw material to finished product — is called a supply chain.\n\nAt the heart of every supply chain is logistics — the planning and management of how goods move from one place to another. Logistics covers everything from choosing the fastest shipping route to deciding which warehouse should hold which products. Without effective logistics, even the best products would sit in factories with no way to reach customers.\n\nThe word chain is important because it emphasizes connection. Each company in the supply chain depends on the one before it. If a supplier of rare earth minerals in Congo stops production, a factory in Shenzhen cannot build circuit boards, and a warehouse in Ho Chi Minh City has nothing to ship to retailers. One broken link can halt the entire chain.\n\nBefore any production begins, companies must handle procurement — the process of finding and purchasing the raw materials, components, and services they need. Good procurement is not just about finding the cheapest supplier. It involves evaluating quality, reliability, delivery speed, and ethical practices. A company that sources its materials from unreliable suppliers risks delays that ripple through the entire chain.\n\nOnce materials are purchased and products are made, they must be stored. This is where inventory management becomes critical. Inventory refers to all the goods a company holds at any point — raw materials waiting to be used, products being assembled, and finished goods ready for sale. The challenge is balance. Too much inventory means money is tied up in unsold goods. Too little means customers face empty shelves and long wait times.\n\nPhysical storage happens in warehouses — large facilities designed to receive, organize, and dispatch goods efficiently. Modern warehouses use automation, robotics, and data analytics to track every item in real time. A well-run warehouse can process thousands of orders per day, ensuring that products move quickly from storage to delivery trucks.\n\nTogether, logistics, supply, chain, procurement, inventory, and warehouse form the foundation of global commerce. Understanding these concepts is the first step toward understanding how the modern economy actually works — not in theory, but in the physical movement of goods across borders and oceans."
+                    }
                 },
                 {
                     "activityType": "speakReading",
-                    "title": "Đọc: Chuỗi cung ứng toàn cầu",
-                    "description": "Every product you use has a story — a journey that begins long before it reaches your hands.",
-                    "data": {"text": SESSION_1_READING}
+                    "title": "Đọc: Chuỗi cung ứng — từ nguyên liệu đến sản phẩm",
+                    "description": "Every product you use has a story that begins long before it reaches your hands.",
+                    "data": {
+                        "text": "Every product you use has a story that begins long before it reaches your hands. A smartphone, for example, contains minerals mined in Africa, chips fabricated in Taiwan, screens manufactured in South Korea, and batteries assembled in China. The system that connects all of these stages — from raw material to finished product — is called a supply chain.\n\nAt the heart of every supply chain is logistics — the planning and management of how goods move from one place to another. Logistics covers everything from choosing the fastest shipping route to deciding which warehouse should hold which products. Without effective logistics, even the best products would sit in factories with no way to reach customers.\n\nThe word chain is important because it emphasizes connection. Each company in the supply chain depends on the one before it. If a supplier of rare earth minerals in Congo stops production, a factory in Shenzhen cannot build circuit boards, and a warehouse in Ho Chi Minh City has nothing to ship to retailers. One broken link can halt the entire chain.\n\nBefore any production begins, companies must handle procurement — the process of finding and purchasing the raw materials, components, and services they need. Good procurement is not just about finding the cheapest supplier. It involves evaluating quality, reliability, delivery speed, and ethical practices. A company that sources its materials from unreliable suppliers risks delays that ripple through the entire chain.\n\nOnce materials are purchased and products are made, they must be stored. This is where inventory management becomes critical. Inventory refers to all the goods a company holds at any point — raw materials waiting to be used, products being assembled, and finished goods ready for sale. The challenge is balance. Too much inventory means money is tied up in unsold goods. Too little means customers face empty shelves and long wait times.\n\nPhysical storage happens in warehouses — large facilities designed to receive, organize, and dispatch goods efficiently. Modern warehouses use automation, robotics, and data analytics to track every item in real time. A well-run warehouse can process thousands of orders per day, ensuring that products move quickly from storage to delivery trucks.\n\nTogether, logistics, supply, chain, procurement, inventory, and warehouse form the foundation of global commerce. Understanding these concepts is the first step toward understanding how the modern economy actually works — not in theory, but in the physical movement of goods across borders and oceans."
+                    }
                 },
                 {
                     "activityType": "readAlong",
-                    "title": "Nghe: Chuỗi cung ứng toàn cầu",
+                    "title": "Nghe: Chuỗi cung ứng — từ nguyên liệu đến sản phẩm",
                     "description": "Nghe đoạn văn vừa đọc và theo dõi.",
-                    "data": {"text": SESSION_1_READING}
+                    "data": {
+                        "text": "Every product you use has a story that begins long before it reaches your hands. A smartphone, for example, contains minerals mined in Africa, chips fabricated in Taiwan, screens manufactured in South Korea, and batteries assembled in China. The system that connects all of these stages — from raw material to finished product — is called a supply chain.\n\nAt the heart of every supply chain is logistics — the planning and management of how goods move from one place to another. Logistics covers everything from choosing the fastest shipping route to deciding which warehouse should hold which products. Without effective logistics, even the best products would sit in factories with no way to reach customers.\n\nThe word chain is important because it emphasizes connection. Each company in the supply chain depends on the one before it. If a supplier of rare earth minerals in Congo stops production, a factory in Shenzhen cannot build circuit boards, and a warehouse in Ho Chi Minh City has nothing to ship to retailers. One broken link can halt the entire chain.\n\nBefore any production begins, companies must handle procurement — the process of finding and purchasing the raw materials, components, and services they need. Good procurement is not just about finding the cheapest supplier. It involves evaluating quality, reliability, delivery speed, and ethical practices. A company that sources its materials from unreliable suppliers risks delays that ripple through the entire chain.\n\nOnce materials are purchased and products are made, they must be stored. This is where inventory management becomes critical. Inventory refers to all the goods a company holds at any point — raw materials waiting to be used, products being assembled, and finished goods ready for sale. The challenge is balance. Too much inventory means money is tied up in unsold goods. Too little means customers face empty shelves and long wait times.\n\nPhysical storage happens in warehouses — large facilities designed to receive, organize, and dispatch goods efficiently. Modern warehouses use automation, robotics, and data analytics to track every item in real time. A well-run warehouse can process thousands of orders per day, ensuring that products move quickly from storage to delivery trucks.\n\nTogether, logistics, supply, chain, procurement, inventory, and warehouse form the foundation of global commerce. Understanding these concepts is the first step toward understanding how the modern economy actually works — not in theory, but in the physical movement of goods across borders and oceans."
+                    }
                 },
                 {
                     "activityType": "writingSentence",
                     "title": "Viết: Nền tảng chuỗi cung ứng",
                     "description": "Viết câu sử dụng 6 từ vựng về nền tảng chuỗi cung ứng.",
                     "data": {
-                        "vocabList": W1,
+                        "vocabList": ["logistics", "supply", "chain", "procurement", "inventory", "warehouse"],
                         "items": [
                             {
-                                "targetVocab": "logistics",
-                                "prompt": "Dùng từ 'logistics' để viết một câu về vai trò của hậu cần trong việc đưa hàng hóa từ nhà máy đến người tiêu dùng. Ví dụ: The company invested heavily in logistics technology to track every package from the factory floor to the customer's doorstep in real time."
+                                "prompt": "Dùng từ 'logistics' để viết một câu về vai trò của hậu cần trong việc đưa sản phẩm đến tay người tiêu dùng. Ví dụ: Vietnam's logistics industry has grown rapidly as the country becomes a major manufacturing hub, with new ports and highways connecting factories to global markets.",
+                                "targetVocab": "logistics"
                             },
                             {
-                                "targetVocab": "supply",
-                                "prompt": "Dùng từ 'supply' để viết một câu về tác động khi nguồn cung bị gián đoạn. Ví dụ: When the supply of natural rubber from Southeast Asia was disrupted by flooding, tire manufacturers around the world faced immediate production delays."
+                                "prompt": "Dùng từ 'supply' để viết một câu về nguồn cung hàng hóa và tác động khi nguồn cung bị gián đoạn. Ví dụ: The global supply of semiconductor chips fell sharply during the pandemic, forcing automakers to halt production lines for months.",
+                                "targetVocab": "supply"
                             },
                             {
-                                "targetVocab": "chain",
-                                "prompt": "Dùng từ 'chain' để viết một câu về sự phức tạp của chuỗi cung ứng hiện đại. Ví dụ: The supply chain for a single laptop involves over two hundred suppliers across more than fifteen countries, each one a critical link in the production process."
+                                "prompt": "Dùng từ 'chain' để viết một câu về chuỗi cung ứng và tính liên kết giữa các mắt xích. Ví dụ: A single weak link in the chain can cause delays that cascade through the entire production process, from factory floor to retail shelf.",
+                                "targetVocab": "chain"
                             },
                             {
-                                "targetVocab": "procurement",
-                                "prompt": "Dùng từ 'procurement' để viết một câu về quá trình thu mua nguyên vật liệu cho sản xuất. Ví dụ: The procurement department spent three months evaluating potential fabric suppliers before selecting a partner in India that met both quality and price requirements."
+                                "prompt": "Dùng từ 'procurement' để viết một câu về quá trình mua sắm nguyên vật liệu từ nhà cung cấp. Ví dụ: The procurement team spent three months evaluating suppliers in five countries before selecting a partner who met both quality and sustainability standards.",
+                                "targetVocab": "procurement"
                             },
                             {
-                                "targetVocab": "inventory",
-                                "prompt": "Dùng từ 'inventory' để viết một câu về thách thức trong quản lý hàng tồn kho. Ví dụ: The electronics retailer reduced its inventory by thirty percent after implementing a just-in-time delivery system that restocks products based on real-time sales data."
+                                "prompt": "Dùng từ 'inventory' để viết một câu về thách thức quản lý hàng tồn kho trong doanh nghiệp. Ví dụ: Keeping inventory levels low reduces storage costs but increases the risk of stockouts when demand suddenly spikes during holiday seasons.",
+                                "targetVocab": "inventory"
                             },
                             {
-                                "targetVocab": "warehouse",
-                                "prompt": "Dùng từ 'warehouse' để viết một câu về vai trò của kho hàng trong chuỗi cung ứng hiện đại. Ví dụ: The new automated warehouse near Hai Phong port can process ten thousand orders per day using robots that retrieve items from shelves without human assistance."
+                                "prompt": "Dùng từ 'warehouse' để viết một câu về vai trò của nhà kho trong chuỗi phân phối hiện đại. Ví dụ: The company opened a new automated warehouse near the port of Hai Phong to speed up the distribution of imported electronics across northern Vietnam.",
+                                "targetVocab": "warehouse"
                             }
                         ]
                     }
                 }
             ]
         },
-        # ── SESSION 2: Words 7-12 ─────────────────────────────
         {
             "title": "Phần 2",
             "activities": [
                 {
                     "activityType": "introAudio",
                     "title": "Giới thiệu từ vựng phần 2",
-                    "description": "Ôn lại phần 1 và học 6 từ mới về vận chuyển hàng hóa quốc tế.",
+                    "description": "Ôn lại phần 1 và học 6 từ mới về vận tải và thông quan hàng hóa quốc tế.",
                     "data": {
-                        "text": (
-                            "Chào mừng bạn trở lại! Trong phần trước, bạn đã học 6 từ vựng nền tảng: "
-                            "logistics — hậu cần, supply — nguồn cung, chain — chuỗi, "
-                            "procurement — thu mua, inventory — hàng tồn kho, và warehouse — kho hàng. "
-                            "Bạn đã hiểu cách hàng hóa được lên kế hoạch, mua sắm và lưu trữ. "
-                            "Bây giờ, chúng ta sẽ đi vào phần tiếp theo: "
-                            "hàng hóa thực sự di chuyển qua biên giới như thế nào?\n\n"
-                            "Trong phần 2, bạn sẽ học 6 từ mới: freight, customs, clearance, shipment, container, và transit. "
-                            "Đây là bộ từ vựng về hành trình vật lý của hàng hóa — "
-                            "từ cảng xuất phát đến cảng đích.\n\n"
-                            "Từ đầu tiên là freight — danh từ — nghĩa là hàng hóa vận chuyển hoặc cước vận chuyển, "
-                            "hàng hóa được vận chuyển với số lượng lớn bằng đường biển, đường bộ, đường sắt hoặc đường hàng không. "
-                            "Ví dụ: 'Ocean freight accounts for about ninety percent of global trade by volume, making it the backbone of international commerce.' "
-                            "Trong bài đọc, freight mô tả phương thức vận chuyển chính "
-                            "mà hàng hóa Việt Nam sử dụng để đến các thị trường quốc tế.\n\n"
-                            "Từ thứ hai là customs — danh từ — nghĩa là hải quan, "
-                            "cơ quan chính phủ kiểm soát hàng hóa ra vào biên giới quốc gia. "
-                            "Ví dụ: 'All imported goods must be declared to customs before they can enter the country and be sold to consumers.' "
-                            "Trong bài đọc, customs là cửa ngõ mà mọi hàng hóa phải đi qua — "
-                            "nơi kiểm tra, thu thuế và đảm bảo tuân thủ quy định.\n\n"
-                            "Từ thứ ba là clearance — danh từ — nghĩa là thông quan, "
-                            "quá trình được hải quan chấp thuận cho hàng hóa đi qua biên giới. "
-                            "Ví dụ: 'The shipment was delayed for three days because the customs clearance documents were incomplete.' "
-                            "Trong bài đọc, clearance là bước quan trọng nhất — "
-                            "nếu không hoàn thành thông quan, hàng hóa bị kẹt tại cảng.\n\n"
-                            "Từ thứ tư là shipment — danh từ — nghĩa là lô hàng, "
-                            "một lượng hàng hóa được gửi từ nơi này đến nơi khác. "
-                            "Ví dụ: 'The company tracks every shipment using GPS technology so that customers know exactly when their order will arrive.' "
-                            "Trong bài đọc, shipment là đơn vị cơ bản của vận chuyển — "
-                            "mỗi lô hàng có mã theo dõi riêng.\n\n"
-                            "Từ thứ năm là container — danh từ — nghĩa là container, thùng chứa hàng tiêu chuẩn, "
-                            "hộp kim loại lớn được tiêu chuẩn hóa dùng để vận chuyển hàng hóa bằng tàu, xe tải hoặc tàu hỏa. "
-                            "Ví dụ: 'The invention of the standardized shipping container in the 1950s reduced loading times from weeks to hours and transformed global trade.' "
-                            "Trong bài đọc, container là phát minh đã cách mạng hóa thương mại — "
-                            "nhờ nó, chi phí vận chuyển giảm mạnh.\n\n"
-                            "Từ cuối cùng là transit — danh từ — nghĩa là quá cảnh, vận chuyển, "
-                            "thời gian hoặc quá trình hàng hóa di chuyển từ điểm này đến điểm khác. "
-                            "Ví dụ: 'Goods in transit from Vietnam to Europe spend about twenty-five days at sea before reaching the port of Rotterdam.' "
-                            "Trong bài đọc, transit là khoảng thời gian hàng hóa 'trên đường' — "
-                            "giảm thời gian transit là mục tiêu của mọi nhà quản lý logistics.\n\n"
-                            "Sáu từ mới đã sẵn sàng. Hãy bắt đầu với flashcard rồi đọc bài viết "
-                            "về hành trình vận chuyển hàng hóa quốc tế nhé!"
-                        )
+                        "text": "Chào mừng bạn trở lại! Trong phần trước, bạn đã học 6 từ vựng nền tảng: logistics — hậu cần, supply — nguồn cung, chain — chuỗi, procurement — mua sắm, inventory — hàng tồn kho, và warehouse — nhà kho. Bạn đã hiểu cách một chuỗi cung ứng vận hành từ nguyên liệu đến sản phẩm. Bây giờ, chúng ta sẽ đi sâu vào phần quan trọng nhất khi hàng hóa di chuyển qua biên giới — vận tải và thông quan.\n\nTrong phần 2, bạn sẽ học 6 từ mới: freight, customs, clearance, shipment, container, và transit. Những từ này giúp bạn đọc hiểu các tài liệu về xuất nhập khẩu, vận tải quốc tế và thủ tục hải quan.\n\nTừ đầu tiên là freight — danh từ — nghĩa là hàng hóa vận chuyển, hoặc cước phí vận chuyển. Freight bao gồm mọi loại hàng hóa được vận chuyển bằng đường biển, đường bộ, đường sắt hoặc đường hàng không. Ví dụ: 'Ocean freight accounts for over eighty percent of global trade by volume, making it the backbone of international commerce.' Trong bài đọc, freight mô tả dòng hàng hóa khổng lồ di chuyển giữa các châu lục mỗi ngày.\n\nTừ thứ hai là customs — danh từ — nghĩa là hải quan, cơ quan kiểm soát hàng hóa ra vào biên giới quốc gia. Ví dụ: 'All imported goods must pass through customs, where officers check documentation, assess duties, and inspect cargo for prohibited items.' Trong bài đọc, customs là cửa ngõ mà mọi lô hàng phải đi qua — nơi quyết định hàng hóa được phép nhập hay bị giữ lại.\n\nTừ thứ ba là clearance — danh từ — nghĩa là thông quan, quá trình hoàn tất thủ tục hải quan để hàng hóa được phép nhập hoặc xuất. Customs clearance là thông quan hải quan. Ví dụ: 'Delays in customs clearance can add days or even weeks to delivery times, increasing costs for both importers and consumers.' Trong bài đọc, clearance là bước then chốt — nếu giấy tờ không đầy đủ, hàng hóa bị kẹt tại cảng.\n\nTừ thứ tư là shipment — danh từ — nghĩa là lô hàng, chuyến hàng. Shipment là một lượng hàng hóa cụ thể được gửi từ điểm A đến điểm B. Ví dụ: 'The company tracks every shipment in real time using GPS and satellite technology to ensure on-time delivery.' Trong bài đọc, shipment là đơn vị cơ bản của vận tải — mỗi shipment có mã theo dõi, lịch trình và điểm đến riêng.\n\nTừ thứ năm là container — danh từ — nghĩa là container, thùng chứa hàng tiêu chuẩn dùng trong vận tải quốc tế. Container hóa là cuộc cách mạng lớn nhất trong lịch sử vận tải biển. Ví dụ: 'The invention of the standardized shipping container in the 1950s dramatically reduced the cost of moving goods across oceans.' Trong bài đọc, container là biểu tượng của thương mại toàn cầu — những chiếc hộp thép khổng lồ xếp chồng trên tàu biển.\n\nTừ cuối cùng là transit — danh từ — nghĩa là quá cảnh, trung chuyển. Transit là giai đoạn hàng hóa đang trên đường di chuyển từ nơi gửi đến nơi nhận. Ví dụ: 'Goods in transit are vulnerable to damage, theft, and delays, which is why companies purchase cargo insurance.' Trong bài đọc, transit mô tả khoảng thời gian hàng hóa nằm trên tàu, xe tải hoặc máy bay — chưa đến đích nhưng đã rời điểm xuất phát.\n\nSáu từ mới đã sẵn sàng. Hãy bắt đầu với flashcard rồi đọc bài viết về vận tải quốc tế và thông quan hải quan nhé!"
                     }
                 },
                 {
                     "activityType": "viewFlashcards",
-                    "title": "Flashcards: Vận chuyển hàng hóa quốc tế",
+                    "title": "Flashcards: Vận tải và thông quan",
                     "description": "Học 6 từ: freight, customs, clearance, shipment, container, transit",
-                    "data": {"vocabList": W2}
+                    "data": {
+                        "vocabList": ["freight", "customs", "clearance", "shipment", "container", "transit"]
+                    }
                 },
                 {
                     "activityType": "speakFlashcards",
-                    "title": "Flashcards: Vận chuyển hàng hóa quốc tế",
+                    "title": "Flashcards: Vận tải và thông quan",
                     "description": "Học 6 từ: freight, customs, clearance, shipment, container, transit",
-                    "data": {"vocabList": W2}
+                    "data": {
+                        "vocabList": ["freight", "customs", "clearance", "shipment", "container", "transit"]
+                    }
                 },
                 {
                     "activityType": "vocabLevel1",
-                    "title": "Flashcards: Vận chuyển hàng hóa quốc tế",
+                    "title": "Flashcards: Vận tải và thông quan",
                     "description": "Học 6 từ: freight, customs, clearance, shipment, container, transit",
-                    "data": {"vocabList": W2}
+                    "data": {
+                        "vocabList": ["freight", "customs", "clearance", "shipment", "container", "transit"]
+                    }
                 },
                 {
                     "activityType": "vocabLevel2",
-                    "title": "Flashcards: Vận chuyển hàng hóa quốc tế",
+                    "title": "Flashcards: Vận tải và thông quan",
                     "description": "Học 6 từ: freight, customs, clearance, shipment, container, transit",
-                    "data": {"vocabList": W2}
+                    "data": {
+                        "vocabList": ["freight", "customs", "clearance", "shipment", "container", "transit"]
+                    }
                 },
                 {
                     "activityType": "vocabLevel3",
-                    "title": "Flashcards: Vận chuyển hàng hóa quốc tế",
+                    "title": "Flashcards: Vận tải và thông quan",
                     "description": "Học 6 từ: freight, customs, clearance, shipment, container, transit",
-                    "data": {"vocabList": W2}
+                    "data": {
+                        "vocabList": ["freight", "customs", "clearance", "shipment", "container", "transit"]
+                    }
                 },
                 {
                     "activityType": "reading",
-                    "title": "Đọc: Hành trình vận chuyển hàng hóa quốc tế",
-                    "description": "Once a product is manufactured, it must travel — sometimes thousands of kilometers — to reach its destination.",
-                    "data": {"text": SESSION_2_READING}
+                    "title": "Đọc: Vận tải quốc tế và thông quan hải quan",
+                    "description": "Moving goods across borders is far more complex than moving them within a single country.",
+                    "data": {
+                        "text": "Moving goods across borders is far more complex than moving them within a single country. When a Vietnamese furniture manufacturer ships a container of tables to a buyer in Germany, the journey involves multiple modes of transport, several government agencies, and a mountain of paperwork. Understanding how freight moves through this system is essential for anyone studying international trade.\n\nFreight is the general term for goods being transported from one place to another. It can travel by sea, air, road, or rail. Ocean freight dominates global trade because it is the cheapest way to move large volumes of goods over long distances. A single container ship can carry over twenty thousand containers, each packed with products destined for different countries. Air freight is faster but far more expensive, so it is typically reserved for high-value or time-sensitive goods like electronics, pharmaceuticals, and fresh produce.\n\nThe container revolutionized international shipping. Before containerization, loading and unloading cargo was slow, labor-intensive, and prone to theft. The standardized shipping container — a steel box measuring either twenty or forty feet long — changed everything. Containers can be loaded at a factory, sealed, placed on a truck, transferred to a train, loaded onto a ship, and delivered to a warehouse on another continent without ever being opened in between. This intermodal system dramatically reduced shipping costs and transit times.\n\nTransit refers to the period when goods are in motion between the point of origin and the final destination. During transit, shipments face risks including damage, delays due to weather, port congestion, and even piracy in certain sea lanes. Companies manage these risks through cargo insurance and real-time tracking systems that monitor the location and condition of every shipment.\n\nA shipment is a specific batch of goods sent from one party to another. Each shipment has its own documentation, including a bill of lading, commercial invoice, and packing list. These documents are critical because they are required for customs clearance at the destination country.\n\nCustoms is the government authority responsible for regulating the flow of goods across national borders. Customs officers inspect shipments, verify documentation, assess import duties and taxes, and enforce trade regulations. Every country has its own customs procedures, and navigating them efficiently is a key skill in international logistics.\n\nClearance is the process of getting goods through customs. Customs clearance involves submitting the correct documents, paying any applicable duties, and passing inspections. If a shipment's paperwork is incomplete or inaccurate, clearance can be delayed for days or weeks, resulting in storage fees at the port and late deliveries to customers. Many companies hire customs brokers — specialists who handle clearance on their behalf — to avoid these costly delays.\n\nTogether, freight, customs, clearance, shipment, container, and transit describe the physical journey of goods across borders. Mastering these terms is essential for understanding how global trade actually works on the ground — or rather, on the water."
+                    }
                 },
                 {
                     "activityType": "speakReading",
-                    "title": "Đọc: Hành trình vận chuyển hàng hóa quốc tế",
-                    "description": "Once a product is manufactured, it must travel — sometimes thousands of kilometers — to reach its destination.",
-                    "data": {"text": SESSION_2_READING}
+                    "title": "Đọc: Vận tải quốc tế và thông quan hải quan",
+                    "description": "Moving goods across borders is far more complex than moving them within a single country.",
+                    "data": {
+                        "text": "Moving goods across borders is far more complex than moving them within a single country. When a Vietnamese furniture manufacturer ships a container of tables to a buyer in Germany, the journey involves multiple modes of transport, several government agencies, and a mountain of paperwork. Understanding how freight moves through this system is essential for anyone studying international trade.\n\nFreight is the general term for goods being transported from one place to another. It can travel by sea, air, road, or rail. Ocean freight dominates global trade because it is the cheapest way to move large volumes of goods over long distances. A single container ship can carry over twenty thousand containers, each packed with products destined for different countries. Air freight is faster but far more expensive, so it is typically reserved for high-value or time-sensitive goods like electronics, pharmaceuticals, and fresh produce.\n\nThe container revolutionized international shipping. Before containerization, loading and unloading cargo was slow, labor-intensive, and prone to theft. The standardized shipping container — a steel box measuring either twenty or forty feet long — changed everything. Containers can be loaded at a factory, sealed, placed on a truck, transferred to a train, loaded onto a ship, and delivered to a warehouse on another continent without ever being opened in between. This intermodal system dramatically reduced shipping costs and transit times.\n\nTransit refers to the period when goods are in motion between the point of origin and the final destination. During transit, shipments face risks including damage, delays due to weather, port congestion, and even piracy in certain sea lanes. Companies manage these risks through cargo insurance and real-time tracking systems that monitor the location and condition of every shipment.\n\nA shipment is a specific batch of goods sent from one party to another. Each shipment has its own documentation, including a bill of lading, commercial invoice, and packing list. These documents are critical because they are required for customs clearance at the destination country.\n\nCustoms is the government authority responsible for regulating the flow of goods across national borders. Customs officers inspect shipments, verify documentation, assess import duties and taxes, and enforce trade regulations. Every country has its own customs procedures, and navigating them efficiently is a key skill in international logistics.\n\nClearance is the process of getting goods through customs. Customs clearance involves submitting the correct documents, paying any applicable duties, and passing inspections. If a shipment's paperwork is incomplete or inaccurate, clearance can be delayed for days or weeks, resulting in storage fees at the port and late deliveries to customers. Many companies hire customs brokers — specialists who handle clearance on their behalf — to avoid these costly delays.\n\nTogether, freight, customs, clearance, shipment, container, and transit describe the physical journey of goods across borders. Mastering these terms is essential for understanding how global trade actually works on the ground — or rather, on the water."
+                    }
                 },
                 {
                     "activityType": "readAlong",
-                    "title": "Nghe: Hành trình vận chuyển hàng hóa quốc tế",
+                    "title": "Nghe: Vận tải quốc tế và thông quan hải quan",
                     "description": "Nghe đoạn văn vừa đọc và theo dõi.",
-                    "data": {"text": SESSION_2_READING}
+                    "data": {
+                        "text": "Moving goods across borders is far more complex than moving them within a single country. When a Vietnamese furniture manufacturer ships a container of tables to a buyer in Germany, the journey involves multiple modes of transport, several government agencies, and a mountain of paperwork. Understanding how freight moves through this system is essential for anyone studying international trade.\n\nFreight is the general term for goods being transported from one place to another. It can travel by sea, air, road, or rail. Ocean freight dominates global trade because it is the cheapest way to move large volumes of goods over long distances. A single container ship can carry over twenty thousand containers, each packed with products destined for different countries. Air freight is faster but far more expensive, so it is typically reserved for high-value or time-sensitive goods like electronics, pharmaceuticals, and fresh produce.\n\nThe container revolutionized international shipping. Before containerization, loading and unloading cargo was slow, labor-intensive, and prone to theft. The standardized shipping container — a steel box measuring either twenty or forty feet long — changed everything. Containers can be loaded at a factory, sealed, placed on a truck, transferred to a train, loaded onto a ship, and delivered to a warehouse on another continent without ever being opened in between. This intermodal system dramatically reduced shipping costs and transit times.\n\nTransit refers to the period when goods are in motion between the point of origin and the final destination. During transit, shipments face risks including damage, delays due to weather, port congestion, and even piracy in certain sea lanes. Companies manage these risks through cargo insurance and real-time tracking systems that monitor the location and condition of every shipment.\n\nA shipment is a specific batch of goods sent from one party to another. Each shipment has its own documentation, including a bill of lading, commercial invoice, and packing list. These documents are critical because they are required for customs clearance at the destination country.\n\nCustoms is the government authority responsible for regulating the flow of goods across national borders. Customs officers inspect shipments, verify documentation, assess import duties and taxes, and enforce trade regulations. Every country has its own customs procedures, and navigating them efficiently is a key skill in international logistics.\n\nClearance is the process of getting goods through customs. Customs clearance involves submitting the correct documents, paying any applicable duties, and passing inspections. If a shipment's paperwork is incomplete or inaccurate, clearance can be delayed for days or weeks, resulting in storage fees at the port and late deliveries to customers. Many companies hire customs brokers — specialists who handle clearance on their behalf — to avoid these costly delays.\n\nTogether, freight, customs, clearance, shipment, container, and transit describe the physical journey of goods across borders. Mastering these terms is essential for understanding how global trade actually works on the ground — or rather, on the water."
+                    }
                 },
                 {
                     "activityType": "writingSentence",
-                    "title": "Viết: Vận chuyển hàng hóa quốc tế",
-                    "description": "Viết câu sử dụng 6 từ vựng về vận chuyển hàng hóa.",
+                    "title": "Viết: Vận tải và thông quan",
+                    "description": "Viết câu sử dụng 6 từ vựng về vận tải quốc tế.",
                     "data": {
-                        "vocabList": W2,
+                        "vocabList": ["freight", "customs", "clearance", "shipment", "container", "transit"],
                         "items": [
                             {
-                                "targetVocab": "freight",
-                                "prompt": "Dùng từ 'freight' để viết một câu về phương thức vận chuyển hàng hóa quốc tế. Ví dụ: Ocean freight remains the most cost-effective way to transport large volumes of goods, even though it takes much longer than air transport."
+                                "prompt": "Dùng từ 'freight' để viết một câu về vận tải hàng hóa quốc tế bằng đường biển. Ví dụ: Ocean freight rates surged during the pandemic as demand for shipped goods outpaced the available capacity of container vessels worldwide.",
+                                "targetVocab": "freight"
                             },
                             {
-                                "targetVocab": "customs",
-                                "prompt": "Dùng từ 'customs' để viết một câu về vai trò của hải quan trong thương mại quốc tế. Ví dụ: Vietnamese customs officials inspect thousands of containers every day at Hai Phong port to ensure that all imported goods comply with national safety standards."
+                                "prompt": "Dùng từ 'customs' để viết một câu về vai trò của hải quan trong kiểm soát hàng hóa nhập khẩu. Ví dụ: Vietnamese customs authorities have modernized their inspection process with electronic declarations, reducing the average processing time from days to hours.",
+                                "targetVocab": "customs"
                             },
                             {
-                                "targetVocab": "clearance",
-                                "prompt": "Dùng từ 'clearance' để viết một câu về quá trình thông quan và tác động của nó đến chuỗi cung ứng. Ví dụ: The electronic clearance system reduced the average time for goods to pass through customs from five days to just eight hours."
+                                "prompt": "Dùng từ 'clearance' để viết một câu về quá trình thông quan và tác động khi bị chậm trễ. Ví dụ: The shipment of medical supplies was stuck at the port for a week because incomplete documentation delayed customs clearance.",
+                                "targetVocab": "clearance"
                             },
                             {
-                                "targetVocab": "shipment",
-                                "prompt": "Dùng từ 'shipment' để viết một câu về việc theo dõi lô hàng trong chuỗi cung ứng. Ví dụ: The coffee exporter sent a shipment of fifty containers to Germany, each one tracked by satellite from the moment it left the warehouse in Dak Lak."
+                                "prompt": "Dùng từ 'shipment' để viết một câu về việc theo dõi lô hàng trong chuỗi cung ứng. Ví dụ: Each shipment is assigned a unique tracking number that allows both the sender and the receiver to monitor its location throughout the journey.",
+                                "targetVocab": "shipment"
                             },
                             {
-                                "targetVocab": "container",
-                                "prompt": "Dùng từ 'container' để viết một câu về vai trò của container trong thương mại toàn cầu. Ví dụ: The standardized shipping container transformed global trade by making it possible to load goods onto a truck, transfer them to a train, and then onto a ship without ever unpacking."
+                                "prompt": "Dùng từ 'container' để viết một câu về vai trò của container trong thương mại toàn cầu. Ví dụ: The port of Singapore handles millions of containers each year, serving as a critical transshipment hub connecting Asia with Europe and the Americas.",
+                                "targetVocab": "container"
                             },
                             {
-                                "targetVocab": "transit",
-                                "prompt": "Dùng từ 'transit' để viết một câu về thời gian vận chuyển hàng hóa giữa các quốc gia. Ví dụ: Goods in transit between Ho Chi Minh City and Los Angeles spend approximately fourteen days at sea, plus additional time for customs clearance at both ends."
+                                "prompt": "Dùng từ 'transit' để viết một câu về rủi ro hàng hóa gặp phải trong quá trình vận chuyển. Ví dụ: Perishable goods like seafood require temperature-controlled containers during transit to prevent spoilage before reaching overseas markets.",
+                                "targetVocab": "transit"
                             }
                         ]
                     }
                 }
             ]
         },
-        # ── SESSION 3: Words 13-18 ────────────────────────────
         {
             "title": "Phần 3",
             "activities": [
                 {
                     "activityType": "introAudio",
                     "title": "Giới thiệu từ vựng phần 3",
-                    "description": "Ôn lại phần 1-2 và học 6 từ mới về chiến lược chuỗi cung ứng hiện đại.",
+                    "description": "Ôn lại phần 1-2 và học 6 từ mới về quản trị rủi ro và tối ưu hóa chuỗi cung ứng.",
                     "data": {
-                        "text": (
-                            "Chào mừng bạn đến với phần cuối cùng của chuỗi từ vựng! "
-                            "Hãy cùng ôn lại nhanh những gì bạn đã học. "
-                            "Trong phần 1, bạn đã nắm được 6 từ nền tảng: logistics, supply, chain, procurement, inventory, warehouse — "
-                            "những khái niệm về cách hàng hóa được lên kế hoạch, mua sắm và lưu trữ. "
-                            "Trong phần 2, bạn đã học thêm freight, customs, clearance, shipment, container, transit — "
-                            "bộ từ vựng về hành trình vật lý của hàng hóa qua biên giới.\n\n"
-                            "Bây giờ, trong phần 3, chúng ta sẽ bước vào một khía cạnh rất thời sự: "
-                            "chiến lược chuỗi cung ứng hiện đại — cách các doanh nghiệp xây dựng chuỗi cung ứng "
-                            "vừa hiệu quả vừa chống chịu được khủng hoảng. "
-                            "Bạn sẽ học 6 từ mới: disruption, resilience, diversification, nearshoring, traceability, và optimization.\n\n"
-                            "Từ đầu tiên là disruption — danh từ — nghĩa là sự gián đoạn, "
-                            "bất kỳ sự kiện nào làm gián đoạn dòng chảy bình thường của hàng hóa trong chuỗi cung ứng. "
-                            "Ví dụ: 'The Suez Canal blockage in 2021 caused a massive disruption to global shipping, delaying goods worth billions of dollars.' "
-                            "Trong bài đọc, disruption là từ khóa của thời đại hậu COVID — "
-                            "khi cả thế giới nhận ra chuỗi cung ứng mong manh đến mức nào.\n\n"
-                            "Từ thứ hai là resilience — danh từ — nghĩa là khả năng phục hồi, "
-                            "năng lực của một hệ thống để chịu đựng cú sốc và phục hồi nhanh chóng. "
-                            "Ví dụ: 'After the pandemic exposed weaknesses in global supply chains, companies began investing heavily in resilience rather than just efficiency.' "
-                            "Trong bài đọc, resilience là mục tiêu mới — "
-                            "không chỉ nhanh và rẻ, mà còn phải bền vững trước khủng hoảng.\n\n"
-                            "Từ thứ ba là diversification — danh từ — nghĩa là đa dạng hóa, "
-                            "chiến lược phân tán rủi ro bằng cách sử dụng nhiều nhà cung cấp, địa điểm sản xuất hoặc tuyến vận chuyển. "
-                            "Ví dụ: 'Supply chain diversification means sourcing components from multiple countries so that a problem in one region does not shut down the entire production line.' "
-                            "Trong bài đọc, diversification giải thích vì sao Việt Nam "
-                            "đang hưởng lợi lớn khi các công ty chuyển sản xuất ra khỏi Trung Quốc.\n\n"
-                            "Từ thứ tư là nearshoring — danh từ — nghĩa là chuyển sản xuất về gần, "
-                            "xu hướng di chuyển sản xuất đến các quốc gia gần thị trường tiêu thụ hơn. "
-                            "Ví dụ: 'American companies are nearshoring production to Mexico to reduce shipping times and avoid the risks of relying on factories in distant countries.' "
-                            "Trong bài đọc, nearshoring là xu hướng đối lập với offshoring — "
-                            "thay vì sản xuất ở nơi rẻ nhất, doanh nghiệp chọn nơi gần nhất.\n\n"
-                            "Từ thứ năm là traceability — danh từ — nghĩa là khả năng truy xuất nguồn gốc, "
-                            "khả năng theo dõi hành trình của sản phẩm từ nguyên liệu thô đến thành phẩm. "
-                            "Ví dụ: 'Consumers increasingly demand traceability, wanting to know exactly where their food was grown and how their clothes were made.' "
-                            "Trong bài đọc, traceability là yêu cầu ngày càng quan trọng — "
-                            "người tiêu dùng muốn biết sản phẩm đến từ đâu và được sản xuất như thế nào.\n\n"
-                            "Từ cuối cùng là optimization — danh từ — nghĩa là tối ưu hóa, "
-                            "quá trình làm cho chuỗi cung ứng hoạt động hiệu quả nhất có thể. "
-                            "Ví dụ: 'Supply chain optimization uses artificial intelligence to find the fastest routes, the lowest costs, and the ideal inventory levels for every product.' "
-                            "Trong bài đọc, optimization là đích đến — "
-                            "khi mọi mắt xích trong chuỗi cung ứng hoạt động ở mức tốt nhất.\n\n"
-                            "Tuyệt vời! Bạn đã có đủ 18 từ vựng. Hãy hoàn thành flashcard "
-                            "và đọc bài viết cuối cùng về chiến lược chuỗi cung ứng hiện đại nhé!"
-                        )
+                        "text": "Chào mừng bạn đến với phần cuối cùng của chuỗi từ vựng! Hãy cùng ôn lại nhanh những gì bạn đã học. Trong phần 1, bạn đã nắm được 6 từ nền tảng: logistics — hậu cần, supply — nguồn cung, chain — chuỗi, procurement — mua sắm, inventory — hàng tồn kho, và warehouse — nhà kho. Đây là bộ khung cơ bản của chuỗi cung ứng. Trong phần 2, bạn đã học thêm freight — hàng hóa vận chuyển, customs — hải quan, clearance — thông quan, shipment — lô hàng, container — thùng chứa hàng, và transit — quá cảnh. Những từ này giúp bạn hiểu cách hàng hóa di chuyển qua biên giới.\n\nBây giờ, trong phần 3, chúng ta sẽ bước vào khía cạnh quan trọng nhất của chuỗi cung ứng hiện đại: quản trị rủi ro và tối ưu hóa. Đại dịch COVID-19, chiến tranh thương mại, và biến đổi khí hậu đã cho thấy chuỗi cung ứng toàn cầu mong manh đến mức nào. Bạn sẽ học 6 từ mới: disruption, resilience, diversification, nearshoring, traceability, và optimization.\n\nTừ đầu tiên là disruption — danh từ — nghĩa là sự gián đoạn, sự phá vỡ. Trong chuỗi cung ứng, disruption là bất kỳ sự kiện nào làm gián đoạn dòng chảy bình thường của hàng hóa — từ thiên tai đến đại dịch. Ví dụ: 'The Suez Canal blockage in 2021 caused a massive disruption to global shipping, delaying hundreds of vessels and billions of dollars worth of cargo.' Trong bài đọc, disruption là từ khóa trung tâm — mọi chiến lược quản trị chuỗi cung ứng đều bắt đầu từ câu hỏi: làm sao để đối phó khi disruption xảy ra?\n\nTừ thứ hai là resilience — danh từ — nghĩa là khả năng phục hồi, sức chống chịu. Supply chain resilience là khả năng của chuỗi cung ứng phục hồi nhanh chóng sau gián đoạn. Ví dụ: 'Companies that invested in supply chain resilience before the pandemic recovered faster than those that had optimized purely for cost.' Trong bài đọc, resilience là mục tiêu — xây dựng chuỗi cung ứng có thể uốn cong nhưng không gãy.\n\nTừ thứ ba là diversification — danh từ — nghĩa là đa dạng hóa. Trong chuỗi cung ứng, diversification là chiến lược sử dụng nhiều nhà cung cấp, nhiều tuyến vận chuyển, và nhiều địa điểm sản xuất thay vì phụ thuộc vào một nguồn duy nhất. Ví dụ: 'After the chip shortage, many tech companies pursued diversification by sourcing semiconductors from multiple countries instead of relying solely on Taiwan.' Trong bài đọc, diversification là công cụ chính để tăng resilience — không bỏ tất cả trứng vào một giỏ.\n\nTừ thứ tư là nearshoring — danh từ — nghĩa là chuyển sản xuất về gần, chiến lược di chuyển hoạt động sản xuất từ quốc gia xa sang quốc gia gần hơn với thị trường tiêu thụ. Ví dụ: 'Many American companies are nearshoring their manufacturing from China to Mexico to reduce transit times and avoid geopolitical risks.' Trong bài đọc, nearshoring là xu hướng mới — thay vì sản xuất ở nơi rẻ nhất, doanh nghiệp chọn sản xuất ở nơi gần nhất.\n\nTừ thứ năm là traceability — danh từ — nghĩa là khả năng truy xuất nguồn gốc. Traceability là khả năng theo dõi một sản phẩm ngược lại qua toàn bộ chuỗi cung ứng — từ thành phẩm về đến nguyên liệu thô. Ví dụ: 'Consumers increasingly demand traceability in food supply chains, wanting to know exactly where their coffee beans were grown and how they were processed.' Trong bài đọc, traceability là yêu cầu ngày càng quan trọng — cả về đạo đức lẫn an toàn sản phẩm.\n\nTừ cuối cùng là optimization — danh từ — nghĩa là tối ưu hóa. Supply chain optimization là quá trình cải thiện hiệu quả của chuỗi cung ứng — giảm chi phí, rút ngắn thời gian, và nâng cao chất lượng dịch vụ. Ví dụ: 'Through optimization of its delivery routes, the company reduced fuel costs by fifteen percent and cut average delivery times by two days.' Trong bài đọc, optimization là mục tiêu cuối cùng — làm cho chuỗi cung ứng vừa nhanh, vừa rẻ, vừa đáng tin cậy.\n\nTuyệt vời! Bạn đã có đủ 18 từ vựng. Hãy hoàn thành flashcard và đọc bài viết cuối cùng về quản trị rủi ro chuỗi cung ứng nhé!"
                     }
                 },
                 {
                     "activityType": "viewFlashcards",
-                    "title": "Flashcards: Chiến lược chuỗi cung ứng hiện đại",
+                    "title": "Flashcards: Quản trị rủi ro chuỗi cung ứng",
                     "description": "Học 6 từ: disruption, resilience, diversification, nearshoring, traceability, optimization",
-                    "data": {"vocabList": W3}
+                    "data": {
+                        "vocabList": ["disruption", "resilience", "diversification", "nearshoring", "traceability", "optimization"]
+                    }
                 },
                 {
                     "activityType": "speakFlashcards",
-                    "title": "Flashcards: Chiến lược chuỗi cung ứng hiện đại",
+                    "title": "Flashcards: Quản trị rủi ro chuỗi cung ứng",
                     "description": "Học 6 từ: disruption, resilience, diversification, nearshoring, traceability, optimization",
-                    "data": {"vocabList": W3}
+                    "data": {
+                        "vocabList": ["disruption", "resilience", "diversification", "nearshoring", "traceability", "optimization"]
+                    }
                 },
                 {
                     "activityType": "vocabLevel1",
-                    "title": "Flashcards: Chiến lược chuỗi cung ứng hiện đại",
+                    "title": "Flashcards: Quản trị rủi ro chuỗi cung ứng",
                     "description": "Học 6 từ: disruption, resilience, diversification, nearshoring, traceability, optimization",
-                    "data": {"vocabList": W3}
+                    "data": {
+                        "vocabList": ["disruption", "resilience", "diversification", "nearshoring", "traceability", "optimization"]
+                    }
                 },
                 {
                     "activityType": "vocabLevel2",
-                    "title": "Flashcards: Chiến lược chuỗi cung ứng hiện đại",
+                    "title": "Flashcards: Quản trị rủi ro chuỗi cung ứng",
                     "description": "Học 6 từ: disruption, resilience, diversification, nearshoring, traceability, optimization",
-                    "data": {"vocabList": W3}
+                    "data": {
+                        "vocabList": ["disruption", "resilience", "diversification", "nearshoring", "traceability", "optimization"]
+                    }
                 },
                 {
                     "activityType": "vocabLevel3",
-                    "title": "Flashcards: Chiến lược chuỗi cung ứng hiện đại",
+                    "title": "Flashcards: Quản trị rủi ro chuỗi cung ứng",
                     "description": "Học 6 từ: disruption, resilience, diversification, nearshoring, traceability, optimization",
-                    "data": {"vocabList": W3}
+                    "data": {
+                        "vocabList": ["disruption", "resilience", "diversification", "nearshoring", "traceability", "optimization"]
+                    }
                 },
                 {
                     "activityType": "reading",
-                    "title": "Đọc: Chiến lược chuỗi cung ứng sau đại dịch",
-                    "description": "In recent years, the world has learned a painful lesson: global supply chains are powerful but fragile.",
-                    "data": {"text": SESSION_3_READING}
+                    "title": "Đọc: Quản trị rủi ro và tối ưu hóa chuỗi cung ứng",
+                    "description": "In March 2021, a four-hundred-meter container ship ran aground in the Suez Canal.",
+                    "data": {
+                        "text": "In March 2021, a four-hundred-meter container ship ran aground in the Suez Canal. For six days, one of the world's most important shipping lanes was completely blocked. Hundreds of vessels waited on both sides, carrying everything from oil to livestock to consumer electronics. The estimated cost of the disruption was nearly ten billion dollars per day in delayed trade. This single event exposed a truth that supply chain professionals had warned about for years: global supply chains are efficient but fragile.\n\nDisruption is any event that interrupts the normal flow of goods through a supply chain. It can be caused by natural disasters, pandemics, geopolitical conflicts, cyberattacks, or even a single ship stuck in a canal. The COVID-19 pandemic was the most severe supply chain disruption in modern history. Factories shut down, ports became congested, and shipping containers ended up in the wrong places. Consumers around the world experienced shortages of everything from toilet paper to computer chips.\n\nThe pandemic forced companies to rethink their approach to supply chain management. For decades, the dominant strategy had been optimization — making supply chains as lean and cost-efficient as possible. Companies reduced inventory to save money, relied on single suppliers to get the best prices, and shipped goods along the cheapest routes. This worked well in normal times but left no margin for error when disruption struck.\n\nNow, the focus has shifted to resilience — the ability of a supply chain to absorb shocks and recover quickly. Building resilience often means accepting higher costs in exchange for greater reliability. A resilient supply chain might hold extra inventory as a buffer, maintain relationships with backup suppliers, and use multiple transportation routes so that a blockage in one lane does not halt everything.\n\nOne of the most important strategies for building resilience is diversification. Instead of sourcing all components from a single country, companies spread their procurement across multiple regions. If a factory in one country shuts down due to a lockdown, production can continue at a factory in another country. Vietnam has benefited enormously from this trend, as multinational companies diversify their manufacturing away from China.\n\nA related trend is nearshoring — moving production closer to the end market. American companies that once manufactured everything in Asia are now setting up factories in Mexico. European companies are shifting production to Turkey and Eastern Europe. Nearshoring reduces transit times, lowers transportation costs, and makes supply chains less vulnerable to disruptions in distant regions.\n\nAnother growing priority is traceability — the ability to track a product backward through every stage of the supply chain, from the finished good on the shelf all the way to the raw materials it was made from. Traceability matters for safety, quality control, and ethics. If a batch of food causes illness, traceability allows companies to identify exactly which farm, factory, and shipment were involved. It also helps verify that products were made without child labor or environmental destruction.\n\nOptimization has not disappeared — it has evolved. Modern supply chain optimization uses artificial intelligence, big data, and predictive analytics to balance cost, speed, and resilience simultaneously. Instead of simply choosing the cheapest option, companies now optimize for the best combination of efficiency and risk management.\n\nThe lesson from recent years is clear: a supply chain that is optimized only for cost is a supply chain waiting to break. The future belongs to supply chains that are resilient, diversified, traceable, and smart enough to adapt when the unexpected happens."
+                    }
                 },
                 {
                     "activityType": "speakReading",
-                    "title": "Đọc: Chiến lược chuỗi cung ứng sau đại dịch",
-                    "description": "In recent years, the world has learned a painful lesson: global supply chains are powerful but fragile.",
-                    "data": {"text": SESSION_3_READING}
+                    "title": "Đọc: Quản trị rủi ro và tối ưu hóa chuỗi cung ứng",
+                    "description": "In March 2021, a four-hundred-meter container ship ran aground in the Suez Canal.",
+                    "data": {
+                        "text": "In March 2021, a four-hundred-meter container ship ran aground in the Suez Canal. For six days, one of the world's most important shipping lanes was completely blocked. Hundreds of vessels waited on both sides, carrying everything from oil to livestock to consumer electronics. The estimated cost of the disruption was nearly ten billion dollars per day in delayed trade. This single event exposed a truth that supply chain professionals had warned about for years: global supply chains are efficient but fragile.\n\nDisruption is any event that interrupts the normal flow of goods through a supply chain. It can be caused by natural disasters, pandemics, geopolitical conflicts, cyberattacks, or even a single ship stuck in a canal. The COVID-19 pandemic was the most severe supply chain disruption in modern history. Factories shut down, ports became congested, and shipping containers ended up in the wrong places. Consumers around the world experienced shortages of everything from toilet paper to computer chips.\n\nThe pandemic forced companies to rethink their approach to supply chain management. For decades, the dominant strategy had been optimization — making supply chains as lean and cost-efficient as possible. Companies reduced inventory to save money, relied on single suppliers to get the best prices, and shipped goods along the cheapest routes. This worked well in normal times but left no margin for error when disruption struck.\n\nNow, the focus has shifted to resilience — the ability of a supply chain to absorb shocks and recover quickly. Building resilience often means accepting higher costs in exchange for greater reliability. A resilient supply chain might hold extra inventory as a buffer, maintain relationships with backup suppliers, and use multiple transportation routes so that a blockage in one lane does not halt everything.\n\nOne of the most important strategies for building resilience is diversification. Instead of sourcing all components from a single country, companies spread their procurement across multiple regions. If a factory in one country shuts down due to a lockdown, production can continue at a factory in another country. Vietnam has benefited enormously from this trend, as multinational companies diversify their manufacturing away from China.\n\nA related trend is nearshoring — moving production closer to the end market. American companies that once manufactured everything in Asia are now setting up factories in Mexico. European companies are shifting production to Turkey and Eastern Europe. Nearshoring reduces transit times, lowers transportation costs, and makes supply chains less vulnerable to disruptions in distant regions.\n\nAnother growing priority is traceability — the ability to track a product backward through every stage of the supply chain, from the finished good on the shelf all the way to the raw materials it was made from. Traceability matters for safety, quality control, and ethics. If a batch of food causes illness, traceability allows companies to identify exactly which farm, factory, and shipment were involved. It also helps verify that products were made without child labor or environmental destruction.\n\nOptimization has not disappeared — it has evolved. Modern supply chain optimization uses artificial intelligence, big data, and predictive analytics to balance cost, speed, and resilience simultaneously. Instead of simply choosing the cheapest option, companies now optimize for the best combination of efficiency and risk management.\n\nThe lesson from recent years is clear: a supply chain that is optimized only for cost is a supply chain waiting to break. The future belongs to supply chains that are resilient, diversified, traceable, and smart enough to adapt when the unexpected happens."
+                    }
                 },
                 {
                     "activityType": "readAlong",
-                    "title": "Nghe: Chiến lược chuỗi cung ứng sau đại dịch",
+                    "title": "Nghe: Quản trị rủi ro và tối ưu hóa chuỗi cung ứng",
                     "description": "Nghe đoạn văn vừa đọc và theo dõi.",
-                    "data": {"text": SESSION_3_READING}
+                    "data": {
+                        "text": "In March 2021, a four-hundred-meter container ship ran aground in the Suez Canal. For six days, one of the world's most important shipping lanes was completely blocked. Hundreds of vessels waited on both sides, carrying everything from oil to livestock to consumer electronics. The estimated cost of the disruption was nearly ten billion dollars per day in delayed trade. This single event exposed a truth that supply chain professionals had warned about for years: global supply chains are efficient but fragile.\n\nDisruption is any event that interrupts the normal flow of goods through a supply chain. It can be caused by natural disasters, pandemics, geopolitical conflicts, cyberattacks, or even a single ship stuck in a canal. The COVID-19 pandemic was the most severe supply chain disruption in modern history. Factories shut down, ports became congested, and shipping containers ended up in the wrong places. Consumers around the world experienced shortages of everything from toilet paper to computer chips.\n\nThe pandemic forced companies to rethink their approach to supply chain management. For decades, the dominant strategy had been optimization — making supply chains as lean and cost-efficient as possible. Companies reduced inventory to save money, relied on single suppliers to get the best prices, and shipped goods along the cheapest routes. This worked well in normal times but left no margin for error when disruption struck.\n\nNow, the focus has shifted to resilience — the ability of a supply chain to absorb shocks and recover quickly. Building resilience often means accepting higher costs in exchange for greater reliability. A resilient supply chain might hold extra inventory as a buffer, maintain relationships with backup suppliers, and use multiple transportation routes so that a blockage in one lane does not halt everything.\n\nOne of the most important strategies for building resilience is diversification. Instead of sourcing all components from a single country, companies spread their procurement across multiple regions. If a factory in one country shuts down due to a lockdown, production can continue at a factory in another country. Vietnam has benefited enormously from this trend, as multinational companies diversify their manufacturing away from China.\n\nA related trend is nearshoring — moving production closer to the end market. American companies that once manufactured everything in Asia are now setting up factories in Mexico. European companies are shifting production to Turkey and Eastern Europe. Nearshoring reduces transit times, lowers transportation costs, and makes supply chains less vulnerable to disruptions in distant regions.\n\nAnother growing priority is traceability — the ability to track a product backward through every stage of the supply chain, from the finished good on the shelf all the way to the raw materials it was made from. Traceability matters for safety, quality control, and ethics. If a batch of food causes illness, traceability allows companies to identify exactly which farm, factory, and shipment were involved. It also helps verify that products were made without child labor or environmental destruction.\n\nOptimization has not disappeared — it has evolved. Modern supply chain optimization uses artificial intelligence, big data, and predictive analytics to balance cost, speed, and resilience simultaneously. Instead of simply choosing the cheapest option, companies now optimize for the best combination of efficiency and risk management.\n\nThe lesson from recent years is clear: a supply chain that is optimized only for cost is a supply chain waiting to break. The future belongs to supply chains that are resilient, diversified, traceable, and smart enough to adapt when the unexpected happens."
+                    }
                 },
                 {
                     "activityType": "writingSentence",
-                    "title": "Viết: Chiến lược chuỗi cung ứng hiện đại",
-                    "description": "Viết câu sử dụng 6 từ vựng về chiến lược chuỗi cung ứng.",
+                    "title": "Viết: Quản trị rủi ro chuỗi cung ứng",
+                    "description": "Viết câu sử dụng 6 từ vựng về quản trị rủi ro chuỗi cung ứng.",
                     "data": {
-                        "vocabList": W3,
+                        "vocabList": ["disruption", "resilience", "diversification", "nearshoring", "traceability", "optimization"],
                         "items": [
                             {
-                                "targetVocab": "disruption",
-                                "prompt": "Dùng từ 'disruption' để viết một câu về tác động của một sự kiện gián đoạn đối với chuỗi cung ứng toàn cầu. Ví dụ: The factory fire in Japan caused a major disruption to the global automotive supply chain, forcing car manufacturers on three continents to halt production for weeks."
+                                "prompt": "Dùng từ 'disruption' để viết một câu về sự gián đoạn chuỗi cung ứng do một sự kiện bất ngờ. Ví dụ: The eruption of an Icelandic volcano in 2010 caused a major disruption to European air freight, grounding thousands of flights and delaying time-sensitive shipments.",
+                                "targetVocab": "disruption"
                             },
                             {
-                                "targetVocab": "resilience",
-                                "prompt": "Dùng từ 'resilience' để viết một câu về cách doanh nghiệp xây dựng khả năng phục hồi cho chuỗi cung ứng. Ví dụ: The company built supply chain resilience by maintaining three months of safety stock and establishing backup agreements with alternative suppliers in different countries."
+                                "prompt": "Dùng từ 'resilience' để viết một câu về khả năng phục hồi của chuỗi cung ứng sau khủng hoảng. Ví dụ: Toyota's supply chain resilience was tested during the 2011 earthquake in Japan, but the company recovered faster than competitors thanks to its network of backup suppliers.",
+                                "targetVocab": "resilience"
                             },
                             {
-                                "targetVocab": "diversification",
-                                "prompt": "Dùng từ 'diversification' để viết một câu về chiến lược đa dạng hóa nguồn cung. Ví dụ: After the pandemic, the electronics manufacturer pursued aggressive diversification, moving from a single Chinese supplier to a network of factories in Vietnam, India, and Thailand."
+                                "prompt": "Dùng từ 'diversification' để viết một câu về chiến lược đa dạng hóa nguồn cung. Ví dụ: Apple's diversification of its manufacturing base to include factories in India and Vietnam has reduced its dependence on any single country for production.",
+                                "targetVocab": "diversification"
                             },
                             {
-                                "targetVocab": "nearshoring",
-                                "prompt": "Dùng từ 'nearshoring' để viết một câu về xu hướng chuyển sản xuất về gần thị trường tiêu thụ. Ví dụ: European fashion brands are nearshoring production to Turkey and Morocco to cut delivery times from six weeks to ten days and respond faster to changing consumer trends."
+                                "prompt": "Dùng từ 'nearshoring' để viết một câu về xu hướng chuyển sản xuất về gần thị trường tiêu thụ. Ví dụ: The nearshoring of textile production from Bangladesh to Turkey has allowed European fashion brands to respond more quickly to changing consumer trends.",
+                                "targetVocab": "nearshoring"
                             },
                             {
-                                "targetVocab": "traceability",
-                                "prompt": "Dùng từ 'traceability' để viết một câu về tầm quan trọng của việc truy xuất nguồn gốc sản phẩm. Ví dụ: The seafood company uses blockchain technology to provide full traceability, allowing customers to scan a QR code and see exactly which fishing boat caught their shrimp."
+                                "prompt": "Dùng từ 'traceability' để viết một câu về khả năng truy xuất nguồn gốc sản phẩm trong chuỗi cung ứng. Ví dụ: Blockchain technology is being used to improve traceability in the diamond industry, allowing buyers to verify that stones were ethically sourced.",
+                                "targetVocab": "traceability"
                             },
                             {
-                                "targetVocab": "optimization",
-                                "prompt": "Dùng từ 'optimization' để viết một câu về việc tối ưu hóa chuỗi cung ứng bằng công nghệ. Ví dụ: Through supply chain optimization using artificial intelligence, the retailer reduced shipping costs by twenty percent while cutting average delivery times in half."
+                                "prompt": "Dùng từ 'optimization' để viết một câu về tối ưu hóa chuỗi cung ứng bằng công nghệ. Ví dụ: Through optimization of its warehouse layout and picking algorithms, the e-commerce company reduced order processing time from eight hours to under two.",
+                                "targetVocab": "optimization"
                             }
                         ]
                     }
                 }
             ]
         },
-        # ── SESSION 4: Review (all 18 words) ─────────────────
         {
             "title": "Ôn tập",
             "activities": [
@@ -712,144 +361,133 @@ content = {
                     "title": "Giới thiệu ôn tập",
                     "description": "Chúc mừng bạn đã học xong 18 từ vựng! Cùng ôn lại trước khi đọc bài tổng hợp.",
                     "data": {
-                        "text": (
-                            "Chúc mừng bạn! Bạn đã hoàn thành cả 3 phần học từ vựng về Chuỗi cung ứng toàn cầu. "
-                            "Hãy cùng nhìn lại hành trình của bạn.\n\n"
-                            "Trong phần 1, bạn đã học những khái niệm nền tảng nhất: "
-                            "logistics — hậu cần, supply — nguồn cung, chain — chuỗi, "
-                            "procurement — thu mua, inventory — hàng tồn kho, và warehouse — kho hàng. "
-                            "Đây là bộ từ vựng về cách hàng hóa được lên kế hoạch, mua sắm và lưu trữ.\n\n"
-                            "Trong phần 2, bạn đã đi sâu vào hành trình vận chuyển: "
-                            "freight — hàng hóa vận chuyển, customs — hải quan, clearance — thông quan, "
-                            "shipment — lô hàng, container — thùng chứa hàng, và transit — quá cảnh. "
-                            "Những từ này giúp bạn hiểu hàng hóa di chuyển qua biên giới như thế nào.\n\n"
-                            "Trong phần 3, bạn đã khám phá chiến lược hiện đại: "
-                            "disruption — gián đoạn, resilience — khả năng phục hồi, diversification — đa dạng hóa, "
-                            "nearshoring — chuyển sản xuất về gần, traceability — truy xuất nguồn gốc, và optimization — tối ưu hóa. "
-                            "Đây là những từ về cách doanh nghiệp xây dựng chuỗi cung ứng thông minh hơn.\n\n"
-                            "Bây giờ, phần ôn tập này sẽ giúp bạn củng cố toàn bộ 18 từ vựng. "
-                            "Bạn sẽ xem lại flashcard, luyện phát âm, và viết câu với tất cả các từ. "
-                            "Sau phần ôn tập, bạn sẽ sẵn sàng cho bài đọc tổng hợp — "
-                            "một bài viết dài hơn sử dụng cả 18 từ trong một ngữ cảnh liền mạch. "
-                            "Hãy bắt đầu nào!"
-                        )
+                        "text": "Chúc mừng bạn! Bạn đã hoàn thành cả 3 phần học từ vựng về Chuỗi cung ứng toàn cầu. Hãy cùng nhìn lại hành trình của bạn.\n\nTrong phần 1, bạn đã học những khái niệm nền tảng nhất: logistics — hậu cần, supply — nguồn cung, chain — chuỗi, procurement — mua sắm, inventory — hàng tồn kho, và warehouse — nhà kho. Đây là bộ khung cơ bản để hiểu cách chuỗi cung ứng vận hành.\n\nTrong phần 2, bạn đã đi sâu hơn với: freight — hàng hóa vận chuyển, customs — hải quan, clearance — thông quan, shipment — lô hàng, container — thùng chứa hàng, và transit — quá cảnh. Những từ này giúp bạn hiểu cách hàng hóa di chuyển qua biên giới quốc gia.\n\nTrong phần 3, bạn đã khám phá: disruption — sự gián đoạn, resilience — khả năng phục hồi, diversification — đa dạng hóa, nearshoring — chuyển sản xuất về gần, traceability — truy xuất nguồn gốc, và optimization — tối ưu hóa. Đây là những từ về quản trị rủi ro và tương lai của chuỗi cung ứng.\n\nBây giờ, phần ôn tập này sẽ giúp bạn củng cố toàn bộ 18 từ vựng. Bạn sẽ xem lại flashcard, luyện phát âm, và viết câu với tất cả các từ. Sau phần ôn tập, bạn sẽ sẵn sàng cho bài đọc tổng hợp — một bài viết dài hơn sử dụng cả 18 từ trong một ngữ cảnh liền mạch. Hãy bắt đầu nào!"
                     }
                 },
                 {
                     "activityType": "viewFlashcards",
                     "title": "Flashcards: Ôn tập toàn bộ từ vựng",
                     "description": "Học 18 từ: logistics, supply, chain, procurement, inventory, warehouse, freight, customs, clearance, shipment, container, transit, disruption, resilience, diversification, nearshoring, traceability, optimization",
-                    "data": {"vocabList": ALL_WORDS}
+                    "data": {
+                        "vocabList": ["logistics", "supply", "chain", "procurement", "inventory", "warehouse", "freight", "customs", "clearance", "shipment", "container", "transit", "disruption", "resilience", "diversification", "nearshoring", "traceability", "optimization"]
+                    }
                 },
                 {
                     "activityType": "speakFlashcards",
                     "title": "Flashcards: Ôn tập toàn bộ từ vựng",
                     "description": "Học 18 từ: logistics, supply, chain, procurement, inventory, warehouse, freight, customs, clearance, shipment, container, transit, disruption, resilience, diversification, nearshoring, traceability, optimization",
-                    "data": {"vocabList": ALL_WORDS}
+                    "data": {
+                        "vocabList": ["logistics", "supply", "chain", "procurement", "inventory", "warehouse", "freight", "customs", "clearance", "shipment", "container", "transit", "disruption", "resilience", "diversification", "nearshoring", "traceability", "optimization"]
+                    }
                 },
                 {
                     "activityType": "vocabLevel1",
                     "title": "Flashcards: Ôn tập toàn bộ từ vựng",
                     "description": "Học 18 từ: logistics, supply, chain, procurement, inventory, warehouse, freight, customs, clearance, shipment, container, transit, disruption, resilience, diversification, nearshoring, traceability, optimization",
-                    "data": {"vocabList": ALL_WORDS}
+                    "data": {
+                        "vocabList": ["logistics", "supply", "chain", "procurement", "inventory", "warehouse", "freight", "customs", "clearance", "shipment", "container", "transit", "disruption", "resilience", "diversification", "nearshoring", "traceability", "optimization"]
+                    }
                 },
                 {
                     "activityType": "vocabLevel2",
                     "title": "Flashcards: Ôn tập toàn bộ từ vựng",
                     "description": "Học 18 từ: logistics, supply, chain, procurement, inventory, warehouse, freight, customs, clearance, shipment, container, transit, disruption, resilience, diversification, nearshoring, traceability, optimization",
-                    "data": {"vocabList": ALL_WORDS}
+                    "data": {
+                        "vocabList": ["logistics", "supply", "chain", "procurement", "inventory", "warehouse", "freight", "customs", "clearance", "shipment", "container", "transit", "disruption", "resilience", "diversification", "nearshoring", "traceability", "optimization"]
+                    }
                 },
                 {
                     "activityType": "vocabLevel3",
                     "title": "Flashcards: Ôn tập toàn bộ từ vựng",
                     "description": "Học 18 từ: logistics, supply, chain, procurement, inventory, warehouse, freight, customs, clearance, shipment, container, transit, disruption, resilience, diversification, nearshoring, traceability, optimization",
-                    "data": {"vocabList": ALL_WORDS}
+                    "data": {
+                        "vocabList": ["logistics", "supply", "chain", "procurement", "inventory", "warehouse", "freight", "customs", "clearance", "shipment", "container", "transit", "disruption", "resilience", "diversification", "nearshoring", "traceability", "optimization"]
+                    }
                 },
                 {
                     "activityType": "writingSentence",
                     "title": "Viết: Ôn tập toàn bộ từ vựng chuỗi cung ứng",
                     "description": "Viết câu sử dụng tất cả 18 từ vựng đã học.",
                     "data": {
-                        "vocabList": ALL_WORDS,
+                        "vocabList": ["logistics", "supply", "chain", "procurement", "inventory", "warehouse", "freight", "customs", "clearance", "shipment", "container", "transit", "disruption", "resilience", "diversification", "nearshoring", "traceability", "optimization"],
                         "items": [
                             {
-                                "targetVocab": "logistics",
-                                "prompt": "Dùng từ 'logistics' để viết một câu về tầm quan trọng của hậu cần trong nền kinh tế xuất khẩu của Việt Nam. Ví dụ: Vietnam's logistics sector has grown into a twenty-billion-dollar industry as the country becomes one of Southeast Asia's largest manufacturing and export hubs."
+                                "prompt": "Dùng từ 'logistics' để viết một câu về tầm quan trọng của hậu cần trong thương mại điện tử. Ví dụ: The success of e-commerce giants like Shopee and Lazada depends heavily on logistics networks that can deliver millions of packages across Southeast Asia within days.",
+                                "targetVocab": "logistics"
                             },
                             {
-                                "targetVocab": "supply",
-                                "prompt": "Dùng từ 'supply' để viết một câu về cách nguồn cung ảnh hưởng đến giá cả toàn cầu. Ví dụ: A sudden drop in the global supply of cooking oil caused prices to double in supermarkets across Europe and Asia within just two months."
+                                "prompt": "Dùng từ 'supply' để viết một câu về tác động khi nguồn cung bị thiếu hụt trên thị trường toàn cầu. Ví dụ: The global supply of natural gas tightened dramatically after the conflict in Eastern Europe, pushing energy prices to record highs across the continent.",
+                                "targetVocab": "supply"
                             },
                             {
-                                "targetVocab": "chain",
-                                "prompt": "Dùng từ 'chain' để viết một câu về sự phụ thuộc lẫn nhau trong chuỗi cung ứng toàn cầu. Ví dụ: The semiconductor shortage revealed how a single weak link in the supply chain can bring entire industries to a standstill across multiple continents."
+                                "prompt": "Dùng từ 'chain' để viết một câu về sự phức tạp của chuỗi cung ứng trong ngành công nghệ. Ví dụ: The supply chain for a single laptop involves over two hundred suppliers across more than thirty countries, each contributing a different component.",
+                                "targetVocab": "chain"
                             },
                             {
-                                "targetVocab": "procurement",
-                                "prompt": "Dùng từ 'procurement' để viết một câu về chiến lược thu mua của một doanh nghiệp quốc tế. Ví dụ: The multinational corporation restructured its procurement strategy to source raw materials from at least three different countries for every critical component."
+                                "prompt": "Dùng từ 'procurement' để viết một câu về chiến lược mua sắm bền vững của doanh nghiệp. Ví dụ: IKEA's sustainable procurement policy requires all wood suppliers to prove that their timber comes from responsibly managed forests.",
+                                "targetVocab": "procurement"
                             },
                             {
-                                "targetVocab": "inventory",
-                                "prompt": "Dùng từ 'inventory' để viết một câu về cách công nghệ thay đổi quản lý hàng tồn kho. Ví dụ: The AI-powered inventory management system predicts demand patterns two weeks in advance, automatically reordering stock before shelves run empty."
+                                "prompt": "Dùng từ 'inventory' để viết một câu về quản lý hàng tồn kho trong mùa cao điểm. Ví dụ: Retailers typically build up inventory months before the holiday season to ensure they have enough stock to meet the surge in consumer demand.",
+                                "targetVocab": "inventory"
                             },
                             {
-                                "targetVocab": "warehouse",
-                                "prompt": "Dùng từ 'warehouse' để viết một câu về sự phát triển của hệ thống kho hàng tại Việt Nam. Ví dụ: The new cold-storage warehouse near Cat Lai port allows Vietnamese seafood exporters to keep products fresh during the entire customs clearance process."
+                                "prompt": "Dùng từ 'warehouse' để viết một câu về công nghệ tự động hóa trong nhà kho hiện đại. Ví dụ: Amazon's robotic warehouse systems can locate, pick, and pack an order in under ten minutes, a task that once took human workers over an hour.",
+                                "targetVocab": "warehouse"
                             },
                             {
-                                "targetVocab": "freight",
-                                "prompt": "Dùng từ 'freight' để viết một câu về chi phí vận chuyển hàng hóa quốc tế. Ví dụ: Global freight rates tripled during the pandemic as demand for shipping containers far exceeded the available capacity on major trade routes."
+                                "prompt": "Dùng từ 'freight' để viết một câu về chi phí vận tải hàng hóa và tác động đến giá sản phẩm. Ví dụ: Rising freight costs during the shipping crisis added hundreds of dollars to the price of importing a single container of goods from Asia to Europe.",
+                                "targetVocab": "freight"
                             },
                             {
-                                "targetVocab": "customs",
-                                "prompt": "Dùng từ 'customs' để viết một câu về cải cách thủ tục hải quan để thúc đẩy thương mại. Ví dụ: The government's customs modernization program introduced electronic declarations and automated risk assessment, cutting average processing times by sixty percent."
+                                "prompt": "Dùng từ 'customs' để viết một câu về cải cách thủ tục hải quan để thúc đẩy thương mại. Ví dụ: Vietnam's customs modernization program has introduced electronic filing and risk-based inspections, cutting the average clearance time for imports by more than half.",
+                                "targetVocab": "customs"
                             },
                             {
-                                "targetVocab": "clearance",
-                                "prompt": "Dùng từ 'clearance' để viết một câu về tác động của chậm trễ thông quan đối với doanh nghiệp xuất khẩu. Ví dụ: A two-day delay in customs clearance at the destination port cost the exporter thousands of dollars in storage fees and a penalty for late delivery to the buyer."
+                                "prompt": "Dùng từ 'clearance' để viết một câu về tầm quan trọng của thông quan nhanh chóng đối với hàng hóa dễ hỏng. Ví dụ: Fast customs clearance is critical for fresh fruit exports because even a one-day delay can reduce the shelf life and market value of the produce.",
+                                "targetVocab": "clearance"
                             },
                             {
-                                "targetVocab": "shipment",
-                                "prompt": "Dùng từ 'shipment' để viết một câu về công nghệ theo dõi lô hàng trong thời gian thực. Ví dụ: The logistics platform provides real-time tracking for every shipment, sending automatic alerts to both the sender and receiver whenever the goods pass through a checkpoint."
+                                "prompt": "Dùng từ 'shipment' để viết một câu về quy mô vận chuyển hàng hóa toàn cầu. Ví dụ: Over eleven billion tons of goods are moved by shipment across the world's oceans each year, connecting producers and consumers on every continent.",
+                                "targetVocab": "shipment"
                             },
                             {
-                                "targetVocab": "container",
-                                "prompt": "Dùng từ 'container' để viết một câu về tình trạng thiếu container trong thương mại toàn cầu. Ví dụ: The global container shortage during 2021 forced many Vietnamese exporters to wait weeks for an available container, delaying deliveries and increasing costs significantly."
+                                "prompt": "Dùng từ 'container' để viết một câu về cuộc cách mạng container hóa trong vận tải biển. Ví dụ: The standardized container transformed global trade by allowing goods to be loaded once at the factory and transported seamlessly across trucks, trains, and ships.",
+                                "targetVocab": "container"
                             },
                             {
-                                "targetVocab": "transit",
-                                "prompt": "Dùng từ 'transit' để viết một câu về nỗ lực giảm thời gian vận chuyển hàng hóa. Ví dụ: The new express rail service between Hanoi and Kunming has reduced transit time for electronics components from five days by truck to just eighteen hours."
+                                "prompt": "Dùng từ 'transit' để viết một câu về thời gian vận chuyển và tác động đến chuỗi cung ứng. Ví dụ: Reducing transit time from three weeks to ten days gave the company a significant advantage over competitors who relied on slower shipping routes.",
+                                "targetVocab": "transit"
                             },
                             {
-                                "targetVocab": "disruption",
-                                "prompt": "Dùng từ 'disruption' để viết một câu về bài học từ đại dịch COVID-19 đối với chuỗi cung ứng. Ví dụ: The pandemic-driven disruption taught companies that the cheapest supply chain is not always the best — sometimes paying more for reliability saves money in the long run."
+                                "prompt": "Dùng từ 'disruption' để viết một câu về bài học từ đại dịch COVID-19 đối với chuỗi cung ứng. Ví dụ: The pandemic-era disruption taught companies that relying on a single source for critical components is a risk they can no longer afford to take.",
+                                "targetVocab": "disruption"
                             },
                             {
-                                "targetVocab": "resilience",
-                                "prompt": "Dùng từ 'resilience' để viết một câu về đầu tư vào khả năng phục hồi chuỗi cung ứng. Ví dụ: Building supply chain resilience requires upfront investment in backup suppliers and safety stock, but it pays for itself the first time a major disruption hits."
+                                "prompt": "Dùng từ 'resilience' để viết một câu về cách doanh nghiệp xây dựng chuỗi cung ứng có khả năng phục hồi. Ví dụ: Building supply chain resilience requires investing in backup suppliers, safety stock, and flexible transportation options even when times are good.",
+                                "targetVocab": "resilience"
                             },
                             {
-                                "targetVocab": "diversification",
-                                "prompt": "Dùng từ 'diversification' để viết một câu về lợi ích của đa dạng hóa nguồn cung cho Việt Nam. Ví dụ: Vietnam has become a major beneficiary of global supply chain diversification, attracting billions of dollars in foreign investment from companies seeking alternatives to single-country manufacturing."
+                                "prompt": "Dùng từ 'diversification' để viết một câu về lợi ích của đa dạng hóa nguồn cung cho Việt Nam. Ví dụ: Vietnam has become a major beneficiary of supply chain diversification as global companies shift production away from China to reduce concentration risk.",
+                                "targetVocab": "diversification"
                             },
                             {
-                                "targetVocab": "nearshoring",
-                                "prompt": "Dùng từ 'nearshoring' để viết một câu về xu hướng nearshoring và tác động đến thương mại khu vực. Ví dụ: The nearshoring trend has boosted manufacturing in Mexico, where factories now produce goods for the American market that were previously made in Asia."
+                                "prompt": "Dùng từ 'nearshoring' để viết một câu về xu hướng nearshoring và tác động đến các nước đang phát triển. Ví dụ: The nearshoring trend has created new manufacturing jobs in Mexico and Eastern Europe as companies prioritize proximity over the lowest possible labor costs.",
+                                "targetVocab": "nearshoring"
                             },
                             {
-                                "targetVocab": "traceability",
-                                "prompt": "Dùng từ 'traceability' để viết một câu về yêu cầu truy xuất nguồn gốc trong ngành thực phẩm. Ví dụ: European regulations now require full traceability for all imported food products, meaning Vietnamese rice exporters must document every step from the paddy field to the supermarket shelf."
+                                "prompt": "Dùng từ 'traceability' để viết một câu về yêu cầu truy xuất nguồn gốc trong ngành thực phẩm. Ví dụ: The European Union's new food safety regulations require full traceability from farm to fork, meaning every ingredient must be traceable to its origin.",
+                                "targetVocab": "traceability"
                             },
                             {
-                                "targetVocab": "optimization",
-                                "prompt": "Dùng từ 'optimization' để viết một câu về vai trò của trí tuệ nhân tạo trong tối ưu hóa chuỗi cung ứng. Ví dụ: The company's supply chain optimization algorithm analyzes weather patterns, port congestion data, and fuel prices to recommend the most cost-effective shipping route for each order."
+                                "prompt": "Dùng từ 'optimization' để viết một câu về vai trò của trí tuệ nhân tạo trong tối ưu hóa chuỗi cung ứng. Ví dụ: AI-driven optimization of delivery routes has helped logistics companies reduce fuel consumption and carbon emissions while maintaining on-time delivery rates.",
+                                "targetVocab": "optimization"
                             }
                         ]
                     }
                 }
             ]
         },
-        # ── SESSION 5: Full reading + farewell ────────────────
         {
             "title": "Đọc toàn bài",
             "activities": [
@@ -858,54 +496,43 @@ content = {
                     "title": "Giới thiệu bài đọc tổng hợp",
                     "description": "Giới thiệu bài đọc dài sử dụng toàn bộ 18 từ vựng về chuỗi cung ứng toàn cầu.",
                     "data": {
-                        "text": (
-                            "Chào mừng bạn đến với phần cuối cùng — bài đọc tổng hợp! "
-                            "Bạn đã học và ôn tập 18 từ vựng qua ba phần trước. "
-                            "Bây giờ, tất cả 18 từ sẽ xuất hiện trong một bài viết duy nhất, "
-                            "kể câu chuyện hoàn chỉnh về chuỗi cung ứng toàn cầu — từ cách hàng hóa được thu mua và lưu trữ, "
-                            "cách chúng vượt đại dương qua hải quan, đến cách doanh nghiệp xây dựng chuỗi cung ứng "
-                            "chống chịu được khủng hoảng.\n\n"
-                            "Bạn sẽ gặp lại logistics, supply, chain, procurement, inventory, warehouse "
-                            "trong phần mở đầu về nền tảng của chuỗi cung ứng. "
-                            "Tiếp theo, freight, customs, clearance, shipment, container, transit "
-                            "sẽ giúp bạn hiểu hành trình vật lý của hàng hóa. "
-                            "Và cuối cùng, disruption, resilience, diversification, nearshoring, traceability, optimization "
-                            "sẽ đưa bạn vào thế giới chiến lược chuỗi cung ứng hiện đại.\n\n"
-                            "Hãy đọc chậm, chú ý cách mỗi từ được sử dụng trong ngữ cảnh, "
-                            "và thử đoán nghĩa trước khi nhìn lại định nghĩa. "
-                            "Sau bài đọc, bạn sẽ viết một đoạn văn ngắn bằng tiếng Anh "
-                            "để tổng hợp những gì đã học. Bắt đầu thôi!"
-                        )
+                        "text": "Chào mừng bạn đến với phần cuối cùng — bài đọc tổng hợp! Bạn đã học và ôn tập 18 từ vựng qua ba phần trước. Bây giờ, tất cả 18 từ sẽ xuất hiện trong một bài viết duy nhất, kể câu chuyện hoàn chỉnh về chuỗi cung ứng toàn cầu — từ nền tảng hậu cần đến tương lai của quản trị rủi ro.\n\nBạn sẽ gặp lại logistics, supply, chain, procurement, inventory, warehouse trong phần mở đầu về cách chuỗi cung ứng vận hành. Tiếp theo, freight, customs, clearance, shipment, container, transit sẽ giúp bạn hiểu hành trình vật lý của hàng hóa qua biên giới. Và cuối cùng, disruption, resilience, diversification, nearshoring, traceability, optimization sẽ đưa bạn vào thế giới quản trị chuỗi cung ứng hiện đại.\n\nHãy đọc chậm, chú ý cách mỗi từ được sử dụng trong ngữ cảnh, và thử đoán nghĩa trước khi nhìn lại định nghĩa. Sau bài đọc, bạn sẽ viết một đoạn văn ngắn bằng tiếng Anh để tổng hợp những gì đã học. Bắt đầu thôi!"
                     }
                 },
                 {
                     "activityType": "reading",
                     "title": "Đọc: Chuỗi cung ứng toàn cầu — Bức tranh toàn cảnh",
-                    "description": "The global supply chain is one of the greatest achievements of modern commerce — and one of its greatest vulnerabilities.",
-                    "data": {"text": SESSION_5_READING}
+                    "description": "The modern global economy runs on supply chains.",
+                    "data": {
+                        "text": "The modern global economy runs on supply chains. Every product on every shelf in every store arrived there through a complex network of suppliers, manufacturers, shippers, and retailers. Understanding how this network operates — and what happens when it breaks — is one of the most important skills for anyone studying international trade.\n\nA supply chain begins with procurement — the process of sourcing raw materials and components from suppliers around the world. A smartphone manufacturer, for example, must procure rare earth minerals from Africa, glass from Japan, and semiconductors from Taiwan. Each procurement decision involves trade-offs between cost, quality, speed, and reliability. The procurement team must evaluate dozens of potential suppliers and negotiate contracts that balance all of these factors.\n\nOnce materials are procured, they enter the logistics system — the vast network of transportation, storage, and distribution that moves goods from one stage of production to the next. Logistics is the backbone of the supply chain. Without it, raw materials would never reach factories, and finished products would never reach customers.\n\nAt every stage, goods must be stored in warehouses. A warehouse is not just a building where things sit on shelves. Modern warehouses are high-tech operations that use robotics, barcode scanning, and artificial intelligence to track inventory in real time. Inventory management is a constant balancing act. Companies must hold enough stock to meet demand without tying up too much capital in unsold goods.\n\nWhen goods are ready to move across borders, they enter the world of international freight. Most global trade travels by sea, packed into standardized shipping containers that can be transferred seamlessly between ships, trains, and trucks. A single container ship can carry thousands of containers, each holding a different shipment destined for a different country.\n\nDuring transit — the period when goods are moving between origin and destination — shipments face numerous risks. Weather delays, port congestion, mechanical failures, and even piracy can slow or damage cargo. Companies use tracking technology and cargo insurance to manage these risks, but transit remains one of the most unpredictable stages of the supply chain.\n\nAt the destination, every shipment must pass through customs — the government authority that controls what enters and leaves a country. Customs officers verify documentation, assess duties and taxes, and inspect cargo for prohibited items. The process of getting goods through customs is called clearance. Efficient clearance can take hours; inefficient clearance can take weeks. Companies that master the clearance process gain a significant competitive advantage.\n\nFor decades, the dominant philosophy in supply chain management was optimization — making every link in the chain as lean and cost-efficient as possible. Companies minimized inventory, consolidated suppliers, and chose the cheapest shipping routes. This approach worked brilliantly in stable times. But it created supply chains that were brittle — optimized for efficiency but vulnerable to disruption.\n\nThe COVID-19 pandemic was the ultimate stress test. Factories shut down across Asia. Ports became gridlocked. Containers piled up in the wrong locations. The disruption rippled through every industry, from automobiles to pharmaceuticals to consumer electronics. Suddenly, the world realized that a supply chain optimized only for cost is a supply chain waiting to fail.\n\nThe response has been a fundamental shift toward resilience. Companies are now building supply chains that can absorb shocks and recover quickly. This means holding more inventory as a safety buffer, maintaining relationships with multiple suppliers, and investing in flexible transportation networks.\n\nDiversification is a key strategy for resilience. Instead of relying on a single country for critical components, companies are spreading their procurement across multiple regions. Vietnam has been one of the biggest beneficiaries of this trend, attracting manufacturers who want to reduce their dependence on any single production hub.\n\nNearshoring is another growing trend. Companies are moving production closer to their end markets to reduce transit times and avoid the risks associated with long-distance shipping. American firms are shifting manufacturing to Mexico. European firms are moving production to Turkey and Poland. The goal is not to abandon global trade but to make supply chains shorter and more responsive.\n\nTraceability has also become a priority. Consumers and regulators increasingly demand to know where products come from and how they were made. Traceability systems allow companies to track a product backward through every stage of the supply chain — from the retail shelf to the raw material source. This is essential for food safety, ethical sourcing, and environmental compliance.\n\nThe future of supply chain management lies in combining optimization with resilience. Modern technology — artificial intelligence, blockchain, predictive analytics — makes it possible to build supply chains that are both efficient and robust. The companies that master this balance will thrive in a world where disruption is not the exception but the norm.\n\nFrom procurement to warehouse, from freight to customs clearance, from container to final delivery — the supply chain is the invisible infrastructure that makes global trade possible. And the language of that infrastructure is English."
+                    }
                 },
                 {
                     "activityType": "speakReading",
                     "title": "Đọc: Chuỗi cung ứng toàn cầu — Bức tranh toàn cảnh",
-                    "description": "The global supply chain is one of the greatest achievements of modern commerce — and one of its greatest vulnerabilities.",
-                    "data": {"text": SESSION_5_READING}
+                    "description": "The modern global economy runs on supply chains.",
+                    "data": {
+                        "text": "The modern global economy runs on supply chains. Every product on every shelf in every store arrived there through a complex network of suppliers, manufacturers, shippers, and retailers. Understanding how this network operates — and what happens when it breaks — is one of the most important skills for anyone studying international trade.\n\nA supply chain begins with procurement — the process of sourcing raw materials and components from suppliers around the world. A smartphone manufacturer, for example, must procure rare earth minerals from Africa, glass from Japan, and semiconductors from Taiwan. Each procurement decision involves trade-offs between cost, quality, speed, and reliability. The procurement team must evaluate dozens of potential suppliers and negotiate contracts that balance all of these factors.\n\nOnce materials are procured, they enter the logistics system — the vast network of transportation, storage, and distribution that moves goods from one stage of production to the next. Logistics is the backbone of the supply chain. Without it, raw materials would never reach factories, and finished products would never reach customers.\n\nAt every stage, goods must be stored in warehouses. A warehouse is not just a building where things sit on shelves. Modern warehouses are high-tech operations that use robotics, barcode scanning, and artificial intelligence to track inventory in real time. Inventory management is a constant balancing act. Companies must hold enough stock to meet demand without tying up too much capital in unsold goods.\n\nWhen goods are ready to move across borders, they enter the world of international freight. Most global trade travels by sea, packed into standardized shipping containers that can be transferred seamlessly between ships, trains, and trucks. A single container ship can carry thousands of containers, each holding a different shipment destined for a different country.\n\nDuring transit — the period when goods are moving between origin and destination — shipments face numerous risks. Weather delays, port congestion, mechanical failures, and even piracy can slow or damage cargo. Companies use tracking technology and cargo insurance to manage these risks, but transit remains one of the most unpredictable stages of the supply chain.\n\nAt the destination, every shipment must pass through customs — the government authority that controls what enters and leaves a country. Customs officers verify documentation, assess duties and taxes, and inspect cargo for prohibited items. The process of getting goods through customs is called clearance. Efficient clearance can take hours; inefficient clearance can take weeks. Companies that master the clearance process gain a significant competitive advantage.\n\nFor decades, the dominant philosophy in supply chain management was optimization — making every link in the chain as lean and cost-efficient as possible. Companies minimized inventory, consolidated suppliers, and chose the cheapest shipping routes. This approach worked brilliantly in stable times. But it created supply chains that were brittle — optimized for efficiency but vulnerable to disruption.\n\nThe COVID-19 pandemic was the ultimate stress test. Factories shut down across Asia. Ports became gridlocked. Containers piled up in the wrong locations. The disruption rippled through every industry, from automobiles to pharmaceuticals to consumer electronics. Suddenly, the world realized that a supply chain optimized only for cost is a supply chain waiting to fail.\n\nThe response has been a fundamental shift toward resilience. Companies are now building supply chains that can absorb shocks and recover quickly. This means holding more inventory as a safety buffer, maintaining relationships with multiple suppliers, and investing in flexible transportation networks.\n\nDiversification is a key strategy for resilience. Instead of relying on a single country for critical components, companies are spreading their procurement across multiple regions. Vietnam has been one of the biggest beneficiaries of this trend, attracting manufacturers who want to reduce their dependence on any single production hub.\n\nNearshoring is another growing trend. Companies are moving production closer to their end markets to reduce transit times and avoid the risks associated with long-distance shipping. American firms are shifting manufacturing to Mexico. European firms are moving production to Turkey and Poland. The goal is not to abandon global trade but to make supply chains shorter and more responsive.\n\nTraceability has also become a priority. Consumers and regulators increasingly demand to know where products come from and how they were made. Traceability systems allow companies to track a product backward through every stage of the supply chain — from the retail shelf to the raw material source. This is essential for food safety, ethical sourcing, and environmental compliance.\n\nThe future of supply chain management lies in combining optimization with resilience. Modern technology — artificial intelligence, blockchain, predictive analytics — makes it possible to build supply chains that are both efficient and robust. The companies that master this balance will thrive in a world where disruption is not the exception but the norm.\n\nFrom procurement to warehouse, from freight to customs clearance, from container to final delivery — the supply chain is the invisible infrastructure that makes global trade possible. And the language of that infrastructure is English."
+                    }
                 },
                 {
                     "activityType": "readAlong",
                     "title": "Nghe: Chuỗi cung ứng toàn cầu — Bức tranh toàn cảnh",
                     "description": "Nghe đoạn văn vừa đọc và theo dõi.",
-                    "data": {"text": SESSION_5_READING}
+                    "data": {
+                        "text": "The modern global economy runs on supply chains. Every product on every shelf in every store arrived there through a complex network of suppliers, manufacturers, shippers, and retailers. Understanding how this network operates — and what happens when it breaks — is one of the most important skills for anyone studying international trade.\n\nA supply chain begins with procurement — the process of sourcing raw materials and components from suppliers around the world. A smartphone manufacturer, for example, must procure rare earth minerals from Africa, glass from Japan, and semiconductors from Taiwan. Each procurement decision involves trade-offs between cost, quality, speed, and reliability. The procurement team must evaluate dozens of potential suppliers and negotiate contracts that balance all of these factors.\n\nOnce materials are procured, they enter the logistics system — the vast network of transportation, storage, and distribution that moves goods from one stage of production to the next. Logistics is the backbone of the supply chain. Without it, raw materials would never reach factories, and finished products would never reach customers.\n\nAt every stage, goods must be stored in warehouses. A warehouse is not just a building where things sit on shelves. Modern warehouses are high-tech operations that use robotics, barcode scanning, and artificial intelligence to track inventory in real time. Inventory management is a constant balancing act. Companies must hold enough stock to meet demand without tying up too much capital in unsold goods.\n\nWhen goods are ready to move across borders, they enter the world of international freight. Most global trade travels by sea, packed into standardized shipping containers that can be transferred seamlessly between ships, trains, and trucks. A single container ship can carry thousands of containers, each holding a different shipment destined for a different country.\n\nDuring transit — the period when goods are moving between origin and destination — shipments face numerous risks. Weather delays, port congestion, mechanical failures, and even piracy can slow or damage cargo. Companies use tracking technology and cargo insurance to manage these risks, but transit remains one of the most unpredictable stages of the supply chain.\n\nAt the destination, every shipment must pass through customs — the government authority that controls what enters and leaves a country. Customs officers verify documentation, assess duties and taxes, and inspect cargo for prohibited items. The process of getting goods through customs is called clearance. Efficient clearance can take hours; inefficient clearance can take weeks. Companies that master the clearance process gain a significant competitive advantage.\n\nFor decades, the dominant philosophy in supply chain management was optimization — making every link in the chain as lean and cost-efficient as possible. Companies minimized inventory, consolidated suppliers, and chose the cheapest shipping routes. This approach worked brilliantly in stable times. But it created supply chains that were brittle — optimized for efficiency but vulnerable to disruption.\n\nThe COVID-19 pandemic was the ultimate stress test. Factories shut down across Asia. Ports became gridlocked. Containers piled up in the wrong locations. The disruption rippled through every industry, from automobiles to pharmaceuticals to consumer electronics. Suddenly, the world realized that a supply chain optimized only for cost is a supply chain waiting to fail.\n\nThe response has been a fundamental shift toward resilience. Companies are now building supply chains that can absorb shocks and recover quickly. This means holding more inventory as a safety buffer, maintaining relationships with multiple suppliers, and investing in flexible transportation networks.\n\nDiversification is a key strategy for resilience. Instead of relying on a single country for critical components, companies are spreading their procurement across multiple regions. Vietnam has been one of the biggest beneficiaries of this trend, attracting manufacturers who want to reduce their dependence on any single production hub.\n\nNearshoring is another growing trend. Companies are moving production closer to their end markets to reduce transit times and avoid the risks associated with long-distance shipping. American firms are shifting manufacturing to Mexico. European firms are moving production to Turkey and Poland. The goal is not to abandon global trade but to make supply chains shorter and more responsive.\n\nTraceability has also become a priority. Consumers and regulators increasingly demand to know where products come from and how they were made. Traceability systems allow companies to track a product backward through every stage of the supply chain — from the retail shelf to the raw material source. This is essential for food safety, ethical sourcing, and environmental compliance.\n\nThe future of supply chain management lies in combining optimization with resilience. Modern technology — artificial intelligence, blockchain, predictive analytics — makes it possible to build supply chains that are both efficient and robust. The companies that master this balance will thrive in a world where disruption is not the exception but the norm.\n\nFrom procurement to warehouse, from freight to customs clearance, from container to final delivery — the supply chain is the invisible infrastructure that makes global trade possible. And the language of that infrastructure is English."
+                    }
                 },
                 {
                     "activityType": "writingParagraph",
                     "title": "Viết: Phân tích chuỗi cung ứng toàn cầu",
-                    "description": "Viết đoạn văn tiếng Anh phân tích về chuỗi cung ứng sử dụng 18 từ vựng đã học.",
+                    "description": "Viết đoạn văn tiếng Anh phân tích về chuỗi cung ứng toàn cầu sử dụng 18 từ vựng đã học.",
                     "data": {
-                        "vocabList": ALL_WORDS,
-                        "instructions": "Viết một đoạn văn bằng tiếng Anh (khoảng 100-150 từ) phân tích một khía cạnh của chuỗi cung ứng toàn cầu. Sử dụng ít nhất 8 từ vựng từ danh sách. Bạn có thể chọn một trong hai đề bài dưới đây.",
+                        "vocabList": ["logistics", "supply", "chain", "procurement", "inventory", "warehouse", "freight", "customs", "clearance", "shipment", "container", "transit", "disruption", "resilience", "diversification", "nearshoring", "traceability", "optimization"],
+                        "instructions": "Viết một đoạn văn bằng tiếng Anh (khoảng 100-150 từ) phân tích một tình huống thực tế liên quan đến chuỗi cung ứng toàn cầu. Sử dụng ít nhất 8 từ vựng từ danh sách. Bạn có thể chọn một trong hai đề bài dưới đây.",
                         "prompts": [
-                            "Hãy phân tích cách đại dịch COVID-19 đã thay đổi chuỗi cung ứng toàn cầu. Giải thích disruption đã xảy ra như thế nào, tại sao resilience trở thành ưu tiên hàng đầu, và cách diversification cùng nearshoring đang định hình lại logistics toàn cầu — đặc biệt đối với Việt Nam.",
-                            "Hãy mô tả hành trình của một sản phẩm xuất khẩu từ Việt Nam đến châu Âu. Giải thích vai trò của procurement, warehouse, freight, customs clearance, container, và transit trong hành trình đó — và cách optimization có thể giúp giảm chi phí và thời gian vận chuyển."
+                            "Hãy phân tích tác động của đại dịch COVID-19 đến chuỗi cung ứng toàn cầu. Giải thích disruption đã xảy ra như thế nào, vì sao optimization thuần túy không đủ, và các doanh nghiệp đã xây dựng resilience bằng cách nào — qua diversification, nearshoring, hay cải thiện logistics và inventory management.",
+                            "Hãy phân tích vai trò của Việt Nam trong chuỗi cung ứng toàn cầu hiện đại. Giải thích vì sao Việt Nam hưởng lợi từ xu hướng diversification, logistics và warehouse infrastructure đã phát triển ra sao, và customs clearance cần cải thiện gì để Việt Nam trở thành mắt xích quan trọng hơn trong supply chain toàn cầu."
                         ]
                     }
                 },
@@ -914,66 +541,7 @@ content = {
                     "title": "Lời kết",
                     "description": "Ôn lại từ vựng quan trọng và lời chia tay với tinh thần trách nhiệm ấm áp.",
                     "data": {
-                        "text": (
-                            "Bạn đã hoàn thành bài học về Chuỗi cung ứng toàn cầu — "
-                            "và cũng là bài học cuối cùng trong chuỗi Thương mại quốc tế. "
-                            "Hãy dừng lại một chút và nhìn lại quãng đường bạn đã đi. "
-                            "Từ lý thuyết thương mại, rào cản thuế quan, thị trường ngoại hối, tổ chức thương mại, "
-                            "đến chuỗi cung ứng toàn cầu — bạn đã xây dựng một vốn từ vựng "
-                            "mà nhiều sinh viên kinh tế mất cả năm mới tích lũy được. "
-                            "Bây giờ, hãy cùng ôn lại những từ quan trọng nhất — "
-                            "và tôi muốn bạn tự hỏi: mình sẽ dùng chúng ở đâu?\n\n"
-                            "Logistics — hậu cần. Đây không chỉ là từ vựng — "
-                            "đây là ngành công nghiệp trị giá hàng tỷ đô la mà Việt Nam đang phát triển mạnh mẽ. "
-                            "Mỗi khi bạn đặt hàng online và nhận được trong 24 giờ, đó là logistics đang hoạt động. "
-                            "Ví dụ mới: The logistics company redesigned its delivery network "
-                            "to guarantee next-day delivery to every province in Vietnam, "
-                            "cutting transit times by forty percent.\n\n"
-                            "Procurement — thu mua. Mỗi sản phẩm bắt đầu từ đây. "
-                            "Nếu bạn làm việc trong bất kỳ công ty sản xuất nào, "
-                            "procurement sẽ là từ bạn nghe mỗi ngày. "
-                            "Ví dụ mới: The procurement officer flew to three countries in one week "
-                            "to negotiate better prices for the electronic components "
-                            "that the factory needs for its new product line.\n\n"
-                            "Container — thùng chứa hàng tiêu chuẩn. "
-                            "Phát minh đơn giản này đã thay đổi thương mại toàn cầu mãi mãi. "
-                            "Hiểu từ này, bạn hiểu vì sao hàng hóa có thể đi vòng quanh thế giới "
-                            "với chi phí thấp đến kinh ngạc. "
-                            "Ví dụ mới: The port of Hai Phong handles over five million containers per year, "
-                            "making it one of the busiest container terminals in Southeast Asia.\n\n"
-                            "Disruption — gián đoạn. Đây là từ mà cả thế giới học được sau COVID-19. "
-                            "Bạn sẽ gặp nó trong mọi bài báo, mọi báo cáo về chuỗi cung ứng. "
-                            "Ví dụ mới: The volcanic eruption in Iceland caused a disruption to European air freight "
-                            "that lasted two weeks, forcing companies to switch to ocean shipping "
-                            "for time-sensitive medical supplies.\n\n"
-                            "Resilience — khả năng phục hồi. "
-                            "Nếu disruption là vấn đề, thì resilience là giải pháp. "
-                            "Đây là từ quan trọng nhất trong chiến lược chuỗi cung ứng hiện đại. "
-                            "Ví dụ mới: The government launched a national program to build supply chain resilience, "
-                            "offering tax incentives to companies that maintain backup suppliers "
-                            "and invest in domestic manufacturing capacity.\n\n"
-                            "Optimization — tối ưu hóa. Đây là đích đến cuối cùng — "
-                            "khi mọi mắt xích trong chuỗi cung ứng hoạt động ở mức tốt nhất có thể. "
-                            "Ví dụ mới: The startup's supply chain optimization platform "
-                            "uses machine learning to predict port congestion three days in advance, "
-                            "allowing shippers to reroute containers before delays occur.\n\n"
-                            "Bây giờ, đây là câu hỏi tôi muốn bạn trả lời thật lòng: "
-                            "bạn sẽ làm gì với 18 từ vựng này? "
-                            "Chúng không có giá trị nếu chỉ nằm trong đầu bạn. "
-                            "Chúng chỉ thực sự có ý nghĩa khi bạn dùng chúng — "
-                            "trong bài tập, trong thảo luận nhóm, trong bài viết, trong cuộc phỏng vấn.\n\n"
-                            "Tuần này, hãy làm một việc cụ thể: "
-                            "mở một bài báo tiếng Anh về supply chain trên Reuters hoặc Bloomberg, "
-                            "đọc hai đoạn đầu, và gạch chân mỗi từ vựng bạn nhận ra. "
-                            "Nếu bạn nhận ra được 5 từ trở lên, bạn đã tiến bộ thật sự. "
-                            "Nếu bạn muốn thử thách hơn, hãy viết một đoạn tóm tắt 50 từ bằng tiếng Anh "
-                            "về bài báo đó — dùng ít nhất 4 từ vựng từ bài học.\n\n"
-                            "Bạn đã có kiến thức. Bây giờ hãy biến nó thành kỹ năng. "
-                            "Tôi tin bạn sẽ làm được — và tôi mong được thấy bạn dùng những từ này "
-                            "trong những ngữ cảnh thực tế. "
-                            "Chúc bạn tiếp tục hành trình học tập thật hiệu quả — "
-                            "hẹn gặp lại ở chuỗi bài học tiếp theo!"
-                        )
+                        "text": "Xong rồi! Bạn vừa hoàn thành bài học cuối cùng trong chuỗi Thương mại quốc tế — và đó không phải là một bài học dễ. Chuỗi cung ứng toàn cầu là một trong những chủ đề phức tạp nhất trong kinh tế học, và bạn đã chinh phục nó. Hãy tự hào về điều đó.\n\nNhưng tự hào thôi chưa đủ — bây giờ là lúc biến kiến thức thành hành động. Hãy cùng ôn lại một số từ quan trọng nhất, lần này với góc nhìn thực tế hơn.\n\nSupply chain — chuỗi cung ứng. Đây không chỉ là khái niệm trong sách giáo khoa — đây là hệ thống thực sự đang vận hành mỗi ngày, đưa thức ăn đến bàn ăn của bạn và điện thoại đến tay bạn. Ví dụ mới: The resilience of Vietnam's supply chain was tested during the pandemic, and the country emerged as a more attractive manufacturing destination precisely because it adapted quickly.\n\nLogistics — hậu cần. Mỗi khi bạn đặt hàng online và nhận được gói hàng sau 2 ngày, đó là logistics đang hoạt động. Ví dụ mới: Vietnam's investment in port infrastructure and logistics technology has positioned it as a key transit hub for goods moving between China and Southeast Asian markets.\n\nDisruption — sự gián đoạn. Từ này sẽ theo bạn suốt sự nghiệp, vì disruption không phải là ngoại lệ — nó là bình thường mới. Ví dụ mới: Companies that treat disruption as an inevitable part of business rather than a rare crisis are the ones that survive and grow in the long run.\n\nResilience — khả năng phục hồi. Đây là từ mà mọi CEO trên thế giới đang nói đến. Không phải vì nó thời thượng, mà vì nó là điều kiện sống còn. Ví dụ mới: True supply chain resilience means having the flexibility to reroute shipments, switch suppliers, and adjust inventory levels within days, not months.\n\nNearshoring — chuyển sản xuất về gần. Xu hướng này đang thay đổi bản đồ sản xuất toàn cầu, và Việt Nam đang ở vị trí tuyệt vời để hưởng lợi. Ví dụ mới: As nearshoring reshapes global manufacturing, Vietnam's geographic proximity to major Asian markets gives it a natural advantage over more distant competitors.\n\nTraceability — truy xuất nguồn gốc. Người tiêu dùng ngày càng muốn biết sản phẩm đến từ đâu, và doanh nghiệp nào không đáp ứng được yêu cầu này sẽ mất khách hàng. Ví dụ mới: Vietnamese coffee exporters who invest in traceability systems can command premium prices in European markets where consumers value transparency.\n\nBạn biết không, 18 từ vựng này không chỉ giúp bạn thi tốt hơn. Chúng là ngôn ngữ của ngành logistics và supply chain management — một trong những ngành phát triển nhanh nhất tại Việt Nam. Khi bạn đọc được báo cáo của DHL hay Maersk bằng tiếng Anh, khi bạn hiểu được freight rates và customs clearance procedures, bạn đang có lợi thế mà nhiều người cùng trang lứa chưa có.\n\nVà đây là điều tôi muốn bạn làm sau bài học này: tuần tới, hãy tìm một bài báo tiếng Anh về supply chain — trên Reuters, Bloomberg, hoặc Supply Chain Dive — và đọc nó. Không cần hiểu hết. Chỉ cần nhận ra những từ bạn đã học và thấy chúng sống trong ngữ cảnh thực. Đó là cách bạn biến 18 từ vựng thành vốn liếng thật sự.\n\nBạn đã hoàn thành toàn bộ 5 bài học trong chuỗi Thương mại quốc tế — từ Trade Theory đến Supply Chains. Đó là 90 từ vựng chuyên ngành, 15 bài đọc tiếng Anh, và hàng chục bài viết luyện tập. Không phải ai cũng đi được đến đây. Bạn đã làm được, và tôi tin bạn sẽ tiếp tục.\n\nChúc bạn học vui và luôn tiến về phía trước!"
                     }
                 }
             ]
@@ -981,27 +549,102 @@ content = {
     ]
 }
 
-# ── Validate before upload ───────────────────────────────────
-print("Validating content...")
-validate_all(content)
+# --- Validation ---
+def validate(content):
+    errors = []
+    sessions = content.get("learningSessions", [])
+    if len(sessions) != 5:
+        errors.append(f"Expected 5 sessions, got {len(sessions)}")
+
+    # Session 1-3: 10 activities each
+    expected_seq_123 = ["introAudio", "viewFlashcards", "speakFlashcards", "vocabLevel1", "vocabLevel2", "vocabLevel3", "reading", "speakReading", "readAlong", "writingSentence"]
+    for i in range(3):
+        acts = sessions[i]["activities"]
+        seq = [a["activityType"] for a in acts]
+        if seq != expected_seq_123:
+            errors.append(f"Session {i+1} activity sequence mismatch: {seq}")
+        # Check vocabList length = 6
+        for a in acts:
+            if a["activityType"] in ("viewFlashcards", "speakFlashcards", "vocabLevel1", "vocabLevel2", "vocabLevel3"):
+                vl = a["data"].get("vocabList", [])
+                if len(vl) != 6:
+                    errors.append(f"Session {i+1} {a['activityType']} vocabList length {len(vl)} != 6")
+        # Check viewFlashcards == speakFlashcards vocabList
+        vf = [a for a in acts if a["activityType"] == "viewFlashcards"][0]["data"]["vocabList"]
+        sf = [a for a in acts if a["activityType"] == "speakFlashcards"][0]["data"]["vocabList"]
+        if vf != sf:
+            errors.append(f"Session {i+1} viewFlashcards/speakFlashcards vocabList mismatch")
+
+    # Session 4: 7 activities
+    expected_seq_4 = ["introAudio", "viewFlashcards", "speakFlashcards", "vocabLevel1", "vocabLevel2", "vocabLevel3", "writingSentence"]
+    acts4 = sessions[3]["activities"]
+    seq4 = [a["activityType"] for a in acts4]
+    if seq4 != expected_seq_4:
+        errors.append(f"Session 4 activity sequence mismatch: {seq4}")
+    for a in acts4:
+        if a["activityType"] in ("viewFlashcards", "speakFlashcards", "vocabLevel1", "vocabLevel2", "vocabLevel3"):
+            vl = a["data"].get("vocabList", [])
+            if len(vl) != 18:
+                errors.append(f"Session 4 {a['activityType']} vocabList length {len(vl)} != 18")
+
+    # Session 5: 6 activities
+    expected_seq_5 = ["introAudio", "reading", "speakReading", "readAlong", "writingParagraph", "introAudio"]
+    acts5 = sessions[4]["activities"]
+    seq5 = [a["activityType"] for a in acts5]
+    if seq5 != expected_seq_5:
+        errors.append(f"Session 5 activity sequence mismatch: {seq5}")
+
+    # Check all activities have activityType, title, description, data
+    strip_keys = {"mp3Url", "illustrationSet", "chapterBookmarks", "segments", "whiteboardItems", "userReadingId", "lessonUniqueId", "curriculumTags", "taskId", "imageId"}
+    for si, s in enumerate(sessions):
+        for ai, a in enumerate(s["activities"]):
+            for field in ("activityType", "title", "description", "data"):
+                if field not in a:
+                    errors.append(f"Session {si+1} activity {ai+1} missing '{field}'")
+            # Check no strip keys
+            for key in strip_keys:
+                if key in a:
+                    errors.append(f"Session {si+1} activity {ai+1} has strip key '{key}' at activity level")
+                if key in a.get("data", {}):
+                    errors.append(f"Session {si+1} activity {ai+1} has strip key '{key}' in data")
+
+    # Check all vocabList entries are lowercase strings
+    for si, s in enumerate(sessions):
+        for ai, a in enumerate(s["activities"]):
+            vl = a.get("data", {}).get("vocabList", None)
+            if vl is not None:
+                for w in vl:
+                    if not isinstance(w, str) or w != w.lower():
+                        errors.append(f"Session {si+1} activity {ai+1} vocabList entry '{w}' not lowercase string")
+
+    # Check contentTypeTags
+    if content.get("contentTypeTags") != []:
+        errors.append(f"contentTypeTags should be [], got {content.get('contentTypeTags')}")
+
+    return errors
+
+errors = validate(content)
+if errors:
+    print("VALIDATION ERRORS:")
+    for e in errors:
+        print(f"  - {e}")
+    sys.exit(1)
 print("Validation passed!")
 
-# ── Upload ───────────────────────────────────────────────────
+# --- Create curriculum ---
 token = get_firebase_id_token(UID)
-res = requests.post(
-    f"{API_BASE}/curriculum/create",
-    json={
-        "firebaseIdToken": token,
-        "language": "en",
-        "userLanguage": "vi",
-        "content": json.dumps(content),
-    },
-)
+res = requests.post(f"{API_BASE}/curriculum/create", json={
+    "firebaseIdToken": token,
+    "language": "en",
+    "userLanguage": "vi",
+    "content": json.dumps(content)
+})
 res.raise_for_status()
 curriculum_id = res.json()["id"]
-print(f"Created curriculum: {curriculum_id}")
+print(f"Created: {curriculum_id}")
 print(f"Title: {content['title']}")
 
-# ── Duplicate check SQL ──────────────────────────────────────
-print("\n-- Duplicate check SQL (run manually): --")
-print(f"SELECT id, title, created_at FROM curriculum WHERE title = 'Supply Chains – Chuỗi Cung Ứng Toàn Cầu' AND uid = '{UID}' ORDER BY created_at;")
+# --- Duplicate check ---
+print("\n--- Duplicate Check ---")
+print(f"SELECT id, content->>'title' as title, created_at FROM curriculum")
+print(f"WHERE content->>'title' = '{content['title']}' AND uid = '{UID}' ORDER BY created_at;")

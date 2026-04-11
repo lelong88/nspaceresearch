@@ -166,7 +166,7 @@ Create 25 vi-en curriculums (5 series × 5 curriculums) for Vietnamese economics
 - [x] 7. Checkpoint — Series C & D complete
   - Ensure all 20 curriculums (Series A-D) are created and validated. Verify no vocabulary duplication within each series. Ask the user if questions arise.
 
-- [ ] 8. Series E — Marketing & Quản Trị / Marketing & Management (5 curriculums)
+- [x] 8. Series E — Marketing & Quản Trị / Marketing & Management (5 curriculums)
   - [x] 8.1 Create `create_marketing_1_market_research.py` — Market Research – Nghiên Cứu Thị Trường
     - 18 words: research, survey, sample, demographic, segment, target | qualitative, quantitative, focus, panel, respondent, bias | insight, trend, forecast, correlation, hypothesis, methodology
     - Persuasive Vietnamese description (vivid_scenario tone), English reading about market research and consumer behavior
@@ -179,29 +179,29 @@ Create 25 vi-en curriculums (5 series × 5 curriculums) for Vietnamese economics
     - Farewell tone: team-building energy
     - _Requirements: 1.1, 1.4, 2.1, 3.1-3.7, 4.1, 4.7, 4.8, 4.9, 5.1-5.7, 6.1-6.6, 7.1, 7.6, 9.1-9.5, 10.1-10.5, 11.1-11.4, 12.1-12.7, 14.1-14.6, 15.1-15.4_
 
-  - [-] 8.3 Create `create_marketing_3_leadership.py` — Leadership – Lãnh Đạo & Hành Vi Tổ Chức
+  - [x] 8.3 Create `create_marketing_3_leadership.py` — Leadership – Lãnh Đạo & Hành Vi Tổ Chức
     - 18 words: leadership, delegation, motivation, empowerment, accountability, vision | organizational, culture, hierarchy, collaboration, conflict, negotiation | transformational, situational, mentorship, succession, resilience, agility
     - Persuasive Vietnamese description (metaphor_led tone), English reading about organizational behavior and leadership
     - Farewell tone: introspective guide
     - _Requirements: 1.1, 1.4, 2.1, 3.1-3.7, 4.1, 4.7, 4.8, 5.1-5.7, 6.1-6.6, 7.1, 7.6, 9.1-9.5, 10.1-10.5, 11.1-11.4, 12.1-12.7, 14.1-14.6, 15.1-15.4_
 
-  - [~] 8.4 Create `create_marketing_4_hr_management.py` — HR Management – Quản Trị Nhân Sự
+  - [x] 8.4 Create `create_marketing_4_hr_management.py` — HR Management – Quản Trị Nhân Sự
     - 18 words: recruitment, retention, compensation, benefit, appraisal, onboarding | training, development, turnover, engagement, diversity, inclusion | compliance, grievance, termination, workforce, talent, pipeline
     - Persuasive Vietnamese description (provocative_question tone), English reading about human resource management
     - Farewell tone: warm accountability
     - _Requirements: 1.1, 1.4, 2.1, 3.1-3.7, 4.1, 4.7, 4.8, 5.1-5.7, 6.1-6.6, 7.1, 7.6, 9.1-9.5, 10.1-10.5, 11.1-11.4, 12.1-12.7, 14.1-14.6, 15.1-15.4_
 
-  - [~] 8.5 Create `create_marketing_5_strategic_planning.py` — Strategic Planning – Hoạch Định Chiến Lược
+  - [x] 8.5 Create `create_marketing_5_strategic_planning.py` — Strategic Planning – Hoạch Định Chiến Lược
     - 18 words: strategy, objective, mission, competitive, analysis, benchmark | swot, stakeholder, portfolio, diversification, acquisition, merger | disruption, innovation, scalability, sustainability, alignment, execution
     - Persuasive Vietnamese description (empathetic_observation tone), English reading about strategic planning and competitive analysis
     - Farewell tone: quiet awe
     - _Requirements: 1.1, 1.4, 2.1, 3.1-3.7, 4.1, 4.7, 4.8, 5.1-5.7, 6.1-6.6, 7.1, 7.6, 9.1-9.5, 10.1-10.5, 11.1-11.4, 12.1-12.7, 14.1-14.6, 15.1-15.4_
 
-- [ ] 9. Checkpoint — All 25 curriculums created
+- [x] 9. Checkpoint — All 25 curriculums created
   - Ensure all 25 curriculums are created and validated. Verify no vocabulary duplication within each of the 5 series. Verify tone variety across all descriptions and farewells. Ask the user if questions arise.
 
-- [ ] 10. Create orchestrator script and assemble collection/series
-  - [~] 10.1 Create `create_economics_university_series.py` orchestrator script
+- [x] 10. Create orchestrator script and assemble collection/series
+  - [x] 10.1 Create `create_economics_university_series.py` orchestrator script
     - Create the "Tiếng Anh Kinh Tế Đại Học" collection via `curriculum-collection/create` with Vietnamese description
     - Create 5 series via `curriculum-series/create` with tone-assigned descriptions (≤255 chars each):
       - Series A: Kinh Tế Vi Mô (provocative_question), displayOrder 0
@@ -216,37 +216,37 @@ Create 25 vi-en curriculums (5 series × 5 curriculums) for Vietnamese economics
     - Print all IDs (collection, series, curriculums) for README documentation
     - _Requirements: 1.1, 1.2, 1.3, 2.1-2.5, 8.1-8.7, 13.1-13.5, 14.7_
 
-  - [~] 10.2 Run orchestrator script and record all IDs
+  - [x] 10.2 Run orchestrator script and record all IDs
     - _Requirements: 13.1-13.5, 14.7_
 
-- [ ] 11. Post-creation verification
-  - [~] 11.1 Run duplicate-check SQL queries for all 25 curriculums
+- [x] 11. Post-creation verification
+  - [x] 11.1 Run duplicate-check SQL queries for all 25 curriculums
     - `SELECT id, title, created_at FROM curriculum WHERE title = '<title>' AND uid = 'zs5AMpVfqkcfDf8CJ9qrXdH58d73' ORDER BY created_at` for each curriculum
     - Keep earliest, delete extras if duplicates found
     - _Requirements: 15.1, 15.2, 15.3_
 
-  - [~] 11.2 Verify content integrity for all 25 curriculums
+  - [x] 11.2 Verify content integrity for all 25 curriculums
     - Check each curriculum via `curriculum/getOne`
     - Validate against CONTENT_CORRUPTION_RULES.md: correct activityType field names, vocabList not words, data inside data object, matching vocabLists for viewFlashcards/speakFlashcards in same session
     - Verify contentTypeTags = [] on all curriculums
     - Verify language = 'en' and userLanguage = 'vi'
     - _Requirements: 15.4, 3.6, 3.7, 12.1-12.7_
 
-  - [~] 11.3 Verify series/collection assembly
+  - [x] 11.3 Verify series/collection assembly
     - Confirm all 5 series exist in the collection
     - Confirm each series has 5 curriculums
     - Confirm display orders are correct (series 0-4, curriculums 0-4 within each)
     - _Requirements: 13.1-13.5_
 
-  - [~] 11.4 Cross-check vocabulary uniqueness within each series
+  - [x] 11.4 Cross-check vocabulary uniqueness within each series
     - For each of the 5 series, verify no duplicate words across its 5 curriculums (90 unique words per series)
     - _Requirements: 4.8_
 
-- [ ] 12. Final checkpoint — All verification complete
+- [x] 12. Final checkpoint — All verification complete
   - Ensure all 25 curriculums pass verification, all series/collection assembly is correct, no duplicates found. Ask the user if questions arise.
 
-- [ ] 13. Documentation and cleanup
-  - [~] 13.1 Create `economics-university-curriculum/README.md`
+- [x] 13. Documentation and cleanup
+  - [x] 13.1 Create `economics-university-curriculum/README.md`
     - Document: collection ID, all 5 series IDs, all 25 curriculum IDs and titles
     - Include creation method and recreation context
     - Include SQL queries for retrieval
@@ -255,7 +255,7 @@ Create 25 vi-en curriculums (5 series × 5 curriculums) for Vietnamese economics
     - Include tone assignments (description tones and farewell tones)
     - _Requirements: 16.1, 16.3_
 
-  - [~] 13.2 Delete all Python scripts from `economics-university-curriculum/`
+  - [x] 13.2 Delete all Python scripts from `economics-university-curriculum/`
     - Delete all `create_*.py` scripts and `validate_curriculum.py`
     - Only README.md remains in the directory
     - _Requirements: 16.2_
