@@ -38,6 +38,7 @@ No hardcoded IDs or static ID-to-name mappings. Query MCP postgres in real-time.
 
 - Always use 2-character ISO 639-1 codes (`en`, `vi`, `zh`, etc.). Pairs: `{user_language}-{target_language}`.
 - Beginner/Preintermediate/Intermediate: bilingual text. Upper-intermediate: bilingual or single-language. Advanced: single-language only.
+- **Preview text language**: `preview.text` must match the bilingual rules above. For non-advanced curriculums, preview text must be written primarily in the user's language (e.g., Vietnamese for vi-en). Only advanced-level curriculums may have English-only preview text. This applies to all user-facing text fields: `title`, `description`, `preview.text`.
 - Each series/collection must have homogeneous `language` and `user_language`. Check via `curriculum_series_language_list` and `curriculum_collections_language_list` views.
 - No mixing bilingual and single-language content in the same series/collection.
 - Max 1 level gap within a series/collection. Check via `curriculum_series_level_gap` and `curriculum_collections_level_gap` views.

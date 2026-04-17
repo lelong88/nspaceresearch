@@ -54,6 +54,10 @@ After adding a curriculum to a series, always call `curriculum/setDisplayOrder` 
 ### Minimal Curriculum Titles
 Titles must be as short as possible — the series/collection provides context. Never repeat series/collection name, content type prefix, skill-focus label, or audience suffix in the curriculum title.
 
+## Preview Text Language Rule
+
+`preview.text` must be written in the user's language for non-advanced curriculums. For example, vi-en curriculums at beginner through upperintermediate must have Vietnamese preview text. Only advanced-level curriculums may have target-language-only (e.g., English-only) preview text. This follows the same bilingual rules as all other user-facing text (`title`, `description`).
+
 ## Document Every Curriculum Creation
 
 After creating any curriculum: (1) create README.md with curriculum ID, collection/series membership, creation method, SQL queries, recreation context; (2) delete all temporary files (scripts, JSON, intermediate data).
