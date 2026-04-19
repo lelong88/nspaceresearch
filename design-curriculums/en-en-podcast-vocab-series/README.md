@@ -13,6 +13,20 @@
 | 1 | Amy Cuddy — "Your Body Language May Shape Who You Are" | `I4tI7E6D0TzljRZx` | `6r63yMCmoRH4AcWr` |
 | 2 | Julian Treasure — "How to Speak So That People Want to Listen" | `vgNSnNliznmmarAq` | `DUfee1HEWcBcNEXp` |
 | 3 | Brené Brown — "The Power of Vulnerability" | `FuvFhVYNCmdVUJUB` | `z0qB88II5SgkKYrp` |
+| 4 | Angela Duckworth — "Grit: The Power of Passion and Perseverance" | `NwGqhGPTLqf86mPv` | — |
+| 5 | Richard Cytowic — "Your Brain Wasn't Built for This" (Big Think) | `egmWT6aNQAdb5TUy` | — (speaking focus, original) |
+
+## Curriculum #5: Richard Cytowic (Speaking Focus)
+
+Curriculum `egmWT6aNQAdb5TUy` is a **speaking-focus** curriculum with a reduced activity set:
+- `introAudio` (short welcome/recap only)
+- `viewFlashcards`
+- `speakReading` (transcript sections spoken aloud)
+- `writingParagraph` (analytical writing prompts)
+
+No `speakFlashcards`, `vocabLevel*`, `reading`, `readAlong`, or `writingSentence` activities.
+Created from the Big Think video transcript (not mirrored from vi-en).
+Script: `create_podcast_cytowic_stone_age_brain.py` (deleted after successful creation).
 
 ## How Content Was Created
 
