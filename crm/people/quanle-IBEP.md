@@ -1,0 +1,3 @@
+manager at Viện Chính sách Kinh tế và Kinh doanh (Institute for Business and Economics Policy – IBEP) at Tôn Đức Thắng University, transitioning somewhere else in July 2026
+helping outreach via university student portal (posting from IBEP account) (21 Apr 2026), impact to be determined
+introduced me to anh Hiển ![file]anhHien-exManulife.md (former Manulife employee, digital marketing & SEO specialist, middle-aged, quite well-connected) who is helpful and also receptive to the Step app project. anh Hiển introduced me to SIHUB (Saigon Innovation Hub - official Ho Chi Minh city new initiative, with a building / network / and outreach resources)
