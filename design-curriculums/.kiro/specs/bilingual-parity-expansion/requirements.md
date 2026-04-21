@@ -2,19 +2,19 @@
 
 ## Introduction
 
-This feature brings 6 bilingual language pairs to parity with en-vi (the reference bilingual pair) at beginner, preintermediate, and intermediate difficulty levels. The reference pair en-vi has 60 beginner, 59 preintermediate, and 63 intermediate public curriculums. Each target pair has significant gaps that must be filled with new curriculums.
+This feature brings 6 bilingual language pairs to parity with vi-en (the reference bilingual pair) at beginner, preintermediate, and intermediate difficulty levels. The reference pair vi-en (userLanguage=vi, language=en) has 60 beginner, 59 preintermediate, and 63 intermediate public curriculums. Each target pair has significant gaps that must be filled with new curriculums.
 
 ### Target Pairs and Gap Analysis
 
-| Pair | Beginner Gap | Preintermediate Gap | Intermediate Gap | Total Gap |
-|------|-------------|---------------------|------------------|-----------|
-| zh-vi | 31 | 22 | 26 | 79 |
-| zh-en | 60 | 23 | 28 | 111 |
-| de-en | 59 | 52 | 38 | 149 |
-| de-vi | 60 | 56 | 39 | 155 |
-| fr-en | 58 | 51 | 29 | 138 |
-| fr-vi | 60 | 55 | 26 | 141 |
-| **Total** | **328** | **259** | **186** | **~773** |
+| Pair | userLanguage | language (target) | Beginner Gap | Preintermediate Gap | Intermediate Gap | Total Gap |
+|------|-------------|-------------------|-------------|---------------------|------------------|-----------|
+| vi-zh | vi | zh | 31 | 22 | 26 | 79 |
+| en-zh | en | zh | 60 | 23 | 28 | 111 |
+| en-de | en | de | 59 | 52 | 38 | 149 |
+| vi-de | vi | de | 60 | 56 | 39 | 155 |
+| en-fr | en | fr | 58 | 51 | 29 | 138 |
+| vi-fr | vi | fr | 60 | 55 | 26 | 141 |
+| **Total** | | | **328** | **259** | **186** | **~773** |
 
 ### What This Spec Covers
 
@@ -35,7 +35,7 @@ This feature brings 6 bilingual language pairs to parity with en-vi (the referen
 
 ## Glossary
 
-- **Reference_Pair**: The en-vi language pair, which serves as the benchmark for curriculum count parity at each difficulty level
+- **Reference_Pair**: The vi-en language pair (userLanguage=vi, language=en), which serves as the benchmark for curriculum count parity at each difficulty level
 - **Parity**: Having at least as many public curriculums as the Reference_Pair at a given difficulty level
 - **Curriculum**: A structured learning unit containing sessions with ordered activities (introAudio, flashcards, vocab drills, reading, writing)
 - **Beginner_Curriculum**: A curriculum with difficultyTags ["beginner"], 12 vocabulary words in 2 groups of 6, 4 sessions (2 learning + 1 review + 1 final), no writingParagraph, no vocabLevel3
@@ -44,8 +44,8 @@ This feature brings 6 bilingual language pairs to parity with en-vi (the referen
 - **Series**: A group of related curriculums within a Collection, with homogeneous language pair and max 1 difficulty level gap between members
 - **Tone_Palette**: The 6 rhetorical opener types used for description variety: provocative_question, bold_declaration, vivid_scenario, empathetic_observation, surprising_fact, metaphor_led
 - **Farewell_Palette**: The 5 emotional registers for farewell introAudio scripts: introspective_guide, warm_accountability, team_building_energy, quiet_awe, practical_momentum
-- **User_Language**: The learner's native language (the first code in a pair, e.g., "zh" in zh-vi)
-- **Target_Language**: The language being learned (the second code in a pair, e.g., "vi" in zh-vi)
+- **User_Language**: The learner's native language — the **first** code in a pair. For `vi-zh`, User_Language is `vi` (Vietnamese). Maps to `userLanguage` in the API.
+- **Target_Language**: The language being learned — the **second** code in a pair. For `vi-zh`, Target_Language is `zh` (Chinese). Maps to `language` in the API.
 - **Validator**: The validate_content.py module that checks curriculum JSON structure before upload
 - **API_Helper**: The api_helpers.py module that wraps REST API calls to helloapi.step.is
 - **Orchestrator**: A per-language-pair Python script that creates collections, series, and wires the hierarchy
@@ -55,16 +55,16 @@ This feature brings 6 bilingual language pairs to parity with en-vi (the referen
 
 ### Requirement 1: Language Pair Coverage
 
-**User Story:** As a platform operator, I want all 6 bilingual pairs brought to parity with en-vi, so that learners across all supported bilingual combinations have equivalent content depth.
+**User Story:** As a platform operator, I want all 6 bilingual pairs brought to parity with vi-en, so that learners across all supported bilingual combinations have equivalent content depth.
 
 #### Acceptance Criteria
 
-1. WHEN the expansion is complete, THE System SHALL have created new curriculums for zh-vi such that the total public curriculum count at beginner, preintermediate, and intermediate levels each meets or exceeds the Reference_Pair counts
-2. WHEN the expansion is complete, THE System SHALL have created new curriculums for zh-en such that the total public curriculum count at beginner, preintermediate, and intermediate levels each meets or exceeds the Reference_Pair counts
-3. WHEN the expansion is complete, THE System SHALL have created new curriculums for de-en such that the total public curriculum count at beginner, preintermediate, and intermediate levels each meets or exceeds the Reference_Pair counts
-4. WHEN the expansion is complete, THE System SHALL have created new curriculums for de-vi such that the total public curriculum count at beginner, preintermediate, and intermediate levels each meets or exceeds the Reference_Pair counts
-5. WHEN the expansion is complete, THE System SHALL have created new curriculums for fr-en such that the total public curriculum count at beginner, preintermediate, and intermediate levels each meets or exceeds the Reference_Pair counts
-6. WHEN the expansion is complete, THE System SHALL have created new curriculums for fr-vi such that the total public curriculum count at beginner, preintermediate, and intermediate levels each meets or exceeds the Reference_Pair counts
+1. WHEN the expansion is complete, THE System SHALL have created new curriculums for vi-zh such that the total public curriculum count at beginner, preintermediate, and intermediate levels each meets or exceeds the Reference_Pair counts
+2. WHEN the expansion is complete, THE System SHALL have created new curriculums for en-zh such that the total public curriculum count at beginner, preintermediate, and intermediate levels each meets or exceeds the Reference_Pair counts
+3. WHEN the expansion is complete, THE System SHALL have created new curriculums for en-de such that the total public curriculum count at beginner, preintermediate, and intermediate levels each meets or exceeds the Reference_Pair counts
+4. WHEN the expansion is complete, THE System SHALL have created new curriculums for vi-de such that the total public curriculum count at beginner, preintermediate, and intermediate levels each meets or exceeds the Reference_Pair counts
+5. WHEN the expansion is complete, THE System SHALL have created new curriculums for en-fr such that the total public curriculum count at beginner, preintermediate, and intermediate levels each meets or exceeds the Reference_Pair counts
+6. WHEN the expansion is complete, THE System SHALL have created new curriculums for vi-fr such that the total public curriculum count at beginner, preintermediate, and intermediate levels each meets or exceeds the Reference_Pair counts
 7. THE System SHALL create approximately 773 new curriculums in total across all 6 pairs and 3 difficulty levels
 
 ### Requirement 2: Beginner Curriculum Structure

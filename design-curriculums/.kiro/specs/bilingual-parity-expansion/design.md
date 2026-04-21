@@ -2,7 +2,7 @@
 
 ## Overview
 
-This design covers the creation of ~773 new curriculums across 6 bilingual language pairs (zh-vi, zh-en, de-en, de-vi, fr-en, fr-vi) at beginner, preintermediate, and intermediate difficulty levels to reach parity with the en-vi reference pair. The reference pair has 60 beginner, 59 preintermediate, and 63 intermediate public curriculums.
+This design covers the creation of ~773 new curriculums across 6 bilingual language pairs (vi-zh, en-zh, en-de, vi-de, en-fr, vi-fr) at beginner, preintermediate, and intermediate difficulty levels to reach parity with the vi-en reference pair. The reference pair has 60 beginner, 59 preintermediate, and 63 intermediate public curriculums.
 
 The system follows the same architecture established by the multilingual-curriculum-expansion spec: standalone Python scripts that generate curriculum JSON content and upload it via the REST API at `https://helloapi.step.is`. The key difference is the addition of **beginner-level curriculums**, which have a distinct structure (4 sessions, 12 words, no writingParagraph, no vocabLevel3) compared to the standard preintermediate/intermediate structure (5 sessions, 18 words, full activity set).
 
@@ -11,8 +11,8 @@ The system follows the same architecture established by the multilingual-curricu
 1. **One script per curriculum** (not batch generators): Each curriculum's learner-facing text must be individually crafted per the No Templated Content Generation rule. Template-based generation is explicitly prohibited.
 2. **Unified validator with level-aware mode**: Rather than maintaining separate validators for beginner and standard curriculums, the existing `validate_content.py` is extended with a `level` parameter that switches between beginner (4 sessions, 12 words) and standard (5 sessions, 18 words) validation rules. This replaces the need for a separate `validate_short_content.py`-style module.
 3. **Reuse existing shared modules**: The root-level `api_helpers.py` and `tone_assigner.py` are reused directly. Each language pair directory imports from the root or gets a local copy. The `api_helpers.py` already has `set_price()` which the old spec didn't use but this spec requires.
-4. **New directories for all 6 pairs**: All 6 target pairs (zh-vi, zh-en, de-en, de-vi, fr-en, fr-vi) need new directories since none have existing bilingual curriculums. Even though the old spec created en-de, en-fr, vi-de, vi-fr (reverse direction), the new pairs have different user/target language assignments and need their own infrastructure.
-5. **Phased execution by language pair**: zh-vi → zh-en → de-en → de-vi → fr-en → fr-vi, with verification gates between phases. Chinese pairs first (smallest gaps, newest pair), then German, then French.
+4. **New directories for all 6 pairs**: All 6 target pairs (vi-zh, en-zh, en-de, vi-de, en-fr, vi-fr) need new directories since none have existing bilingual curriculums. Even though the old spec created en-de, en-fr, vi-de, vi-fr (reverse direction), the new pairs have different user/target language assignments and need their own infrastructure.
+5. **Phased execution by language pair**: vi-zh → en-zh → en-de → vi-de → en-fr → vi-fr, with verification gates between phases. Chinese pairs first (smallest gaps, newest pair), then German, then French.
 6. **Tone pre-assignment**: All tone assignments (description + farewell) are determined before script creation and documented in the orchestrator, ensuring variety constraints are met upfront.
 7. **Pricing by level**: Beginner curriculums (4 sessions) are priced at 19 credits; standard curriculums (5 sessions, preintermediate/intermediate) are priced at 49 credits.
 
@@ -20,7 +20,7 @@ The system follows the same architecture established by the multilingual-curricu
 
 ```mermaid
 graph TD
-    subgraph "Per Language Pair Directory (e.g. zh-vi/)"
+    subgraph "Per Language Pair Directory (e.g. vi-zh/)"
         ORCH[orchestrator.py<br/>Creates collections, series,<br/>wires hierarchy, sets display orders]
         VAL[validate_content.py<br/>Level-aware validation<br/>beginner: 4 sessions, 12 words<br/>standard: 5 sessions, 18 words]
         API[api_helpers.py<br/>Shared API call wrappers<br/>includes set_price]
@@ -108,12 +108,12 @@ The number of collections and series per pair varies based on the gap size:
 
 | Pair | Total Gap | Estimated Collections | Estimated Series |
 |------|-----------|----------------------|-----------------|
-| zh-vi | 79 | 3-4 | 12-16 |
-| zh-en | 111 | 4 | 18-22 |
-| de-en | 149 | 4-5 | 25-30 |
-| de-vi | 155 | 4-5 | 25-31 |
-| fr-en | 138 | 4-5 | 22-28 |
-| fr-vi | 141 | 4-5 | 23-28 |
+| vi-zh | 79 | 3-4 | 12-16 |
+| en-zh | 111 | 4 | 18-22 |
+| en-de | 149 | 4-5 | 25-30 |
+| vi-de | 155 | 4-5 | 25-31 |
+| en-fr | 138 | 4-5 | 22-28 |
+| vi-fr | 141 | 4-5 | 23-28 |
 
 Interface:
 ```python
@@ -325,77 +325,80 @@ For pairs with variable series sizes (some series may have more curriculums than
 
 ### Language Pair Configuration
 
-| Pair | userLanguage | language | Beginner Gap | Preint Gap | Inter Gap | Total |
-|------|-------------|----------|-------------|-----------|----------|-------|
-| zh-vi | zh | vi | 31 | 22 | 26 | 79 |
-| zh-en | zh | en | 60 | 23 | 28 | 111 |
-| de-en | de | en | 59 | 52 | 38 | 149 |
-| de-vi | de | vi | 60 | 56 | 39 | 155 |
-| fr-en | fr | en | 58 | 51 | 29 | 138 |
-| fr-vi | fr | vi | 60 | 55 | 26 | 141 |
+| Pair | userLanguage | language (target) | Beginner Gap | Preint Gap | Inter Gap | Total |
+|------|-------------|-------------------|-------------|-----------|----------|-------|
+| vi-zh | vi | zh | 31 | 22 | 26 | 79 |
+| en-zh | en | zh | 60 | 23 | 28 | 111 |
+| en-de | en | de | 59 | 52 | 38 | 149 |
+| vi-de | vi | de | 60 | 56 | 39 | 155 |
+| en-fr | en | fr | 58 | 51 | 29 | 138 |
+| vi-fr | vi | fr | 60 | 55 | 26 | 141 |
 | **Total** | | | **328** | **259** | **186** | **~773** |
+
+Pair notation follows the steering convention `{userLanguage}-{targetLanguage}`.
 
 ### Bilingual Content Language Rules
 
-| Field | Language |
-|-------|----------|
-| title | User_Language (zh, de, or fr) |
-| description | User_Language |
-| preview.text | User_Language |
-| introAudio text | User_Language |
-| reading passages | Target_Language (vi or en) |
-| writingSentence prompts | User_Language (targetVocab in Target_Language) |
-| writingParagraph prompts | User_Language (referencing Target_Language vocab) |
-| Session titles | User_Language |
-| Activity titles/descriptions | User_Language |
+For pair `X-Y`: userLanguage=X (learner's native), language=Y (target being learned).
+
+| Field | Language | Example for vi-zh (userLanguage=vi, language=zh) |
+|-------|----------|--------------------------------------------------|
+| title | User_Language (X) | Vietnamese |
+| description | User_Language (X) | Vietnamese |
+| preview.text | User_Language (X) | Vietnamese |
+| introAudio text | User_Language (X) | Vietnamese |
+| reading passages | Target_Language (Y) | Chinese |
+| writingSentence prompts | User_Language (X) with Target_Language vocab | Vietnamese prompts, Chinese targetVocab |
+| writingParagraph prompts | User_Language (X) referencing Target_Language vocab | Vietnamese prompts |
+| Session titles | User_Language (X) | Vietnamese |
+| Activity titles/descriptions | User_Language (X) | Vietnamese |
 
 ### Session Title Patterns by User Language
 
-| User Language | Learning Session | Review Session | Final Session |
-|--------------|-----------------|----------------|---------------|
-| zh (Chinese) | 第1部分, 第2部分, 第3部分 | 复习 | 综合阅读 |
-| de (German) | Teil 1, Teil 2, Teil 3 | Wiederholung | Abschlusslektüre |
-| fr (French) | Partie 1, Partie 2, Partie 3 | Révision | Lecture finale |
+| User Language | Used in pairs | Learning Session | Review Session | Final Session |
+|--------------|---------------|-----------------|----------------|---------------|
+| vi (Vietnamese) | vi-zh, vi-de, vi-fr | Phần 1, Phần 2, Phần 3 | Ôn tập | Đọc tổng hợp |
+| en (English) | en-zh, en-de, en-fr | Part 1, Part 2, Part 3 | Review | Final Reading |
 
 ### Directory Structure
 
 ```
-zh-vi/
+vi-zh/
 ├── orchestrator.py
 ├── validate_content.py
 ├── api_helpers.py
 ├── create_*.py (one per curriculum, ~79 scripts)
 └── README.md
 
-zh-en/
+en-zh/
 ├── orchestrator.py
 ├── validate_content.py
 ├── api_helpers.py
 ├── create_*.py (~111 scripts)
 └── README.md
 
-de-en/
+en-de/
 ├── orchestrator.py
 ├── validate_content.py
 ├── api_helpers.py
 ├── create_*.py (~149 scripts)
 └── README.md
 
-de-vi/
+vi-de/
 ├── orchestrator.py
 ├── validate_content.py
 ├── api_helpers.py
 ├── create_*.py (~155 scripts)
 └── README.md
 
-fr-en/
+en-fr/
 ├── orchestrator.py
 ├── validate_content.py
 ├── api_helpers.py
 ├── create_*.py (~138 scripts)
 └── README.md
 
-fr-vi/
+vi-fr/
 ├── orchestrator.py
 ├── validate_content.py
 ├── api_helpers.py
@@ -583,7 +586,7 @@ Properties 11-13 test the existing `tone_assigner.py` module. These tests are in
 
 Run after each language pair phase completes:
 
-- **Parity count**: verify curriculum count per difficulty level meets or exceeds en-vi reference counts
+- **Parity count**: verify curriculum count per difficulty level meets or exceeds vi-en reference counts
 - **Language homogeneity**: query `curriculum_series_language_list` view for each series
 - **Level gap**: query `curriculum_series_level_gap` view for each series
 - **Display order**: verify all curriculums have explicit display orders set

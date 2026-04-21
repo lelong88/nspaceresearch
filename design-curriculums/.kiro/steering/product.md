@@ -37,6 +37,7 @@ No hardcoded IDs or static ID-to-name mappings. Query MCP postgres in real-time.
 ## Language Rules
 
 - Always use 2-character ISO 639-1 codes (`en`, `vi`, `zh`, etc.). Pairs: `{user_language}-{target_language}`.
+- **CRITICAL — Language pair direction**: When referencing a language pair (e.g., "zh-vi"), ALWAYS explicitly state which code is `userLanguage` and which is `language` (targetLanguage). The pair notation `X-Y` means `userLanguage=X, language(target)=Y`. For example, `vi-zh` means `userLanguage=vi` (Vietnamese speakers), `language=zh` (learning Chinese). Never assume — always confirm the direction with explicit field names in specs, scripts, and documentation.
 - Beginner/Preintermediate/Intermediate: bilingual text. Upper-intermediate: bilingual or single-language. Advanced: single-language only.
 - **Preview text language**: `preview.text` must match the bilingual rules above. For non-advanced curriculums, preview text must be written primarily in the user's language (e.g., Vietnamese for vi-en). Only advanced-level curriculums may have English-only preview text. This applies to all user-facing text fields: `title`, `description`, `preview.text`.
 - Each series/collection must have homogeneous `language` and `user_language`. Check via `curriculum_series_language_list` and `curriculum_collections_language_list` views.

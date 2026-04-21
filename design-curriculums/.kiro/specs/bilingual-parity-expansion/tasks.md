@@ -2,7 +2,11 @@
 
 ## Overview
 
-Create ~773 curriculums across 6 bilingual language pairs (zh-vi, zh-en, de-en, de-vi, fr-en, fr-vi) at beginner, preintermediate, and intermediate levels to reach parity with the en-vi reference pair. Implementation follows a phased approach: extend shared modules for beginner support first, then language pair by language pair with verification gates. Each language pair gets its own directory with `validate_content.py`, `api_helpers.py`, an `orchestrator.py`, and one `create_*.py` script per curriculum. Beginner curriculums (4 sessions, 12 words, no writingParagraph/vocabLevel3, price 19) are new; standard curriculums (5 sessions, 18 words, full activity set, price 49) follow the established pattern.
+Create ~773 curriculums across 6 bilingual language pairs (vi-zh, en-zh, en-de, vi-de, en-fr, vi-fr) at beginner, preintermediate, and intermediate levels to reach parity with the vi-en reference pair.
+
+Pair notation follows the steering convention `{userLanguage}-{targetLanguage}`. For example, `vi-zh` means `userLanguage=vi` (Vietnamese speakers), `language=zh` (learning Chinese). User-facing text is in the userLanguage; reading passages are in the target language.
+
+Implementation follows a phased approach: extend shared modules for beginner support first, then language pair by language pair with verification gates. Each language pair gets its own directory with `validate_content.py`, `api_helpers.py`, an `orchestrator.py`, and one `create_*.py` script per curriculum. Beginner curriculums (4 sessions, 12 words, no writingParagraph/vocabLevel3, price 19) are new; standard curriculums (5 sessions, 18 words, full activity set, price 49) follow the established pattern.
 
 ## Tasks
 
@@ -99,14 +103,14 @@ Create ~773 curriculums across 6 bilingual language pairs (zh-vi, zh-en, de-en, 
 - [x] 4. Checkpoint — Ensure shared modules are correct
   - Ensure all tests pass, ask the user if questions arise.
 
-- [x] 5. Phase 1: zh-vi language pair (~79 curriculums: 31 beginner, 22 preintermediate, 26 intermediate)
-  - [x] 5.1 Create `zh-vi/` directory structure and copy shared modules
-    - Create `zh-vi/` directory with `validate_content.py` (level-aware), `api_helpers.py`
+- [ ] 5. Phase 1: vi-zh language pair (~79 curriculums: 31 beginner, 22 preintermediate, 26 intermediate)
+  - [ ] 5.1 Create `vi-zh/` directory structure and copy shared modules
+    - Create `vi-zh/` directory with `validate_content.py` (level-aware), `api_helpers.py`
     - _Requirements: 13.3_
 
-  - [x] 5.2 Create `zh-vi/orchestrator.py`
-    - Create 3–4 collections with Chinese titles
-    - Create 12–16 series with Chinese titles and Vietnamese topic labels where appropriate, descriptions ≤255 chars using assigned tones
+  - [ ] 5.2 Create `vi-zh/orchestrator.py`
+    - Create 3–4 collections with Vietnamese titles
+    - Create 12–16 series with Vietnamese titles and Chinese topic labels where appropriate, descriptions ≤255 chars using assigned tones
     - Wire series to collections, set display orders for series and collections
     - Document all tone assignments (description + farewell) in comments
     - Collection descriptions: short informative category summaries (not persuasive copy)
@@ -114,243 +118,257 @@ Create ~773 curriculums across 6 bilingual language pairs (zh-vi, zh-en, de-en, 
     - Log all collection/series IDs to stdout
     - _Requirements: 6.1–6.8, 8.1–8.4, 8.7_
 
-  - [x] 5.3 Create beginner curriculum scripts for zh-vi (31 scripts)
+  - [ ] 5.3 Create beginner curriculum scripts for vi-zh (31 scripts)
     - Create `create_*.py` for each of the 31 beginner curriculums
-    - Each script: hand-crafted Chinese user-facing text (persuasive copy with tone-assigned ALL-CAPS headline), Vietnamese reading passages, 12 vocabulary words (6 per learning session), 4 sessions with correct beginner activity order (no writingParagraph, no vocabLevel3)
+    - Each script: hand-crafted Vietnamese user-facing text (persuasive copy with tone-assigned ALL-CAPS headline), Chinese reading passages, 12 vocabulary words (6 per learning session), 4 sessions with correct beginner activity order (no writingParagraph, no vocabLevel3)
     - Validate via `validate_content.py` with `level="beginner"` before upload
     - Set price to 19 via `set_price`
     - difficultyTags: `["beginner"]`
     - Simple reading passages with average sentence length under 15 words
-    - Chinese session titles: 第1部分, 第2部分, 复习, 综合阅读
+    - Vietnamese session titles: Phần 1, Phần 2, Ôn tập, Đọc tổng hợp
     - No vocabulary repeats within a series
     - Minimal curriculum titles (no series/collection name repetition, no difficulty level)
+    - API params: `language="zh"`, `userLanguage="vi"`
     - _Requirements: 1.1, 2.1–2.7, 4.1–4.8, 5.1–5.10, 7.1–7.8, 8.1–8.6, 9.1–9.5, 10.1–10.4, 14.1, 15.1–15.3_
 
-  - [-] 5.4 Create preintermediate curriculum scripts for zh-vi (22 scripts)
+  - [ ] 5.4 Create preintermediate curriculum scripts for vi-zh (22 scripts)
     - Create `create_*.py` for each of the 22 preintermediate curriculums
-    - Each script: hand-crafted Chinese user-facing text, Vietnamese reading passages, 18 vocabulary words (6 per learning session), 5 sessions with correct standard activity order (includes vocabLevel3, writingParagraph in final session)
+    - Each script: hand-crafted Vietnamese user-facing text, Chinese reading passages, 18 vocabulary words (6 per learning session), 5 sessions with correct standard activity order (includes vocabLevel3, writingParagraph in final session)
     - Validate via `validate_content.py` with `level="standard"` before upload
     - Set price to 49 via `set_price`
     - difficultyTags: `["preintermediate"]`
-    - Chinese session titles: 第1部分, 第2部分, 第3部分, 复习, 综合阅读
+    - Vietnamese session titles: Phần 1, Phần 2, Phần 3, Ôn tập, Đọc tổng hợp
+    - API params: `language="zh"`, `userLanguage="vi"`
     - _Requirements: 1.1, 3.1–3.5, 4.1–4.8, 5.1–5.10, 7.1–7.8, 8.1–8.6, 9.1–9.5, 10.1–10.4, 14.2, 15.1–15.3_
 
-  - [x] 5.5 Create intermediate curriculum scripts for zh-vi (26 scripts)
+  - [ ] 5.5 Create intermediate curriculum scripts for vi-zh (26 scripts)
     - Create `create_*.py` for each of the 26 intermediate curriculums
     - Same structure as preintermediate but with difficultyTags: `["intermediate"]`
     - Validate via `validate_content.py` with `level="standard"` before upload
     - Set price to 49 via `set_price`
     - _Requirements: 1.1, 3.1–3.5, 4.1–4.8, 5.1–5.10, 7.1–7.8, 8.1–8.6, 9.1–9.5, 10.1–10.4, 14.2, 15.1–15.3_
 
-  - [x] 5.6 Verify zh-vi phase and create README
+  - [ ] 5.6 Verify vi-zh phase and create README
     - Run duplicate check queries for all 79 curriculum titles
     - Verify each series has the expected number of curriculums with correct display orders
-    - Verify language homogeneity via `curriculum_series_language_list` view (userLanguage=zh, language=vi)
+    - Verify language homogeneity via `curriculum_series_language_list` view (userLanguage=vi, language=zh)
     - Verify level gap compliance via `curriculum_series_level_gap` view
     - Verify all beginner curriculums priced at 19, all standard at 49
-    - Create `zh-vi/README.md` with all collection IDs, series IDs, curriculum IDs, display orders, vocabulary lists, tone assignments, SQL verification queries, recreation instructions
+    - Create `vi-zh/README.md` with all collection IDs, series IDs, curriculum IDs, display orders, vocabulary lists, tone assignments, SQL verification queries, recreation instructions
     - Delete all `create_*.py` scripts after verification
     - _Requirements: 12.1–12.6_
 
-- [x] 6. Checkpoint — zh-vi phase complete
+- [ ] 6. Checkpoint — vi-zh phase complete
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 7. Phase 2: zh-en language pair (~111 curriculums: 60 beginner, 23 preintermediate, 28 intermediate)
-  - [~] 7.1 Create `zh-en/` directory structure and copy shared modules
-    - Create `zh-en/` directory with `validate_content.py` (level-aware), `api_helpers.py`
+- [ ] 7. Phase 2: en-zh language pair (~111 curriculums: 60 beginner, 23 preintermediate, 28 intermediate)
+  - [ ] 7.1 Create `en-zh/` directory structure and copy shared modules
+    - Create `en-zh/` directory with `validate_content.py` (level-aware), `api_helpers.py`
     - _Requirements: 13.3_
 
-  - [~] 7.2 Create `zh-en/orchestrator.py`
-    - Create 4 collections with Chinese titles
-    - Create 18–22 series with Chinese titles and English topic labels where appropriate, descriptions ≤255 chars using assigned tones
+  - [ ] 7.2 Create `en-zh/orchestrator.py`
+    - Create 4 collections with English titles
+    - Create 18–22 series with English titles and Chinese topic labels where appropriate, descriptions ≤255 chars using assigned tones
     - Wire series to collections, set display orders
     - Document all tone assignments in comments
     - _Requirements: 6.1–6.8, 8.1–8.4, 8.7_
 
-  - [~] 7.3 Create beginner curriculum scripts for zh-en (60 scripts)
-    - Hand-crafted Chinese user-facing text, English reading passages, 12 vocab words, 4 sessions, beginner activity order
+  - [ ] 7.3 Create beginner curriculum scripts for en-zh (60 scripts)
+    - Hand-crafted English user-facing text, Chinese reading passages, 12 vocab words, 4 sessions, beginner activity order
     - Validate with `level="beginner"`, set price to 19, difficultyTags: `["beginner"]`
-    - Simple reading passages, Chinese session titles
+    - Simple reading passages, English session titles
+    - API params: `language="zh"`, `userLanguage="en"`
     - _Requirements: 1.2, 2.1–2.7, 4.1–4.8, 5.1–5.10, 7.1–7.8, 8.1–8.6, 9.1–9.5, 10.1–10.4, 14.1, 15.1–15.3_
 
-  - [~] 7.4 Create preintermediate curriculum scripts for zh-en (23 scripts)
-    - Hand-crafted Chinese user-facing text, English reading passages, 18 vocab words, 5 sessions, standard activity order
+  - [ ] 7.4 Create preintermediate curriculum scripts for en-zh (23 scripts)
+    - Hand-crafted English user-facing text, Chinese reading passages, 18 vocab words, 5 sessions, standard activity order
     - Validate with `level="standard"`, set price to 49, difficultyTags: `["preintermediate"]`
+    - API params: `language="zh"`, `userLanguage="en"`
     - _Requirements: 1.2, 3.1–3.5, 4.1–4.8, 5.1–5.10, 7.1–7.8, 8.1–8.6, 9.1–9.5, 10.1–10.4, 14.2, 15.1–15.3_
 
-  - [~] 7.5 Create intermediate curriculum scripts for zh-en (28 scripts)
+  - [ ] 7.5 Create intermediate curriculum scripts for en-zh (28 scripts)
     - Same structure as preintermediate but with difficultyTags: `["intermediate"]`
     - Validate with `level="standard"`, set price to 49
+    - API params: `language="zh"`, `userLanguage="en"`
     - _Requirements: 1.2, 3.1–3.5, 4.1–4.8, 5.1–5.10, 7.1–7.8, 8.1–8.6, 9.1–9.5, 10.1–10.4, 14.2, 15.1–15.3_
 
-  - [~] 7.6 Verify zh-en phase and create README
+  - [ ] 7.6 Verify en-zh phase and create README
     - Run duplicate check queries for all 111 curriculum titles
-    - Verify series counts, display orders, language homogeneity (userLanguage=zh, language=en), level gap
+    - Verify series counts, display orders, language homogeneity (userLanguage=en, language=zh), level gap
     - Verify pricing: beginner=19, standard=49
-    - Create `zh-en/README.md`, delete all `create_*.py` scripts
+    - Create `en-zh/README.md`, delete all `create_*.py` scripts
     - _Requirements: 12.1–12.6_
 
-- [ ] 8. Checkpoint — zh-en phase complete
+- [ ] 8. Checkpoint — en-zh phase complete
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 9. Phase 3: de-en language pair (~149 curriculums: 59 beginner, 52 preintermediate, 38 intermediate)
-  - [~] 9.1 Create `de-en/` directory structure and copy shared modules
-    - Create `de-en/` directory with `validate_content.py` (level-aware), `api_helpers.py`
+- [ ] 9. Phase 3: en-de language pair (~149 curriculums: 59 beginner, 52 preintermediate, 38 intermediate)
+  - [ ] 9.1 Create `en-de/` directory structure and copy shared modules
+    - Create `en-de/` directory with `validate_content.py` (level-aware), `api_helpers.py`
     - _Requirements: 13.3_
 
-  - [~] 9.2 Create `de-en/orchestrator.py`
-    - Create 4–5 collections with German titles
-    - Create 25–30 series with German titles and English topic labels where appropriate, descriptions ≤255 chars using assigned tones
+  - [ ] 9.2 Create `en-de/orchestrator.py`
+    - Create 4–5 collections with English titles
+    - Create 25–30 series with English titles and German topic labels where appropriate, descriptions ≤255 chars using assigned tones
     - Wire series to collections, set display orders
     - Document all tone assignments in comments
     - _Requirements: 6.1–6.8, 8.1–8.4, 8.7_
 
-  - [~] 9.3 Create beginner curriculum scripts for de-en (59 scripts)
-    - Hand-crafted German user-facing text, English reading passages, 12 vocab words, 4 sessions, beginner activity order
+  - [ ] 9.3 Create beginner curriculum scripts for en-de (59 scripts)
+    - Hand-crafted English user-facing text, German reading passages, 12 vocab words, 4 sessions, beginner activity order
     - Validate with `level="beginner"`, set price to 19, difficultyTags: `["beginner"]`
-    - Simple reading passages, German session titles: Teil 1, Teil 2, Wiederholung, Abschlusslektüre
+    - Simple reading passages, English session titles: Part 1, Part 2, Review, Final Reading
+    - API params: `language="de"`, `userLanguage="en"`
     - _Requirements: 1.3, 2.1–2.7, 4.1–4.8, 5.1–5.10, 7.1–7.8, 8.1–8.6, 9.1–9.5, 10.1–10.4, 14.1, 15.1–15.3_
 
-  - [~] 9.4 Create preintermediate curriculum scripts for de-en (52 scripts)
-    - Hand-crafted German user-facing text, English reading passages, 18 vocab words, 5 sessions, standard activity order
+  - [ ] 9.4 Create preintermediate curriculum scripts for en-de (52 scripts)
+    - Hand-crafted English user-facing text, German reading passages, 18 vocab words, 5 sessions, standard activity order
     - Validate with `level="standard"`, set price to 49, difficultyTags: `["preintermediate"]`
-    - German session titles: Teil 1, Teil 2, Teil 3, Wiederholung, Abschlusslektüre
+    - English session titles: Part 1, Part 2, Part 3, Review, Final Reading
+    - API params: `language="de"`, `userLanguage="en"`
     - _Requirements: 1.3, 3.1–3.5, 4.1–4.8, 5.1–5.10, 7.1–7.8, 8.1–8.6, 9.1–9.5, 10.1–10.4, 14.2, 15.1–15.3_
 
-  - [~] 9.5 Create intermediate curriculum scripts for de-en (38 scripts)
+  - [ ] 9.5 Create intermediate curriculum scripts for en-de (38 scripts)
     - Same structure as preintermediate but with difficultyTags: `["intermediate"]`
     - Validate with `level="standard"`, set price to 49
     - _Requirements: 1.3, 3.1–3.5, 4.1–4.8, 5.1–5.10, 7.1–7.8, 8.1–8.6, 9.1–9.5, 10.1–10.4, 14.2, 15.1–15.3_
 
-  - [ ] 9.6 Verify de-en phase and create README
+  - [ ] 9.6 Verify en-de phase and create README
     - Run duplicate check queries for all 149 curriculum titles
-    - Verify series counts, display orders, language homogeneity (userLanguage=de, language=en), level gap
+    - Verify series counts, display orders, language homogeneity (userLanguage=en, language=de), level gap
     - Verify pricing: beginner=19, standard=49
-    - Create `de-en/README.md`, delete all `create_*.py` scripts
+    - Create `en-de/README.md`, delete all `create_*.py` scripts
     - _Requirements: 12.1–12.6_
 
-- [ ] 10. Checkpoint — de-en phase complete
+- [ ] 10. Checkpoint — en-de phase complete
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 11. Phase 4: de-vi language pair (~155 curriculums: 60 beginner, 56 preintermediate, 39 intermediate)
-  - [ ] 11.1 Create `de-vi/` directory structure and copy shared modules
-    - Create `de-vi/` directory with `validate_content.py` (level-aware), `api_helpers.py`
+- [ ] 11. Phase 4: vi-de language pair (~155 curriculums: 60 beginner, 56 preintermediate, 39 intermediate)
+  - [ ] 11.1 Create `vi-de/` directory structure and copy shared modules
+    - Create `vi-de/` directory with `validate_content.py` (level-aware), `api_helpers.py`
     - _Requirements: 13.3_
 
-  - [ ] 11.2 Create `de-vi/orchestrator.py`
-    - Create 4–5 collections with German titles
-    - Create 25–31 series with German titles and Vietnamese topic labels where appropriate, descriptions ≤255 chars using assigned tones
+  - [ ] 11.2 Create `vi-de/orchestrator.py`
+    - Create 4–5 collections with Vietnamese titles
+    - Create 25–31 series with Vietnamese titles and German topic labels where appropriate, descriptions ≤255 chars using assigned tones
     - Wire series to collections, set display orders
     - Document all tone assignments in comments
     - _Requirements: 6.1–6.8, 8.1–8.4, 8.7_
 
-  - [ ] 11.3 Create beginner curriculum scripts for de-vi (60 scripts)
-    - Hand-crafted German user-facing text, Vietnamese reading passages, 12 vocab words, 4 sessions, beginner activity order
+  - [ ] 11.3 Create beginner curriculum scripts for vi-de (60 scripts)
+    - Hand-crafted Vietnamese user-facing text, German reading passages, 12 vocab words, 4 sessions, beginner activity order
     - Validate with `level="beginner"`, set price to 19, difficultyTags: `["beginner"]`
-    - German session titles: Teil 1, Teil 2, Wiederholung, Abschlusslektüre
+    - Vietnamese session titles: Phần 1, Phần 2, Ôn tập, Đọc tổng hợp
+    - API params: `language="de"`, `userLanguage="vi"`
     - _Requirements: 1.4, 2.1–2.7, 4.1–4.8, 5.1–5.10, 7.1–7.8, 8.1–8.6, 9.1–9.5, 10.1–10.4, 14.1, 15.1–15.3_
 
-  - [ ] 11.4 Create preintermediate curriculum scripts for de-vi (56 scripts)
-    - Hand-crafted German user-facing text, Vietnamese reading passages, 18 vocab words, 5 sessions, standard activity order
+  - [ ] 11.4 Create preintermediate curriculum scripts for vi-de (56 scripts)
+    - Hand-crafted Vietnamese user-facing text, German reading passages, 18 vocab words, 5 sessions, standard activity order
     - Validate with `level="standard"`, set price to 49, difficultyTags: `["preintermediate"]`
+    - API params: `language="de"`, `userLanguage="vi"`
     - _Requirements: 1.4, 3.1–3.5, 4.1–4.8, 5.1–5.10, 7.1–7.8, 8.1–8.6, 9.1–9.5, 10.1–10.4, 14.2, 15.1–15.3_
 
-  - [ ] 11.5 Create intermediate curriculum scripts for de-vi (39 scripts)
+  - [ ] 11.5 Create intermediate curriculum scripts for vi-de (39 scripts)
     - Same structure as preintermediate but with difficultyTags: `["intermediate"]`
     - Validate with `level="standard"`, set price to 49
+    - API params: `language="de"`, `userLanguage="vi"`
     - _Requirements: 1.4, 3.1–3.5, 4.1–4.8, 5.1–5.10, 7.1–7.8, 8.1–8.6, 9.1–9.5, 10.1–10.4, 14.2, 15.1–15.3_
 
-  - [ ] 11.6 Verify de-vi phase and create README
+  - [ ] 11.6 Verify vi-de phase and create README
     - Run duplicate check queries for all 155 curriculum titles
-    - Verify series counts, display orders, language homogeneity (userLanguage=de, language=vi), level gap
+    - Verify series counts, display orders, language homogeneity (userLanguage=vi, language=de), level gap
     - Verify pricing: beginner=19, standard=49
-    - Create `de-vi/README.md`, delete all `create_*.py` scripts
+    - Create `vi-de/README.md`, delete all `create_*.py` scripts
     - _Requirements: 12.1–12.6_
 
-- [ ] 12. Checkpoint — de-vi phase complete
+- [ ] 12. Checkpoint — vi-de phase complete
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 13. Phase 5: fr-en language pair (~138 curriculums: 58 beginner, 51 preintermediate, 29 intermediate)
-  - [ ] 13.1 Create `fr-en/` directory structure and copy shared modules
-    - Create `fr-en/` directory with `validate_content.py` (level-aware), `api_helpers.py`
+- [ ] 13. Phase 5: en-fr language pair (~138 curriculums: 58 beginner, 51 preintermediate, 29 intermediate)
+  - [ ] 13.1 Create `en-fr/` directory structure and copy shared modules
+    - Create `en-fr/` directory with `validate_content.py` (level-aware), `api_helpers.py`
     - _Requirements: 13.3_
 
-  - [ ] 13.2 Create `fr-en/orchestrator.py`
-    - Create 4–5 collections with French titles
-    - Create 22–28 series with French titles and English topic labels where appropriate, descriptions ≤255 chars using assigned tones
+  - [ ] 13.2 Create `en-fr/orchestrator.py`
+    - Create 4–5 collections with English titles
+    - Create 22–28 series with English titles and French topic labels where appropriate, descriptions ≤255 chars using assigned tones
     - Wire series to collections, set display orders
     - Document all tone assignments in comments
     - _Requirements: 6.1–6.8, 8.1–8.4, 8.7_
 
-  - [ ] 13.3 Create beginner curriculum scripts for fr-en (58 scripts)
-    - Hand-crafted French user-facing text, English reading passages, 12 vocab words, 4 sessions, beginner activity order
+  - [ ] 13.3 Create beginner curriculum scripts for en-fr (58 scripts)
+    - Hand-crafted English user-facing text, French reading passages, 12 vocab words, 4 sessions, beginner activity order
     - Validate with `level="beginner"`, set price to 19, difficultyTags: `["beginner"]`
-    - Simple reading passages, French session titles: Partie 1, Partie 2, Révision, Lecture finale
+    - Simple reading passages, English session titles: Part 1, Part 2, Review, Final Reading
+    - API params: `language="fr"`, `userLanguage="en"`
     - _Requirements: 1.5, 2.1–2.7, 4.1–4.8, 5.1–5.10, 7.1–7.8, 8.1–8.6, 9.1–9.5, 10.1–10.4, 14.1, 15.1–15.3_
 
-  - [ ] 13.4 Create preintermediate curriculum scripts for fr-en (51 scripts)
-    - Hand-crafted French user-facing text, English reading passages, 18 vocab words, 5 sessions, standard activity order
+  - [ ] 13.4 Create preintermediate curriculum scripts for en-fr (51 scripts)
+    - Hand-crafted English user-facing text, French reading passages, 18 vocab words, 5 sessions, standard activity order
     - Validate with `level="standard"`, set price to 49, difficultyTags: `["preintermediate"]`
-    - French session titles: Partie 1, Partie 2, Partie 3, Révision, Lecture finale
+    - English session titles: Part 1, Part 2, Part 3, Review, Final Reading
+    - API params: `language="fr"`, `userLanguage="en"`
     - _Requirements: 1.5, 3.1–3.5, 4.1–4.8, 5.1–5.10, 7.1–7.8, 8.1–8.6, 9.1–9.5, 10.1–10.4, 14.2, 15.1–15.3_
 
-  - [ ] 13.5 Create intermediate curriculum scripts for fr-en (29 scripts)
+  - [ ] 13.5 Create intermediate curriculum scripts for en-fr (29 scripts)
     - Same structure as preintermediate but with difficultyTags: `["intermediate"]`
     - Validate with `level="standard"`, set price to 49
     - _Requirements: 1.5, 3.1–3.5, 4.1–4.8, 5.1–5.10, 7.1–7.8, 8.1–8.6, 9.1–9.5, 10.1–10.4, 14.2, 15.1–15.3_
 
-  - [ ] 13.6 Verify fr-en phase and create README
+  - [ ] 13.6 Verify en-fr phase and create README
     - Run duplicate check queries for all 138 curriculum titles
-    - Verify series counts, display orders, language homogeneity (userLanguage=fr, language=en), level gap
+    - Verify series counts, display orders, language homogeneity (userLanguage=en, language=fr), level gap
     - Verify pricing: beginner=19, standard=49
-    - Create `fr-en/README.md`, delete all `create_*.py` scripts
+    - Create `en-fr/README.md`, delete all `create_*.py` scripts
     - _Requirements: 12.1–12.6_
 
-- [ ] 14. Checkpoint — fr-en phase complete
+- [ ] 14. Checkpoint — en-fr phase complete
   - Ensure all tests pass, ask the user if questions arise.
 
 
-- [ ] 15. Phase 6: fr-vi language pair (~141 curriculums: 60 beginner, 55 preintermediate, 26 intermediate)
-  - [ ] 15.1 Create `fr-vi/` directory structure and copy shared modules
-    - Create `fr-vi/` directory with `validate_content.py` (level-aware), `api_helpers.py`
+- [ ] 15. Phase 6: vi-fr language pair (~141 curriculums: 60 beginner, 55 preintermediate, 26 intermediate)
+  - [ ] 15.1 Create `vi-fr/` directory structure and copy shared modules
+    - Create `vi-fr/` directory with `validate_content.py` (level-aware), `api_helpers.py`
     - _Requirements: 13.3_
 
-  - [ ] 15.2 Create `fr-vi/orchestrator.py`
-    - Create 4–5 collections with French titles
-    - Create 23–28 series with French titles and Vietnamese topic labels where appropriate, descriptions ≤255 chars using assigned tones
+  - [ ] 15.2 Create `vi-fr/orchestrator.py`
+    - Create 4–5 collections with Vietnamese titles
+    - Create 23–28 series with Vietnamese titles and French topic labels where appropriate, descriptions ≤255 chars using assigned tones
     - Wire series to collections, set display orders
     - Document all tone assignments in comments
     - _Requirements: 6.1–6.8, 8.1–8.4, 8.7_
 
-  - [ ] 15.3 Create beginner curriculum scripts for fr-vi (60 scripts)
-    - Hand-crafted French user-facing text, Vietnamese reading passages, 12 vocab words, 4 sessions, beginner activity order
+  - [ ] 15.3 Create beginner curriculum scripts for vi-fr (60 scripts)
+    - Hand-crafted Vietnamese user-facing text, French reading passages, 12 vocab words, 4 sessions, beginner activity order
     - Validate with `level="beginner"`, set price to 19, difficultyTags: `["beginner"]`
-    - French session titles: Partie 1, Partie 2, Révision, Lecture finale
+    - Vietnamese session titles: Phần 1, Phần 2, Ôn tập, Đọc tổng hợp
+    - API params: `language="fr"`, `userLanguage="vi"`
     - _Requirements: 1.6, 2.1–2.7, 4.1–4.8, 5.1–5.10, 7.1–7.8, 8.1–8.6, 9.1–9.5, 10.1–10.4, 14.1, 15.1–15.3_
 
-  - [ ] 15.4 Create preintermediate curriculum scripts for fr-vi (55 scripts)
-    - Hand-crafted French user-facing text, Vietnamese reading passages, 18 vocab words, 5 sessions, standard activity order
+  - [ ] 15.4 Create preintermediate curriculum scripts for vi-fr (55 scripts)
+    - Hand-crafted Vietnamese user-facing text, French reading passages, 18 vocab words, 5 sessions, standard activity order
     - Validate with `level="standard"`, set price to 49, difficultyTags: `["preintermediate"]`
-    - French session titles: Partie 1, Partie 2, Partie 3, Révision, Lecture finale
+    - Vietnamese session titles: Phần 1, Phần 2, Phần 3, Ôn tập, Đọc tổng hợp
+    - API params: `language="fr"`, `userLanguage="vi"`
     - _Requirements: 1.6, 3.1–3.5, 4.1–4.8, 5.1–5.10, 7.1–7.8, 8.1–8.6, 9.1–9.5, 10.1–10.4, 14.2, 15.1–15.3_
 
-  - [ ] 15.5 Create intermediate curriculum scripts for fr-vi (26 scripts)
+  - [ ] 15.5 Create intermediate curriculum scripts for vi-fr (26 scripts)
     - Same structure as preintermediate but with difficultyTags: `["intermediate"]`
     - Validate with `level="standard"`, set price to 49
     - _Requirements: 1.6, 3.1–3.5, 4.1–4.8, 5.1–5.10, 7.1–7.8, 8.1–8.6, 9.1–9.5, 10.1–10.4, 14.2, 15.1–15.3_
 
-  - [ ] 15.6 Verify fr-vi phase and create README
+  - [ ] 15.6 Verify vi-fr phase and create README
     - Run duplicate check queries for all 141 curriculum titles
-    - Verify series counts, display orders, language homogeneity (userLanguage=fr, language=vi), level gap
+    - Verify series counts, display orders, language homogeneity (userLanguage=vi, language=fr), level gap
     - Verify pricing: beginner=19, standard=49
-    - Create `fr-vi/README.md`, delete all `create_*.py` scripts
+    - Create `vi-fr/README.md`, delete all `create_*.py` scripts
     - _Requirements: 12.1–12.6_
 
 - [ ] 16. Final checkpoint — All phases complete
   - Ensure all tests pass, ask the user if questions arise.
   - Verify total curriculum count across all 6 language pairs (~773)
   - Verify all READMEs are in place and all creation scripts are deleted
-  - Verify parity with en-vi reference pair: ≥60 beginner, ≥59 preintermediate, ≥63 intermediate per pair
+  - Verify parity with vi-en reference pair: ≥60 beginner, ≥59 preintermediate, ≥63 intermediate per pair
 
 ## Notes
 
@@ -360,9 +378,9 @@ Create ~773 curriculums across 6 bilingual language pairs (zh-vi, zh-en, de-en, 
 - Property tests validate the content validator (Properties 1–10) and tone assigner (Properties 11–13) from the design
 - The `validate_content.py` is extended with level-aware support and copied to each language pair directory
 - The root-level `api_helpers.py` already has `set_price` — no changes needed, just copy to each pair directory
-- Phased execution order: zh-vi → zh-en → de-en → de-vi → fr-en → fr-vi (Chinese pairs first, then German, then French)
+- Phased execution order: vi-zh → en-zh → en-de → vi-de → en-fr → vi-fr (Chinese pairs first, then German, then French)
 - All curriculum content must be hand-crafted — no template-based generation
 - Beginner curriculums: 4 sessions, 12 words, no writingParagraph/vocabLevel3, price 19
 - Standard curriculums (preintermediate/intermediate): 5 sessions, 18 words, full activity set, price 49
 - Within each phase, create beginner curriculums first, then preintermediate, then intermediate
-- Session titles by user language: zh (第1部分, 复习, 综合阅读), de (Teil 1, Wiederholung, Abschlusslektüre), fr (Partie 1, Révision, Lecture finale)
+- Session titles by user language: vi (Phần 1, Ôn tập, Đọc tổng hợp), en (Part 1, Review, Final Reading)
