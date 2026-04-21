@@ -10,12 +10,11 @@ rclone sync "$SCRIPT_DIR" cloudflare:nspaceresearch-crm \
   --log-file="$LOG" --log-level INFO
 echo "[$(date -Iseconds)] R2 sync complete." >> "$LOG"
 
-# Git add, commit, push
-GIT_ROOT="$(git -C "$SCRIPT_DIR" rev-parse --show-toplevel)"
-cd "$GIT_ROOT"
-git add -A
+# Git add, commit, push (only this directory)
+cd "$SCRIPT_DIR"
+git add -- "$SCRIPT_DIR"
 git diff --cached --quiet || {
-  git commit -m "auto-sync $(date -Iseconds)"
+  git commit -m "auto-sync crm $(date -Iseconds)"
   git push origin master
 }
 echo "[$(date -Iseconds)] Git push complete." >> "$LOG"
