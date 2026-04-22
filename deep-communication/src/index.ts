@@ -7,6 +7,7 @@ import { listsRouter } from "./routes/lists";
 import { subscribersRouter } from "./routes/subscribers";
 import { campaignsRouter } from "./routes/campaigns";
 import { sendsRouter } from "./routes/sends";
+import { queryRouter } from "./routes/query";
 import { viewRouter } from "./routes/view";
 import { unsubscribeRouter } from "./routes/unsubscribe";
 
@@ -23,6 +24,7 @@ app.route("/api", listsRouter);
 app.route("/api", subscribersRouter);
 app.route("/api", campaignsRouter);
 app.route("/api", sendsRouter);
+app.route("/api", queryRouter);
 
 // Public route groups
 app.route("/", viewRouter);
