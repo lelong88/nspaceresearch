@@ -84,6 +84,65 @@ subscribersRouter.get("/lists/:id/subscribers", async (c) => {
   }
 });
 
+// POST /lists/:id/subscribers/bulk — Bulk add subscribers to a list
+subscribersRouter.post("/lists/:id/subscribers/bulk", async (c) => {
+  let body: unknown;
+  try {
+    body = await c.req.json();
+  } catch {
+    return c.json({ error: "Invalid JSON" }, 400);
+  }
+
+  const { emails } = body as Record<string, unknown>;
+
+  if (!Array.isArray(emails) || emails.length === 0) {
+    return c.json({ error: "emails array is required" }, 400);
+  }
+
+  if (emails.length > 500) {
+    return c.json({ error: "Maximum 500 emails per request" }, 400);
+  }
+
+  const validEmails = emails.filter(
+    (e): e is string => typeof e === "string" && e.trim() !== ""
+  );
+
+  if (validEmails.length === 0) {
+    return c.json({ error: "No valid emails provided" }, 400);
+  }
+
+  const listId = c.req.param("id");
+  const client = await getClient(c.env);
+  try {
+    // Check list exists
+    const listResult = await client.query(
+      "SELECT id FROM email_list WHERE id = $1",
+      [listId]
+    );
+    if (listResult.rows.length === 0) {
+      return c.json({ error: "List not found" }, 404);
+    }
+
+    // Bulk insert, skip duplicates
+    const placeholders = validEmails
+      .map((_, idx) => `($${idx + 1}, ${parseInt(listId)}, 'subscribed', NOW())`)
+      .join(", ");
+
+    const sql = `INSERT INTO email_list_subscriber (email, email_list_id, status, subscribed_at)
+VALUES ${placeholders}
+ON CONFLICT (email, email_list_id) DO NOTHING`;
+
+    const result = await client.query(sql, validEmails);
+
+    return c.json(
+      { inserted: result.rowCount, total: validEmails.length },
+      201
+    );
+  } finally {
+    await client.end();
+  }
+});
+
 // DELETE /lists/:id/subscribers/:subscriberId — Remove a subscriber
 subscribersRouter.delete("/lists/:id/subscribers/:subscriberId", async (c) => {
   const listId = c.req.param("id");

@@ -1,6 +1,14 @@
 # Project Structure
 
 ```
+campaigns/
+├── header.html           # Shared email header template (logo, wordmark, tagline)
+├── promo.html            # Optional app download + social links (include per campaign)
+├── footer.html           # Shared email footer (unsubscribe, view in browser, legal)
+└── {email-name}/         # One directory per email (bulk campaign or personal)
+    ├── README.md         # Metadata: type, target, send date, status, notes
+    └── body.html         # Email body template (supports {{variable}} placeholders)
+
 src/
 ├── index.ts              # App entrypoint — mounts middleware and route groups
 ├── types.ts              # Shared TypeScript interfaces (Env, domain models)
