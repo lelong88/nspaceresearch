@@ -103,12 +103,12 @@ Implementation follows a phased approach: extend shared modules for beginner sup
 - [x] 4. Checkpoint — Ensure shared modules are correct
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 5. Phase 1: vi-zh language pair (~79 curriculums: 31 beginner, 22 preintermediate, 26 intermediate)
-  - [ ] 5.1 Create `vi-zh/` directory structure and copy shared modules
+- [x] 5. Phase 1: vi-zh language pair (~79 curriculums: 31 beginner, 22 preintermediate, 26 intermediate)
+  - [x] 5.1 Create `vi-zh/` directory structure and copy shared modules
     - Create `vi-zh/` directory with `validate_content.py` (level-aware), `api_helpers.py`
     - _Requirements: 13.3_
 
-  - [ ] 5.2 Create `vi-zh/orchestrator.py`
+  - [x] 5.2 Create `vi-zh/orchestrator.py`
     - Create 3–4 collections with Vietnamese titles
     - Create 12–16 series with Vietnamese titles and Chinese topic labels where appropriate, descriptions ≤255 chars using assigned tones
     - Wire series to collections, set display orders for series and collections
@@ -118,7 +118,7 @@ Implementation follows a phased approach: extend shared modules for beginner sup
     - Log all collection/series IDs to stdout
     - _Requirements: 6.1–6.8, 8.1–8.4, 8.7_
 
-  - [ ] 5.3 Create beginner curriculum scripts for vi-zh (31 scripts)
+  - [x] 5.3 Create beginner curriculum scripts for vi-zh (31 scripts)
     - Create `create_*.py` for each of the 31 beginner curriculums
     - Each script: hand-crafted Vietnamese user-facing text (persuasive copy with tone-assigned ALL-CAPS headline), Chinese reading passages, 12 vocabulary words (6 per learning session), 4 sessions with correct beginner activity order (no writingParagraph, no vocabLevel3)
     - Validate via `validate_content.py` with `level="beginner"` before upload
@@ -131,7 +131,7 @@ Implementation follows a phased approach: extend shared modules for beginner sup
     - API params: `language="zh"`, `userLanguage="vi"`
     - _Requirements: 1.1, 2.1–2.7, 4.1–4.8, 5.1–5.10, 7.1–7.8, 8.1–8.6, 9.1–9.5, 10.1–10.4, 14.1, 15.1–15.3_
 
-  - [ ] 5.4 Create preintermediate curriculum scripts for vi-zh (22 scripts)
+  - [x] 5.4 Create preintermediate curriculum scripts for vi-zh (22 scripts)
     - Create `create_*.py` for each of the 22 preintermediate curriculums
     - Each script: hand-crafted Vietnamese user-facing text, Chinese reading passages, 18 vocabulary words (6 per learning session), 5 sessions with correct standard activity order (includes vocabLevel3, writingParagraph in final session)
     - Validate via `validate_content.py` with `level="standard"` before upload
@@ -141,14 +141,14 @@ Implementation follows a phased approach: extend shared modules for beginner sup
     - API params: `language="zh"`, `userLanguage="vi"`
     - _Requirements: 1.1, 3.1–3.5, 4.1–4.8, 5.1–5.10, 7.1–7.8, 8.1–8.6, 9.1–9.5, 10.1–10.4, 14.2, 15.1–15.3_
 
-  - [ ] 5.5 Create intermediate curriculum scripts for vi-zh (26 scripts)
+  - [x] 5.5 Create intermediate curriculum scripts for vi-zh (26 scripts)
     - Create `create_*.py` for each of the 26 intermediate curriculums
     - Same structure as preintermediate but with difficultyTags: `["intermediate"]`
     - Validate via `validate_content.py` with `level="standard"` before upload
     - Set price to 49 via `set_price`
     - _Requirements: 1.1, 3.1–3.5, 4.1–4.8, 5.1–5.10, 7.1–7.8, 8.1–8.6, 9.1–9.5, 10.1–10.4, 14.2, 15.1–15.3_
 
-  - [ ] 5.6 Verify vi-zh phase and create README
+  - [x] 5.6 Verify vi-zh phase and create README
     - Run duplicate check queries for all 79 curriculum titles
     - Verify each series has the expected number of curriculums with correct display orders
     - Verify language homogeneity via `curriculum_series_language_list` view (userLanguage=vi, language=zh)
@@ -158,10 +158,10 @@ Implementation follows a phased approach: extend shared modules for beginner sup
     - Delete all `create_*.py` scripts after verification
     - _Requirements: 12.1–12.6_
 
-- [ ] 6. Checkpoint — vi-zh phase complete
+- [x] 6. Checkpoint — vi-zh phase complete
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 7. Phase 2: en-zh language pair (~111 curriculums: 60 beginner, 23 preintermediate, 28 intermediate)
+- [-] 7. Phase 2: en-zh language pair (~111 curriculums: 60 beginner, 23 preintermediate, 28 intermediate)
   - [ ] 7.1 Create `en-zh/` directory structure and copy shared modules
     - Create `en-zh/` directory with `validate_content.py` (level-aware), `api_helpers.py`
     - _Requirements: 13.3_
@@ -199,10 +199,10 @@ Implementation follows a phased approach: extend shared modules for beginner sup
     - Create `en-zh/README.md`, delete all `create_*.py` scripts
     - _Requirements: 12.1–12.6_
 
-- [ ] 8. Checkpoint — en-zh phase complete
+- [~] 8. Checkpoint — en-zh phase complete
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 9. Phase 3: en-de language pair (~149 curriculums: 59 beginner, 52 preintermediate, 38 intermediate)
+- [~] 9. Phase 3: en-de language pair (~149 curriculums: 59 beginner, 52 preintermediate, 38 intermediate)
   - [ ] 9.1 Create `en-de/` directory structure and copy shared modules
     - Create `en-de/` directory with `validate_content.py` (level-aware), `api_helpers.py`
     - _Requirements: 13.3_
@@ -240,10 +240,10 @@ Implementation follows a phased approach: extend shared modules for beginner sup
     - Create `en-de/README.md`, delete all `create_*.py` scripts
     - _Requirements: 12.1–12.6_
 
-- [ ] 10. Checkpoint — en-de phase complete
+- [~] 10. Checkpoint — en-de phase complete
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 11. Phase 4: vi-de language pair (~155 curriculums: 60 beginner, 56 preintermediate, 39 intermediate)
+- [~] 11. Phase 4: vi-de language pair (~155 curriculums: 60 beginner, 56 preintermediate, 39 intermediate)
   - [ ] 11.1 Create `vi-de/` directory structure and copy shared modules
     - Create `vi-de/` directory with `validate_content.py` (level-aware), `api_helpers.py`
     - _Requirements: 13.3_
@@ -281,10 +281,10 @@ Implementation follows a phased approach: extend shared modules for beginner sup
     - Create `vi-de/README.md`, delete all `create_*.py` scripts
     - _Requirements: 12.1–12.6_
 
-- [ ] 12. Checkpoint — vi-de phase complete
+- [~] 12. Checkpoint — vi-de phase complete
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 13. Phase 5: en-fr language pair (~138 curriculums: 58 beginner, 51 preintermediate, 29 intermediate)
+- [~] 13. Phase 5: en-fr language pair (~138 curriculums: 58 beginner, 51 preintermediate, 29 intermediate)
   - [ ] 13.1 Create `en-fr/` directory structure and copy shared modules
     - Create `en-fr/` directory with `validate_content.py` (level-aware), `api_helpers.py`
     - _Requirements: 13.3_
@@ -322,11 +322,11 @@ Implementation follows a phased approach: extend shared modules for beginner sup
     - Create `en-fr/README.md`, delete all `create_*.py` scripts
     - _Requirements: 12.1–12.6_
 
-- [ ] 14. Checkpoint — en-fr phase complete
+- [~] 14. Checkpoint — en-fr phase complete
   - Ensure all tests pass, ask the user if questions arise.
 
 
-- [ ] 15. Phase 6: vi-fr language pair (~141 curriculums: 60 beginner, 55 preintermediate, 26 intermediate)
+- [~] 15. Phase 6: vi-fr language pair (~141 curriculums: 60 beginner, 55 preintermediate, 26 intermediate)
   - [ ] 15.1 Create `vi-fr/` directory structure and copy shared modules
     - Create `vi-fr/` directory with `validate_content.py` (level-aware), `api_helpers.py`
     - _Requirements: 13.3_
@@ -364,7 +364,7 @@ Implementation follows a phased approach: extend shared modules for beginner sup
     - Create `vi-fr/README.md`, delete all `create_*.py` scripts
     - _Requirements: 12.1–12.6_
 
-- [ ] 16. Final checkpoint — All phases complete
+- [~] 16. Final checkpoint — All phases complete
   - Ensure all tests pass, ask the user if questions arise.
   - Verify total curriculum count across all 6 language pairs (~773)
   - Verify all READMEs are in place and all creation scripts are deleted
