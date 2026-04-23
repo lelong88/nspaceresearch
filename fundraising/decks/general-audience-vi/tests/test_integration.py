@@ -86,12 +86,15 @@ def stubbed_assets(monkeypatch):
     fake = _FakeR2()
     monkeypatch.setattr(assets, "_r2_client", lambda: fake)
 
-    # All three illustration helpers share the same underlying cache
-    # function. Stub the top-level helpers so caching is bypassed and no
-    # Vertex calls are made.
+    # All illustration and vendored-asset helpers share the same
+    # underlying bytes return. Stub every helper the deck builders might
+    # pull from so no Vertex calls are made and no vendor_assets/ file
+    # needs to exist on CI.
     monkeypatch.setattr(assets, "slide_1_illustration", lambda: _stub_illustration(""))
     monkeypatch.setattr(assets, "slide_4_illustration", lambda: _stub_illustration(""))
-    monkeypatch.setattr(assets, "slide_7_illustration", lambda: _stub_illustration(""))
+    monkeypatch.setattr(assets, "hero_image_png", lambda: _stub_illustration(""))
+    monkeypatch.setattr(assets, "appstore_badge_png", lambda: _stub_illustration(""))
+    monkeypatch.setattr(assets, "playstore_badge_png", lambda: _stub_illustration(""))
 
     return fake
 

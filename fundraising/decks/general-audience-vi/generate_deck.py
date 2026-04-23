@@ -129,9 +129,8 @@ SLIDES: list[dict] = [
         "closing": None,
         "visual": {"kind": "lyric_motif", "params": {}},
         "notes": (
-            "Hãy bắt đầu bằng một cảm giác quen thuộc. "
-            "Rất nhiều người học tiếng Anh nhiều năm nhưng vẫn thấy ngôn ngữ ở rất xa. "
-            "Slide này mở ra câu hỏi: tại sao lại như vậy?"
+            "Step là nơi bạn học ngoại ngữ theo cách mới — không mày mò nhiều năm rồi mới hi vọng dùng được. "
+            "Bạn vừa học vừa dùng ngoại ngữ để tiếp cận những kiến thức thú vị, ngay từ ngày đầu."
         ),
     },
     {
@@ -147,9 +146,9 @@ SLIDES: list[dict] = [
         "closing": None,
         "visual": {"kind": "accent_bar_only", "params": {}},
         "notes": (
-            "Slide này gọi tên vấn đề thật sự phía sau việc học tiếng Anh không hiệu quả. "
-            "Không phải người học lười, mà là phương pháp tách rời khỏi thứ họ yêu. "
-            "Khi học không gắn với cuộc sống, người học khó giữ được động lực."
+            "Cách học cũ tách người học khỏi nội dung họ thật sự yêu. "
+            "Khi ngôn ngữ không gắn với điều mình quan tâm, động lực tắt rất nhanh. "
+            "Step chọn con đường ngược lại: gắn ngôn ngữ với nội dung người học muốn sống cùng."
         ),
     },
     {
@@ -165,9 +164,9 @@ SLIDES: list[dict] = [
         "closing": None,
         "visual": {"kind": "reframe_block", "params": {}},
         "notes": (
-            "Đây là khoảnh khắc giới thiệu Step qua một cú đổi góc nhìn. "
-            "Thay vì hỏi phương pháp nào, Step hỏi bạn muốn sống cùng nội dung gì. "
-            "Toàn bộ ứng dụng được xây quanh câu trả lời của chính bạn."
+            "Ở trình độ cơ bản, bạn học qua những câu chuyện và chủ đề đơn giản. "
+            "Lên trình độ cao hơn, bạn tiếp cận những ý tưởng hay và sâu sắc. "
+            "Điều quan trọng: trong suốt quá trình, bạn luôn đang sử dụng ngoại ngữ chứ không chỉ học về nó."
         ),
     },
     {
@@ -185,9 +184,9 @@ SLIDES: list[dict] = [
         "closing": "Bạn không chỉ học tiếng Anh — bạn đang sống cùng bài hát mình yêu.",
         "visual": {"kind": "activity_grid", "params": {}},
         "notes": (
-            "Đây là phần trình diễn cụ thể của Step trên một bài hát thật. "
-            "Năm hoạt động gắn liền với nhau quanh lời bài hát, không phải các bài tập rời rạc. "
-            "Kết quả là người học sống cùng bài hát chứ không chỉ thuộc từ vựng."
+            "Tôi tên là Long Lê. Tôi xây Step vì với tôi, ngoại ngữ không chỉ là công cụ — nó là một cánh cửa ẩn giấu những câu chuyện và kiến thức sâu sắc. "
+            "Ví dụ từ 'decision': gốc Latin nghĩa đen là 'cắt bỏ' — người ta chỉ thật sự quyết định khi sẵn sàng đánh mất một điều gì đó quan trọng. "
+            "Nếu ai đó dịch sẵn cho tôi, tôi sẽ mất câu chuyện đằng sau từ ấy — và câu chuyện mới là cánh cửa."
         ),
     },
     {
@@ -202,9 +201,9 @@ SLIDES: list[dict] = [
         "closing": None,
         "visual": {"kind": "insight_mark", "params": {}},
         "notes": (
-            "Slide này giải thích vì sao cách học qua nội dung yêu thích lại hiệu quả sâu. "
-            "Khi hiểu thế giới quan phía sau từng từ, bạn không còn học thuộc mà đang cảm. "
-            "Học ngoại ngữ vì thế trở thành một hành trình mở rộng chính mình."
+            "Mỗi từ trong một ngôn ngữ mang theo một thế giới quan riêng. "
+            "Bên trong 'decision' là lòng can đảm, sự chịu đựng mất mát và cảm xúc — không chỉ là 'sự quyết định' đơn thuần. "
+            "Khi hiểu được điều đó, ngoại ngữ trở thành cánh cửa bước sang một thế giới quan khác, và đó là lý do tôi học ngoại ngữ."
         ),
     },
     {
@@ -233,9 +232,9 @@ SLIDES: list[dict] = [
         "closing": None,
         "visual": {"kind": "icon_bullets", "params": {}},
         "notes": (
-            "Slide này tóm gọn bốn điểm làm nên sự khác biệt của Step. "
-            "Mỗi ô trả lời một câu hỏi ngầm của người học về công nghệ, nội dung, trải nghiệm và động lực. "
-            "Đây là lý do để chọn Step thay vì một ứng dụng học tiếng Anh thông thường."
+            "Step không làm cho việc học trở nên dễ dàng — trong thời đại AI, học vẫn luôn là một quá trình đầy khó khăn và cần nhiều nỗ lực. "
+            "Học là mang những điều bên ngoài chuyển hoá thành bên trong, và quá trình ấy cần sự tự vận động của chính người học. "
+            "Điều Step hứa là luôn nuôi dưỡng sự tò mò và động lực tự thân — nền tảng để tiến bộ lâu dài."
         ),
     },
     {
@@ -250,9 +249,9 @@ SLIDES: list[dict] = [
         "closing": None,
         "visual": {"kind": "qr_block", "params": {}},
         "notes": (
-            "Đây là lời mời khép lại buổi chia sẻ. "
-            "Không thúc ép, chỉ gợi ý người xem bắt đầu từ nội dung họ đã yêu sẵn. "
-            "Địa chỉ https://step.is/vi giúp họ dễ dàng tìm lại sau hội chợ."
+            "Câu nói tôi yêu thích trong giáo dục: 'Giáo dục không phải là đổ đầy một cái bình, mà là thắp lên một ngọn lửa'. "
+            "Tôi hi vọng Step trở thành một phần của ngọn lửa đó bên trong bạn. "
+            "Tải ứng dụng, hoặc ghé https://step.is/vi để bắt đầu."
         ),
     },
 ]
@@ -1362,11 +1361,12 @@ def build_slide_7_cta(prs) -> None:
         upper band of the slide (Req 10.1)
       - centered italic sub-text (22 pt, body color) directly below the
         headline (Req 10.2)
-      - the real ``step-logo.svg`` rasterized to the lower-left, paired with
+      - the real Step logo rasterized to the lower-left, paired with
         the brand mark ``Step`` and a next-step line that includes the URL
         ``https://step.is/vi`` (Req 10.3)
-      - a closing illustration on the lower-right (replaces the earlier
-        QR placeholder since the URL carries the CTA directly)
+      - the real App Store and Google Play download badges stacked on
+        the lower-right (replaces the earlier QR placeholder since the
+        badges + URL carry the CTA directly)
       - 2–3 sentence Vietnamese speaker notes
 
     The headline is phrased as an invitation rather than a demand per
@@ -1451,17 +1451,27 @@ def build_slide_7_cta(prs) -> None:
         align="left",
     )
 
-    # Closing illustration on the lower-right — a warm editorial vignette
-    # generated via Vertex. Replaces the earlier QR placeholder region.
-    from assets import slide_7_illustration
+    # App-store badges on the lower-right — real Apple App Store and
+    # Google Play badges vendored from https://step.is/assets/. Stacked
+    # vertically at ~2.1 inches wide (badges are ~3:1 aspect ratio, so
+    # each lands at roughly 2.1 × 0.7 inches). Replaces the earlier QR
+    # placeholder and the Vertex closing image since the badges + URL
+    # already carry the CTA directly.
+    from assets import appstore_badge_png, playstore_badge_png
 
     add_picture(
         slide,
-        slide_7_illustration(),
+        appstore_badge_png(),
         left_in=10.6,
-        top_in=5.1,
+        top_in=5.2,
         width_in=2.1,
-        height_in=2.1,
+    )
+    add_picture(
+        slide,
+        playstore_badge_png(),
+        left_in=10.6,
+        top_in=6.05,
+        width_in=2.1,
     )
 
     # Speaker notes.

@@ -65,6 +65,26 @@ spec unless a deck's own spec explicitly overrides them.
   `output_height` large enough to stay crisp at the embed size (256–512
   px is typical).
 
+## Prefer real product assets over generated illustrations
+
+- Before generating anything via Vertex, check whether a real asset on
+  `https://step.is/assets/` already fits the slot. Canonical assets
+  include `logo.svg`, `hero-image.png`, `appstore.png`, `playstore.png`,
+  and `zalo.png`. If an asset fits, use it — don't re-imagine it.
+- Download real assets once via `curl` and vendor them inside the deck
+  directory at `decks/<feature>/vendor_assets/`. Commit the vendored
+  copies so builds are reproducible without re-fetching on every run.
+- Expose each vendored asset through a dedicated byte-loader in
+  `assets.py` (e.g., `hero_image_png()`, `appstore_badge_png()`,
+  `playstore_badge_png()`). Builders consume these helpers via
+  `add_picture(slide, helper(), ...)`.
+- On the CTA slide, always include both App Store and Google Play
+  badges (stacked or side-by-side) alongside the product URL — the
+  badges carry more recognition than the URL alone.
+- Reserve Vertex generation for slots where no real asset exists (e.g.,
+  a conceptual mood image for a worked example). Document the Vertex
+  prompt and cache key in `assets.py` so re-runs don't re-bill.
+
 ## CTA on the closing slide
 
 - **Never include a QR code** — decks ship with a text URL only.
@@ -81,7 +101,8 @@ decks/<feature>/
 ├── generate_deck.py     # builds the Presentation, calls assets.upload_pptx
 ├── assets.py            # SVG rasterize, Vertex wrappers, R2 uploader
 ├── tests/               # pytest suite (see below)
-└── .asset_cache/        # generated images, gitignored
+├── vendor_assets/       # real assets downloaded from step.is, committed
+└── .asset_cache/        # generated images (Vertex output), gitignored
 ```
 
 `generate_deck.py` stays a pure composition layer — it imports from

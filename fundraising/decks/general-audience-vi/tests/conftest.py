@@ -68,13 +68,22 @@ def _stub_illustrations(generator):
     actual artwork — they care about deck structure, text content, and
     upload semantics. This fixture replaces each illustration helper
     with a tiny valid PNG so slide builds stay fast and offline.
+
+    Note: ``slide_1_illustration`` now returns the real vendored hero
+    image (no Vertex call), and ``slide_7_illustration`` has been
+    removed in favour of real app-store badges — so only
+    ``slide_4_illustration`` still hits Vertex on cache miss. The other
+    two real-asset paths are still stubbed here so tests don't rely on
+    the vendor_assets/ files being present on CI checkouts.
     """
     import assets  # lazy import so the generator fixture can add to sys.path
 
     with (
         patch.object(assets, "slide_1_illustration", return_value=_TINY_PNG),
         patch.object(assets, "slide_4_illustration", return_value=_TINY_PNG),
-        patch.object(assets, "slide_7_illustration", return_value=_TINY_PNG),
+        patch.object(assets, "hero_image_png", return_value=_TINY_PNG),
+        patch.object(assets, "appstore_badge_png", return_value=_TINY_PNG),
+        patch.object(assets, "playstore_badge_png", return_value=_TINY_PNG),
     ):
         yield
 

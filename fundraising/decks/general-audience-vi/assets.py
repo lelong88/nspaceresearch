@@ -39,6 +39,14 @@ _CACHE_DIR.mkdir(exist_ok=True)
 
 _LOGO_SVG = _WORKSPACE_ROOT / "step-logo.svg"
 
+# Real product assets downloaded from https://step.is/assets/ and stored
+# in-repo so builds are reproducible without re-fetching on every run.
+_VENDOR_DIR = _DECK_DIR / "vendor_assets"
+_HERO_IMAGE = _VENDOR_DIR / "hero-image.png"
+_APPSTORE_BADGE = _VENDOR_DIR / "appstore.png"
+_PLAYSTORE_BADGE = _VENDOR_DIR / "playstore.png"
+_VENDOR_LOGO_SVG = _VENDOR_DIR / "logo.svg"
+
 # R2 / public CDN
 _BUCKET = "step-pitch-decks"
 _PUBLIC_DOMAIN = "slides.nspace.is"
@@ -50,24 +58,45 @@ load_dotenv(_WORKSPACE_ROOT / ".env", override=False)
 # Logo rasterization
 # ---------------------------------------------------------------------------
 def render_logo_png(height_px: int = 256) -> bytes:
-    """Render ``step-logo.svg`` to a PNG byte string at the given pixel height.
+    """Render the Step logo SVG to a PNG byte string at the given pixel height.
 
-    The source SVG has a viewBox of roughly 1280×1280 with centered glyphs;
-    cairosvg preserves aspect ratio given only a height. Cached on first
-    call and returned from memory thereafter.
+    Prefers ``decks/general-audience-vi/vendor_assets/logo.svg`` (the
+    canonical brand asset downloaded from https://step.is/assets/logo.svg)
+    and falls back to the workspace-root ``step-logo.svg`` if the vendor
+    copy is missing. Cached on disk after the first call so subsequent
+    calls return instantly.
     """
     cache_key = f"logo_h{height_px}.png"
     cached = _CACHE_DIR / cache_key
     if cached.exists():
         return cached.read_bytes()
 
-    svg_bytes = _LOGO_SVG.read_bytes()
+    src = _VENDOR_LOGO_SVG if _VENDOR_LOGO_SVG.exists() else _LOGO_SVG
+    svg_bytes = src.read_bytes()
     png_bytes = cairosvg.svg2png(
         bytestring=svg_bytes,
         output_height=height_px,
     )
     cached.write_bytes(png_bytes)
     return png_bytes
+
+
+# ---------------------------------------------------------------------------
+# Real product assets (vendored from https://step.is/assets/)
+# ---------------------------------------------------------------------------
+def hero_image_png() -> bytes:
+    """Return the app hero/screenshot PNG as bytes. 512×512, RGBA."""
+    return _HERO_IMAGE.read_bytes()
+
+
+def appstore_badge_png() -> bytes:
+    """Return the Apple App Store download badge as bytes. ~500×176 PNG."""
+    return _APPSTORE_BADGE.read_bytes()
+
+
+def playstore_badge_png() -> bytes:
+    """Return the Google Play 'Get it on' badge as bytes. ~500×156 PNG."""
+    return _PLAYSTORE_BADGE.read_bytes()
 
 
 # ---------------------------------------------------------------------------
@@ -124,19 +153,12 @@ def generate_illustration(prompt: str, aspect_ratio: str = "4:3") -> bytes:
 # ---------------------------------------------------------------------------
 # Deck-specific illustration prompts
 # ---------------------------------------------------------------------------
-# Each prompt targets the warm neutral + deep-teal palette used in the deck
-# and avoids stock-photo language-learning clichés (Req 11.6). Prompts are
-# stable strings so the cache key stays consistent across runs.
-
-_PROMPT_SLIDE_1 = (
-    "Warm editorial illustration on a cream #FAF7F2 background. A young "
-    "Vietnamese adult seen from the shoulders up, eyes softly closed, "
-    "wearing simple over-ear headphones. Faint hand-drawn lyric lines in "
-    "English drift around them like ribbons — not legible, just the shapes "
-    "of typewritten lines. Muted deep-teal and soft coral accents, no logos, "
-    "no text, no flags, no headsets-in-front-of-flags cliché. Minimal, "
-    "contemplative mood. Flat vector look with subtle grain."
-)
+# Slides 1 and 7 use the real product assets vendored under
+# ``vendor_assets/`` (hero screenshot + app-store badges + logo) — no Vertex
+# generation needed. Slide 4 still calls Vertex for a mood image of the
+# 'Heal the World' example since no real asset fits that slot. The prompt
+# is stable so the cache key stays consistent across runs (Req 11.6: avoid
+# stock-photo language-learning clichés).
 
 _PROMPT_SLIDE_4 = (
     "Warm editorial illustration on a cream #FAF7F2 background. A pair of "
@@ -146,27 +168,15 @@ _PROMPT_SLIDE_4 = (
     "Minimal, hopeful, editorial flat-vector style."
 )
 
-_PROMPT_SLIDE_7 = (
-    "Warm editorial illustration on a cream #FAF7F2 background. An open "
-    "book transforming into a door of light, with a silhouette of a person "
-    "stepping toward it. Soft coral and deep-teal accents. Minimal, "
-    "inviting, no text, no logos, flat-vector illustration style."
-)
-
 
 def slide_1_illustration() -> bytes:
-    """Lyric-listener illustration for Slide 1 (hook). Cached after first run."""
-    return generate_illustration(_PROMPT_SLIDE_1, aspect_ratio="4:3")
+    """Slide 1 lead visual — the real app hero image vendored from step.is."""
+    return hero_image_png()
 
 
 def slide_4_illustration() -> bytes:
     """'Heal the World' mood image for Slide 4. Cached after first run."""
     return generate_illustration(_PROMPT_SLIDE_4, aspect_ratio="4:3")
-
-
-def slide_7_illustration() -> bytes:
-    """Closing-invitation image for Slide 7 (CTA). Cached after first run."""
-    return generate_illustration(_PROMPT_SLIDE_7, aspect_ratio="1:1")
 
 
 # ---------------------------------------------------------------------------
