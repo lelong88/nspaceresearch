@@ -41,12 +41,7 @@ website_urls = {
     "vi": "https://step.is/vi",
 }
 
-ZALO_LINK_HTML = """<td style="color:#d1d5db;font-size:13px;">·</td>
-                  <td style="padding:0 8px;">
-                    <a href="https://zalo.me/84777702166" target="_blank" style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;font-size:13px;color:#6b7280;text-decoration:none;">
-                      Zalo
-                    </a>
-                  </td>"""
+ZALO_LINK_HTML = ""  # kept for reference; no longer used in promo.html
 
 # ── Test body ────────────────────────────────────────────────
 body = f"""
@@ -77,9 +72,7 @@ header_rendered = header.replace("{{tagline}}", taglines[lang])
 
 promo_rendered = ""
 if include_promo:
-    promo_rendered = promo
-    promo_rendered = promo_rendered.replace("{{website_url}}", website_urls[lang])
-    promo_rendered = promo_rendered.replace("{{zalo_link}}", ZALO_LINK_HTML if lang == "vi" else "")
+    promo_rendered = promo.replace("{{website_url}}", website_urls[lang])
 
 footer_rendered = footer.replace("{{unsubscribe_url}}", "#unsubscribe-test")
 
