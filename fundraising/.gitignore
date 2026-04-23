@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Secrets & local env
+.env
+
+# Deck pipeline
+# Built decks live in R2 (bucket: step-pitch-decks, CDN: slides.nspace.is),
+# never on local disk — see .kiro/steering/deck-pipeline.md.
+decks/**/*.pptx
+decks/**/.asset_cache/
+
+# Pytest
+.pytest_cache/
