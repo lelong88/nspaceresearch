@@ -46,6 +46,7 @@ export interface EmailCampaignSend {
   opened_at: Date | null;
   clicked_at: Date | null;
   bounced_at: Date | null;
+  view_url: string | null;
   created_at: Date;
 }
 

@@ -2,11 +2,14 @@
 
 ```
 campaigns/
-├── header.html           # Shared email header template (logo, wordmark, tagline)
-├── promo.html            # Optional inline app download + website link (include per campaign)
+├── header.html           # Shared email header (logo, wordmark, {{tagline}})
+├── promo.html            # Optional inline app download + website link
 ├── footer.html           # Shared email footer (unsubscribe, view in browser, legal)
-└── {email-name}/         # One directory per email (bulk campaign or personal)
-    ├── README.md         # Metadata: type, target, send date, status, notes
+├── logo.svg              # Step logo SVG asset
+├── appstore.png          # App Store badge asset
+├── playstore.png         # Google Play badge asset
+└── {campaign-name}/      # One directory per email (bulk or personal)
+    ├── README.md         # Metadata: type, lang, target, send date, status, notes
     └── body.html         # Email body template (supports {{variable}} placeholders)
 
 src/
@@ -24,6 +27,11 @@ src/
     ├── query.ts          # Ad-hoc read-only SQL endpoint  (/api/query)  [authenticated]
     ├── view.ts           # Public campaign HTML viewer    (/view/:campaignId)
     └── unsubscribe.ts    # Public unsubscribe pages       (/unsubscribe)
+
+send_email.py             # Low-level SES SMTP email sender
+campaign_email.py         # Campaign renderer: templates + locale + R2 upload + send
+send_bulk.py              # Bulk sender: fetch list subscribers, render + send each, paced
+_send_campaign_preview.py # CLI to preview a campaign email
 ```
 
 ## Conventions
@@ -36,3 +44,5 @@ src/
 - **HTTP status codes**: 201 for creation, 204 for deletion, 404 for not found, 409 for conflicts, 422 for semantic errors.
 - **Types**: domain interfaces live in `types.ts`. The `Env` interface defines Worker bindings and is used as `Hono<{ Bindings: Env }>` generic.
 - **No ORM**: all database interaction is raw SQL via `pg.Client`.
+- **Email templates**: HTML with inline styles and `{{variable}}` placeholders. Locale resolved at send time via `campaign_email.py`.
+- **"View in browser"**: each sent email is uploaded to the `emails` R2 bucket (`https://emails.step.is/`) as a static HTML file with a UUID path.
