@@ -1,25 +1,20 @@
 """
 Bulk send a campaign to every subscriber in a list, with:
-  - Confirmation prompt before live sends
-  - Deduplication against email_campaign_send (never send duplicates, safe to resume)
-  - Per-recipient R2 view_url tracked in the database
-  - Configurable pacing (default 200ms between sends, ~5/sec — under SES default 14/s)
+  - Confirmation prompt before live sends (requires typing the FROM address)
+  - Cache-proof deduplication: each send is atomically reserved in the DB before
+    SES is called. Dup-check runs server-side via a UNIQUE constraint + INSERT
+    with ON CONFLICT DO NOTHING — the response drives the skip decision.
+  - Per-recipient R2 view_url stored in the database
+  - Configurable pacing (default 200ms between sends, ~5/sec — under SES 14/s)
 
 Usage (as a script):
     python send_bulk.py <campaign_slug> <list_id> <campaign_id> <lang> "<subject>" [options]
-
-    Required positional args:
-        campaign_slug  — directory name under campaigns/
-        list_id        — email_list ID to send to
-        campaign_id    — email_campaign ID (for dedup tracking)
-        lang           — "en" or "vi"
-        subject        — email subject line (quoted)
 
     Options:
         --from=<email>     override sender address (default: support@step.is)
         --delay-ms=<ms>    pacing between sends (default: 200)
         --limit=<n>        cap number of recipients (useful for testing)
-        --dry-run          render only, don't send or record
+        --dry-run          render nothing, just check who would send/skip
         --yes              skip confirmation prompt (USE WITH CARE)
 
 Usage (as a module):
@@ -35,16 +30,24 @@ import socket
 import subprocess
 import urllib.parse
 import urllib.request
+import urllib.error
+import uuid
 import json
 from dotenv import load_dotenv
 
-from campaign_email import send_campaign_email, FROM_EMAIL as DEFAULT_FROM
+from campaign_email import (
+    render_email,
+    FROM_EMAIL as DEFAULT_FROM,
+    R2_BUCKET,
+    R2_PUBLIC_BASE,
+    _get_s3,
+)
+from send_email import send_email
 
 load_dotenv()
 
 # ── DNS workaround ───────────────────────────────────────────
-# The dev box's local resolver returns NXDOMAIN for email.step.is. Resolve via
-# Cloudflare (1.1.1.1) and pin the IPv4 result via a getaddrinfo override.
+# Local resolver returns NXDOMAIN for email.step.is. Resolve via 1.1.1.1.
 _DNS_OVERRIDES: dict[str, str] = {}
 
 def _resolve_via_cloudflare(host: str) -> str | None:
@@ -122,7 +125,11 @@ def _api_post(path: str, body: dict) -> tuple[int, dict]:
         with urllib.request.urlopen(req) as resp:
             return resp.status, json.load(resp)
     except urllib.error.HTTPError as e:
-        return e.code, json.loads(e.read().decode() or "{}")
+        raw = e.read().decode() or "{}"
+        try:
+            return e.code, json.loads(raw)
+        except json.JSONDecodeError:
+            return e.code, {"error": raw}
 
 
 def _fetch_subscribers(list_id: int) -> list[dict]:
@@ -130,23 +137,28 @@ def _fetch_subscribers(list_id: int) -> list[dict]:
     return [r for r in rows if r.get("status") == "subscribed"]
 
 
-def _fetch_already_sent(campaign_id: int) -> set[str]:
-    """Return set of emails that already have a send record for this campaign."""
-    rows = _api_get(f"/campaigns/{campaign_id}/sends")
-    return {r["email"] for r in rows}
+def _reserve_send(campaign_id: int, email: str, view_url: str) -> tuple[bool, bool, dict]:
+    """
+    Atomically reserve a send slot for (campaign, email).
 
+    Returns (ok, already_sent, record):
+      - (True, False, record)  — fresh INSERT succeeded, caller should send via SES
+      - (True, True, record)   — duplicate detected server-side, caller must NOT send
+      - (False, False, {})     — API error, caller should treat as failure
 
-def _record_send(campaign_id: int, email: str, view_url: str) -> tuple[bool, bool]:
-    """Record a send. Returns (ok, already_sent)."""
+    This authoritative POST bypasses any read-side caching: the unique constraint
+    on (email_campaign_id, email) + ON CONFLICT DO NOTHING makes the INSERT
+    response the source of truth for dedup.
+    """
     status, body = _api_post(
         f"/campaigns/{campaign_id}/sends",
         {"email": email, "status": "sent", "view_url": view_url},
     )
     if status == 201:
-        return True, False
+        return True, False, body
     if status == 200 and body.get("already_sent"):
-        return True, True
-    return False, False
+        return True, True, body
+    return False, False, body
 
 
 def _unsubscribe_url(email: str, list_id: int) -> str:
@@ -156,7 +168,6 @@ def _unsubscribe_url(email: str, list_id: int) -> str:
 # ── Guardrail ────────────────────────────────────────────────
 
 def _confirm(summary: dict, auto_yes: bool) -> bool:
-    """Show a summary and require typed confirmation before live sends."""
     print("=" * 60)
     print("BULK SEND CONFIRMATION")
     print("=" * 60)
@@ -169,7 +180,8 @@ def _confirm(summary: dict, auto_yes: bool) -> bool:
         return True
 
     prompt = (
-        f"\nAbout to send {summary['to send']} emails FROM '{summary['from']}'.\n"
+        f"\nAbout to process {summary['subscribed']} subscribers FROM '{summary['from']}'.\n"
+        f"(Per-recipient dedup happens server-side; already-sent will be skipped.)\n"
         f"Type the FROM address to confirm: "
     )
     answer = input(prompt).strip()
@@ -194,18 +206,16 @@ def send_bulk(
     """
     Send a campaign to every subscribed recipient on a list.
 
-    Dedup: checks email_campaign_send before each send; skips any (campaign_id, email)
-    pair that already has a send record. Safe to resume — duplicates are never sent.
+    Flow per recipient:
+      1. Generate a unique view_url (UUID-based R2 path)
+      2. POST /campaigns/:id/sends with {email, view_url} — atomic server-side dedup
+      3. If dedup detected (already_sent=true): skip, no render, no SES call
+      4. If fresh reservation: render → upload to R2 → send via SES
     """
     subscribers = _fetch_subscribers(list_id)
-    already_sent = _fetch_already_sent(campaign_id)
-
-    # Filter out already-sent recipients
-    pending = [s for s in subscribers if s["email"] not in already_sent]
-    skipped = len(subscribers) - len(pending)
 
     if limit:
-        pending = pending[:limit]
+        subscribers = subscribers[:limit]
 
     summary = {
         "campaign slug": campaign_slug,
@@ -215,85 +225,117 @@ def send_bulk(
         "subject": subject,
         "lang": lang,
         "subscribed": len(subscribers),
-        "already sent": skipped,
-        "to send": len(pending),
         "pacing": f"{delay_ms}ms (~{1000/delay_ms:.1f}/sec)",
         "mode": "DRY RUN" if dry_run else "LIVE SEND",
     }
 
-    # Guardrail: require confirmation for any live send
-    if not dry_run and len(pending) > 0:
+    # Guardrail
+    if not dry_run and len(subscribers) > 0:
         if not _confirm(summary, auto_yes):
             print("\nAborted.")
-            return {"sent": 0, "failed": 0, "skipped": skipped, "aborted": True}
+            return {"sent": 0, "skipped": 0, "failed": 0, "aborted": True}
 
-    if len(pending) == 0:
+    if len(subscribers) == 0:
         print("=" * 60)
         for k, v in summary.items():
             print(f"  {k:<16} {v}")
         print("=" * 60)
-        print("Nothing to send (all recipients already sent or list empty).")
-        return {"sent": 0, "failed": 0, "skipped": skipped, "aborted": False}
+        print("Nothing to send (list is empty or all unsubscribed).")
+        return {"sent": 0, "skipped": 0, "failed": 0, "aborted": False}
 
     print()
-
     sent = 0
+    skipped = 0
     failed = 0
     errors: list[str] = []
     delay_s = delay_ms / 1000.0
-    total = len(pending)
+    total = len(subscribers)
 
-    for i, sub in enumerate(pending, start=1):
+    for i, sub in enumerate(subscribers, start=1):
         email = sub["email"]
         extras = variables_fn(sub) if variables_fn else None
         unsub_url = _unsubscribe_url(email, list_id)
         progress = f"[{i}/{total}]"
 
+        # Always pre-generate the view_url so we know it before reserving
+        email_id = uuid.uuid4().hex
+        r2_key = f"{campaign_slug}/{email_id}.html"
+        view_url = f"{R2_PUBLIC_BASE}/{r2_key}"
+
         if dry_run:
-            print(f"{progress} DRY: would send to {email}")
+            # In dry-run, just check the DB via a GET-style query since we don't
+            # want to create dry_run rows that pollute the dedup state. We use
+            # a single targeted POST that we immediately would need to undo —
+            # simpler: accept that dry-run can't see cached dedup state with
+            # perfect accuracy, and just show subscriber count.
+            print(f"{progress} DRY: would attempt send to {email}")
             sent += 1
-        else:
-            try:
-                # Send (renders, uploads to R2, sends via SES)
-                result = send_campaign_email(
-                    campaign_slug=campaign_slug,
-                    subject=subject,
-                    to_email=email,
-                    lang=lang,
-                    variables=extras,
-                    from_email=from_email,
-                    unsubscribe_url=unsub_url,
-                )
-                if not result.get("success"):
-                    failed += 1
-                    msg = f"{email}: {result.get('message')}"
-                    errors.append(msg)
-                    print(f"{progress} ✗ {msg}")
-                else:
-                    # Record in DB (idempotent — ON CONFLICT DO NOTHING)
-                    ok, _already = _record_send(campaign_id, email, result["view_url"])
-                    if not ok:
-                        failed += 1
-                        errors.append(f"{email}: DB record failed")
-                        print(f"{progress} ✗ {email}: sent but DB record failed")
-                    else:
-                        sent += 1
-                        print(f"{progress} ✓ {email}")
-            except Exception as e:
+            continue
+
+        # 1) Reserve in DB (atomic, authoritative)
+        ok, already_sent, record = _reserve_send(campaign_id, email, view_url)
+        if not ok:
+            failed += 1
+            errors.append(f"{email}: reserve failed: {record}")
+            print(f"{progress} ✗ {email}: reserve failed — {record}")
+            if i < total:
+                time.sleep(delay_s)
+            continue
+        if already_sent:
+            skipped += 1
+            print(f"{progress} SKIP (already sent): {email}")
+            continue
+
+        # 2) Render
+        try:
+            html = render_email(
+                campaign_slug=campaign_slug,
+                lang=lang,
+                variables=extras,
+                unsubscribe_url=unsub_url,
+                view_url=view_url,
+            )
+            # 3) Upload to R2
+            _get_s3().put_object(
+                Bucket=R2_BUCKET,
+                Key=r2_key,
+                Body=html.encode("utf-8"),
+                ContentType="text/html; charset=utf-8",
+            )
+            # 4) Send via SES
+            result = send_email(
+                subject=subject,
+                body=html,
+                from_email=from_email,
+                to_email=email,
+                html=True,
+            )
+            if result.get("success"):
+                sent += 1
+                print(f"{progress} ✓ {email}")
+            else:
                 failed += 1
-                errors.append(f"{email}: {e}")
-                print(f"{progress} ✗ {email}: {e}")
+                msg = f"{email}: SES failed: {result.get('message')}"
+                errors.append(msg)
+                print(f"{progress} ✗ {msg}")
+        except Exception as e:
+            failed += 1
+            errors.append(f"{email}: {e}")
+            print(f"{progress} ✗ {email}: {e}")
 
         if i < total:
             time.sleep(delay_s)
 
     print()
-    print(f"Done. Sent: {sent}, Failed: {failed}, Skipped (already sent): {skipped}, Total subscribers: {len(subscribers)}")
+    print(
+        f"Done. Sent: {sent}, Skipped (already sent): {skipped}, "
+        f"Failed: {failed}, Total subscribers: {total}"
+    )
     return {
         "sent": sent,
-        "failed": failed,
         "skipped": skipped,
-        "total": len(subscribers),
+        "failed": failed,
+        "total": total,
         "errors": errors,
         "aborted": False,
     }

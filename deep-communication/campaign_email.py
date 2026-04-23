@@ -154,6 +154,39 @@ def upload_to_r2(html: str, campaign_slug: str) -> str:
 
 # ── Send ─────────────────────────────────────────────────────
 
+def render_and_upload(
+    campaign_slug: str,
+    lang: str = "en",
+    variables: dict[str, str] | None = None,
+    unsubscribe_url: str = "#",
+) -> tuple[str, str]:
+    """
+    Render a campaign email and upload it to R2.
+
+    Returns:
+        (html, view_url) — the rendered HTML and its public R2 URL.
+    """
+    email_id = uuid.uuid4().hex
+    key = f"{campaign_slug}/{email_id}.html"
+    view_url = f"{R2_PUBLIC_BASE}/{key}"
+
+    html = render_email(
+        campaign_slug=campaign_slug,
+        lang=lang,
+        variables=variables,
+        unsubscribe_url=unsubscribe_url,
+        view_url=view_url,
+    )
+
+    _get_s3().put_object(
+        Bucket=R2_BUCKET,
+        Key=key,
+        Body=html.encode("utf-8"),
+        ContentType="text/html; charset=utf-8",
+    )
+    return html, view_url
+
+
 def send_campaign_email(
     campaign_slug: str,
     subject: str,
@@ -171,29 +204,13 @@ def send_campaign_email(
     Returns:
         dict with 'success', 'message', and 'view_url' keys.
     """
-    # First render with placeholder view_url to get the HTML structure
-    # Then upload to get the real URL, re-render, and re-upload
-    email_id = uuid.uuid4().hex
-    key = f"{campaign_slug}/{email_id}.html"
-    view_url = f"{R2_PUBLIC_BASE}/{key}"
-
-    html = render_email(
+    html, view_url = render_and_upload(
         campaign_slug=campaign_slug,
         lang=lang,
         variables=variables,
         unsubscribe_url=unsubscribe_url,
-        view_url=view_url,
     )
 
-    # Upload to R2
-    _get_s3().put_object(
-        Bucket=R2_BUCKET,
-        Key=key,
-        Body=html.encode("utf-8"),
-        ContentType="text/html; charset=utf-8",
-    )
-
-    # Send via SES
     result = send_email(
         subject=subject,
         body=html,
