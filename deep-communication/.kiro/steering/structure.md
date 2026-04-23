@@ -3,7 +3,7 @@
 ```
 campaigns/
 ├── header.html           # Shared email header template (logo, wordmark, tagline)
-├── promo.html            # Optional app download + social links (include per campaign)
+├── promo.html            # Optional inline app download + website link (include per campaign)
 ├── footer.html           # Shared email footer (unsubscribe, view in browser, legal)
 └── {email-name}/         # One directory per email (bulk campaign or personal)
     ├── README.md         # Metadata: type, target, send date, status, notes

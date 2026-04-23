@@ -1,4 +1,12 @@
-"""Preview a campaign email: assemble header + body + promo + footer, upload to R2, send."""
+"""Preview a campaign email: assemble header + body + footer, upload to R2, send.
+
+Usage:
+    python _send_campaign_preview.py
+
+Edit the "Campaign config" section below to switch campaign/locale/recipient.
+If a campaign wants to include the shared promo block, read campaigns/promo.html
+and insert it between {body_rendered} and {footer_rendered}.
+"""
 import uuid
 import os
 import boto3
@@ -21,18 +29,17 @@ s3 = boto3.client(
 
 # ── Campaign config ──────────────────────────────────────────
 campaign_slug = "introduce-nspace-users-to-step-app"
-lang = "vi"
-include_promo = False  # promo links are inline in body.html
+lang = "vi"  # "en" or "vi"
 subject = "Step — Ứng dụng học ngôn ngữ mới từ đội ngũ NSpace"
 to_email = "lelong88@gmail.com"
 from_email = "hello@step.is"
 
 # ── Locale data ──────────────────────────────────────────────
-taglines = {
+TAGLINES = {
     "en": "Language courses built around content you'd actually enjoy",
     "vi": "Khóa học ngôn ngữ từ nội dung bạn thực sự thích",
 }
-website_urls = {
+WEBSITE_URLS = {
     "en": "https://step.is",
     "vi": "https://step.is/vi",
 }
@@ -42,30 +49,23 @@ with open("campaigns/header.html") as f:
     header = f.read()
 with open(f"campaigns/{campaign_slug}/body.html") as f:
     body = f.read()
-promo_html = ""
-if include_promo:
-    with open("campaigns/promo.html") as f:
-        promo_html = f.read()
 with open("campaigns/footer.html") as f:
     footer = f.read()
 
 # ── Render ───────────────────────────────────────────────────
-header_rendered = header.replace("{{tagline}}", taglines[lang])
+header_rendered = header.replace("{{tagline}}", TAGLINES[lang])
+body_rendered = body.replace("{{website_url}}", WEBSITE_URLS[lang])
 
-# No subscriber vars to replace, just locale vars
-body_rendered = body.replace("{{website_url}}", website_urls[lang])
-
-promo_rendered = ""
-if include_promo:
-    promo_rendered = promo_html.replace("{{website_url}}", website_urls[lang])
-
-footer_rendered = footer.replace("{{unsubscribe_url}}", "#unsubscribe-preview")
-
-# Generate R2 key
+# Generate R2 key upfront so view_url is known before upload
 email_id = uuid.uuid4().hex
 r2_key = f"{campaign_slug}/{email_id}.html"
 view_url = f"{R2_PUBLIC_BASE}/{r2_key}"
-footer_rendered = footer_rendered.replace("{{view_url}}", view_url)
+
+footer_rendered = (
+    footer
+    .replace("{{unsubscribe_url}}", "#unsubscribe-preview")
+    .replace("{{view_url}}", view_url)
+)
 
 full_html = f"""<!DOCTYPE html>
 <html lang="{lang}">
@@ -77,7 +77,6 @@ full_html = f"""<!DOCTYPE html>
 <body style="margin:0;padding:0;background-color:#ffffff;">
 {header_rendered}
 {body_rendered}
-{promo_rendered}
 {footer_rendered}
 </body>
 </html>"""

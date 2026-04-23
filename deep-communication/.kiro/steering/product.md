@@ -32,7 +32,7 @@ The `campaigns/` directory is the **single source of truth for all email content
 All emails share common layout components stored at the root of `campaigns/`:
 
 - **`header.html`** — shared email header (logo, wordmark, tagline)
-- **`promo.html`** — optional app download CTAs + social links block (include when promoting the app)
+- **`promo.html`** — optional inline block with app download links and website (`Download: iOS · Android · macOS / Website: ...`) for campaigns that want to promote the app
 - **`footer.html`** — shared email footer (unsubscribe, view in browser, legal text)
 
 These are injected into every email at send time. Individual emails can override or extend them if needed.
