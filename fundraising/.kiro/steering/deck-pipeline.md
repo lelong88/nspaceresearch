@@ -4,6 +4,28 @@ These rules apply to every pitch deck generated in this repo (starting with
 `decks/general-audience-vi/`) and should be followed for any future deck
 spec unless a deck's own spec explicitly overrides them.
 
+## Shared title slide per language
+
+- Every deck MUST open with a shared title slide pulled from
+  `decks/title-slide-<lang>.pptx`. The language code is the two-letter
+  ISO code matching the deck's content language (`vi` for Vietnamese,
+  `en` for English, and so on).
+- Do **not** hand-build title slides inside individual deck generators.
+  The shared title files at the root of `decks/` are the single source
+  of truth for title-slide design and must be reused verbatim.
+- The integration path: `assets.open_title_slide_presentation(language=...)`
+  returns a `Presentation` loaded from the matching title-slide file.
+  Content builders **append** their slides to that presentation — no
+  XML surgery, no slide copying, no template cloning. This preserves
+  the title slide's masters, layouts, theme, fonts, and embedded
+  images.
+- Each deck generator exposes a module-level `DECK_LANGUAGE` constant
+  (e.g., `DECK_LANGUAGE = "vi"`) so the language choice is explicit and
+  scriptable. `main()` passes it to `open_title_slide_presentation()`.
+- If you need a new language, first commit the matching
+  `decks/title-slide-<lang>.pptx` file before generating any deck that
+  claims that language.
+
 ## Output location: R2, not local disk
 
 - **Do not save `.pptx` files to local disk.** Decks are built in memory
@@ -113,22 +135,25 @@ via `assets.upload_pptx(bytes, key=...)`.
 ## Testing rules
 
 - Tests must run offline. Add an `autouse` module-scoped fixture in
-  `conftest.py` that stubs every `assets.slide_*_illustration` helper
-  with a tiny valid PNG (a 1×1 transparent pixel is sufficient — see
-  `decks/general-audience-vi/tests/conftest.py` for the canonical
-  implementation).
+  `conftest.py` that stubs every vendored-asset byte helper in
+  `assets.py` (e.g., `hero_image_png`, `appstore_badge_png`,
+  `playstore_badge_png`) — and any remaining Vertex illustration
+  helpers — with a tiny valid PNG (a 1×1 transparent pixel is
+  sufficient). See `decks/general-audience-vi/tests/conftest.py` for
+  the canonical implementation.
 - Integration tests must stub R2 at the `assets._r2_client` seam (a
   fake with a `put_object` method is enough). Required assertions:
   - `main()` performs exactly two uploads (snapshot + latest) against
     the `step-pitch-decks` bucket.
   - Both uploaded bodies reopen as a valid `Presentation` with the
-    expected slide count.
+    expected slide count (1 title + N content).
   - The public URL printed on stdout points at
     `https://slides.nspace.is/`.
   - After `main()` returns, the deck directory contains no `.pptx`
     files (no-local-file rule).
-- Per-slide content tests consume the in-memory `built_prs` fixture and
-  assert Vietnamese literals verbatim (em dashes and smart quotes copied
+- Per-slide content tests consume the in-memory `built_prs` fixture
+  (which merges the title slide with the content slides) and assert
+  Vietnamese literals verbatim (em dashes and curly quotes copied
   from the `SLIDES` data model, not retyped).
 
 ## When documenting a completed run

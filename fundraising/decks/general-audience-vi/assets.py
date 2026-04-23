@@ -1,28 +1,27 @@
 """Asset pipeline for the general-audience-vi-pitch-deck.
 
 Responsibilities:
-  - Rasterize ``step-logo.svg`` (repo root) to a PNG byte string the
-    ``python-pptx`` ``add_picture`` API can embed.
-  - Generate illustrated slide images via ``gen_image_vertex`` (Vertex AI
-    Gemini 3.1 Flash Image Preview). Generated images are cached on local
-    disk under ``decks/general-audience-vi/.asset_cache/`` keyed by prompt
-    hash so re-runs don't re-bill the model.
-  - Upload a fully-built ``.pptx`` byte string to the Cloudflare R2 bucket
-    ``step-pitch-decks`` and return its public URL on ``slides.nspace.is``.
+  - Rasterize ``step-logo.svg`` to PNG bytes for embedding via
+    ``python-pptx``'s ``add_picture`` API (cached on disk).
+  - Expose the real product assets vendored under ``vendor_assets/``
+    (hero image, App Store badge, Google Play badge) as byte helpers.
+  - Open the language-appropriate shared title slide from
+    ``decks/title-slide-<lang>.pptx`` as a base ``Presentation`` so
+    content builders can append their slides onto it.
+  - Upload a fully-built ``.pptx`` byte string to the Cloudflare R2
+    bucket ``step-pitch-decks`` and return its public URL on
+    ``slides.nspace.is``.
 
-All network I/O (Vertex generation, R2 upload) is intentionally quarantined
-to this module so the slide builders in ``generate_deck.py`` can stay pure
-and deterministic.
+All network I/O (R2 upload) is intentionally quarantined to this module
+so the slide builders in ``generate_deck.py`` can stay pure and
+deterministic. Vertex AI image generation was removed with the move to a
+minimalist typography-forward design — every visible asset is now either
+a vendored real product asset or a shape rendered inline by the builders.
 """
 from __future__ import annotations
 
-import asyncio
-import hashlib
-import io
 import os
-import sys
 from pathlib import Path
-from typing import Optional
 
 import boto3
 import cairosvg
@@ -39,13 +38,19 @@ _CACHE_DIR.mkdir(exist_ok=True)
 
 _LOGO_SVG = _WORKSPACE_ROOT / "step-logo.svg"
 
-# Real product assets downloaded from https://step.is/assets/ and stored
-# in-repo so builds are reproducible without re-fetching on every run.
+# Real product assets downloaded once from https://step.is/assets/ and
+# committed under ``vendor_assets/`` so builds are reproducible without
+# re-fetching on every run.
 _VENDOR_DIR = _DECK_DIR / "vendor_assets"
 _HERO_IMAGE = _VENDOR_DIR / "hero-image.png"
 _APPSTORE_BADGE = _VENDOR_DIR / "appstore.png"
 _PLAYSTORE_BADGE = _VENDOR_DIR / "playstore.png"
 _VENDOR_LOGO_SVG = _VENDOR_DIR / "logo.svg"
+
+# Shared title slides live at the root of ``decks/`` so every deck in
+# this repo can pull from the same file. Language-aware — see
+# ``.kiro/steering/deck-pipeline.md``.
+_TITLE_SLIDES_DIR = _WORKSPACE_ROOT / "decks"
 
 # R2 / public CDN
 _BUCKET = "step-pitch-decks"
@@ -100,83 +105,36 @@ def playstore_badge_png() -> bytes:
 
 
 # ---------------------------------------------------------------------------
-# Vertex AI illustration generation (with disk cache)
+# Title slide prepend (language-aware)
 # ---------------------------------------------------------------------------
-def _prompt_cache_path(prompt: str, aspect_ratio: str) -> Path:
-    """Return a deterministic cache path for a (prompt, aspect) pair."""
-    key = hashlib.sha256(f"{aspect_ratio}\n{prompt}".encode("utf-8")).hexdigest()[:16]
-    return _CACHE_DIR / f"img_{aspect_ratio.replace(':', 'x')}_{key}.png"
+def open_title_slide_presentation(*, language: str):
+    """Open ``decks/title-slide-<language>.pptx`` as a fresh ``Presentation``.
 
+    Content builders append their slides onto the returned presentation,
+    so the resulting deck opens with the language-appropriate title slide
+    and is followed by the content slides in narrative order. No XML
+    surgery is involved — using the title-slide file as the base
+    presentation preserves its masters, layouts, theme, fonts, and any
+    embedded images.
 
-def generate_illustration(prompt: str, aspect_ratio: str = "4:3") -> bytes:
-    """Generate an illustration via Vertex Gemini; cache the bytes on disk.
+    Args:
+        language: Two-letter language code (``vi``, ``en``, ...). Must
+            match the suffix of a file in ``decks/`` named
+            ``title-slide-<language>.pptx``.
 
-    Synchronous wrapper over ``gen_image_vertex.generate_image_vertex``.
-    Returns raw image bytes (PNG). Safe to call repeatedly — the first call
-    hits Vertex (~30s), subsequent calls with the same (prompt, aspect)
-    pair return the cached bytes instantly.
+    Raises:
+        FileNotFoundError: if the matching title-slide file is missing.
     """
-    cached = _prompt_cache_path(prompt, aspect_ratio)
-    if cached.exists():
-        return cached.read_bytes()
+    from pptx import Presentation
 
-    # Lazy import so the deck builder module itself never needs the
-    # google-genai SDK at import time.
-    if str(_WORKSPACE_ROOT) not in sys.path:
-        sys.path.insert(0, str(_WORKSPACE_ROOT))
-    from gen_image_vertex import generate_image_vertex
-
-    # ``generate_image_vertex`` is async; bridge to sync here.
-    try:
-        loop = asyncio.get_event_loop()
-        if loop.is_running():
-            # Running inside a live event loop (unlikely for the deck
-            # builder, but guard defensively). Create a fresh loop.
-            raise RuntimeError("reentrant event loop")
-    except RuntimeError:
-        loop = asyncio.new_event_loop()
-
-    try:
-        img_bytes = loop.run_until_complete(
-            generate_image_vertex(prompt, aspect_ratio=aspect_ratio)
+    path = _TITLE_SLIDES_DIR / f"title-slide-{language}.pptx"
+    if not path.exists():
+        raise FileNotFoundError(
+            f"Title slide file not found at {path}. Expected a file named "
+            f"'title-slide-{language}.pptx' under decks/. See "
+            f".kiro/steering/deck-pipeline.md for the project rule."
         )
-    finally:
-        # Don't close the default event loop if it was fetched via
-        # get_event_loop(); only close loops we explicitly created.
-        if loop is not asyncio.get_event_loop_policy().get_event_loop():
-            loop.close()
-
-    cached.write_bytes(img_bytes)
-    return img_bytes
-
-
-# ---------------------------------------------------------------------------
-# Deck-specific illustration prompts
-# ---------------------------------------------------------------------------
-# Slides 1 and 7 use the real product assets vendored under
-# ``vendor_assets/`` (hero screenshot + app-store badges + logo) — no Vertex
-# generation needed. Slide 4 still calls Vertex for a mood image of the
-# 'Heal the World' example since no real asset fits that slot. The prompt
-# is stable so the cache key stays consistent across runs (Req 11.6: avoid
-# stock-photo language-learning clichés).
-
-_PROMPT_SLIDE_4 = (
-    "Warm editorial illustration on a cream #FAF7F2 background. A pair of "
-    "open hands gently cradling a small glowing world with musical notes "
-    "floating out of it, evoking the feeling of the song 'Heal the World'. "
-    "Deep-teal and soft coral palette. No text, no logos, no photorealism. "
-    "Minimal, hopeful, editorial flat-vector style."
-)
-
-
-def slide_1_illustration() -> bytes:
-    """Slide 1 lead visual — the real app hero image vendored from step.is."""
-    return hero_image_png()
-
-
-def slide_4_illustration() -> bytes:
-    """'Heal the World' mood image for Slide 4. Cached after first run."""
-    return generate_illustration(_PROMPT_SLIDE_4, aspect_ratio="4:3")
+    return Presentation(str(path))
 
 
 # ---------------------------------------------------------------------------

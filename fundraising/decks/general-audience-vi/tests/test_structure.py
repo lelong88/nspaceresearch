@@ -1,41 +1,34 @@
 """Structural tests for the general-audience-vi-pitch-deck.
 
-Validates Requirements 1.1, 1.2, and 1.3:
-  - 1.1: The deck contains exactly 7 slides.
-  - 1.2: Slide order matches the fixed narrative sequence (Hook → Gap → Intro
-         → Heal-the-World → Why it works → Differentiators → CTA), verified
-         against the `SLIDES` data module (source of truth for titles).
-  - 1.3: Slide size is 16:9 widescreen (13.333 in × 7.5 in).
+The final deck is assembled by ``main()`` as:
 
-Design note on Slide 3 title verification:
-    The deck data model stores a `title` for every slide, but the Slide 3
-    builder intentionally does not render the ``title`` field on the slide
-    (only the reframe question pair, accent tagline, and explanation are
-    rendered). To still pin the Slide 3 ordering against the narrative, this
-    module falls back to checking for ``body[0]`` (the reframe question) or
-    the ``emphasis`` tagline, both of which are rendered by the Slide 3
-    builder and both uniquely identify Slide 3 in the deck.
+  slide 1        — the shared Vietnamese title slide prepended by
+                   ``assets.open_title_slide_presentation(language='vi')``
+  slides 2..8    — the 7 minimalist content slides built by
+                   ``generate_deck.build(prs)`` in order (hook, step,
+                   founder, insight, why, promise, closing)
+
+Validates:
+  - The deck contains exactly 8 slides (1 title + 7 content).
+  - Slide size is 16:9 widescreen (13.333 in × 7.5 in) on the merged
+    deck.
+  - The shared title slide comes first and carries the Step wordmark.
+  - The 7 content slides follow in narrative order; each carries its
+    ``hero`` phrase as a visible text run.
 """
 from __future__ import annotations
 
-import pytest
+import io
+
+from pptx import Presentation
+from pptx.util import Inches
 
 
-# -----------------------------------------------------------------------------
-# Slide geometry tolerance
-# -----------------------------------------------------------------------------
-# ``Inches(13.333)`` does not round-trip exactly through EMU, so compare with
-# a small tolerance instead of asserting strict equality.
 _DIM_TOLERANCE_IN = 0.01
 
 
 def _slide_text(slide) -> list[str]:
-    """Collect visible text strings from every text frame on ``slide``.
-
-    Iterates shapes that expose a ``text_frame`` and gathers non-empty run
-    text. Notes are deliberately excluded — this function returns only text
-    that is visible on the slide itself.
-    """
+    """Collect visible text runs from every text frame on ``slide``."""
     texts: list[str] = []
     for shape in slide.shapes:
         if not shape.has_text_frame:
@@ -47,73 +40,61 @@ def _slide_text(slide) -> list[str]:
     return texts
 
 
-# -----------------------------------------------------------------------------
-# Requirement 1.1 — exactly 7 slides
-# -----------------------------------------------------------------------------
-def test_slide_count(built_prs):
-    """The built deck contains exactly 7 slides (Requirement 1.1)."""
-    assert len(built_prs.slides) == 7
+def _merged_deck(generator):
+    """Build the merged deck (title + 7 content slides) in memory."""
+    import assets
+
+    prs = assets.open_title_slide_presentation(language=generator.DECK_LANGUAGE)
+    generator.build(prs)
+    return prs
 
 
 # -----------------------------------------------------------------------------
-# Requirement 1.3 — 16:9 widescreen at 13.333 in × 7.5 in
+# Slide count — title + 7 content
 # -----------------------------------------------------------------------------
-def test_slide_dimensions(built_prs):
-    """Slide width and height match the 16:9 spec within EMU tolerance (Req 1.3)."""
-    assert abs(built_prs.slide_width.inches - 13.333) < _DIM_TOLERANCE_IN
-    assert abs(built_prs.slide_height.inches - 7.5) < _DIM_TOLERANCE_IN
+def test_slide_count(generator):
+    """The merged deck contains exactly 8 slides (1 title + 7 content)."""
+    prs = _merged_deck(generator)
+    assert len(prs.slides) == 8
 
 
 # -----------------------------------------------------------------------------
-# Requirement 1.2 — slide order matches the 7-step narrative
+# Dimensions — 16:9 widescreen preserved end-to-end
 # -----------------------------------------------------------------------------
-def test_slide_order_matches_narrative(built_prs, generator):
-    """Each built slide carries the expected narrative marker in order (Req 1.2).
+def test_slide_dimensions(generator):
+    """Slide width and height match 13.333 × 7.5 inches within EMU tolerance."""
+    prs = _merged_deck(generator)
+    assert abs(prs.slide_width.inches - 13.333) < _DIM_TOLERANCE_IN
+    assert abs(prs.slide_height.inches - 7.5) < _DIM_TOLERANCE_IN
 
-    For slides 1, 2, 4, 5, 6, 7 the marker is ``SLIDES[i]["title"]`` (the
-    title as authored in the data model). For slide 3 the marker falls back
-    to the reframe question (``body[0]``) or the tagline emphasis because the
-    Slide 3 builder intentionally does not render the ``title`` field.
-    """
-    slides_data = generator.SLIDES
-    assert len(slides_data) == 7, (
-        "Sanity check: SLIDES must contain 7 entries to validate ordering."
+
+# -----------------------------------------------------------------------------
+# Title slide — first, carries STEP wordmark
+# -----------------------------------------------------------------------------
+def test_title_slide_is_first(generator):
+    """The shared Vietnamese title slide is the first slide in the deck."""
+    prs = _merged_deck(generator)
+    first_slide_text = _slide_text(prs.slides[0])
+    assert any("STEP" in run.upper() for run in first_slide_text), (
+        f"Slide 1 should be the title slide carrying the 'STEP' wordmark; "
+        f"got runs: {first_slide_text!r}"
     )
 
-    rendered_slides = list(built_prs.slides)
-    assert len(rendered_slides) == 7
 
-    for i, (slide, content) in enumerate(zip(rendered_slides, slides_data)):
-        texts = _slide_text(slide)
-        joined = "\n".join(texts)
+# -----------------------------------------------------------------------------
+# Narrative order — content slides 2..8 carry their hero phrases
+# -----------------------------------------------------------------------------
+def test_content_slide_order(generator):
+    """Each content slide carries its expected ``hero`` phrase in order."""
+    prs = _merged_deck(generator)
+    slides_after_title = list(prs.slides)[1:]
+    assert len(slides_after_title) == 7
 
-        if i == 2:
-            # Slide 3 exception: title is not rendered on the slide; look for
-            # the reframe question or the tagline emphasis instead.
-            reframe_question = content["body"][0]
-            tagline = content["emphasis"]
-            found = any(
-                (reframe_question and reframe_question in t)
-                or (tagline and tagline in t)
-                for t in texts
-            ) or (
-                (reframe_question and reframe_question in joined)
-                or (tagline and tagline in joined)
-            )
-            assert found, (
-                f"Slide {i + 1} (index {i}) should carry the reframe question "
-                f"or tagline. Got text runs: {texts!r}"
-            )
-        else:
-            expected_title = content["title"]
-            assert expected_title, (
-                f"SLIDES[{i}]['title'] must be a non-empty string to anchor "
-                f"ordering for slide {i + 1}."
-            )
-            found = any(expected_title in t for t in texts) or (
-                expected_title in joined
-            )
-            assert found, (
-                f"Slide {i + 1} (index {i}) should carry the narrative title "
-                f"{expected_title!r}. Got text runs: {texts!r}"
-            )
+    for i, (slide, content) in enumerate(zip(slides_after_title, generator.SLIDES)):
+        runs = _slide_text(slide)
+        joined = "\n".join(runs)
+        hero = content["hero"]
+        assert hero in joined, (
+            f"Content slide #{i + 1} (deck position {i + 2}) should carry "
+            f"the hero phrase {hero!r}; got runs: {runs!r}"
+        )

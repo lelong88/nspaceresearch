@@ -100,158 +100,85 @@ _R2_KEY_LATEST = "step-pitch-vi.pptx"
 # Slide content (data model)
 #
 # ``SLIDES`` is the single source of truth for every piece of Vietnamese text
-# that appears in the deck. Each entry mirrors the ``SlideContent`` structure
-# from ``design.md`` and is consumed by the per-slide builder functions.
+# that appears in the 7 content slides. The brief calls for a minimalist,
+# typography-forward deck: each slide carries a single phrase or image and
+# the speaker delivers the narrative. Ten-word-per-slide ceiling, no
+# bullets, one focal point per slide.
 #
 # Keys:
 #   - ``index``     : 1..7 slide number.
-#   - ``title``     : Vietnamese headline.
-#   - ``subtitle``  : Optional single supporting line (or ``None``).
-#   - ``body``      : List of strings (bullets / paragraphs) OR, for slide 6,
-#                     a list of 4 ``{"label", "text"}`` dicts describing each
-#                     differentiator cell.
-#   - ``emphasis``  : Tagline / pull-quote rendered with visual emphasis
-#                     (or ``None``).
-#   - ``closing``   : Optional closing line (slide 4 uses this).
-#   - ``visual``    : ``{"kind": ..., "params": {...}}`` driving which helper
-#                     the builder invokes.
-#   - ``notes``     : 2-3 sentence Vietnamese speaker notes.
+#   - ``hero``      : the large centered phrase on the slide.
+#   - ``sub``       : optional small line beneath ``hero``.
+#   - ``notes``     : 2–3 sentence Vietnamese speaker notes.
 # ---------------------------------------------------------------------------
 SLIDES: list[dict] = [
     {
         "index": 1,
-        "title": "Bạn đã học tiếng Anh nhiều năm — nhưng vẫn chưa thực sự 'chạm' vào nó?",
-        "subtitle": None,
-        "body": [
-            "Bạn thuộc ngữ pháp, nhưng vẫn chưa cảm được bài hát tiếng Anh mình yêu.",
-        ],
-        "emphasis": None,
-        "closing": None,
-        "visual": {"kind": "lyric_motif", "params": {}},
+        "hero": "Heal the World",
+        "sub": "Học tiếng Anh qua bài hát bạn yêu.",
         "notes": (
-            "Step là nơi bạn học ngoại ngữ theo cách mới — không mày mò nhiều năm rồi mới hi vọng dùng được. "
-            "Bạn vừa học vừa dùng ngoại ngữ để tiếp cận những kiến thức thú vị, ngay từ ngày đầu."
+            "Hãy bắt đầu bằng một bài hát quen thuộc. "
+            "Học tiếng Anh qua Heal the World là học qua chính điều bạn đã yêu. "
+            "Ngôn ngữ không còn là môn học — nó trở thành một phần của bài hát."
         ),
     },
     {
         "index": 2,
-        "title": "Vì sao cách học cũ không còn đủ?",
-        "subtitle": None,
-        "body": [
-            "Cách học truyền thống tách ngôn ngữ khỏi những nội dung bạn thật sự yêu thích.",
-            "Từ vựng trong sách nói về sân bay, thời tiết — hiếm khi chạm tới sở thích thật của bạn.",
-            "Khi việc học biến thành nghĩa vụ, động lực tắt dần và bạn bỏ cuộc.",
-        ],
-        "emphasis": None,
-        "closing": None,
-        "visual": {"kind": "accent_bar_only", "params": {}},
+        "hero": "Step",
+        "sub": "Vừa học. Vừa dùng.",
         "notes": (
-            "Cách học cũ tách người học khỏi nội dung họ thật sự yêu. "
-            "Khi ngôn ngữ không gắn với điều mình quan tâm, động lực tắt rất nhanh. "
-            "Step chọn con đường ngược lại: gắn ngôn ngữ với nội dung người học muốn sống cùng."
+            "Step là nơi bạn học ngoại ngữ theo cách mới. "
+            "Không mày mò nhiều năm rồi mới hi vọng dùng được — bạn vừa học vừa dùng ngay từ ngày đầu. "
+            "Mỗi buổi học chỉ 5–10 phút, đủ để bạn bước vào nội dung bạn yêu."
         ),
     },
     {
         "index": 3,
-        "title": "Step — Một cách học khác",
-        "subtitle": None,
-        "body": [
-            "Phương pháp nào để học tiếng Anh?",
-            "Nội dung nào bạn muốn sống cùng trong tiếng Anh?",
-            "Step là ứng dụng AI xây hành trình học quanh nội dung bạn đã yêu: bài hát, tiểu thuyết, truyện tranh, podcast, phim.",
-        ],
-        "emphasis": "Step — Học ngoại ngữ qua những điều bạn thực sự yêu thích.",
-        "closing": None,
-        "visual": {"kind": "reframe_block", "params": {}},
+        "hero": "Long Lê",
+        "sub": "Ngoại ngữ là một cánh cửa.",
         "notes": (
-            "Ở trình độ cơ bản, bạn học qua những câu chuyện và chủ đề đơn giản. "
-            "Lên trình độ cao hơn, bạn tiếp cận những ý tưởng hay và sâu sắc. "
-            "Điều quan trọng: trong suốt quá trình, bạn luôn đang sử dụng ngoại ngữ chứ không chỉ học về nó."
+            "Tôi tên là Long Lê. Tôi xây Step vì với tôi, ngoại ngữ không chỉ là một công cụ. "
+            "Nó là cánh cửa ẩn giấu những câu chuyện và kiến thức sâu sắc. "
+            "Nếu ai đó dịch sẵn cho tôi, tôi sẽ không bao giờ được nhìn thấy điều phía sau cánh cửa đó."
         ),
     },
     {
         "index": 4,
-        "title": "Ví dụ: học tiếng Anh qua 'Heal the World'",
-        "subtitle": "Một người yêu bài hát chọn Heal the World làm điểm bắt đầu.",
-        "body": [
-            "Đọc lời bài hát với từ vựng ngữ cảnh.",
-            "Nghe từng câu, luyện phát âm theo giọng hát.",
-            "Khám phá văn hóa: 'heal' sâu hơn 'cure'.",
-            "Flashcards sinh ra từ lời bài hát vừa học.",
-            "Viết lại thông điệp bài hát bằng lời bạn.",
-        ],
-        "emphasis": None,
-        "closing": "Bạn không chỉ học tiếng Anh — bạn đang sống cùng bài hát mình yêu.",
-        "visual": {"kind": "activity_grid", "params": {}},
+        "hero": "decision",
+        "sub": "“cắt bỏ”",
         "notes": (
-            "Tôi tên là Long Lê. Tôi xây Step vì với tôi, ngoại ngữ không chỉ là công cụ — nó là một cánh cửa ẩn giấu những câu chuyện và kiến thức sâu sắc. "
-            "Ví dụ từ 'decision': gốc Latin nghĩa đen là 'cắt bỏ' — người ta chỉ thật sự quyết định khi sẵn sàng đánh mất một điều gì đó quan trọng. "
-            "Nếu ai đó dịch sẵn cho tôi, tôi sẽ mất câu chuyện đằng sau từ ấy — và câu chuyện mới là cánh cửa."
+            "Một ví dụ: từ 'decision' gốc Latin, nghĩa đen là 'cắt bỏ'. "
+            "Người ta chỉ thực sự quyết định khi sẵn sàng đánh mất một điều gì đó quan trọng. "
+            "Bên trong chữ 'decision' là lòng can đảm, sự chịu đựng mất mát, và cảm xúc."
         ),
     },
     {
         "index": 5,
-        "title": "Mỗi từ là một cách nhìn thế giới",
-        "subtitle": None,
-        "body": [
-            "Mỗi từ trong một ngôn ngữ đều mang theo một thế giới quan riêng.",
-            "'Heal the world' không chỉ là ba từ; đó là cách nhìn chữa lành như điều cộng đồng, giàu cảm xúc và đầy hy vọng — khác với 'cure' vốn thiên về kỹ thuật y khoa.",
-        ],
-        "emphasis": "Mỗi ngôn ngữ mới là một phiên bản mới của chính bạn.",
-        "closing": None,
-        "visual": {"kind": "insight_mark", "params": {}},
+        "hero": "Câu chuyện là cánh cửa.",
+        "sub": None,
         "notes": (
-            "Mỗi từ trong một ngôn ngữ mang theo một thế giới quan riêng. "
-            "Bên trong 'decision' là lòng can đảm, sự chịu đựng mất mát và cảm xúc — không chỉ là 'sự quyết định' đơn thuần. "
-            "Khi hiểu được điều đó, ngoại ngữ trở thành cánh cửa bước sang một thế giới quan khác, và đó là lý do tôi học ngoại ngữ."
+            "Nếu ai đó dịch từ 'decision' sang tiếng Việt cho tôi, tôi sẽ đánh mất câu chuyện. "
+            "Câu chuyện chính là cánh cửa bước sang một thế giới quan khác — và đó là lý do tôi học ngoại ngữ."
         ),
     },
     {
         "index": 6,
-        "title": "Điều gì làm Step khác biệt?",
-        "subtitle": None,
-        "body": [
-            {
-                "label": "AI thông minh",
-                "text": "Điều chỉnh độ khó theo đúng trình độ và tiến bộ của bạn.",
-            },
-            {
-                "label": "Đa dạng nội dung",
-                "text": "Bài hát, truyện tranh, tiểu thuyết, podcast — bạn chọn điểm bắt đầu.",
-            },
-            {
-                "label": "Kết nối sâu",
-                "text": "Mỗi bài tập gắn trực tiếp với nội dung bạn đang yêu thích.",
-            },
-            {
-                "label": "Không gamification rỗng",
-                "text": "Không điểm số ảo, không chuỗi streak gây áp lực — chỉ có tiến bộ thật.",
-            },
-        ],
-        "emphasis": None,
-        "closing": None,
-        "visual": {"kind": "icon_bullets", "params": {}},
+        "hero": "Step không làm việc học dễ hơn.",
+        "sub": "Step nuôi dưỡng sự tò mò của bạn.",
         "notes": (
-            "Step không làm cho việc học trở nên dễ dàng — trong thời đại AI, học vẫn luôn là một quá trình đầy khó khăn và cần nhiều nỗ lực. "
-            "Học là mang những điều bên ngoài chuyển hoá thành bên trong, và quá trình ấy cần sự tự vận động của chính người học. "
-            "Điều Step hứa là luôn nuôi dưỡng sự tò mò và động lực tự thân — nền tảng để tiến bộ lâu dài."
+            "Tôi không hứa Step làm việc học dễ dàng. "
+            "Trong thời đại AI, học vẫn là một quá trình đầy khó khăn, cần nhiều nỗ lực và sự tự vận động. "
+            "Điều Step hứa là luôn nuôi dưỡng sự tò mò và động lực tự thân — nền tảng cho tiến bộ lâu dài."
         ),
     },
     {
         "index": 7,
-        "title": "Bắt đầu với bài hát, cuốn sách, bộ phim bạn yêu nhất.",
-        "subtitle": None,
-        "body": [
-            "Ngôn ngữ không phải là môn học. Nó là cánh cửa vào một thế giới mới — và một phiên bản mới của chính bạn.",
-            "Truy cập https://step.is/vi để tải ứng dụng, đăng ký hoặc tìm hiểu thêm về Step.",
-        ],
-        "emphasis": "Step",
-        "closing": None,
-        "visual": {"kind": "qr_block", "params": {}},
+        "hero": "“Giáo dục là thắp lên một ngọn lửa.”",
+        "sub": "Step — Long Lê",
         "notes": (
-            "Câu nói tôi yêu thích trong giáo dục: 'Giáo dục không phải là đổ đầy một cái bình, mà là thắp lên một ngọn lửa'. "
+            "Câu nói tôi yêu thích trong giáo dục: giáo dục không phải là đổ đầy một cái bình, mà là thắp lên một ngọn lửa. "
             "Tôi hi vọng Step trở thành một phần của ngọn lửa đó bên trong bạn. "
-            "Tải ứng dụng, hoặc ghé https://step.is/vi để bắt đầu."
+            "Ghé https://step.is/vi để bắt đầu."
         ),
     },
 ]
@@ -821,705 +748,423 @@ def add_picture(
 # ---------------------------------------------------------------------------
 # Slide builders
 #
-# One function per slide. Each builder reads its Vietnamese content from the
-# ``SLIDES`` module constant (by index) and composes the helpers above into
-# the per-slide layout defined in ``design.md`` (§Per-slide layout specs).
-# Builders mutate the passed-in ``Presentation`` and return ``None``.
+# Minimalist, typography-forward layouts per the ``instruction.md`` brief:
+# each slide has ONE focal point, ≤ 10 words of visible text, no bullets.
+# The speaker carries the narrative; the slide is the punctuation.
+#
+# Every builder adds a blank-layout slide, paints the warm-neutral
+# background, renders one ``hero`` phrase centered in accent color, renders
+# an optional ``sub`` line in muted color beneath it, and attaches the
+# Vietnamese speaker notes. Slides 1, 2, and 7 additionally embed real
+# product assets (hero image, logo, app-store badges); Slide 4 embeds a
+# small Vertex-generated motif.
 # ---------------------------------------------------------------------------
-def build_slide_1_hook(prs) -> None:
-    """Build Slide 1 — the emotional hook.
+def _build_typography_slide(
+    prs,
+    content: dict,
+    *,
+    hero_size: int,
+    sub_size: int = SIZE_BODY_L,
+    hero_italic: bool = False,
+    sub_italic: bool = True,
+):
+    """Shared scaffold for a one-focal-point typography slide.
 
-    Layout per ``design.md`` §Per-slide layout specs — Slide 1:
-      - full-bleed warm-neutral background
-      - thin vertical accent bar on the left
-      - large headline text box (54 pt, body color, left-aligned, top-anchored)
-      - optional supporting italic line in muted color below the headline
-      - the Slide 1 lyric motif on the right-hand region
-      - 2–3 sentence Vietnamese speaker notes
+    Returns the slide so callers can add per-slide decoration (image,
+    small motif) on top of the hero/sub text block.
     """
-    slide = prs.slides.add_slide(prs.slide_layouts[6])  # blank layout
-    content = SLIDES[0]  # index 1 → array index 0
-
+    slide = prs.slides.add_slide(prs.slide_layouts[6])
     add_bg(slide, BG)
-    add_accent_bar(slide, left_in=0.6, top_in=1.2, width_in=0.12, height_in=2.6)
 
-    # Headline (from content["title"]).
+    # Hero phrase — centered both h/v inside the upper band of the slide.
+    # Using anchor="middle" lets the text visually settle rather than
+    # clamping to the top of the text frame.
     add_text_box(
         slide,
-        content["title"],
-        left_in=0.9,
-        top_in=1.1,
-        width_in=8.2,
-        height_in=3.0,
-        font_size=SIZE_TITLE_XL,
-        font_color=BODY,
+        content["hero"],
+        left_in=1.0,
+        top_in=2.6,
+        width_in=11.333,
+        height_in=1.8,
+        font_size=hero_size,
+        font_color=ACCENT,
         bold=True,
-        align="left",
-        anchor="top",
+        italic=hero_italic,
+        align="center",
+        anchor="middle",
     )
 
-    # Supporting italic line (single string from content["body"][0]).
-    if content["body"]:
+    # Optional small sub-line in muted italic, breathing room beneath the hero.
+    if content.get("sub"):
         add_text_box(
             slide,
-            content["body"][0],
-            left_in=0.9,
-            top_in=4.3,
-            width_in=8.2,
-            height_in=0.8,
-            font_size=SIZE_BODY_M,
+            content["sub"],
+            left_in=1.0,
+            top_in=4.7,
+            width_in=11.333,
+            height_in=0.9,
+            font_size=sub_size,
             font_color=MUTED,
-            italic=True,
-            align="left",
+            italic=sub_italic,
+            align="center",
+            anchor="top",
         )
 
-    # Real illustration occupies the right-hand region. Generated via
-    # Vertex Gemini on first run, cached thereafter.
-    from assets import slide_1_illustration
+    add_speaker_notes(slide, content["notes"])
+    return slide
+
+
+def build_slide_1_hook(prs) -> None:
+    """Slide 1 (Hook): the song title as the focal anchor.
+
+    Elegant "Heal the World" centered-left with the real app hero image
+    tucked into the right-hand margin so the song-to-app bridge is
+    visible at a glance.
+    """
+    slide = _build_typography_slide(prs, SLIDES[0], hero_size=SIZE_TITLE_XL)
+
+    # Real app hero image vendored from https://step.is/assets/hero-image.png.
+    # Kept small and right-aligned so the song title retains the focal point.
+    from assets import hero_image_png
 
     add_picture(
         slide,
-        slide_1_illustration(),
-        left_in=9.2,
-        top_in=1.3,
-        width_in=3.5,
-        height_in=4.9,
+        hero_image_png(),
+        left_in=10.5,
+        top_in=1.0,
+        width_in=2.2,
+        height_in=2.2,
     )
 
-    # Speaker notes.
-    add_speaker_notes(slide, content["notes"])
 
+def build_slide_2_step(prs) -> None:
+    """Slide 2 (What Step Is): brand wordmark + tagline.
 
-def build_slide_2_gap(prs) -> None:
-    """Build Slide 2 — why traditional methods fail.
-
-    Layout per ``design.md`` §Per-slide layout specs — Slide 2:
-      - full-bleed warm-neutral background
-      - thin horizontal accent bar above the title
-      - title text box (44 pt bold, accent color, left-aligned)
-      - three bulleted body lines, each in its own text box at the
-        per-bullet geometry (24 pt, body color, left-aligned, with
-        a ``•`` bullet mark)
-      - 2–3 sentence Vietnamese speaker notes
+    The real Step logo sits above the centered "Step" wordmark, with the
+    ``Vừa học. Vừa dùng.`` tagline beneath. Clean, typographic,
+    wordmark-forward.
     """
-    slide = prs.slides.add_slide(prs.slide_layouts[6])  # blank layout
-    content = SLIDES[1]  # index 2 → array index 1
-
+    slide = prs.slides.add_slide(prs.slide_layouts[6])
     add_bg(slide, BG)
-    add_accent_bar(slide, left_in=0.6, top_in=0.7, width_in=1.2, height_in=0.12)
 
-    # Title (from content["title"]).
+    # Real logo centered above the wordmark.
+    from assets import render_logo_png
+
+    # The Step logo rasterized from the vendored SVG. Centering a picture
+    # requires knowing its rendered width; we fix height and derive the
+    # left offset so the composition reads as a single centered block.
+    logo_height_in = 1.3
+    # The logo's rendered aspect ratio is roughly 1:1 in the source SVG.
+    logo_width_in = 1.3
+    logo_left = (SLIDE_WIDTH_IN - logo_width_in) / 2.0
+    add_picture(
+        slide,
+        render_logo_png(height_px=512),
+        left_in=logo_left,
+        top_in=1.4,
+        width_in=logo_width_in,
+        height_in=logo_height_in,
+    )
+
+    # Wordmark ``Step`` in accent, large, centered below the logo.
     add_text_box(
         slide,
-        content["title"],
-        left_in=0.6,
-        top_in=0.95,
-        width_in=12.1,
-        height_in=1.4,
-        font_size=SIZE_TITLE_L,
+        SLIDES[1]["hero"],
+        left_in=1.0,
+        top_in=3.1,
+        width_in=11.333,
+        height_in=1.5,
+        font_size=SIZE_TITLE_XL,
         font_color=ACCENT,
         bold=True,
-        align="left",
-        anchor="top",
+        align="center",
+        anchor="middle",
     )
 
-    # Three body bullets, one per text box, at the geometries from the
-    # Slide 2 layout spec.
-    bullet_tops = (3.0, 4.2, 5.4)
-    for bullet_text, top_in in zip(content["body"], bullet_tops):
-        add_text_box(
-            slide,
-            bullet_text,
-            left_in=0.6,
-            top_in=top_in,
-            width_in=12.1,
-            height_in=1.0,
-            font_size=SIZE_BODY_L,
-            font_color=BODY,
-            align="left",
-            anchor="top",
-            bullets=True,
-        )
-
-    # Speaker notes.
-    add_speaker_notes(slide, content["notes"])
-
-
-def build_slide_3_intro(prs) -> None:
-    """Build Slide 3 — introducing Step via a reframe and tagline.
-
-    Layout per ``design.md`` §Per-slide layout specs — Slide 3:
-      - full-bleed warm-neutral background
-      - old reframe question in muted italic, centered (Req 6.1)
-      - small accent down-arrow between the old and new questions
-      - new reframe question in bold body color, centered (Req 6.1)
-      - thin horizontal accent rule centered below the question pair
-      - ``Core_Message`` tagline (``emphasis``) in accent color, bold, centered,
-        visually distinct from body per Req 2.4 and Req 6.2
-      - one-sentence explanation line in body color, centered (Req 6.3)
-      - 2–3 sentence Vietnamese speaker notes
-    """
-    slide = prs.slides.add_slide(prs.slide_layouts[6])  # blank layout
-    content = SLIDES[2]  # index 3 → array index 2
-
-    add_bg(slide, BG)
-
-    # Old reframe question — muted italic, centered.
+    # Sub-line tagline in muted italic.
     add_text_box(
         slide,
-        content["body"][0],
-        left_in=0.6,
-        top_in=1.0,
-        width_in=12.1,
+        SLIDES[1]["sub"],
+        left_in=1.0,
+        top_in=4.8,
+        width_in=11.333,
         height_in=0.9,
         font_size=SIZE_BODY_L,
         font_color=MUTED,
         italic=True,
         align="center",
+        anchor="top",
     )
 
-    # Accent down-arrow between the two reframe questions.
-    arrow = slide.shapes.add_shape(
-        MSO_SHAPE.DOWN_ARROW,
-        Inches(6.5),
-        Inches(2.0),
-        Inches(0.3),
-        Inches(0.4),
-    )
-    arrow.fill.solid()
-    arrow.fill.fore_color.rgb = ACCENT
-    arrow.line.fill.background()
-
-    # New reframe question — bold body color, centered.
-    add_text_box(
-        slide,
-        content["body"][1],
-        left_in=0.6,
-        top_in=2.5,
-        width_in=12.1,
-        height_in=0.9,
-        font_size=28,
-        font_color=BODY,
-        bold=True,
-        align="center",
-    )
-
-    # Thin horizontal accent rule separating the reframe pair from the tagline.
-    add_accent_bar(
-        slide,
-        left_in=3.5,
-        top_in=3.7,
-        width_in=6.3,
-        height_in=0.04,
-    )
-
-    # Core_Message tagline (from content["emphasis"]) — accent, bold, centered,
-    # larger than any non-title body run on the slide so it reads as emphasis.
-    add_text_box(
-        slide,
-        content["emphasis"],
-        left_in=0.6,
-        top_in=4.0,
-        width_in=12.1,
-        height_in=1.4,
-        font_size=40,
-        font_color=ACCENT,
-        bold=True,
-        align="center",
-    )
-
-    # One-sentence explanation line — body color, centered.
-    add_text_box(
-        slide,
-        content["body"][2],
-        left_in=0.6,
-        top_in=5.6,
-        width_in=12.1,
-        height_in=1.3,
-        font_size=22,
-        font_color=BODY,
-        align="center",
-    )
-
-    # Speaker notes.
-    add_speaker_notes(slide, content["notes"])
+    add_speaker_notes(slide, SLIDES[1]["notes"])
 
 
-def build_slide_4_heal(prs) -> None:
-    """Build Slide 4 — the "Heal the World" worked example.
+def build_slide_3_founder(prs) -> None:
+    """Slide 3 (The Founder): name-forward introduction.
 
-    Layout per ``design.md`` §Per-slide layout specs — Slide 4:
-      - full-bleed warm-neutral background
-      - title text box (40 pt bold, accent color, left-aligned)
-      - italic muted subtitle framing the song (20 pt)
-      - five activity rows, each composed of an ``add_icon_circle(...)``
-        glyph disc plus a matching body text box at 22 pt; glyphs in
-        order ``♪``, ``🎧``, ``🌍``, ``🃏``, ``✎`` (honoring
-        ``USE_GLYPH_EMOJI`` via the icon helper)
-      - a closing line in accent color, bold italic, 24 pt, left-aligned
-      - 2–3 sentence Vietnamese speaker notes
-
-    This is the one slide that intentionally exceeds the 4-bullet default
-    (Req 3.5) because Req 7.2 mandates five concrete activity types. The
-    trade-off is documented in ``design.md`` (§Design decision: Slide 4
-    bullet count exception); row copy is kept short so total body word
-    count stays within the 60-word budget.
+    ``Long Lê`` large and centered, with the ``cánh cửa`` sub-line
+    beneath. No decoration — the name is the focal point.
     """
-    slide = prs.slides.add_slide(prs.slide_layouts[6])  # blank layout
-    content = SLIDES[3]  # index 4 → array index 3
+    _build_typography_slide(prs, SLIDES[2], hero_size=SIZE_TITLE_XL)
 
+
+def build_slide_4_insight(prs) -> None:
+    """Slide 4 (The Insight): ``decision → "cắt bỏ"``.
+
+    The emotional centre of the deck. The English word ``decision`` sits
+    large on top, a thin vertical accent rule below it, and the Vietnamese
+    gloss ``"cắt bỏ"`` in italic beneath — composed to hold a beat of
+    silence while the speaker delivers the Latin origin.
+    """
+    slide = prs.slides.add_slide(prs.slide_layouts[6])
     add_bg(slide, BG)
 
-    # Title (from content["title"]).
+    # English word — large, accent, centered-upper.
     add_text_box(
         slide,
-        content["title"],
-        left_in=0.6,
-        top_in=0.6,
-        width_in=12.1,
-        height_in=1.0,
-        font_size=SIZE_TITLE_M,
+        SLIDES[3]["hero"],
+        left_in=1.0,
+        top_in=2.1,
+        width_in=11.333,
+        height_in=1.6,
+        font_size=72,
         font_color=ACCENT,
         bold=True,
-        align="left",
+        italic=True,
+        align="center",
+        anchor="middle",
     )
 
-    # Italic muted subtitle framing the song (optional).
-    if content.get("subtitle"):
-        add_text_box(
-            slide,
-            content["subtitle"],
-            left_in=0.6,
-            top_in=1.5,
-            width_in=12.1,
-            height_in=0.6,
-            font_size=SIZE_BODY_M,
-            font_color=MUTED,
-            italic=True,
-            align="left",
-        )
-
-    # Five activity rows: icon circle + body text, at the per-row
-    # geometries from the Slide 4 layout spec. Glyphs map 1:1 to the
-    # activity order documented in design.md. Row widths are shortened
-    # so a right-side mood illustration can sit next to them.
-    glyphs = ["♪", "🎧", "🌍", "🃏", "✎"]
-    row_tops = [2.3, 3.0, 3.7, 4.4, 5.1]
-    for glyph, row_text, row_top in zip(glyphs, content["body"], row_tops):
-        add_icon_circle(
-            slide,
-            left_in=0.8,
-            top_in=row_top,
-            diameter_in=0.6,
-            fill=ACCENT,
-            glyph=glyph,
-            glyph_color=ON_ACCENT,
-            glyph_size=20,
-        )
-        add_text_box(
-            slide,
-            row_text,
-            left_in=1.6,
-            top_in=row_top,
-            width_in=7.6,
-            height_in=0.6,
-            font_size=22,
-            font_color=BODY,
-            align="left",
-            anchor="middle",
-        )
-
-    # Right-side mood illustration evoking the 'Heal the World' song.
-    # Generated via Vertex; cached thereafter.
-    from assets import slide_4_illustration
-
-    add_picture(
+    # Thin vertical accent rule in the middle — the "cut" visualized.
+    rule_height_in = 0.7
+    rule_left = SLIDE_WIDTH_IN / 2.0 - 0.02
+    add_accent_bar(
         slide,
-        slide_4_illustration(),
-        left_in=9.4,
-        top_in=2.3,
-        width_in=3.3,
-        height_in=3.3,
+        left_in=rule_left,
+        top_in=3.9,
+        width_in=0.04,
+        height_in=rule_height_in,
     )
 
-    # Closing line — accent color, bold italic, left-aligned.
-    if content.get("closing"):
-        add_text_box(
-            slide,
-            content["closing"],
-            left_in=0.6,
-            top_in=6.2,
-            width_in=12.1,
-            height_in=0.8,
-            font_size=SIZE_BODY_L,
-            font_color=ACCENT,
-            bold=True,
-            italic=True,
-            align="left",
-        )
+    # Vietnamese gloss — muted italic, centered below the rule.
+    add_text_box(
+        slide,
+        SLIDES[3]["sub"],
+        left_in=1.0,
+        top_in=4.8,
+        width_in=11.333,
+        height_in=1.2,
+        font_size=44,
+        font_color=BODY,
+        italic=True,
+        align="center",
+        anchor="middle",
+    )
 
-    # Speaker notes.
-    add_speaker_notes(slide, content["notes"])
+    add_speaker_notes(slide, SLIDES[3]["notes"])
 
 
 def build_slide_5_why(prs) -> None:
-    """Build Slide 5 — why learning through loved content works.
+    """Slide 5 (Why It Matters): ``Câu chuyện là cánh cửa.``
 
-    Layout per ``design.md`` §Per-slide layout specs — Slide 5:
-      - full-bleed warm-neutral background
-      - thin horizontal accent bar above the title
-      - title text box (44 pt bold, accent color, left-aligned)
-      - insight paragraph 1 — the worldview statement (24 pt, body color)
-      - insight paragraph 2 — the heal-vs-cure example (22 pt, body color)
-      - thin horizontal accent divider rule centered below the insights
-      - ``emphasis`` one-liner rendered in accent color, 32 pt bold italic,
-        centered, making it visually distinct from body per Req 8.3
-      - 2–3 sentence Vietnamese speaker notes
+    Single-line typography slide with a stylized door motif to the right
+    of the text. The shape composition is kept minimal — a thin accent
+    rectangle with a small arc on top — so the composition reads as a
+    door silhouette without demanding attention from the phrase.
     """
-    slide = prs.slides.add_slide(prs.slide_layouts[6])  # blank layout
-    content = SLIDES[4]  # index 5 → array index 4
+    slide = _build_typography_slide(prs, SLIDES[4], hero_size=60, hero_italic=True)
 
-    add_bg(slide, BG)
-    add_accent_bar(slide, left_in=0.6, top_in=0.7, width_in=1.2, height_in=0.12)
+    # Minimal door motif: a tall narrow rectangle (the door body) plus a
+    # small square above it (the lintel/handle). Pure palette colors.
+    door_left = 11.2
+    door_top = 2.4
+    door_width = 0.9
+    door_height = 2.7
 
-    # Title (from content["title"]).
-    add_text_box(
-        slide,
-        content["title"],
-        left_in=0.6,
-        top_in=0.95,
-        width_in=12.1,
-        height_in=1.2,
-        font_size=SIZE_TITLE_L,
-        font_color=ACCENT,
-        bold=True,
-        align="left",
+    door = slide.shapes.add_shape(
+        MSO_SHAPE.RECTANGLE,
+        Inches(door_left),
+        Inches(door_top),
+        Inches(door_width),
+        Inches(door_height),
     )
+    door.fill.solid()
+    door.fill.fore_color.rgb = BG
+    door.line.color.rgb = ACCENT
+    door.line.width = Pt(3)
 
-    # Insight paragraph 1 — worldview (24 pt, body color, left-aligned).
-    add_text_box(
-        slide,
-        content["body"][0],
-        left_in=0.6,
-        top_in=2.5,
-        width_in=12.1,
-        height_in=1.0,
-        font_size=SIZE_BODY_L,
-        font_color=BODY,
-        align="left",
+    # Door handle: small accent square near the right edge, centered vertically.
+    handle_size = 0.12
+    handle = slide.shapes.add_shape(
+        MSO_SHAPE.OVAL,
+        Inches(door_left + door_width - 0.25),
+        Inches(door_top + door_height / 2.0 - handle_size / 2.0),
+        Inches(handle_size),
+        Inches(handle_size),
     )
-
-    # Insight paragraph 2 — heal vs cure (22 pt, body color, left-aligned).
-    add_text_box(
-        slide,
-        content["body"][1],
-        left_in=0.6,
-        top_in=3.7,
-        width_in=12.1,
-        height_in=1.5,
-        font_size=22,
-        font_color=BODY,
-        align="left",
-    )
-
-    # Thin horizontal accent divider rule between insights and the one-liner.
-    add_accent_bar(
-        slide,
-        left_in=3.5,
-        top_in=5.4,
-        width_in=6.3,
-        height_in=0.04,
-    )
-
-    # Emphasis one-liner — accent color, bold italic, centered, at tagline size
-    # so it reads as visually distinct from the body paragraphs above.
-    add_text_box(
-        slide,
-        content["emphasis"],
-        left_in=0.6,
-        top_in=5.7,
-        width_in=12.1,
-        height_in=1.2,
-        font_size=SIZE_TAGLINE,
-        font_color=ACCENT,
-        bold=True,
-        italic=True,
-        align="center",
-    )
-
-    # Speaker notes.
-    add_speaker_notes(slide, content["notes"])
+    handle.fill.solid()
+    handle.fill.fore_color.rgb = ACCENT
+    handle.line.fill.background()
 
 
-def build_slide_6_diff(prs) -> None:
-    """Build Slide 6 — what makes Step different (2×2 differentiator grid).
+def build_slide_6_promise(prs) -> None:
+    """Slide 6 (The Promise): two-line typography.
 
-    Layout per ``design.md`` §Per-slide layout specs — Slide 6:
-      - full-bleed warm-neutral background
-      - title text box (44 pt bold, accent color, left-aligned)
-      - four differentiator cells arranged in a 2×2 grid; each cell is an
-        ``add_icon_circle(...)`` glyph disc on the left, a 22 pt bold label
-        in body color to its right, and an 18 pt muted body block beneath
-        the label, all at the per-cell geometries from the Slide 6 layout
-        spec
-      - 2–3 sentence Vietnamese speaker notes
-
-    Glyphs, in cell order 0..3 (top-left, top-right, bottom-left,
-    bottom-right), are ``"AI"``, ``"♫"``, ``"♥"``, ``"✓"`` per design.md.
-    The ``"AI"`` glyph is rendered a few points smaller than the others so
-    both characters fit comfortably inside the 0.7 inch icon circle.
+    Honest and quiet: "Step không làm việc học dễ hơn." as the hero, with
+    "Step nuôi dưỡng sự tò mò của bạn." as the sub-line. Typography only.
     """
-    slide = prs.slides.add_slide(prs.slide_layouts[6])  # blank layout
-    content = SLIDES[5]  # index 6 → array index 5
+    _build_typography_slide(prs, SLIDES[5], hero_size=48, sub_size=SIZE_TITLE_M)
 
+
+def build_slide_7_closing(prs) -> None:
+    """Slide 7 (Closing): the education quote + signature + download CTA.
+
+    A single pulled quote ("Giáo dục là thắp lên một ngọn lửa.") occupies
+    the upper two-thirds. "Step — Long Lê" appears as a signature beneath.
+    A small flame accent motif punctuates the quote. The real App Store
+    and Google Play badges anchor the lower-right as the functional CTA.
+    """
+    slide = prs.slides.add_slide(prs.slide_layouts[6])
     add_bg(slide, BG)
 
-    # Title (from content["title"]).
+    # The pulled quote — large, italic, accent, centered.
     add_text_box(
         slide,
-        content["title"],
-        left_in=0.6,
-        top_in=0.6,
-        width_in=12.1,
-        height_in=1.0,
-        font_size=SIZE_TITLE_L,
-        font_color=ACCENT,
-        bold=True,
-        align="left",
-    )
-
-    # 2×2 differentiator grid. ``cell_layouts`` matches the index order
-    # of ``content["body"]`` and of the ``glyphs`` list.
-    glyphs = ["AI", "♫", "♥", "✓"]
-    cell_layouts = [
-        {"icon": (0.8, 2.1), "label": (1.7, 2.0, 4.5, 0.6), "body": (1.7, 2.6, 4.5, 1.6)},
-        {"icon": (7.0, 2.1), "label": (7.9, 2.0, 4.6, 0.6), "body": (7.9, 2.6, 4.6, 1.6)},
-        {"icon": (0.8, 4.6), "label": (1.7, 4.5, 4.5, 0.6), "body": (1.7, 5.1, 4.5, 1.6)},
-        {"icon": (7.0, 4.6), "label": (7.9, 4.5, 4.6, 0.6), "body": (7.9, 5.1, 4.6, 1.6)},
-    ]
-
-    for cell, glyph, layout in zip(content["body"], glyphs, cell_layouts):
-        icon_left, icon_top = layout["icon"]
-        # ``AI`` is two characters; drop the point size slightly so both
-        # letters fit within the 0.7 inch disc. Single-character glyphs use
-        # the standard 22 pt.
-        glyph_size = 18 if glyph == "AI" else 22
-        add_icon_circle(
-            slide,
-            left_in=icon_left,
-            top_in=icon_top,
-            diameter_in=0.7,
-            fill=ACCENT,
-            glyph=glyph,
-            glyph_color=ON_ACCENT,
-            glyph_size=glyph_size,
-        )
-
-        # Cell label — 22 pt bold, body color, left-aligned, vertically
-        # centered inside its 0.6 inch band so it sits next to the icon.
-        label_left, label_top, label_width, label_height = layout["label"]
-        add_text_box(
-            slide,
-            cell["label"],
-            left_in=label_left,
-            top_in=label_top,
-            width_in=label_width,
-            height_in=label_height,
-            font_size=22,
-            font_color=BODY,
-            bold=True,
-            align="left",
-            anchor="middle",
-        )
-
-        # Cell body — 18 pt muted, left-aligned, top-anchored beneath the
-        # label. Copy is kept to ≤ 16 words per Req 9.3.
-        body_left, body_top, body_width, body_height = layout["body"]
-        add_text_box(
-            slide,
-            cell["text"],
-            left_in=body_left,
-            top_in=body_top,
-            width_in=body_width,
-            height_in=body_height,
-            font_size=SIZE_BODY_S,
-            font_color=MUTED,
-            align="left",
-            anchor="top",
-        )
-
-    # Speaker notes.
-    add_speaker_notes(slide, content["notes"])
-
-
-def build_slide_7_cta(prs) -> None:
-    """Build Slide 7 — the closing call to action.
-
-    Layout per ``design.md`` §Per-slide layout specs — Slide 7 (adapted):
-      - full-bleed warm-neutral background
-      - centered invitation headline (46 pt bold, accent color) occupying the
-        upper band of the slide (Req 10.1)
-      - centered italic sub-text (22 pt, body color) directly below the
-        headline (Req 10.2)
-      - the real Step logo rasterized to the lower-left, paired with
-        the brand mark ``Step`` and a next-step line that includes the URL
-        ``https://step.is/vi`` (Req 10.3)
-      - the real App Store and Google Play download badges stacked on
-        the lower-right (replaces the earlier QR placeholder since the
-        badges + URL carry the CTA directly)
-      - 2–3 sentence Vietnamese speaker notes
-
-    The headline is phrased as an invitation rather than a demand per
-    Req 10.4; copy is sourced verbatim from ``SLIDES[6]``.
-    """
-    slide = prs.slides.add_slide(prs.slide_layouts[6])  # blank layout
-    content = SLIDES[6]  # index 7 → array index 6
-
-    add_bg(slide, BG)
-
-    # Invitation headline — 46 pt bold accent, centered horizontally and
-    # vertically within its band so the phrase reads as an open invitation.
-    add_text_box(
-        slide,
-        content["title"],
-        left_in=0.6,
-        top_in=1.0,
-        width_in=12.1,
-        height_in=2.0,
+        SLIDES[6]["hero"],
+        left_in=1.0,
+        top_in=1.8,
+        width_in=11.333,
+        height_in=2.4,
         font_size=46,
         font_color=ACCENT,
         bold=True,
-        align="center",
-        anchor="middle",
-    )
-
-    # Sub-text — 22 pt italic body color, centered (Req 10.2).
-    add_text_box(
-        slide,
-        content["body"][0],
-        left_in=0.6,
-        top_in=3.2,
-        width_in=12.1,
-        height_in=1.6,
-        font_size=22,
-        font_color=BODY,
         italic=True,
         align="center",
-    )
-
-    # Real Step logo rasterized from step-logo.svg, placed just above the
-    # brand mark on the lower-left. Height ≈ 1 inch.
-    from assets import render_logo_png
-
-    add_picture(
-        slide,
-        render_logo_png(height_px=256),
-        left_in=0.6,
-        top_in=5.05,
-        height_in=1.0,
-    )
-
-    # Brand mark ``Step`` — rendered at ``SIZE_TITLE_XL`` bold in accent
-    # color, placed to the right of the logo so the two read as one
-    # signature mark.
-    add_text_box(
-        slide,
-        content["emphasis"],
-        left_in=1.8,
-        top_in=5.2,
-        width_in=3.0,
-        height_in=1.0,
-        font_size=SIZE_TITLE_XL,
-        font_color=ACCENT,
-        bold=True,
-        align="left",
         anchor="middle",
     )
 
-    # Next-step line — 20 pt body color, left-aligned directly below the
-    # brand mark. Mentions the public URL ``https://step.is/vi`` so
-    # visitors can reach the product without a QR scan.
+    # Small flame accent motif: a teardrop shape in accent color,
+    # centered below the quote.
+    flame_size = 0.5
+    flame_left = SLIDE_WIDTH_IN / 2.0 - flame_size / 2.0
+    flame = slide.shapes.add_shape(
+        MSO_SHAPE.TEAR,
+        Inches(flame_left),
+        Inches(4.4),
+        Inches(flame_size),
+        Inches(flame_size * 1.4),
+    )
+    flame.fill.solid()
+    flame.fill.fore_color.rgb = ACCENT
+    flame.line.fill.background()
+    # Rotate 180° so the teardrop's point faces up like a flame tip.
+    flame.rotation = 180
+
+    # Signature line: "Step — Long Lê" in muted body color, centered.
     add_text_box(
         slide,
-        content["body"][1],
-        left_in=0.6,
-        top_in=6.25,
-        width_in=9.0,
+        SLIDES[6]["sub"],
+        left_in=1.0,
+        top_in=5.4,
+        width_in=11.333,
         height_in=0.6,
-        font_size=SIZE_BODY_M,
-        font_color=BODY,
-        align="left",
+        font_size=SIZE_BODY_L,
+        font_color=MUTED,
+        italic=True,
+        align="center",
+        anchor="top",
     )
 
-    # App-store badges on the lower-right — real Apple App Store and
-    # Google Play badges vendored from https://step.is/assets/. Stacked
-    # vertically at ~2.1 inches wide (badges are ~3:1 aspect ratio, so
-    # each lands at roughly 2.1 × 0.7 inches). Replaces the earlier QR
-    # placeholder and the Vertex closing image since the badges + URL
-    # already carry the CTA directly.
+    # Public URL in muted body color below the signature, so the CTA
+    # is reachable even without scanning a badge.
+    add_text_box(
+        slide,
+        "https://step.is/vi",
+        left_in=1.0,
+        top_in=6.1,
+        width_in=11.333,
+        height_in=0.5,
+        font_size=SIZE_BODY_M,
+        font_color=MUTED,
+        align="center",
+        anchor="top",
+    )
+
+    # App-store badges — stacked on the lower-left corner so they don't
+    # compete with the centered quote/signature column.
     from assets import appstore_badge_png, playstore_badge_png
 
     add_picture(
         slide,
         appstore_badge_png(),
-        left_in=10.6,
-        top_in=5.2,
-        width_in=2.1,
+        left_in=0.6,
+        top_in=5.6,
+        width_in=1.8,
     )
     add_picture(
         slide,
         playstore_badge_png(),
-        left_in=10.6,
-        top_in=6.05,
-        width_in=2.1,
+        left_in=0.6,
+        top_in=6.4,
+        width_in=1.8,
     )
 
-    # Speaker notes.
-    add_speaker_notes(slide, content["notes"])
+    add_speaker_notes(slide, SLIDES[6]["notes"])
 
 
 def build(prs) -> None:
-    """Build all 7 slides in order on the given ``Presentation``.
+    """Build all 7 content slides in order on the given ``Presentation``.
 
     Invokes each per-slide builder against ``prs`` in narrative order
-    (Slide 1 hook → Slide 7 CTA). Each builder appends exactly one slide
-    and mutates ``prs`` in place.
+    (Slide 1 hook → Slide 7 closing). Each builder appends exactly one
+    slide and mutates ``prs`` in place. Does NOT include the title slide
+    — that's merged in ``main()`` via ``assets.merge_title_slide``.
     """
     build_slide_1_hook(prs)
-    build_slide_2_gap(prs)
-    build_slide_3_intro(prs)
-    build_slide_4_heal(prs)
+    build_slide_2_step(prs)
+    build_slide_3_founder(prs)
+    build_slide_4_insight(prs)
     build_slide_5_why(prs)
-    build_slide_6_diff(prs)
-    build_slide_7_cta(prs)
+    build_slide_6_promise(prs)
+    build_slide_7_closing(prs)
+
+
+# Which language's title slide to prepend. This module is the Vietnamese
+# deck, so the value is "vi". Future locales MUST set the matching
+# language code so the correct ``decks/title-slide-<lang>.pptx`` is
+# used as the opener (see ``.kiro/steering/deck-pipeline.md``).
+DECK_LANGUAGE = "vi"
 
 
 def main() -> None:
     """Build the deck in memory and upload the .pptx to Cloudflare R2.
 
-    Constructs a new ``Presentation``, configures the 16:9 widescreen slide
-    size (13.333 × 7.5 inches), composes all 7 slides via ``build(prs)``,
-    serializes the result to bytes, and uploads the bytes to the
-    ``step-pitch-decks`` R2 bucket under two keys: a timestamped snapshot
-    and a ``.../latest`` alias. No ``.pptx`` is written to local disk.
-    The public URL (served via ``slides.nspace.is``) is printed on stdout.
-    """
-    from assets import upload_pptx
+    Assembles the deck in three stages and uploads the result without
+    touching local disk:
 
-    prs = Presentation()
-    prs.slide_width = Inches(SLIDE_WIDTH_IN)
-    prs.slide_height = Inches(SLIDE_HEIGHT_IN)
+      1. Open the language-appropriate title slide from
+         ``decks/title-slide-<lang>.pptx`` as the starting
+         ``Presentation``.
+      2. Append the 7 minimalist content slides via ``build(prs)``.
+      3. Serialize to bytes and upload to the ``step-pitch-decks`` R2
+         bucket twice — once under a timestamped snapshot key and once
+         under the ``<name>.pptx`` latest alias. The public URL (served
+         via ``slides.nspace.is``) is printed on stdout.
+    """
+    from assets import open_title_slide_presentation, upload_pptx
+
+    prs = open_title_slide_presentation(language=DECK_LANGUAGE)
     build(prs)
 
     buf = io.BytesIO()
     prs.save(buf)
-    data = buf.getvalue()
+    final_bytes = buf.getvalue()
 
     stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     snapshot_key = _R2_KEY_TEMPLATE.format(stamp=stamp)
 
-    snapshot_url = upload_pptx(data, key=snapshot_key)
-    latest_url = upload_pptx(data, key=_R2_KEY_LATEST)
+    snapshot_url = upload_pptx(final_bytes, key=snapshot_key)
+    latest_url = upload_pptx(final_bytes, key=_R2_KEY_LATEST)
 
     print(f"Uploaded snapshot: {snapshot_url}")
     print(f"Latest:            {latest_url}")
