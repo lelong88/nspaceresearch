@@ -10,6 +10,7 @@ import { sendsRouter } from "./routes/sends";
 import { queryRouter } from "./routes/query";
 import { viewRouter } from "./routes/view";
 import { unsubscribeRouter } from "./routes/unsubscribe";
+import { webhooksRouter } from "./routes/webhooks";
 
 const app = new Hono<{ Bindings: Env }>();
 
@@ -29,6 +30,7 @@ app.route("/api", queryRouter);
 // Public route groups
 app.route("/", viewRouter);
 app.route("/", unsubscribeRouter);
+app.route("/", webhooksRouter);
 
 // Global error handler
 app.onError((err, c) => {

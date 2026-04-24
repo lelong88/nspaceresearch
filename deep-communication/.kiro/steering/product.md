@@ -192,11 +192,13 @@ Directory names use kebab-case and should be descriptive:
 2. **Preview**: `python _send_campaign_preview.py {slug} {lang}` → sends a test email and prints the R2 "view in browser" URL
 3. **Iterate**: tweak copy and templates, re-preview
 4. **Create subscriber list** (if needed): via the Workers API `/api/lists` + `/api/lists/:id/subscribers/bulk`
-5. **Create campaign record**: `POST /api/campaigns` — this returns the `campaign_id` used for dedup tracking
-6. **Dry run**: `python send_bulk.py {slug} {list_id} {campaign_id} {lang} "{subject}" --dry-run --limit=5`
-7. **Bulk send**: `python send_bulk.py {slug} {list_id} {campaign_id} {lang} "{subject}"` — confirms, paces at 200ms/send, dedupes against prior sends
+5. **Create campaign record**: `POST /api/campaigns` — this returns the `campaign_id` used for dedup tracking. The campaign row in the DB already stores the **target list ID** (`email_list_id`), so the list-to-campaign mapping is authoritative in the database — no need to look it up separately.
+6. **Dry run**: `python _run_campaign_and_summarize.py {slug} {list_id} {campaign_id} {lang} "{subject}" --dry-run --limit=5`
+7. **Bulk send**: `python _run_campaign_and_summarize.py {slug} {list_id} {campaign_id} {lang} "{subject}" --from=long@nspace.is` — sends all emails, dedupes against prior sends, and emails a summary to `long@nspace.is` when done
 8. **Resume if interrupted**: re-run the same command — already-sent recipients are skipped automatically
-9. **Track**: `/api/campaigns/:id/sends` shows per-recipient send state (status, sent_at, view_url)
+9. **Track**: `/api/campaigns/:id/sends` shows per-recipient send state (status, sent_at, bounced_at, view_url)
+
+> **Always use `_run_campaign_and_summarize.py` for live sends** — it wraps `send_bulk.py` and adds the post-send summary email. Use `send_bulk.py` directly only for scripting or module-level imports.
 
 ### SES Rate Limit Notes
 

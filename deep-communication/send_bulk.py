@@ -108,28 +108,48 @@ def _auth_headers() -> dict[str, str]:
     return {"X-API-Key": key, "User-Agent": USER_AGENT}
 
 
+def _retry(fn, retries: int = 3, backoff: float = 2.0):
+    """Retry a callable on transient network errors with exponential backoff."""
+    for attempt in range(retries):
+        try:
+            return fn()
+        except (urllib.error.URLError, OSError) as e:
+            # Don't retry HTTP 4xx/5xx — only network-level failures
+            if isinstance(e, urllib.error.HTTPError):
+                raise
+            if attempt == retries - 1:
+                raise
+            wait = backoff * (2 ** attempt)
+            print(f"  ⚠ Network error ({e}), retrying in {wait:.0f}s...")
+            time.sleep(wait)
+
+
 def _api_get(path: str) -> list | dict:
-    req = urllib.request.Request(f"{API_BASE}{path}", headers=_auth_headers())
-    with urllib.request.urlopen(req) as resp:
-        return json.load(resp)
+    def _do():
+        req = urllib.request.Request(f"{API_BASE}{path}", headers=_auth_headers())
+        with urllib.request.urlopen(req) as resp:
+            return json.load(resp)
+    return _retry(_do)
 
 
 def _api_post(path: str, body: dict) -> tuple[int, dict]:
-    req = urllib.request.Request(
-        f"{API_BASE}{path}",
-        data=json.dumps(body).encode(),
-        headers={**_auth_headers(), "Content-Type": "application/json"},
-        method="POST",
-    )
-    try:
-        with urllib.request.urlopen(req) as resp:
-            return resp.status, json.load(resp)
-    except urllib.error.HTTPError as e:
-        raw = e.read().decode() or "{}"
+    def _do():
+        req = urllib.request.Request(
+            f"{API_BASE}{path}",
+            data=json.dumps(body).encode(),
+            headers={**_auth_headers(), "Content-Type": "application/json"},
+            method="POST",
+        )
         try:
-            return e.code, json.loads(raw)
-        except json.JSONDecodeError:
-            return e.code, {"error": raw}
+            with urllib.request.urlopen(req) as resp:
+                return resp.status, json.load(resp)
+        except urllib.error.HTTPError as e:
+            raw = e.read().decode() or "{}"
+            try:
+                return e.code, json.loads(raw)
+            except json.JSONDecodeError:
+                return e.code, {"error": raw}
+    return _retry(_do)
 
 
 def _fetch_subscribers(list_id: int) -> list[dict]:
@@ -295,27 +315,49 @@ def send_bulk(
                 unsubscribe_url=unsub_url,
                 view_url=view_url,
             )
-            # 3) Upload to R2
-            _get_s3().put_object(
-                Bucket=R2_BUCKET,
-                Key=r2_key,
-                Body=html.encode("utf-8"),
-                ContentType="text/html; charset=utf-8",
-            )
-            # 4) Send via SES
-            result = send_email(
-                subject=subject,
-                body=html,
-                from_email=from_email,
-                to_email=email,
-                html=True,
-            )
-            if result.get("success"):
+            # 3) Upload to R2 (with retry)
+            for _r2_attempt in range(3):
+                try:
+                    _get_s3().put_object(
+                        Bucket=R2_BUCKET,
+                        Key=r2_key,
+                        Body=html.encode("utf-8"),
+                        ContentType="text/html; charset=utf-8",
+                    )
+                    break
+                except Exception as r2_err:
+                    if _r2_attempt == 2:
+                        raise r2_err
+                    print(f"  ⚠ R2 upload error ({r2_err}), retrying...")
+                    time.sleep(2 * (2 ** _r2_attempt))
+            # 4) Send via SES (with retry)
+            ses_result = None
+            for _ses_attempt in range(3):
+                result = send_email(
+                    subject=subject,
+                    body=html,
+                    from_email=from_email,
+                    to_email=email,
+                    html=True,
+                )
+                if result.get("success"):
+                    ses_result = result
+                    break
+                # Retry on network-level failures, not on SES rejections
+                err_msg = result.get("message", "")
+                if "Connection" in err_msg or "Network" in err_msg or "timed out" in err_msg:
+                    if _ses_attempt < 2:
+                        print(f"  ⚠ SES transient error ({err_msg}), retrying...")
+                        time.sleep(2 * (2 ** _ses_attempt))
+                        continue
+                ses_result = result
+                break
+            if ses_result and ses_result.get("success"):
                 sent += 1
                 print(f"{progress} ✓ {email}")
             else:
                 failed += 1
-                msg = f"{email}: SES failed: {result.get('message')}"
+                msg = f"{email}: SES failed: {ses_result.get('message') if ses_result else 'unknown'}"
                 errors.append(msg)
                 print(f"{progress} ✗ {msg}")
         except Exception as e:

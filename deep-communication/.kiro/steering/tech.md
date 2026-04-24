@@ -39,10 +39,12 @@
 | `npm test` | Run all tests (Vitest, single run) |
 | `python _send_campaign_preview.py` | Send a campaign preview email |
 | `python _send_campaign_preview.py <slug> <lang>` | Preview a specific campaign + locale |
-| `python send_bulk.py <slug> <list_id> <campaign_id> <lang> "<subject>"` | Bulk send (prompts for confirmation, paced at 200ms/send, dedupes via DB) |
+| `python send_bulk.py <slug> <list_id> <campaign_id> <lang> "<subject>"` | Low-level bulk send (use `_run_campaign_and_summarize.py` instead for live sends) |
 | `python send_bulk.py ... --dry-run --limit=5` | Dry-run (render-only, shows dedup state) |
 | `python send_bulk.py ... --from=long@nspace.is` | Override sender address |
 | `python send_bulk.py ... --yes` | Skip confirmation (scripted use) |
+| `python _run_campaign_and_summarize.py <slug> <list_id> <campaign_id> <lang> "<subject>"` | **Standard entry point**: bulk send + summary email to notify address |
+| `python _run_campaign_and_summarize.py ... --notify=team@step.is` | Override summary recipient (default: long@nspace.is) |
 
 ## Environment Variables
 - `DATABASE_URL` — PostgreSQL connection string
