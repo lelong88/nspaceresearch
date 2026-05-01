@@ -1,19 +1,20 @@
 """
-validate_content.py — Shared content validation module for curriculum creation.
+validate_content.py — Children's curriculum content validator.
 
-Validates curriculum content JSON against all Content Corruption Detection Rules
-before upload. Raises ValueError with a specific violation message on any failure.
+Validates curriculum content JSON for Vietnamese-English children's curriculums
+(ages 6-10). Supports three formats:
+  - "beginner_mini": 1 session, 3-5 unique vocab words, no vocabLevel1/vocabLevel2
+  - "beginner_short": 4 sessions, 8-10 unique vocab words
+  - "preintermediate_short": 4 sessions, 10-12 unique vocab words
 
-Supports two levels:
-  - "beginner": 4 sessions (2 learning + 1 review + 1 final), 12 unique vocab words,
-                no writingParagraph, no vocabLevel3
-  - "standard": 5 sessions (3 learning + 1 review + 1 final), 18 unique vocab words,
-                full activity set including writingParagraph in final session
+All formats forbid writingParagraph and vocabLevel3.
+beginner_mini additionally forbids vocabLevel1 and vocabLevel2.
 
 Usage:
     from validate_content import validate
-    validate(content_dict)                    # standard (default)
-    validate(content_dict, level="beginner")  # beginner
+    validate(content_dict, format="beginner_mini")
+    validate(content_dict, format="beginner_short")
+    validate(content_dict, format="preintermediate_short")
 """
 
 VALID_ACTIVITY_TYPES = {
@@ -22,22 +23,23 @@ VALID_ACTIVITY_TYPES = {
     "speakFlashcards",
     "vocabLevel1",
     "vocabLevel2",
-    "vocabLevel3",
     "reading",
     "speakReading",
     "readAlong",
     "writingSentence",
-    "writingParagraph",
 }
 
-BEGINNER_FORBIDDEN_ACTIVITIES = {"writingParagraph", "vocabLevel3"}
+# Forbidden in ALL children's formats
+CHILDREN_FORBIDDEN_ACTIVITIES = {"writingParagraph", "vocabLevel3"}
+
+# Additionally forbidden in beginner_mini
+BEGINNER_MINI_EXTRA_FORBIDDEN = {"vocabLevel1", "vocabLevel2"}
 
 VOCAB_ACTIVITY_TYPES = {
     "viewFlashcards",
     "speakFlashcards",
     "vocabLevel1",
     "vocabLevel2",
-    "vocabLevel3",
 }
 
 STRIP_KEYS = {
@@ -53,17 +55,25 @@ STRIP_KEYS = {
     "imageId",
 }
 
-# Level configuration
-LEVEL_CONFIG = {
-    "beginner": {
-        "session_count": 4,
-        "learning_session_count": 2,
-        "total_vocab": 12,
+# Format configuration
+FORMAT_CONFIG = {
+    "beginner_mini": {
+        "session_count": 1,
+        "vocab_min": 3,
+        "vocab_max": 5,
+        "forbidden": CHILDREN_FORBIDDEN_ACTIVITIES | BEGINNER_MINI_EXTRA_FORBIDDEN,
     },
-    "standard": {
-        "session_count": 5,
-        "learning_session_count": 3,
-        "total_vocab": 18,
+    "beginner_short": {
+        "session_count": 4,
+        "vocab_min": 8,
+        "vocab_max": 10,
+        "forbidden": CHILDREN_FORBIDDEN_ACTIVITIES,
+    },
+    "preintermediate_short": {
+        "session_count": 4,
+        "vocab_min": 10,
+        "vocab_max": 12,
+        "forbidden": CHILDREN_FORBIDDEN_ACTIVITIES,
     },
 }
 
@@ -96,14 +106,17 @@ def _validate_top_level(content):
     # preview.text
     preview = content.get("preview")
     if not isinstance(preview, dict):
-        raise ValueError("Top-level 'preview' must be an object with a 'text' field")
+        raise ValueError("Top-level 'preview' must be a dict with a 'text' field")
     preview_text = preview.get("text")
     if not preview_text or not isinstance(preview_text, str) or not preview_text.strip():
         raise ValueError("'preview.text' must be a non-null, non-empty string")
 
-    # contentTypeTags
-    if "contentTypeTags" not in content:
-        raise ValueError("Top-level 'contentTypeTags' field is required")
+    # contentTypeTags must be []
+    tags = content.get("contentTypeTags")
+    if tags != []:
+        raise ValueError(
+            f"'contentTypeTags' must be an empty list [], got {tags!r}"
+        )
 
     # learningSessions
     sessions = content.get("learningSessions")
@@ -111,15 +124,16 @@ def _validate_top_level(content):
         raise ValueError("'learningSessions' must be a non-empty array")
 
 
-def _validate_sessions(content, level):
-    """Check learningSessions has the correct count per level, each with title and activities."""
+def _validate_sessions(content, fmt):
+    """Check learningSessions has the correct count per format, each with title and activities."""
     sessions = content["learningSessions"]
-    expected = LEVEL_CONFIG[level]["session_count"]
+    config = FORMAT_CONFIG[fmt]
+    expected = config["session_count"]
 
     if len(sessions) != expected:
         raise ValueError(
-            f"'learningSessions' must contain exactly {expected} sessions for "
-            f"{level} level, got {len(sessions)}"
+            f"'learningSessions' must contain exactly {expected} session(s) for "
+            f"format '{fmt}', got {len(sessions)}"
         )
 
     for i, session in enumerate(sessions):
@@ -135,9 +149,10 @@ def _validate_sessions(content, level):
             raise ValueError(f"Session {i + 1} must have a non-empty 'activities' array")
 
 
-def _validate_activity(activity, session_idx, activity_idx, level):
+def _validate_activity(activity, session_idx, activity_idx, fmt):
     """Check a single activity has required fields and valid activityType."""
     loc = f"Session {session_idx + 1}, Activity {activity_idx + 1}"
+    config = FORMAT_CONFIG[fmt]
 
     if not isinstance(activity, dict):
         raise ValueError(f"{loc}: activity must be an object")
@@ -146,7 +161,7 @@ def _validate_activity(activity, session_idx, activity_idx, level):
     if "type" in activity and "activityType" not in activity:
         raise ValueError(
             f"{loc}: uses 'type' instead of 'activityType' — "
-            f"'type' is the old schema and is corrupted"
+            f"field must be 'activityType'"
         )
 
     activity_type = activity.get("activityType")
@@ -159,11 +174,11 @@ def _validate_activity(activity, session_idx, activity_idx, level):
             f"Must be one of: {', '.join(sorted(VALID_ACTIVITY_TYPES))}"
         )
 
-    # Beginner-specific: reject forbidden activity types
-    if level == "beginner" and activity_type in BEGINNER_FORBIDDEN_ACTIVITIES:
+    # Format-specific: reject forbidden activity types
+    if activity_type in config["forbidden"]:
         raise ValueError(
-            f"{loc}: activityType '{activity_type}' is not allowed in beginner "
-            f"curriculums"
+            f"{loc}: activityType '{activity_type}' is not allowed in "
+            f"'{fmt}' format"
         )
 
     for field in ("title", "description"):
@@ -173,7 +188,7 @@ def _validate_activity(activity, session_idx, activity_idx, level):
 
     data = activity.get("data")
     if not isinstance(data, dict):
-        raise ValueError(f"{loc} ({activity_type}): missing 'data' field (must be an object)")
+        raise ValueError(f"{loc} ({activity_type}): missing 'data' field (must be a dict)")
 
     # Validate activity-type-specific data
     _validate_activity_data(activity_type, data, loc)
@@ -181,18 +196,11 @@ def _validate_activity(activity, session_idx, activity_idx, level):
 
 def _validate_activity_data(activity_type, data, loc):
     """Validate activity-type-specific data fields."""
-
-    # vocabList activities
     if activity_type in VOCAB_ACTIVITY_TYPES:
         _validate_vocab_list(data, loc, activity_type)
 
-    # writingSentence
     if activity_type == "writingSentence":
         _validate_writing_sentence(data, loc)
-
-    # writingParagraph
-    if activity_type == "writingParagraph":
-        _validate_writing_paragraph(data, loc)
 
 
 def _validate_vocab_list(data, loc, activity_type):
@@ -227,6 +235,23 @@ def _validate_writing_sentence(data, loc):
     if "vocabList" not in data:
         raise ValueError(f"{loc} (writingSentence): missing 'data.vocabList'")
 
+    vocab_list = data.get("vocabList")
+    if not isinstance(vocab_list, list) or len(vocab_list) == 0:
+        raise ValueError(
+            f"{loc} (writingSentence): 'data.vocabList' must be a non-empty array"
+        )
+
+    for j, word in enumerate(vocab_list):
+        if not isinstance(word, str):
+            raise ValueError(
+                f"{loc} (writingSentence): vocabList[{j}] must be a string, "
+                f"got {type(word).__name__}"
+            )
+        if word != word.lower():
+            raise ValueError(
+                f"{loc} (writingSentence): vocabList[{j}] '{word}' must be lowercase"
+            )
+
     items = data.get("items")
     if not isinstance(items, list) or len(items) == 0:
         raise ValueError(
@@ -244,34 +269,6 @@ def _validate_writing_sentence(data, loc):
                 raise ValueError(
                     f"{loc} (writingSentence): items[{j}] missing or empty '{field}'"
                 )
-
-
-def _validate_writing_paragraph(data, loc):
-    """Validate writingParagraph data: vocabList, instructions, prompts."""
-    if "vocabList" not in data:
-        raise ValueError(f"{loc} (writingParagraph): missing 'data.vocabList'")
-
-    instructions = data.get("instructions")
-    if not instructions or not isinstance(instructions, str) or not instructions.strip():
-        raise ValueError(
-            f"{loc} (writingParagraph): 'data.instructions' must be a non-empty string"
-        )
-
-    prompts = data.get("prompts")
-    if not isinstance(prompts, list):
-        raise ValueError(
-            f"{loc} (writingParagraph): 'data.prompts' must be an array"
-        )
-    if len(prompts) < 2:
-        raise ValueError(
-            f"{loc} (writingParagraph): 'data.prompts' must have at least 2 items, "
-            f"got {len(prompts)}"
-        )
-    for j, p in enumerate(prompts):
-        if not isinstance(p, str):
-            raise ValueError(
-                f"{loc} (writingParagraph): prompts[{j}] must be a string"
-            )
 
 
 def _validate_flashcard_consistency(session, session_idx):
@@ -295,113 +292,65 @@ def _validate_flashcard_consistency(session, session_idx):
             )
 
 
-def _validate_vocabulary_distribution(content, level):
-    """Check vocab word count per level: 12 for beginner (2 learning sessions), 18 for standard (3 learning sessions)."""
-    sessions = content["learningSessions"]
-    config = LEVEL_CONFIG[level]
-    learning_count = config["learning_session_count"]
-    expected_total = config["total_vocab"]
+def _validate_total_vocab(content, fmt):
+    """Check total unique vocab count across all vocabList fields is within range for the format."""
+    config = FORMAT_CONFIG[fmt]
+    vocab_min = config["vocab_min"]
+    vocab_max = config["vocab_max"]
     all_vocab = set()
 
-    for i in range(learning_count):
-        session = sessions[i]
-        session_vocab = set()
-
+    sessions = content["learningSessions"]
+    for session in sessions:
         for activity in session.get("activities", []):
             at = activity.get("activityType")
             if at in VOCAB_ACTIVITY_TYPES:
                 vocab_list = activity.get("data", {}).get("vocabList", [])
                 for word in vocab_list:
-                    session_vocab.add(word)
+                    if isinstance(word, str):
+                        all_vocab.add(word)
 
-        if len(session_vocab) != 6:
-            raise ValueError(
-                f"Session {i + 1} must have exactly 6 unique vocabulary words, "
-                f"got {len(session_vocab)}: {sorted(session_vocab)}"
-            )
-
-        all_vocab.update(session_vocab)
-
-    if len(all_vocab) != expected_total:
+    if len(all_vocab) < vocab_min or len(all_vocab) > vocab_max:
         raise ValueError(
-            f"Curriculum must have exactly {expected_total} unique vocabulary words "
-            f"across sessions 1-{learning_count} for {level} level, "
-            f"got {len(all_vocab)}"
+            f"Total unique vocab count must be {vocab_min}-{vocab_max} for "
+            f"format '{fmt}', got {len(all_vocab)}: {sorted(all_vocab)}"
         )
 
 
-def _validate_beginner_exclusions(content):
-    """Check that beginner curriculums have no writingParagraph or vocabLevel3 activities."""
-    sessions = content["learningSessions"]
-    for i, session in enumerate(sessions):
-        for j, activity in enumerate(session.get("activities", [])):
-            at = activity.get("activityType")
-            if at in BEGINNER_FORBIDDEN_ACTIVITIES:
-                raise ValueError(
-                    f"Session {i + 1}, Activity {j + 1}: activityType '{at}' is "
-                    f"not allowed in beginner curriculums"
-                )
-
-
-def _validate_standard_writing_paragraph(content):
-    """Check that standard curriculums have a writingParagraph activity in the final session."""
-    sessions = content["learningSessions"]
-    final_session = sessions[-1]
-    has_writing_paragraph = False
-
-    for activity in final_session.get("activities", []):
-        if activity.get("activityType") == "writingParagraph":
-            has_writing_paragraph = True
-            break
-
-    if not has_writing_paragraph:
-        raise ValueError(
-            f"Standard curriculum final session (Session {len(sessions)}) must "
-            f"include a writingParagraph activity"
-        )
-
-
-def validate(content: dict, level: str = "standard") -> None:
+def validate(content: dict, format: str) -> None:
     """
-    Validates curriculum content JSON against all corruption detection rules.
-    Raises ValueError with specific violation message if any check fails.
+    Validates curriculum content JSON for children's curriculums.
 
-    Parameters:
-        content: The curriculum content JSON dict
-        level: "beginner" for 4-session/12-word structure,
-               "standard" for 5-session/18-word structure (default)
+    Args:
+        content: The curriculum content dict
+        format: One of "beginner_mini", "beginner_short", "preintermediate_short"
+
+    Raises:
+        ValueError with specific violation message on any failure.
     """
-    # Validate level parameter
-    if level not in LEVEL_CONFIG:
+    # Validate format parameter
+    if format not in FORMAT_CONFIG:
         raise ValueError(
-            f"Invalid level '{level}'. Must be 'beginner' or 'standard'"
+            f"Invalid format '{format}'. Must be one of: "
+            f"{', '.join(sorted(FORMAT_CONFIG.keys()))}"
         )
 
     # 1. Top-level structure
     _validate_top_level(content)
 
-    # 2. Session structure (level-aware count)
-    _validate_sessions(content, level)
+    # 2. Session structure (format-aware count)
+    _validate_sessions(content, format)
 
-    # 3. Beginner-specific: reject forbidden activity types
-    if level == "beginner":
-        _validate_beginner_exclusions(content)
-
-    # 4. Activity structure and type-specific validation
+    # 3. Activity structure, type validation, and format-specific forbidden checks
     sessions = content["learningSessions"]
     for i, session in enumerate(sessions):
         for j, activity in enumerate(session.get("activities", [])):
-            _validate_activity(activity, i, j, level)
+            _validate_activity(activity, i, j, format)
 
-        # 5. Flashcard consistency within each session
+        # 4. Flashcard consistency within each session
         _validate_flashcard_consistency(session, i)
 
-    # 6. No strip-keys anywhere in the JSON tree
+    # 5. No strip-keys anywhere in the JSON tree
     _check_strip_keys(content)
 
-    # 7. Vocabulary distribution (level-aware)
-    _validate_vocabulary_distribution(content, level)
-
-    # 8. Standard-specific: require writingParagraph in final session
-    if level == "standard":
-        _validate_standard_writing_paragraph(content)
+    # 6. Total unique vocab count within expected range
+    _validate_total_vocab(content, format)

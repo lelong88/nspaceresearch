@@ -4,9 +4,16 @@ validate_content.py — Shared content validation module for curriculum creation
 Validates curriculum content JSON against all Content Corruption Detection Rules
 before upload. Raises ValueError with a specific violation message on any failure.
 
+Supports two levels:
+  - "beginner": 4 sessions (2 learning + 1 review + 1 final), 12 unique vocab words,
+                no writingParagraph, no vocabLevel3
+  - "standard": 5 sessions (3 learning + 1 review + 1 final), 18 unique vocab words,
+                full activity set including writingParagraph in final session
+
 Usage:
     from validate_content import validate
-    validate(content_dict)  # raises ValueError if invalid
+    validate(content_dict)                    # standard (default)
+    validate(content_dict, level="beginner")  # beginner
 """
 
 VALID_ACTIVITY_TYPES = {
@@ -22,6 +29,8 @@ VALID_ACTIVITY_TYPES = {
     "writingSentence",
     "writingParagraph",
 }
+
+BEGINNER_FORBIDDEN_ACTIVITIES = {"writingParagraph", "vocabLevel3"}
 
 VOCAB_ACTIVITY_TYPES = {
     "viewFlashcards",
@@ -42,6 +51,20 @@ STRIP_KEYS = {
     "curriculumTags",
     "taskId",
     "imageId",
+}
+
+# Level configuration
+LEVEL_CONFIG = {
+    "beginner": {
+        "session_count": 4,
+        "learning_session_count": 2,
+        "total_vocab": 12,
+    },
+    "standard": {
+        "session_count": 5,
+        "learning_session_count": 3,
+        "total_vocab": 18,
+    },
 }
 
 
@@ -88,13 +111,15 @@ def _validate_top_level(content):
         raise ValueError("'learningSessions' must be a non-empty array")
 
 
-def _validate_sessions(content):
-    """Check learningSessions is exactly 5 sessions, each with title and activities."""
+def _validate_sessions(content, level):
+    """Check learningSessions has the correct count per level, each with title and activities."""
     sessions = content["learningSessions"]
+    expected = LEVEL_CONFIG[level]["session_count"]
 
-    if len(sessions) != 5:
+    if len(sessions) != expected:
         raise ValueError(
-            f"'learningSessions' must contain exactly 5 sessions, got {len(sessions)}"
+            f"'learningSessions' must contain exactly {expected} sessions for "
+            f"{level} level, got {len(sessions)}"
         )
 
     for i, session in enumerate(sessions):
@@ -110,7 +135,7 @@ def _validate_sessions(content):
             raise ValueError(f"Session {i + 1} must have a non-empty 'activities' array")
 
 
-def _validate_activity(activity, session_idx, activity_idx):
+def _validate_activity(activity, session_idx, activity_idx, level):
     """Check a single activity has required fields and valid activityType."""
     loc = f"Session {session_idx + 1}, Activity {activity_idx + 1}"
 
@@ -132,6 +157,13 @@ def _validate_activity(activity, session_idx, activity_idx):
         raise ValueError(
             f"{loc}: invalid activityType '{activity_type}'. "
             f"Must be one of: {', '.join(sorted(VALID_ACTIVITY_TYPES))}"
+        )
+
+    # Beginner-specific: reject forbidden activity types
+    if level == "beginner" and activity_type in BEGINNER_FORBIDDEN_ACTIVITIES:
+        raise ValueError(
+            f"{loc}: activityType '{activity_type}' is not allowed in beginner "
+            f"curriculums"
         )
 
     for field in ("title", "description"):
@@ -263,12 +295,15 @@ def _validate_flashcard_consistency(session, session_idx):
             )
 
 
-def _validate_vocabulary_distribution(content):
-    """Check exactly 18 unique vocab words total, 6 per learning session (sessions 1-3)."""
+def _validate_vocabulary_distribution(content, level):
+    """Check vocab word count per level: 12 for beginner (2 learning sessions), 18 for standard (3 learning sessions)."""
     sessions = content["learningSessions"]
+    config = LEVEL_CONFIG[level]
+    learning_count = config["learning_session_count"]
+    expected_total = config["total_vocab"]
     all_vocab = set()
 
-    for i in range(3):  # Sessions 1-3 (learning sessions)
+    for i in range(learning_count):
         session = sessions[i]
         session_vocab = set()
 
@@ -287,45 +322,86 @@ def _validate_vocabulary_distribution(content):
 
         all_vocab.update(session_vocab)
 
-    if len(all_vocab) != 18:
+    if len(all_vocab) != expected_total:
         raise ValueError(
-            f"Curriculum must have exactly 18 unique vocabulary words across "
-            f"sessions 1-3, got {len(all_vocab)}"
+            f"Curriculum must have exactly {expected_total} unique vocabulary words "
+            f"across sessions 1-{learning_count} for {level} level, "
+            f"got {len(all_vocab)}"
         )
 
 
-def validate(content: dict) -> None:
+def _validate_beginner_exclusions(content):
+    """Check that beginner curriculums have no writingParagraph or vocabLevel3 activities."""
+    sessions = content["learningSessions"]
+    for i, session in enumerate(sessions):
+        for j, activity in enumerate(session.get("activities", [])):
+            at = activity.get("activityType")
+            if at in BEGINNER_FORBIDDEN_ACTIVITIES:
+                raise ValueError(
+                    f"Session {i + 1}, Activity {j + 1}: activityType '{at}' is "
+                    f"not allowed in beginner curriculums"
+                )
+
+
+def _validate_standard_writing_paragraph(content):
+    """Check that standard curriculums have a writingParagraph activity in the final session."""
+    sessions = content["learningSessions"]
+    final_session = sessions[-1]
+    has_writing_paragraph = False
+
+    for activity in final_session.get("activities", []):
+        if activity.get("activityType") == "writingParagraph":
+            has_writing_paragraph = True
+            break
+
+    if not has_writing_paragraph:
+        raise ValueError(
+            f"Standard curriculum final session (Session {len(sessions)}) must "
+            f"include a writingParagraph activity"
+        )
+
+
+def validate(content: dict, level: str = "standard") -> None:
     """
     Validates curriculum content JSON against all corruption detection rules.
     Raises ValueError with specific violation message if any check fails.
 
-    Checks:
-    - Top-level structure (title, description, preview.text, contentTypeTags, learningSessions)
-    - Session structure (exactly 5 sessions, each with title and activities)
-    - Activity structure (activityType, title, description, data)
-    - Activity-type-specific data rules
-    - vocabList format (lowercase strings, field name is vocabList not words)
-    - Cross-field consistency (viewFlashcards/speakFlashcards vocabList match)
-    - No strip-keys present anywhere in JSON tree
-    - Exactly 18 unique vocabulary words (6 per learning session)
+    Parameters:
+        content: The curriculum content JSON dict
+        level: "beginner" for 4-session/12-word structure,
+               "standard" for 5-session/18-word structure (default)
     """
+    # Validate level parameter
+    if level not in LEVEL_CONFIG:
+        raise ValueError(
+            f"Invalid level '{level}'. Must be 'beginner' or 'standard'"
+        )
+
     # 1. Top-level structure
     _validate_top_level(content)
 
-    # 2. Session structure (exactly 5 sessions)
-    _validate_sessions(content)
+    # 2. Session structure (level-aware count)
+    _validate_sessions(content, level)
 
-    # 3-7. Activity structure and type-specific validation
+    # 3. Beginner-specific: reject forbidden activity types
+    if level == "beginner":
+        _validate_beginner_exclusions(content)
+
+    # 4. Activity structure and type-specific validation
     sessions = content["learningSessions"]
     for i, session in enumerate(sessions):
         for j, activity in enumerate(session.get("activities", [])):
-            _validate_activity(activity, i, j)
+            _validate_activity(activity, i, j, level)
 
         # 5. Flashcard consistency within each session
         _validate_flashcard_consistency(session, i)
 
-    # 8. No strip-keys anywhere in the JSON tree
+    # 6. No strip-keys anywhere in the JSON tree
     _check_strip_keys(content)
 
-    # 9. Vocabulary distribution: 18 total, 6 per learning session
-    _validate_vocabulary_distribution(content)
+    # 7. Vocabulary distribution (level-aware)
+    _validate_vocabulary_distribution(content, level)
+
+    # 8. Standard-specific: require writingParagraph in final session
+    if level == "standard":
+        _validate_standard_writing_paragraph(content)

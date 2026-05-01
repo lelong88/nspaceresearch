@@ -26,6 +26,8 @@ Do not call `curriculum/setPublic` with `isPublic: true` on newly created curric
 
 Two-level hierarchy: Collections → Series → Curriculums. Query current state from DB in real-time (MCP postgres or API).
 
+- **Do not set `displayOrder` when creating or updating collections.** 
+
 ## Deleted Curriculums
 
 Ignore any curriculum whose `uid` ends with `_deleted`. These are soft-deleted records and should be excluded from queries, listings, and any processing.

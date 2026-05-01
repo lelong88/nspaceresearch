@@ -1,17 +1,37 @@
 """
-en-fr orchestrator — Creates 4 collections, 20 series, wires them together,
-and sets display orders for the English-French language pair.
+en-fr orchestrator (bilingual-parity-expansion) — Creates 5 collections, 25 series,
+wires them together, and sets display orders for the English-French language pair.
 
-Tone assignments are pre-computed via tone_assigner.assign_tones_for_language_pair(4, 5, 5).
+Language pair: userLanguage=en (English speakers), language=fr (learning French)
+User-facing text (titles, descriptions): English
+Reading passages: French
+Session titles: Part 1, Part 2, Part 3, Review, Final Reading
+
+Target: 138 curriculums (58 beginner, 51 preintermediate, 29 intermediate)
+
+Distribution across 5 collections, 25 series:
+  Collection A: Daily Life & Travel — 7 series, 40 curriculums
+  Collection B: Business & Career — 6 series, 34 curriculums
+  Collection C: Academic & Science — 5 series, 28 curriculums
+  Collection D: Culture & Society — 4 series, 20 curriculums
+  Collection E: Nature & Innovation — 3 series, 16 curriculums
+
+Tone assignments are pre-computed via tone_assigner.assign_tones_for_language_pair(5, 7, 7),
+which generates 245 tone slots across a uniform 5×7×7 grid. The orchestrator uses only the
+slots needed for each collection's actual series count (A=7, B=6, C=5, D=4, E=3) and each
+series' actual curriculum count (5 or 6). Unused slots are simply not consumed.
+
 All series descriptions are short persuasive English hooks (≤255 chars) using the assigned tone.
 Collection descriptions are short informative English summaries (not persuasive copy).
+
+Requirements: 6.1–6.8, 8.1–8.4, 8.7
 """
 
 import sys
 import logging
 
-sys.path.insert(0, "/home/ubuntu/nspaceresearch2/design-curriculums")
-sys.path.insert(0, "/home/ubuntu/nspaceresearch2/design-curriculums/en-fr")
+sys.path.insert(0, "/home/ubuntu/nspaceresearch/design-curriculums")
+sys.path.insert(0, "/home/ubuntu/nspaceresearch/design-curriculums/en-fr")
 import tone_assigner
 from api_helpers import (
     create_collection,
@@ -25,254 +45,405 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(mess
 logger = logging.getLogger(__name__)
 
 # ---------------------------------------------------------------------------
-# Tone assignments from tone_assigner.assign_tones_for_language_pair(4, 5, 5)
+# Tone assignments
 # ---------------------------------------------------------------------------
-tones = tone_assigner.assign_tones_for_language_pair(4, 5, 5)
-
-# Collection 0 (A): description_tone = provocative_question
-#   Series A1: bold_declaration
-#   Series A2: vivid_scenario
-#   Series A3: empathetic_observation
-#   Series A4: surprising_fact
-#   Series A5: metaphor_led
+# The tone_assigner requires uniform series-per-collection and curriculums-per-series
+# counts. We request a 5 × 7 × 7 grid (245 tone slots) — enough to cover the maximum
+# of 7 series per collection and 7 curriculums per series. Collections with fewer
+# series (B=6, C=5, D=4, E=3) simply ignore extra series slots; series with fewer
+# curriculums (5 instead of 6) ignore extra curriculum slots.
 #
-# Collection 1 (B): description_tone = bold_declaration
-#   Series B1: vivid_scenario
-#   Series B2: empathetic_observation
-#   Series B3: surprising_fact
-#   Series B4: metaphor_led
-#   Series B5: provocative_question
-#
-# Collection 2 (C): description_tone = vivid_scenario
-#   Series C1: empathetic_observation
-#   Series C2: surprising_fact
-#   Series C3: metaphor_led
-#   Series C4: provocative_question
-#   Series C5: bold_declaration
-#
-# Collection 3 (D): description_tone = empathetic_observation
-#   Series D1: surprising_fact
-#   Series D2: metaphor_led
-#   Series D3: provocative_question
-#   Series D4: bold_declaration
-#   Series D5: vivid_scenario
+# The assigner already enforces:
+#   - No adjacent duplicate description tones (curriculums within a series,
+#     series within a collection)
+#   - No adjacent duplicate farewell tones (curriculums within a series)
+#   - No single description tone exceeds 30% across the whole pair
+tones = tone_assigner.assign_tones_for_language_pair(5, 7, 7)
 
 # ---------------------------------------------------------------------------
-# Collection definitions
+# Tone reference (from tone_assigner output, collections A–E):
+# ---------------------------------------------------------------------------
+#
+# Collection A (Daily Life & Travel): description_tone = provocative_question
+#   Series A1: bold_declaration       — 6 curriculums
+#   Series A2: vivid_scenario         — 6 curriculums
+#   Series A3: empathetic_observation — 6 curriculums
+#   Series A4: surprising_fact        — 6 curriculums
+#   Series A5: metaphor_led           — 5 curriculums
+#   Series A6: provocative_question   — 5 curriculums
+#   Series A7: bold_declaration       — 6 curriculums
+#
+# Collection B (Business & Career): description_tone = bold_declaration
+#   Series B1: vivid_scenario         — 6 curriculums
+#   Series B2: empathetic_observation — 6 curriculums
+#   Series B3: surprising_fact        — 6 curriculums
+#   Series B4: metaphor_led           — 6 curriculums
+#   Series B5: provocative_question   — 5 curriculums
+#   Series B6: bold_declaration       — 5 curriculums
+#
+# Collection C (Academic & Science): description_tone = vivid_scenario
+#   Series C1: empathetic_observation — 6 curriculums
+#   Series C2: surprising_fact        — 6 curriculums
+#   Series C3: metaphor_led           — 6 curriculums
+#   Series C4: provocative_question   — 5 curriculums
+#   Series C5: bold_declaration       — 5 curriculums
+#
+# Collection D (Culture & Society): description_tone = empathetic_observation
+#   Series D1: surprising_fact        — 5 curriculums
+#   Series D2: metaphor_led           — 5 curriculums
+#   Series D3: provocative_question   — 5 curriculums
+#   Series D4: bold_declaration       — 5 curriculums
+#
+# Collection E (Nature & Innovation): description_tone = surprising_fact
+#   Series E1: metaphor_led           — 6 curriculums
+#   Series E2: provocative_question   — 5 curriculums
+#   Series E3: bold_declaration       — 5 curriculums
+#
+# Per-curriculum description + farewell tones are printed to stdout at the end of
+# this script (see the "Tone Assignments" section), and the curriculum create_*.py
+# scripts (tasks 13.3–13.5) will reference that output.
+
+# ---------------------------------------------------------------------------
+# Collection definitions — English titles with French labels,
+# informative summaries (not persuasive copy)
 # ---------------------------------------------------------------------------
 COLLECTIONS = [
     {
-        "title": "Daily Life and Travel (Vie Quotidienne et Voyages)",
+        "title": "Daily Life & Travel (Vie Quotidienne et Voyages)",
         "description": (
-            "French for everyday situations: travel, dining, shopping, socializing, "
-            "and health. Each topic equips you with the vocabulary and confidence to "
-            "handle real conversations when living in or visiting French-speaking countries."
+            "French for everyday situations: dining, transportation, shopping, "
+            "socializing, health, housing, and travel. Each topic builds the "
+            "vocabulary and confidence you need for real conversations when "
+            "living in or visiting French-speaking countries."
         ),
     },
     {
-        "title": "Business and Professional (Affaires et Professionnel)",
+        "title": "Business & Career (Affaires et Carrière)",
         "description": (
-            "Professional French for the workplace, job hunting, business operations, "
-            "and international trade. From emails and meetings to contract negotiations, "
-            "build the language skills you need to advance your career in French-speaking markets."
+            "Professional French for the workplace, job hunting, industry "
+            "terminology, business operations, and international trade. From "
+            "emails and meetings to contract negotiations — the language skills "
+            "to advance your career in Francophone markets."
         ),
     },
     {
-        "title": "Academic and Intellectual (Académique et Intellectuel)",
+        "title": "Academic & Science (Sciences et Savoir)",
         "description": (
-            "Academic French across science, economics, history, psychology, and philosophy. "
-            "Ideal for anyone who wants to read specialized texts, join intellectual discussions, "
-            "or prepare for study in a French-language university environment."
+            "Academic French across science, economics, history, psychology, "
+            "and philosophy. Designed for learners who want to read specialized "
+            "texts, participate in intellectual discussions, or prepare for "
+            "study at a French-language university."
         ),
     },
     {
-        "title": "Culture and Society (Culture et Société)",
+        "title": "Culture & Society (Culture et Société)",
         "description": (
-            "French for arts, architecture, environment, sports, and cultural traditions. "
-            "Each series opens a different window into French-speaking cultural life, helping you "
-            "engage in deeper conversations that go well beyond everyday small talk."
+            "French for arts, architecture, media, and cultural traditions. "
+            "Each series opens a different window into Francophone cultural "
+            "life, helping you engage in richer conversations that go well "
+            "beyond everyday small talk."
+        ),
+    },
+    {
+        "title": "Nature & Innovation (Nature et Innovation)",
+        "description": (
+            "French for environment, sustainability, digital technology, and "
+            "sports. Explore the vocabulary for topics shaping the future — "
+            "from renewable energy to artificial intelligence in the "
+            "Francophone context."
         ),
     },
 ]
 
 # ---------------------------------------------------------------------------
-# Series definitions — 5 per collection, English titles with French labels
-# Descriptions: short persuasive hooks ≤255 chars using assigned tone
+# Series definitions — English titles with French topic labels
+# Descriptions: short persuasive hooks ≤255 chars using the series' assigned tone
+# The "count" field records the number of curriculums planned per series, for
+# total-count verification (should sum to 138).
 # ---------------------------------------------------------------------------
 SERIES = {
-    # ===== Collection A: Daily Life and Travel =====
+    # ===== Collection A: Daily Life & Travel — 7 series, 40 curriculums =====
     "A": [
         {
             # A1 — tone: bold_declaration
-            "title": "Food and Dining (Alimentation et Restauration)",
+            "title": "Food & Dining (Gastronomie et Cuisine)",
             "description": (
-                "French food vocabulary isn't just words — it's the key to an entire culture. "
-                "From ordering at a bistro to chatting with a chef, you'll walk into any French restaurant with confidence."
+                "French food vocabulary isn't just words — it's the key to an "
+                "entire culture. From ordering at a brasserie to haggling at a "
+                "marché, you'll walk into any French restaurant with confidence."
             ),
+            "count": 6,
         },
         {
             # A2 — tone: vivid_scenario
-            "title": "City Navigation and Transport (Navigation Urbaine et Transports)",
+            "title": "Transportation & Navigation (Transports et Navigation)",
             "description": (
-                "Picture yourself at Gare du Nord, crowds rushing past — and you know exactly what to say "
-                "to find your way. That's the power of this series."
+                "Picture yourself at Gare du Nord, crowds rushing past — and you "
+                "know exactly what to say to find your quai. That's the quiet "
+                "power this series hands you."
             ),
+            "count": 6,
         },
         {
             # A3 — tone: empathetic_observation
-            "title": "Shopping and Services (Achats et Services)",
+            "title": "Shopping & Services (Achats et Services)",
             "description": (
-                "Ever wanted to ask for a different size, negotiate a price, or open a bank account in French "
-                "but didn't know where to start? This series was made for that moment."
+                "Ever wanted to ask for a different size, compare prices, or "
+                "open a compte bancaire in French but didn't know where to "
+                "start? This series was made for that exact moment."
             ),
+            "count": 6,
         },
         {
             # A4 — tone: surprising_fact
-            "title": "Social Life and Relationships (Vie Sociale et Relations)",
+            "title": "Social Life & Relationships (Vie Sociale et Relations)",
             "description": (
-                "The French distinguish sharply between 'tu' and 'vous' — one wrong choice can reshape a relationship. "
-                "Master social French to truly belong, not just survive."
+                "French has an entire grammar of politeness — tu versus vous "
+                "can make or break a first impression. Master social French to "
+                "truly connect rather than just get by."
             ),
+            "count": 6,
         },
         {
             # A5 — tone: metaphor_led
-            "title": "Health and Wellness (Santé et Bien-être)",
+            "title": "Health & Wellness (Santé et Bien-être)",
             "description": (
-                "Your health is your second passport when living abroad. "
-                "This series arms you with medical, fitness, and self-care vocabulary in French."
+                "Your health is your second passport when living abroad. This "
+                "series arms you with medical, fitness, and self-care French — "
+                "vocabulary that opens every door at the pharmacie and cabinet."
             ),
+            "count": 5,
+        },
+        {
+            # A6 — tone: provocative_question
+            "title": "Housing & Home Life (Logement et Vie Quotidienne)",
+            "description": (
+                "Could you rent an apartment, dispute a charges locatives bill, "
+                "or register at the mairie entirely in French? If not, this "
+                "series is the fastest path to yes."
+            ),
+            "count": 5,
+        },
+        {
+            # A7 — tone: bold_declaration
+            "title": "Travel & Exploration (Voyages et Découvertes)",
+            "description": (
+                "Real travel begins where guidebook French ends. Book a chambre, "
+                "recover lost luggage, or join a randonnée — this series turns "
+                "you into a traveler, not a tourist."
+            ),
+            "count": 6,
         },
     ],
-    # ===== Collection B: Business and Professional =====
+    # ===== Collection B: Business & Career — 6 series, 34 curriculums =====
     "B": [
         {
             # B1 — tone: vivid_scenario
-            "title": "Workplace Communication (Communication au Travail)",
+            "title": "Office Communication (Communication au Bureau)",
             "description": (
-                "Imagine presenting to a boardroom full of French colleagues — confident, clear, professional. "
-                "This series takes you from emails to presentations without a stumble."
+                "Imagine presenting to a boardroom of French colleagues — "
+                "confident, clear, professional. This series takes you from "
+                "first-day emails to polished presentations without a stumble."
             ),
+            "count": 6,
         },
         {
             # B2 — tone: empathetic_observation
-            "title": "Job Search and Career (Recherche d'Emploi et Carrière)",
+            "title": "Job Search & Career (Recherche d'Emploi et Carrière)",
             "description": (
-                "Writing a CV in French is hard enough; interviewing is even harder. If you're chasing career "
-                "opportunities in the French-speaking world, this is the stepping stone you need."
+                "Writing a CV in French is hard enough; interviewing is even "
+                "harder. If you're chasing career opportunities in Francophone "
+                "markets, this is the stepping stone you need."
             ),
+            "count": 6,
         },
         {
             # B3 — tone: surprising_fact
-            "title": "Industry-Specific Vocabulary (Vocabulaire Sectoriel)",
+            "title": "Industry Vocabulary (Vocabulaire Sectoriel)",
             "description": (
-                "Every industry speaks its own language — from tech to hospitality, manufacturing to logistics. "
-                "Nail the right terminology and earn instant respect from French colleagues."
+                "Every industry speaks its own French — from tech to hospitality, "
+                "from luxury goods to global logistics. Nail the right terms and "
+                "earn instant credibility."
             ),
+            "count": 6,
         },
         {
             # B4 — tone: metaphor_led
-            "title": "Business Operations (Opérations Commerciales)",
+            "title": "Business Operations (Gestion d'Entreprise)",
             "description": (
-                "A business is a machine — project management is the gears, budgeting is the fuel. "
-                "This series helps you run that machine in French."
+                "A business is a machine — project management is the gears, "
+                "budgeting is the fuel, compliance is the brake. This series "
+                "helps you run that machine fluently in French."
             ),
+            "count": 6,
         },
         {
             # B5 — tone: provocative_question
-            "title": "International Business (Commerce International)",
+            "title": "International Trade (Commerce International)",
             "description": (
-                "Could you negotiate a million-euro contract in French? From trade terms to business law, "
-                "this series turns you into a formidable partner at the international table."
+                "Could you negotiate a million-euro contract in French? From "
+                "Incoterms to cross-cultural etiquette, this series turns you "
+                "into a formidable partner at the negotiation table."
             ),
+            "count": 5,
+        },
+        {
+            # B6 — tone: bold_declaration
+            "title": "Entrepreneurship (Entrepreneuriat et Innovation)",
+            "description": (
+                "Paris, Lyon, and Brussels are powerhouses of Francophone "
+                "startups. If you're founding, pitching, or joining an équipe "
+                "fondatrice, French fluency is the edge you can't skip."
+            ),
+            "count": 5,
         },
     ],
-    # ===== Collection C: Academic and Intellectual =====
+    # ===== Collection C: Academic & Science — 5 series, 28 curriculums =====
     "C": [
         {
             # C1 — tone: empathetic_observation
-            "title": "Science and Technology (Sciences et Technologie)",
+            "title": "Science & Technology (Sciences et Technologie)",
             "description": (
-                "Reading a scientific paper in French and feeling lost? You're not alone. "
-                "This series builds your vocabulary from biology to computer science so you can engage with confidence."
+                "Reading a scientific paper in French and feeling lost? You're "
+                "not alone. This series builds your vocabulary from biology to "
+                "computer science so you can engage with confidence."
             ),
+            "count": 6,
         },
         {
             # C2 — tone: surprising_fact
-            "title": "Economics and Finance (Économie et Finance)",
+            "title": "Economics & Finance (Économie et Finance)",
             "description": (
-                "France is the world's 7th largest economy, yet most learners skip financial vocabulary. "
-                "From micro to macro, this series fills that gap."
+                "France is the world's seventh-largest economy, yet most "
+                "learners skip financial vocabulary. From micro to macro, from "
+                "la Bourse to the ECB — this series fills that gap."
             ),
+            "count": 6,
         },
         {
             # C3 — tone: metaphor_led
-            "title": "History and Politics (Histoire et Politique)",
+            "title": "History & Politics (Histoire et Politique)",
             "description": (
                 "History is the mirror; politics is the light cast upon it. "
-                "This series helps you read, discuss, and debate the past and present in French."
+                "This series helps you read, discuss, and debate the past and "
+                "present of the Francophone world."
             ),
+            "count": 6,
         },
         {
             # C4 — tone: provocative_question
-            "title": "Psychology and Education (Psychologie et Éducation)",
+            "title": "Psychology & Education (Psychologie et Éducation)",
             "description": (
-                "Why do children learn languages faster than adults? Psychology has the answer — "
-                "and this series teaches you how to talk about it in French."
+                "Why do children learn languages faster than adults? Psychology "
+                "and education research has answers — this series teaches you "
+                "how to discuss them in French."
             ),
+            "count": 5,
         },
         {
             # C5 — tone: bold_declaration
-            "title": "Philosophy and Critical Thinking (Philosophie et Pensée Critique)",
+            "title": "Philosophy & Critical Thinking (Philosophie et Pensée Critique)",
             "description": (
-                "French philosophy has shaped Western thought for centuries. "
-                "Mastering philosophical vocabulary is the first step to joining the deepest debates."
+                "French philosophy has shaped Western thought for centuries — "
+                "from Descartes to Foucault to Derrida. Mastering philosophical "
+                "vocabulary is the first step to joining the deepest debates."
             ),
+            "count": 5,
         },
     ],
-    # ===== Collection D: Culture and Society =====
+    # ===== Collection D: Culture & Society — 4 series, 20 curriculums =====
     "D": [
         {
             # D1 — tone: surprising_fact
-            "title": "Arts and Literature (Arts et Littérature)",
+            "title": "Arts & Literature (Arts et Littérature)",
             "description": (
-                "France has more Nobel laureates in literature than any other country. "
-                "This series opens the door to discussing art and literature like a native speaker."
+                "French-speaking writers have won more Nobel Prizes in Literature "
+                "than almost any other language group. This series opens the door "
+                "to discussing art like a native speaker."
             ),
+            "count": 5,
         },
         {
             # D2 — tone: metaphor_led
-            "title": "Architecture and Design (Architecture et Design)",
+            "title": "Architecture & Design (Architecture et Design)",
             "description": (
-                "Architecture is the silent language of a city. "
-                "From Haussmann to sustainable design, this series helps you read and tell that story in French."
+                "Architecture is the silent language of a city. From Haussmann "
+                "boulevards to Le Corbusier, this series teaches you to read "
+                "and retell the story of the built world in French."
             ),
+            "count": 5,
         },
         {
             # D3 — tone: provocative_question
-            "title": "Environment and Sustainability (Environnement et Développement Durable)",
+            "title": "Media & Journalism (Médias et Journalisme)",
             "description": (
-                "Can you explain climate change in French? From renewable energy to green living, "
-                "this series equips you with the language for the most important conversation of our time."
+                "Can you follow a France 24 broadcast after the first ten "
+                "seconds? This series walks you through the language of French "
+                "news, debate, and digital media."
             ),
+            "count": 5,
         },
         {
             # D4 — tone: bold_declaration
-            "title": "Sports and Recreation (Sports et Loisirs)",
+            "title": "Traditions & Festivals (Traditions et Fêtes)",
             "description": (
-                "Sport is humanity's universal language — but commentating in French is a different league. "
-                "This series takes you from the pitch to the gym with specialized vocabulary."
+                "French festivals go far beyond Bastille Day — they are a living "
+                "tapestry of regional culture. This series helps you describe "
+                "every tradition, dish, and celebration in fluent French."
             ),
+            "count": 5,
+        },
+    ],
+    # ===== Collection E: Nature & Innovation — 3 series, 16 curriculums =====
+    "E": [
+        {
+            # E1 — tone: metaphor_led
+            "title": "Environment & Sustainability (Environnement et Durabilité)",
+            "description": (
+                "The Earth is our shared home, and French is a leading voice in "
+                "the global green movement. From transition énergétique to "
+                "zero-waste living — vocabulary for the future."
+            ),
+            "count": 6,
         },
         {
-            # D5 — tone: vivid_scenario
-            "title": "Traditions and Festivals (Traditions et Fêtes)",
+            # E2 — tone: provocative_question
+            "title": "Digital Technology & AI (Technologie Numérique et IA)",
             "description": (
-                "Imagine standing in the middle of Bastille Day celebrations, fireworks lighting up the Seine — "
-                "and you can describe every moment in French."
+                "Can you explain artificial intelligence in French? From "
+                "blockchain to machine learning, this series drops you into "
+                "the hottest tech conversation in the Francophone world."
             ),
+            "count": 5,
+        },
+        {
+            # E3 — tone: bold_declaration
+            "title": "Sports & Leisure (Sports et Loisirs)",
+            "description": (
+                "Sport is humanity's universal language — but commentating a "
+                "Ligue 1 match in French is another league entirely. This "
+                "series takes you from the stade to the salle de sport."
+            ),
+            "count": 5,
         },
     ],
 }
+
+# Verify planned total:
+# A: 6+6+6+6+5+5+6 = 40
+# B: 6+6+6+6+5+5   = 34
+# C: 6+6+6+5+5     = 28
+# D: 5+5+5+5        = 20
+# E: 6+5+5          = 16
+# Grand total = 40 + 34 + 28 + 20 + 16 = 138 ✓
+#
+# Planned level distribution across all 25 series (58 beg / 51 preint / 29 inter):
+# The per-series level split is finalized in tasks 13.3–13.5 when the individual
+# create_*.py scripts are written. Each series respects the max-1-level-gap
+# rule (curriculum_series_level_gap view).
+
+# Series counts per collection for iteration
+SERIES_COUNTS = {"A": 7, "B": 6, "C": 5, "D": 4, "E": 3}
 
 
 # ---------------------------------------------------------------------------
@@ -280,16 +451,18 @@ SERIES = {
 # ---------------------------------------------------------------------------
 def main():
     print("=" * 60)
-    print("en-fr Orchestrator — Creating collections and series")
+    print("en-fr Orchestrator (bilingual-parity-expansion)")
+    print("Creating collections and series")
+    print("userLanguage=en (English), language=fr (French)")
+    print("Target: 138 curriculums across 5 collections, 25 series")
     print("=" * 60)
 
-    # Map collection letter to index for wiring
-    collection_keys = ["A", "B", "C", "D"]
+    collection_keys = ["A", "B", "C", "D", "E"]
     collection_ids = {}
-    series_ids = {}  # keyed by e.g. "A1", "B3", etc.
+    series_ids = {}
 
     # --- Step 1: Create collections ---
-    print("\n--- Creating 4 collections ---")
+    print("\n--- Creating 5 collections ---")
     for i, col_def in enumerate(COLLECTIONS):
         col_id = create_collection(col_def["title"], col_def["description"])
         col_key = collection_keys[i]
@@ -299,7 +472,8 @@ def main():
         print(f"    Title: {col_def['title']}")
 
     # --- Step 2: Create series ---
-    print("\n--- Creating 20 series ---")
+    total_series = sum(SERIES_COUNTS.values())
+    print(f"\n--- Creating {total_series} series ---")
     for i, col_key in enumerate(collection_keys):
         series_list = SERIES[col_key]
         for j, ser_def in enumerate(series_list):
@@ -309,18 +483,20 @@ def main():
             ser_tone = tones["collections"][i]["series"][j]["description_tone"]
             print(f"  Series {ser_label}: {ser_id}  (tone: {ser_tone})")
             print(f"    Title: {ser_def['title']}")
+            print(f"    Curriculum count: {ser_def['count']}")
 
     # --- Step 3: Wire series to collections ---
     print("\n--- Wiring series to collections ---")
     for i, col_key in enumerate(collection_keys):
         col_id = collection_ids[col_key]
-        for j in range(5):
+        series_list = SERIES[col_key]
+        for j in range(len(series_list)):
             ser_label = f"{col_key}{j + 1}"
             ser_id = series_ids[ser_label]
             add_series_to_collection(col_id, ser_id)
             print(f"  Wired {ser_label} ({ser_id}) -> Collection {col_key} ({col_id})")
 
-    # --- Step 4: Set collection display orders (1-4) ---
+    # --- Step 4: Set collection display orders (1–5) ---
     print("\n--- Setting collection display orders ---")
     for i, col_key in enumerate(collection_keys):
         col_id = collection_ids[col_key]
@@ -328,10 +504,11 @@ def main():
         set_collection_display_order(col_id, order)
         print(f"  Collection {col_key} ({col_id}) -> displayOrder {order}")
 
-    # --- Step 5: Set series display orders (1-5 within each collection) ---
+    # --- Step 5: Set series display orders ---
     print("\n--- Setting series display orders ---")
     for col_key in collection_keys:
-        for j in range(5):
+        series_list = SERIES[col_key]
+        for j in range(len(series_list)):
             ser_label = f"{col_key}{j + 1}"
             ser_id = series_ids[ser_label]
             order = j + 1
@@ -340,7 +517,7 @@ def main():
 
     # --- Summary ---
     print("\n" + "=" * 60)
-    print("SUMMARY — en-fr Infrastructure")
+    print("SUMMARY — en-fr Infrastructure (bilingual-parity-expansion)")
     print("=" * 60)
     print("\nCollection IDs:")
     for col_key, col_id in collection_ids.items():
@@ -354,18 +531,21 @@ def main():
     for i, col_key in enumerate(collection_keys):
         col_data = tones["collections"][i]
         print(f"\nCollection {col_key} (tone: {col_data['description_tone']}):")
-        for j, ser_data in enumerate(col_data["series"]):
+        series_list = SERIES[col_key]
+        for j in range(len(series_list)):
+            ser_data = col_data["series"][j]
             ser_label = f"{col_key}{j + 1}"
-            print(f"  Series {ser_label} (tone: {ser_data['description_tone']}):")
-            for cur_data in ser_data["curriculums"]:
-                cur_idx = cur_data["curriculum_index"] + 1
+            num_cur = series_list[j]["count"]
+            print(f"  Series {ser_label} (tone: {ser_data['description_tone']}, {num_cur} curriculums):")
+            for k in range(num_cur):
+                cur_data = ser_data["curriculums"][k]
                 print(
-                    f"    Curriculum {cur_idx}: "
+                    f"    Curriculum {k + 1}: "
                     f"desc_tone={cur_data['description_tone']}, "
                     f"farewell_tone={cur_data['farewell_tone']}"
                 )
 
-    print("\n✅ en-fr orchestrator complete.")
+    print("\n✅ en-fr orchestrator (bilingual-parity-expansion) complete.")
     return collection_ids, series_ids
 
 

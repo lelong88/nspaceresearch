@@ -8,7 +8,7 @@ import json
 import logging
 import requests
 
-sys.path.insert(0, "/home/ubuntu/nspaceresearch2/design-curriculums")
+sys.path.insert(0, "/home/ubuntu/nspaceresearch/design-curriculums")
 from firebase_token import get_firebase_id_token
 
 UID = "zs5AMpVfqkcfDf8CJ9qrXdH58d73"
@@ -191,4 +191,24 @@ def set_collection_display_order(collection_id: str, order: int) -> None:
         logger.info("Set display order %d on collection %s", order, collection_id)
     except Exception as e:
         logger.error("Failed to set display order on collection %s: %s", collection_id, e)
+        raise
+
+
+def set_price(curriculum_id: str, price: int) -> None:
+    """Set curriculum price."""
+    token = get_token()
+    try:
+        res = requests.post(
+            f"{API_BASE}/curriculum/setPrice",
+            json={
+                "firebaseIdToken": token,
+                "id": curriculum_id,
+                "price": price,
+            },
+            timeout=TIMEOUT,
+        )
+        res.raise_for_status()
+        logger.info("Set price %d on curriculum %s", price, curriculum_id)
+    except Exception as e:
+        logger.error("Failed to set price %d on curriculum %s: %s", price, curriculum_id, e)
         raise
