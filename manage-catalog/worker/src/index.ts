@@ -9,8 +9,21 @@ import catalog from "./routes/catalog";
 
 const app = new Hono<{ Bindings: Env }>();
 
+const API_KEY = "sk-catalog-9f7b2a1e4d6c8x3w5q0m";
+
 // Middleware
 app.use("*", cors());
+
+// API key auth — skip health check only
+app.use("*", async (c, next) => {
+  if (c.req.path === "/") return next();
+
+  const key = c.req.header("X-API-Key");
+  if (!key || key !== API_KEY) {
+    return c.json({ error: "Unauthorized" }, 401);
+  }
+  return next();
+});
 
 // Health check
 app.get("/", (c) => {

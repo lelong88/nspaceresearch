@@ -15,6 +15,18 @@ This project manages the **curriculum catalog system** — the content hierarchy
 - **Framework**: Hono (lightweight web framework for Workers)
 - **DB Client**: `pg` (node-postgres) over Hyperdrive connection string
 
+## Authentication
+
+- **Method**: Static API key via `X-API-Key` header
+- **Key**: `sk-catalog-9f7b2a1e4d6c8x3w5q0m` (hardcoded in `worker/src/index.ts`)
+- **Public routes** (no auth required): `GET /` (health check)
+- **Protected routes**: All other endpoints (including catalog) require the `X-API-Key` header
+
+Example:
+```
+curl -H "X-API-Key: sk-catalog-9f7b2a1e4d6c8x3w5q0m" https://catalogapi.step.is/collections
+```
+
 ## Content Hierarchy
 
 The content is organized in a three-level hierarchy:
@@ -102,11 +114,22 @@ A **display profile** (`display_profile` table) defines a personalized catalog v
 1. **Higher `display_order` = shown first** (descending sort)
 2. **Collections use a whitelist pattern**:
    - Default `display_order` for collections is `-2000` (hidden)
-   - A collection is **only visible** in a catalog if the display profile explicitly overrides its `display_order` to a positive value (> 0)
+   - A collection is **only visible** in a catalog if the display profile explicitly overrides its `display_order` to a non-negative value (>= 0)
    - This ensures collection visibility is always intentional per audience
 3. **Negative display_order (< 0) hides the item entirely** from that catalog view
 4. **Series and curriculums** use `display_order` for relative positioning within their parent; they don't use the same whitelist pattern as collections
 5. A display profile's overrides are **merged on top of** the entity's base `display_order`
+
+### Quick Reference View
+
+Use the `display_profile_collections` view for a quick overview of which collections are assigned to which profiles and their effective display order:
+
+```sql
+SELECT profile_id, collection_id, collection_title, display_order, hidden
+FROM display_profile_collections
+WHERE profile_id = <id>
+ORDER BY display_order DESC;
+```
 
 ### Example Audiences
 - University economics students (Vietnamese) — promotes business/economics content
