@@ -11,6 +11,7 @@ import { queryRouter } from "./routes/query";
 import { viewRouter } from "./routes/view";
 import { unsubscribeRouter } from "./routes/unsubscribe";
 import { webhooksRouter } from "./routes/webhooks";
+import { bannersRouter } from "./routes/banners";
 
 const app = new Hono<{ Bindings: Env }>();
 
@@ -26,6 +27,7 @@ app.route("/api", subscribersRouter);
 app.route("/api", campaignsRouter);
 app.route("/api", sendsRouter);
 app.route("/api", queryRouter);
+app.route("/api", bannersRouter);
 
 // Public route groups
 app.route("/", viewRouter);

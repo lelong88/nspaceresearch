@@ -56,3 +56,26 @@ export interface EmailOptOut {
   reason: string | null;
   opted_out_at: Date;
 }
+
+export interface Banner {
+  id: number;
+  title: string | null;
+  subtitle: string | null;
+  image_url: string | null;
+  url: string | null;
+  type: "standard" | "minimal" | "transient";
+  is_active: boolean;
+  created_at: Date;
+}
+
+export interface UserBanner {
+  id: number;
+  user_uid: string;
+  banner_id: number;
+  max_expiration_date: Date;
+  first_shown_expiration_hours: number | null;
+  first_shown_at: Date | null;
+  display_order: number | null;
+  is_dismissed: boolean;
+  created_at: Date;
+}

@@ -14,6 +14,7 @@
 - PostgreSQL accessed via Hyperdrive connection pooling
 - Falls back to `DATABASE_URL` env var when Hyperdrive binding is unavailable
 - Raw SQL queries with parameterized values (no ORM)
+- **Banner tables**: `banner` (definitions) and `user_banner` (per-user assignments with expiration logic)
 
 ## Email Sending
 - **SMTP**: AWS SES via `send_email.py` (Python, smtplib)
@@ -24,6 +25,13 @@
 - **Idempotency**: each send is recorded in `email_campaign_send` with a unique constraint on `(campaign_id, email)` — duplicates are prevented at the DB level and skipped client-side. Interrupted runs are safe to resume.
 - **"View in browser"**: rendered emails uploaded to Cloudflare R2 bucket `emails` (public domain: `https://emails.step.is`). The per-recipient URL is stored in `email_campaign_send.view_url`.
 - **R2 client**: boto3 (S3-compatible API)
+
+## In-App Banners
+- **Banner types**: `standard`, `minimal`, `transient` — each served in a different UI slot
+- **Expiration**: absolute deadline (`max_expiration_date`) + optional relative expiration after first view (`first_shown_expiration_hours`)
+- **Global banners**: `user_uid = 'all'` shows to every user without individual assignments
+- **Dismissal**: users can dismiss banners; global banner dismissals create a personal record
+- **Coordination**: banners complement email campaigns as part of the Deep Communication strategy
 
 ## Testing
 - **Test runner**: Vitest 2.x (`vitest --run` for single execution)

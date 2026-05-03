@@ -1,16 +1,31 @@
-# Product Overview
+# Product Overview — Deep Communication
 
-This repository is the **full email marketing stack** for Step (nspace). It spans three layers that work together end-to-end:
+This repository is the **Deep Communication platform** for Step (nspace). It orchestrates a coherent, multi-channel communication strategy that reaches users through **both email and in-app banners** — strategically coordinated to maximize engagement, education, and deliverability.
 
 ```
-┌───────────────────────────────────────────────────────────────────┐
-│  1. CONTENT          campaigns/   — HTML templates, assets, copy  │
-│  2. RENDER & SEND    *.py         — Python pipeline (SES + R2)    │
-│  3. BACKEND API      src/         — Cloudflare Workers + Postgres │
-└───────────────────────────────────────────────────────────────────┘
+┌───────────────────────────────────────────────────────────────────────┐
+│  1. CONTENT          campaigns/   — HTML templates, assets, copy      │
+│  2. RENDER & SEND    *.py         — Python pipeline (SES + R2)        │
+│  3. BACKEND API      src/         — Cloudflare Workers + Postgres     │
+│  4. IN-APP BANNERS   banner system — personalized, time-sensitive UX  │
+└───────────────────────────────────────────────────────────────────────┘
 ```
 
-Every email sent by the team flows through all three: drafted in `campaigns/`, rendered + sent by the Python pipeline, tracked by the Workers API.
+---
+
+## Philosophy: Deep Communication
+
+This project blurs the boundary between marketing and product. It is:
+
+- **Separate from the product** in that it serves a marketing function — acquisition, retention, re-engagement
+- **Part of the product** in that it delivers educational content, learning nudges, and contextual guidance within the app itself
+
+The surface area to reach a user extends beyond the inbox into the app experience. A campaign may have:
+- An **email component** (bulk or personal, delivered via SES)
+- An **in-app banner component** (standard, minimal, or transient — delivered via the banner API)
+- **Both**, coordinated as a single coherent touchpoint
+
+Over time, consistent, valuable communication from `support@step.is` trains users to whitelist the sender — gradually improving email deliverability. The in-app banners reinforce email content and vice versa, creating a feedback loop where each channel strengthens the other.
 
 ---
 
@@ -23,6 +38,7 @@ Features:
 - **Subscriber management** — add/remove subscribers per list, with duplicate and opt-out enforcement, bulk insert endpoint
 - **Campaign management** — create, schedule, and track email campaigns with HTML and plain-text bodies
 - **Send tracking** — per-recipient send records with delivery, open, click, and bounce timestamps
+- **Banner management** — create, assign, retrieve, and dismiss in-app banners with expiration logic
 - **Unsubscribe flow** — public-facing pages for per-list unsubscribe and global opt-out
 - **Campaign viewer** — legacy `/view/:campaignId` route (the primary viewer today is R2-hosted, see section 2)
 - **Read-only SQL query endpoint** — ad-hoc SELECT/WITH/EXPLAIN queries against the database
@@ -84,11 +100,12 @@ python send_bulk.py <slug> <list-id> <campaign-id> <lang> "<subject>" --yes
 
 Available as a module too: `from send_bulk import send_bulk` with optional `variables_fn` for per-recipient personalization.
 
-### Sender Addresses
+### Sender Addresses & Deliverability
 
 - **Default `from` address**: `support@step.is` (set in `campaign_email.FROM_EMAIL`)
 - **Override per campaign**: pass `--from=<email>` on the CLI or `from_email=` as a kwarg
 - Campaigns sent personally (e.g. founder outreach) should override to a personal address and match the signature in the body
+- **Deliverability strategy**: consistent use of `support@step.is` across valuable communications trains users to whitelist the address. In-app banners can reinforce "check your email" prompts, creating a virtuous cycle.
 
 ### Idempotency & Resume
 
@@ -186,6 +203,54 @@ Directory names use kebab-case and should be descriptive:
 
 ---
 
+## 4. In-App Banner System
+
+The banner system delivers personalized, time-sensitive messages directly within the Step app. Banners complement email campaigns by providing an in-app touchpoint that users see immediately — no inbox required.
+
+### Banner Types
+
+| Type | Purpose | Where it appears |
+|------|---------|-----------------|
+| `standard` | Primary banners (promotions, announcements, learning nudges) | Main banner area |
+| `minimal` | Subtle, low-intrusion messages | Compact banner slot |
+| `transient` | Time-sensitive, auto-expiring notifications | Dedicated transient area |
+
+### How Banners Work
+
+1. **Create a banner definition** — title, subtitle, image, URL, type
+2. **Assign to users** — individually, in bulk, or globally (`user_uid = 'all'`)
+3. **Set expiration rules** — absolute deadline + optional relative expiration after first view
+4. **Users see banners** — the API tracks first-shown time and applies expiration logic
+5. **Users can dismiss** — dismissed banners don't reappear
+
+### Coordinating Email + Banners
+
+A Deep Communication campaign often pairs both channels:
+
+| Timing | Email | Banner |
+|--------|-------|--------|
+| Day 0 | Send campaign email | Show `standard` banner reinforcing the message |
+| Day 1-3 | — | `minimal` banner as a gentle reminder |
+| Day 5 | Follow-up email if no engagement | `transient` banner with urgency |
+
+This multi-touch approach ensures the message reaches users regardless of whether they check email or just use the app.
+
+### API Endpoints
+
+| Method | Path | Description |
+|--------|------|-------------|
+| POST | `/api/banners` | Create a banner definition |
+| GET | `/api/banners` | List banners (filter by type, active status) |
+| GET | `/api/banners/:id` | Get a single banner |
+| PATCH | `/api/banners/:id` | Update a banner |
+| DELETE | `/api/banners/:id` | Delete a banner |
+| POST | `/api/banners/:id/assign` | Assign banner to user(s) |
+| GET | `/api/banners/:id/assignments` | List assignments for a banner |
+| GET | `/api/banners/user/:userUid` | Get active banners for a user (with expiration logic) |
+| POST | `/api/banners/user/:userUid/dismiss` | Dismiss a banner for a user |
+
+---
+
 ## Sending a Campaign — End-to-End Workflow
 
 1. **Draft content**: create `campaigns/{slug}/README.md` + `body.html`
@@ -193,10 +258,11 @@ Directory names use kebab-case and should be descriptive:
 3. **Iterate**: tweak copy and templates, re-preview
 4. **Create subscriber list** (if needed): via the Workers API `/api/lists` + `/api/lists/:id/subscribers/bulk`
 5. **Create campaign record**: `POST /api/campaigns` — this returns the `campaign_id` used for dedup tracking. The campaign row in the DB already stores the **target list ID** (`email_list_id`), so the list-to-campaign mapping is authoritative in the database — no need to look it up separately.
-6. **Dry run**: `python _run_campaign_and_summarize.py {slug} {list_id} {campaign_id} {lang} "{subject}" --dry-run --limit=5`
-7. **Bulk send**: `python _run_campaign_and_summarize.py {slug} {list_id} {campaign_id} {lang} "{subject}" --from=long@nspace.is` — sends all emails, dedupes against prior sends, and emails a summary to `long@nspace.is` when done
-8. **Resume if interrupted**: re-run the same command — already-sent recipients are skipped automatically
-9. **Track**: `/api/campaigns/:id/sends` shows per-recipient send state (status, sent_at, bounced_at, view_url)
+6. **Create companion banner** (if applicable): `POST /api/banners` + `POST /api/banners/:id/assign` to set up the in-app component
+7. **Dry run**: `python _run_campaign_and_summarize.py {slug} {list_id} {campaign_id} {lang} "{subject}" --dry-run --limit=5`
+8. **Bulk send**: `python _run_campaign_and_summarize.py {slug} {list_id} {campaign_id} {lang} "{subject}" --from=long@nspace.is` — sends all emails, dedupes against prior sends, and emails a summary to `long@nspace.is` when done
+9. **Resume if interrupted**: re-run the same command — already-sent recipients are skipped automatically
+10. **Track**: `/api/campaigns/:id/sends` shows per-recipient send state (status, sent_at, bounced_at, view_url)
 
 > **Always use `_run_campaign_and_summarize.py` for live sends** — it wraps `send_bulk.py` and adds the post-send summary email. Use `send_bulk.py` directly only for scripting or module-level imports.
 

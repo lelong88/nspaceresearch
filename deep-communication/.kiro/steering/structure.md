@@ -24,14 +24,18 @@ src/
     ├── subscribers.ts    # Subscriber management          (/api/lists/:id/subscribers)
     ├── campaigns.ts      # CRUD for email campaigns       (/api/campaigns)
     ├── sends.ts          # Read-only send tracking         (/api/campaigns/:id/sends)
+    ├── banners.ts        # Banner CRUD + user assignment   (/api/banners)
     ├── query.ts          # Ad-hoc read-only SQL endpoint  (/api/query)  [authenticated]
     ├── view.ts           # Public campaign HTML viewer    (/view/:campaignId)
-    └── unsubscribe.ts    # Public unsubscribe pages       (/unsubscribe)
+    ├── unsubscribe.ts    # Public unsubscribe pages       (/unsubscribe)
+    └── webhooks.ts       # Webhook handlers               (/webhooks)
 
 send_email.py             # Low-level SES SMTP email sender
 campaign_email.py         # Campaign renderer: templates + locale + R2 upload + send
 send_bulk.py              # Bulk sender: fetch list subscribers, render + send each, paced
 _send_campaign_preview.py # CLI to preview a campaign email
+_run_campaign_and_summarize.py # Standard entry point: bulk send + summary notification
+BANNER_SYSTEM.md          # Banner system documentation for background engine
 ```
 
 ## Conventions
@@ -46,3 +50,4 @@ _send_campaign_preview.py # CLI to preview a campaign email
 - **No ORM**: all database interaction is raw SQL via `pg.Client`.
 - **Email templates**: HTML with inline styles and `{{variable}}` placeholders. Locale resolved at send time via `campaign_email.py`.
 - **"View in browser"**: each sent email is uploaded to the `emails` R2 bucket (`https://emails.step.is/`) as a static HTML file with a UUID path.
+- **Banner system**: banners are managed via the API and served to the app client. The background engine creates banners and assigns them to users via direct DB inserts or the API. See `BANNER_SYSTEM.md` for the full schema and expiration logic.
