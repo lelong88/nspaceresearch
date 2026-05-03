@@ -1,0 +1,7 @@
+---
+inclusion: always
+---
+this project manage curriculum collections, curriculum series, curriculums in the database postgres.
+the db can be ready using mcp postgres.
+this project has worker folder which contains code to deploy to cloudflare wrangler which has HYPERDRIVE existing config with exposed apis to do everything that the project needs. this is a new worker project (for now until first deployment after which i will setup custom domain at agentapi.step.is )
+a catalog is specific visual layout of curriculum collections, curriculum series, curriculums for a target audience. in the db, it is equivalent to a row in `display_profile`. display_order for each collection/series/curriculum will determine their position. higher display_order will show first, vice versa. a specific feature is that for collections -> negative number display_order (< 0) will hide the collection entirely. each collection when created with have default display_order < 0 to hide it by default. this is the whitelist pattern where only collection specifically is overridden with display_ordr > 0 by the a row in `display_profile` will become visible. this helps make sure collection visibility is always intentional for each target audience.
