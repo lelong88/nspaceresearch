@@ -207,13 +207,40 @@ Directory names use kebab-case and should be descriptive:
 
 The banner system delivers personalized, time-sensitive messages directly within the Step app. Banners complement email campaigns by providing an in-app touchpoint that users see immediately — no inbox required.
 
-### Banner Types
+### Banner Types & Placement
 
 | Type | Purpose | Where it appears |
 |------|---------|-----------------|
-| `standard` | Primary banners (promotions, announcements, learning nudges) | Main banner area |
-| `minimal` | Subtle, low-intrusion messages | Compact banner slot |
-| `transient` | Time-sensitive, auto-expiring notifications | Dedicated transient area |
+| `standard` | Primary banners (promotions, announcements, learning nudges) | Curriculum catalog page |
+| `minimal` | Subtle, low-intrusion messages | Distraction-free (committed learner) page |
+| `transient` | *(Not in use yet)* | — |
+
+#### `standard` — Catalog Page (new & browsing users)
+
+Shown on the **curriculum catalog page**. This is:
+- The **first page new users see** when they open the app
+- The page users land on when they **haven't committed** to a specific curriculum (via the "Get started" button)
+- Still accessible to committed users, but they visit it **much less often**
+
+Best for: onboarding nudges, feature announcements, promotions targeting new or uncommitted users.
+
+#### `minimal` — Distraction-Free Page (committed / returning users)
+
+Shown on the **distraction-free page**, which is the default view once a user commits to a curriculum. Users see this page:
+- **Every time they open the app** after committing
+- Potentially over **days or weeks** until they finish or switch curricula
+
+Because this page is designed to be distraction-free and these banners reach committed/returning users heavily, `minimal` banners should be:
+- Used **sparingly** — only when directly helpful in nudging users to learn
+- Focused on **learning-relevant** content (progress encouragement, tips, curriculum-related info)
+- **Not** used for general marketing or announcements that would break the focused experience
+
+#### Choosing the right banner type
+
+| User state | Sees `standard`? | Sees `minimal`? | Guidance |
+|------------|-------------------|-----------------|----------|
+| New / browsing (no curriculum committed) | ✅ Frequently | ❌ Never | Use `standard` for onboarding, discovery, promotions |
+| Committed / returning (active curriculum) | Rarely | ✅ Every session | Use `minimal` only for learning nudges; keep it sparse |
 
 ### How Banners Work
 
