@@ -36,6 +36,16 @@ Ignore any curriculum whose `uid` ends with `_deleted`. These are soft-deleted r
 
 No hardcoded IDs or static ID-to-name mappings. Query MCP postgres in real-time. Delete one-time scripts after execution. Source materials deleted after import — only README remains.
 
+## Script Lifecycle — NEVER Delete Before Execution
+
+**CRITICAL**: `create_*.py` scripts must be **executed against the API** before deletion. The workflow is:
+1. Write the script
+2. **Run the script** (which calls the API to create the curriculum in the DB)
+3. **Verify the curriculum exists in the DB** (query by title or series membership)
+4. Only THEN delete the script
+
+Never delete `create_*.py` scripts just because a "verification" task says to clean up. Verification means confirming the data is **in the database**, not just that the script file exists on disk. If a script hasn't been run (the curriculum doesn't exist in the DB), the script must be kept or re-created.
+
 ## Language Rules
 
 - Always use 2-character ISO 639-1 codes (`en`, `vi`, `zh`, etc.). Pairs: `{user_language}-{target_language}`.

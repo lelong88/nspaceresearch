@@ -1,0 +1,4 @@
+# file: /home/ubuntu/nspaceresearch/design-curriculums/vi-fr-children-curriculum/validate_content.py
+# hypothesis_version: 6.151.6
+
+['activities', 'activityType', 'beginner_mini', 'beginner_short', 'chapterBookmarks', 'content', 'contentTypeTags', 'curriculumTags', 'data', 'description', 'forbidden_activities', 'illustrationSet', 'imageId', 'introAudio', 'items', 'learningSessions', 'lessonUniqueId', 'mp3Url', 'preview', 'prompt', 'readAlong', 'reading', 'segments', 'session_count', 'speakFlashcards', 'speakReading', 'targetVocab', 'taskId', 'text', 'title', 'type', 'userReadingId', 'viewFlashcards', 'vocabLevel1', 'vocabLevel2', 'vocabLevel3', 'vocabList', 'vocab_max', 'vocab_min', 'whiteboardItems', 'words', 'writingParagraph', 'writingSentence']
