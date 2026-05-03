@@ -10,8 +10,10 @@ This project manages the **curriculum catalog system** — the content hierarchy
 
 - **Database**: PostgreSQL (accessible via MCP postgres for reads)
 - **API Layer**: Cloudflare Worker in the `worker/` folder, deployed via Wrangler
-- **Networking**: Worker uses Hyperdrive for pooled Postgres connections
-- **Domain**: `catalogapi.step.is` (custom domain pending first deployment)
+- **Networking**: Worker uses Hyperdrive for pooled Postgres connections (requires `nodejs_compat` flag)
+- **Domain**: `https://catalogapi.step.is` (live, deployed)
+- **Framework**: Hono (lightweight web framework for Workers)
+- **DB Client**: `pg` (node-postgres) over Hyperdrive connection string
 
 ## Content Hierarchy
 
@@ -118,3 +120,74 @@ A **display profile** (`display_profile` table) defines a personalized catalog v
 - Filter out items with effective `display_order < 0` from responses
 - Sort results by effective `display_order` descending
 - Support CRUD for collections, series, curriculums, and display profiles
+
+## API Endpoints (Base: `https://catalogapi.step.is`)
+
+### Health
+| Method | Path | Description |
+|--------|------|-------------|
+| GET | `/` | Health check — returns `{"status":"ok"}` |
+
+### Collections (`/collections`)
+| Method | Path | Description |
+|--------|------|-------------|
+| GET | `/collections` | List all collections |
+| GET | `/collections/:id` | Get single collection |
+| POST | `/collections` | Create collection (body: `{id, title, description?, is_public?, thumbnail?}`) |
+| PUT | `/collections/:id` | Update collection (body: any subset of `{title, description, is_public, thumbnail, display_order}`) |
+| DELETE | `/collections/:id` | Delete collection |
+| POST | `/collections/:id/curriculums` | Add curriculum to collection (body: `{curriculum_id}`) |
+| DELETE | `/collections/:id/curriculums/:curriculumId` | Remove curriculum from collection |
+| POST | `/collections/:id/series` | Add series to collection (body: `{series_id}`) |
+| DELETE | `/collections/:id/series/:seriesId` | Remove series from collection |
+
+### Series (`/series`)
+| Method | Path | Description |
+|--------|------|-------------|
+| GET | `/series` | List all series |
+| GET | `/series/:id` | Get single series |
+| POST | `/series` | Create series (body: `{id, title, description?, thumbnail?, is_public?, display_order?}`) |
+| PUT | `/series/:id` | Update series (body: any subset of `{title, description, thumbnail, is_public, display_order}`) |
+| DELETE | `/series/:id` | Delete series |
+| POST | `/series/:id/curriculums` | Add curriculum to series (body: `{curriculum_id}`) |
+| DELETE | `/series/:id/curriculums/:curriculumId` | Remove curriculum from series |
+
+### Curriculums (`/curriculums`)
+| Method | Path | Description |
+|--------|------|-------------|
+| GET | `/curriculums` | List curriculums (query: `?language=&limit=&offset=`). Returns lightweight rows (no `content` field) |
+| GET | `/curriculums/:id` | Get full curriculum including `content` jsonb |
+| PUT | `/curriculums/:id` | Update curriculum fields |
+
+### Display Profiles (`/display-profiles`)
+| Method | Path | Description |
+|--------|------|-------------|
+| GET | `/display-profiles` | List all display profiles |
+| GET | `/display-profiles/:id` | Get single display profile |
+| POST | `/display-profiles` | Create profile (body: `{description, display_order_override?}`) |
+| PUT | `/display-profiles/:id` | Update profile (body: `{description?, display_order_override?}`) |
+| DELETE | `/display-profiles/:id` | Delete profile |
+
+### Catalog (`/catalog`)
+| Method | Path | Description |
+|--------|------|-------------|
+| GET | `/catalog/:profileId` | Resolved catalog view for a display profile. Merges overrides, filters hidden items, returns nested collections → series → curriculums sorted by effective display_order DESC |
+
+## Worker Project Structure
+
+```
+worker/
+├── package.json
+├── wrangler.toml          # Wrangler config (Hyperdrive binding, nodejs_compat)
+├── tsconfig.json
+└── src/
+    ├── index.ts           # Hono app entry point, CORS, route mounting, error handler
+    ├── types.ts           # TypeScript interfaces (Env, DB row types, API response types)
+    ├── db.ts              # getClient() + query() helpers using pg over Hyperdrive
+    └── routes/
+        ├── collections.ts
+        ├── series.ts
+        ├── curriculums.ts
+        ├── display-profiles.ts
+        └── catalog.ts     # The key endpoint — resolves full catalog view
+```
