@@ -1,0 +1,4 @@
+# file: /home/ubuntu/nspaceresearch/design-curriculums/vi-en-christianity-curriculum/validate_content.py
+# hypothesis_version: 6.151.6
+
+['activities', 'activityType', 'balanced', 'chapterBookmarks', 'content', 'contentTypeTags', 'curriculumTags', 'data', 'description', 'illustrationSet', 'imageId', 'instructions', 'introAudio', 'items', 'learningSessions', 'lessonUniqueId', 'mp3Url', 'preview', 'prompt', 'prompts', 'readAlong', 'reading', 'segments', 'speakFlashcards', 'speakReading', 'speaking', 'story', 'story_reading', 'targetVocab', 'taskId', 'text', 'title', 'type', 'userReadingId', 'viewFlashcards', 'vocabLevel1', 'vocabLevel2', 'vocabList', 'whiteboardItems', 'words', 'writingParagraph', 'writingSentence']
