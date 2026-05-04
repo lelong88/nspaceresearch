@@ -30,6 +30,8 @@ Stores banner definitions (the content/template).
 | `url` | TEXT | YES | NULL | Destination URL when user taps the banner |
 | `type` | VARCHAR | NO | — | One of: `standard`, `minimal`, `transient` |
 | `is_active` | BOOLEAN | NO | true | Set to false to globally disable a banner |
+| `required_user_status` | VARCHAR | YES | NULL | Targeting: only show to users with this status. NULL = show to all |
+| `required_user_language` | VARCHAR | YES | NULL | Targeting: only show to users whose `userLanguage` matches (2-letter code). NULL = show to all |
 | `created_at` | TIMESTAMP | NO | NOW() | Auto-set on insert |
 
 ### `user_banner` table
@@ -147,6 +149,63 @@ A banner is shown to a user only when ALL of these conditions are true:
 | Show until user sees it, then give them 24h | far future date | 24 |
 | Show for 30 days max, but only 48h after first view | NOW() + 30 days | 48 |
 | One-time flash sale ending at specific time | '2025-06-15 23:59:59' | NULL |
+
+---
+
+## Targeting (for global banners)
+
+Global banners (`user_uid = 'all'`) can be targeted to specific user segments using the `required_user_status` and `required_user_language` columns on the `banner` table.
+
+### How targeting works
+
+- **`required_user_status`** — matched against the user's status from the `onboarding` database view. The API queries this automatically.
+- **`required_user_language`** — matched against the `userLanguage` field sent by the client in the request body.
+- **NULL = no restriction** — if either column is NULL, that dimension is not filtered.
+- Both conditions must match (AND logic) if both are set.
+
+### Valid `required_user_status` values
+
+| Value | Meaning |
+|-------|---------|
+| `not_logged_in` | User has not logged in |
+| `no_credits` | User has no credits remaining |
+| `no_purchase_yet` | User has never made a purchase |
+| `not_started_yet` | User hasn't started any curriculum |
+| `started_no_activity_yet` | User started a curriculum but has no activity |
+| `started` | User has started and has activity |
+
+### Examples
+
+```sql
+-- Show only to Spanish learners who haven't purchased yet
+INSERT INTO banner (title, subtitle, url, type, required_user_status, required_user_language)
+VALUES (
+  'First purchase discount!',
+  'Get 20% off your first curriculum',
+  'https://app.example.com/promo',
+  'standard',
+  'no_purchase_yet',
+  'es'
+);
+
+-- Show to all Japanese learners regardless of status
+INSERT INTO banner (title, url, type, required_user_language)
+VALUES (
+  'New Japanese content available',
+  'https://app.example.com/ja-new',
+  'minimal',
+  'ja'
+);
+
+-- Show to all users with no credits (any language)
+INSERT INTO banner (title, url, type, required_user_status)
+VALUES (
+  'Top up your credits',
+  'https://app.example.com/credits',
+  'standard',
+  'no_credits'
+);
+```
 
 ---
 

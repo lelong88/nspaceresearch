@@ -15,7 +15,7 @@ bannersRouter.post("/banners", async (c) => {
     return c.json({ error: "Invalid JSON" }, 400);
   }
 
-  const { title, subtitle, image_url, url, type } = body as Record<
+  const { title, subtitle, image_url, url, type, required_user_status, required_user_language } = body as Record<
     string,
     unknown
   >;
@@ -30,8 +30,8 @@ bannersRouter.post("/banners", async (c) => {
   const client = await getClient(c.env);
   try {
     const result = await client.query(
-      `INSERT INTO banner (title, subtitle, image_url, url, type)
-       VALUES ($1, $2, $3, $4, $5)
+      `INSERT INTO banner (title, subtitle, image_url, url, type, required_user_status, required_user_language)
+       VALUES ($1, $2, $3, $4, $5, $6, $7)
        RETURNING *`,
       [
         title ?? null,
@@ -39,6 +39,8 @@ bannersRouter.post("/banners", async (c) => {
         image_url ?? null,
         url ?? null,
         type,
+        required_user_status ?? null,
+        required_user_language ?? null,
       ]
     );
     return c.json(result.rows[0], 201);
@@ -100,7 +102,7 @@ bannersRouter.patch("/banners/:id", async (c) => {
     return c.json({ error: "Invalid JSON" }, 400);
   }
 
-  const { title, subtitle, image_url, url, type, is_active } = body as Record<
+  const { title, subtitle, image_url, url, type, is_active, required_user_status, required_user_language } = body as Record<
     string,
     unknown
   >;
@@ -148,6 +150,14 @@ bannersRouter.patch("/banners/:id", async (c) => {
     if (is_active !== undefined) {
       params.push(is_active);
       setClauses.push(`is_active = $${params.length}`);
+    }
+    if (required_user_status !== undefined) {
+      params.push(required_user_status);
+      setClauses.push(`required_user_status = $${params.length}`);
+    }
+    if (required_user_language !== undefined) {
+      params.push(required_user_language);
+      setClauses.push(`required_user_language = $${params.length}`);
     }
 
     if (setClauses.length === 0) {

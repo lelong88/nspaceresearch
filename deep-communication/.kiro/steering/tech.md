@@ -30,6 +30,8 @@
 - **Banner types**: `standard`, `minimal`, `transient` — each served in a different UI slot
 - **Expiration**: absolute deadline (`max_expiration_date`) + optional relative expiration after first view (`first_shown_expiration_hours`)
 - **Global banners**: `user_uid = 'all'` shows to every user without individual assignments
+- **Targeting**: global banners can be filtered by `required_user_status` and `required_user_language` on the `banner` table (AND logic, NULL = no restriction)
+- **Valid user statuses**: `not_logged_in`, `no_credits`, `no_purchase_yet`, `not_started_yet`, `started_no_activity_yet`, `started` (from the `onboarding` DB view)
 - **Dismissal**: users can dismiss banners; global banner dismissals create a personal record
 - **Coordination**: banners complement email campaigns as part of the Deep Communication strategy
 

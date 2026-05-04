@@ -244,11 +244,23 @@ Because this page is designed to be distraction-free and these banners reach com
 
 ### How Banners Work
 
-1. **Create a banner definition** — title, subtitle, image, URL, type
+1. **Create a banner definition** — title, subtitle, image, URL, type (+ optional targeting fields)
 2. **Assign to users** — individually, in bulk, or globally (`user_uid = 'all'`)
 3. **Set expiration rules** — absolute deadline + optional relative expiration after first view
-4. **Users see banners** — the API tracks first-shown time and applies expiration logic
-5. **Users can dismiss** — dismissed banners don't reappear
+4. **Target by segment** (global banners) — `required_user_status` and/or `required_user_language` on the `banner` row
+5. **Users see banners** — the API tracks first-shown time and applies expiration + targeting logic
+6. **Users can dismiss** — dismissed banners don't reappear
+
+### Targeting (Global Banners)
+
+Global banners (`user_uid = 'all'`) support two optional targeting dimensions on the `banner` table:
+
+- **`required_user_status`** — matched against the user's status from the `onboarding` DB view. Valid values: `not_logged_in`, `no_credits`, `no_purchase_yet`, `not_started_yet`, `started_no_activity_yet`, `started`
+- **`required_user_language`** — matched against the `userLanguage` field sent by the client (2-letter code, e.g. `en`, `vi`, `ja`)
+- **NULL = no restriction** — if either column is NULL, that dimension is not filtered
+- Both conditions use **AND logic** when both are set
+
+This allows a single global banner to reach a precise segment (e.g., "all Vietnamese learners who haven't purchased yet") without individual user assignments.
 
 ### Coordinating Email + Banners
 
