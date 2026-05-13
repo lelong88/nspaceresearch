@@ -1,0 +1,4 @@
+# file: /home/ubuntu/nspaceresearch/design-curriculums/digital-economy-onboarding-curriculum/create_digital_economy_onboarding.py
+# hypothesis_version: 6.151.6
+
+['activities', 'activityType', 'chapterBookmarks', 'contentTypeTags', 'curriculumTags', 'data', 'description', 'illustrationSet', 'imageId', 'introAudio', 'items', 'learningSessions', 'lessonUniqueId', 'mp3Url', 'passages', 'preview', 'prompt', 'readAlong', 'reading', 'segments', 'speakFlashcards', 'speakReading', 'targetVocab', 'taskId', 'text', 'title', 'type', 'userReadingId', 'viewFlashcards', 'vocabLevel1', 'vocabList', 'whiteboardItems', 'words', 'writingSentence']

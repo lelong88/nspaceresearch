@@ -1,0 +1,16 @@
+COLLECTION_ID=6v1fzjhn
+SERIES_1_ID=etuk9m0a   # Câu Chuyện Kinh Tế Số (story-reading)
+SERIES_2_ID=xa9yj92v   # Nói Chuyện Kinh Tế Số (speaking)
+SERIES_3_ID=eifo9vw8   # Khám Phá Kinh Tế Số (balanced)
+
+# Curriculum IDs
+CURRICULUM_3_ID=9A6bBrCJisxOQY0r  # Từ Tiền Mặt Đến Ví Số (story_reading, intermediate, series 1, order 3)
+CURRICULUM_4_ID=CBU9WveMR36xNfSA  # Mua Sắm Trực Tuyến (speaking, preintermediate, series 2, order 1)
+CURRICULUM_5_ID=iIWjBue4fA5buGY9  # Thanh Toán Không Tiền Mặt (speaking, preintermediate, series 2, order 2)
+CURRICULUM_6_ID=qQ1VlRNDV7s35qPZ  # Làm Việc Từ Xa (speaking, preintermediate, series 2, order 3)
+CURRICULUM_10_ID=bASqfBi4txIdXOin  # An Ninh Mạng Và Quyền Riêng Tư (balanced, intermediate, series 3, order 4)
+CURRICULUM_7_ID=TMTYwK1MivbfYFhJ  # Mạng Xã Hội Và Tiếp Thị Số (balanced, preintermediate, series 3, order 1)
+CURRICULUM_8_ID=0eigz8yg4CR9SEHF  # Tiền Mã Hoá Và Blockchain (balanced, intermediate, series 3, order 2)
+CURRICULUM_9_ID=guQoms9pzmGpol7p  # Trí Tuệ Nhân Tạo Trong Kinh Doanh (balanced, intermediate, series 3, order 3)
+CURRICULUM_8_ID=0eigz8yg4CR9SEHF  # Tiền Mã Hoá Và Blockchain (balanced, intermediate, series 3, order 2)
+CURRICULUM_7_ID=TMTYwK1MivbfYFhJ  # Mạng Xã Hội Và Tiếp Thị Số (balanced, preintermediate, series 3, order 1)

@@ -1,0 +1,754 @@
+# Design Document: Vietnamese-Japanese Preintermediate/Intermediate Curriculums
+
+## Overview
+
+This design covers the creation of 20 Japanese-learning curriculums for Vietnamese-speaking adults at preintermediate and intermediate levels, organized into 1 collection and 5 series of 4 curriculums each. The system consists of:
+
+- **20 standalone Python scripts** — one per curriculum, each containing hand-crafted preintermediate/intermediate Japanese content
+- **1 orchestrator script** — creates the collection, 5 series, wires them together, sets display orders
+- **1 content validator module** — validates curriculum JSON against preintermediate/intermediate-specific rules before upload
+- **Shared API helpers** — reuses the existing root-level `api_helpers.py` module for all REST API calls
+
+The language pair is `userLanguage="vi"` (Vietnamese speakers), `language="ja"` (learning Japanese). All marketing text (titles, descriptions, previews) is in Vietnamese. All learner-facing content is bilingual: Vietnamese explanations with Japanese vocabulary including kanji with furigana annotations.
+
+### Key Design Decisions
+
+1. **Reuse existing root-level `api_helpers.py`** — the module already wraps all needed API endpoints (create_curriculum, add_to_series, set_display_order, set_price, create_collection, create_series, add_series_to_collection, set_series_display_order) with Firebase auth, error handling, and logging.
+
+2. **Preintermediate/Intermediate-specific validator** — a new `validate_content.py` in `vi-ja-preintermediate-curriculums/` supporting `preintermediate` and `intermediate` formats. Key differences from the beginner validator: enforces exactly 5 sessions and 18 vocab words for both formats; preintermediate forbids writingParagraph and vocabLevel3; intermediate requires vocabLevel3 in Session 4 only and writingParagraph in Session 5 only. No lowercase enforcement for vocabList since Japanese uses hiragana/katakana/kanji which don't have letter case.
+
+3. **No tone_assigner module** — with 20 curriculums across 5 series, tone assignments are hard-coded in each script and documented in the orchestrator. Manual assignment with variety checks is simpler and more transparent.
+
+4. **Two curriculum format templates** — `preintermediate` (5 sessions, 18 words in 3 groups of 6, no writingParagraph/vocabLevel3, price 49) and `intermediate` (5 sessions, 18 words in 3 groups of 6, vocabLevel3 in review session, writingParagraph in final session, price 49).
+
+5. **Scripts directory**: `vi-ja-preintermediate-curriculums/`
+
+6. **Reading passage length** — preintermediate: 150-250 chars per session passage, 400-600 chars for final reading. Intermediate: 200-350 chars per session passage, 500-800 chars for final reading.
+
+7. **Kanji with furigana** — at this level, vocabulary includes kanji (JLPT N5-N4 for preintermediate, N4-N3 for intermediate) with furigana readings provided in introAudio scripts and reading passages.
+
+## Architecture
+
+```mermaid
+graph TD
+    subgraph "vi-ja-preintermediate-curriculums/"
+        ORCH[orchestrator.py] --> API[api_helpers.py<br/>shared, repo root]
+        VAL[validate_content.py]
+
+        C1[create_job_interview.py] --> VAL
+        C1 --> API
+        C2[create_booking_planning.py] --> VAL
+        C2 --> API
+        C3[create_street_food.py] --> VAL
+        C3 --> API
+        C4[create_renting.py] --> VAL
+        C4 --> API
+        C5[create_medical_visit.py] --> VAL
+        C5 --> API
+        C6[create_social_relationships.py] --> VAL
+        C6 --> API
+        C7[create_natural_disasters.py] --> VAL
+        C7 --> API
+        C8[create_phone_communication.py] --> VAL
+        C8 --> API
+        C9[create_online_shopping.py] --> VAL
+        C9 --> API
+        C10[create_sports_cheering.py] --> VAL
+        C10 --> API
+        C11[create_office_culture.py] --> VAL
+        C11 --> API
+        C12[create_traditional_arts.py] --> VAL
+        C12 --> API
+        C13[create_news_events.py] --> VAL
+        C13 --> API
+        C14[create_education.py] --> VAL
+        C14 --> API
+        C15[create_fine_dining.py] --> VAL
+        C15 --> API
+        C16[create_psychology_emotions.py] --> VAL
+        C16 --> API
+        C17[create_rural_tourism.py] --> VAL
+        C17 --> API
+        C18[create_technology_ai.py] --> VAL
+        C18 --> API
+        C19[create_law_rules.py] --> VAL
+        C19 --> API
+        C20[create_environment.py] --> VAL
+        C20 --> API
+    end
+
+    API --> FB[firebase_token.py]
+    API --> REST[helloapi.step.is REST API]
+    REST --> DB[(PostgreSQL)]
+```
+
+
+### Execution Flow
+
+```mermaid
+sequenceDiagram
+    participant Dev as Developer
+    participant Orch as orchestrator.py
+    participant Script as create_*.py (x20)
+    participant Val as validate_content.py
+    participant API as api_helpers.py
+    participant Server as helloapi.step.is
+
+    Dev->>Orch: python orchestrator.py
+    Orch->>API: create_collection("Tieng Nhat Trung Cap", ...)
+    API->>Server: POST /curriculum-collection/create
+    Server-->>API: { id: collection_id }
+    Orch->>API: create_series (x5)
+    Orch->>API: add_series_to_collection (x5)
+    Orch->>API: set_series_display_order (x5)
+    Orch-->>Dev: Print collection_id, series_ids
+
+    loop For each curriculum (1-20)
+        Dev->>Script: python create_<topic>.py <series_id>
+        Script->>Script: Build content JSON (hand-crafted)
+        Script->>Val: validate(content, format="preintermediate"|"intermediate")
+        Val-->>Script: OK or raise ValueError
+        Script->>API: create_curriculum(content, "ja", "vi")
+        API->>Server: POST /curriculum/create
+        Server-->>API: { id: curriculum_id }
+        Script->>API: add_to_series(series_id, curriculum_id)
+        Script->>API: set_display_order(curriculum_id, order)
+        Script->>API: set_price(curriculum_id, 49)
+        Script-->>Dev: Print curriculum_id
+    end
+```
+
+## Components and Interfaces
+
+### 1. orchestrator.py
+
+Creates the collection and 5 series, wires them together, sets display orders.
+
+**Inputs:** None (all data hard-coded — collection/series titles, descriptions, tone assignments)
+
+**Outputs:** Prints collection ID, series IDs, tone assignments for curriculum scripts
+
+**API calls:**
+- `curriculum-collection/create` — 1 call
+- `curriculum-series/create` — 5 calls
+- `curriculum-collection/addSeriesToCollection` — 5 calls
+- `curriculum-series/setDisplayOrder` — 5 calls
+
+**Series tone assignments (all 5 different):**
+
+| Entity | Tone |
+|--------|------|
+| Series 1: "Su Nghiep Tai Nhat" | `bold_declaration` |
+| Series 2: "Kham Pha Nhat Ban" | `vivid_scenario` |
+| Series 3: "Doi Song Va Xa Hoi" | `empathetic_observation` |
+| Series 4: "Van Hoa Va Nghe Thuat" | `surprising_fact` |
+| Series 5: "The Gioi Hien Dai" | `provocative_question` |
+
+**Curriculum tone assignments (no adjacent duplicates within each series, no tone >30%):**
+
+| # | Curriculum | Series | Level | Desc Tone | Farewell Tone |
+|---|-----------|--------|-------|-----------|---------------|
+| 1 | Phong Van Xin Viec | Su Nghiep Tai Nhat | preintermediate | provocative_question | warm_accountability |
+| 4 | Thue Nha O Nhat | Su Nghiep Tai Nhat | preintermediate | vivid_scenario | quiet_awe |
+| 8 | Giao Tiep Qua Dien Thoai | Su Nghiep Tai Nhat | preintermediate | empathetic_observation | practical_momentum |
+| 11 | Van Hoa Cong So | Su Nghiep Tai Nhat | intermediate | bold_declaration | introspective_guide |
+| 2 | Dat Phong Va Len Ke Hoach | Kham Pha Nhat Ban | preintermediate | surprising_fact | team_building_energy |
+| 3 | Am Thuc Duong Pho | Kham Pha Nhat Ban | preintermediate | metaphor_led | warm_accountability |
+| 15 | Am Thuc Cao Cap | Kham Pha Nhat Ban | intermediate | bold_declaration | quiet_awe |
+| 17 | Du Lich Nong Thon | Kham Pha Nhat Ban | intermediate | vivid_scenario | practical_momentum |
+| 5 | Kham Benh O Nhat | Doi Song Va Xa Hoi | preintermediate | provocative_question | introspective_guide |
+| 6 | Moi Quan He Xa Hoi | Doi Song Va Xa Hoi | preintermediate | empathetic_observation | team_building_energy |
+| 7 | Thien Tai Va An Toan | Doi Song Va Xa Hoi | preintermediate | bold_declaration | warm_accountability |
+| 16 | Tam Ly Va Cam Xuc | Doi Song Va Xa Hoi | intermediate | surprising_fact | quiet_awe |
+| 12 | Nghe Thuat Truyen Thong | Van Hoa Va Nghe Thuat | intermediate | metaphor_led | practical_momentum |
+| 13 | Tin Tuc Va Thoi Su | Van Hoa Va Nghe Thuat | intermediate | provocative_question | introspective_guide |
+| 14 | Giao Duc O Nhat | Van Hoa Va Nghe Thuat | intermediate | vivid_scenario | team_building_energy |
+| 19 | Phap Luat Va Quy Tac | Van Hoa Va Nghe Thuat | intermediate | empathetic_observation | warm_accountability |
+| 9 | Mua Sam Truc Tuyen | The Gioi Hien Dai | preintermediate | bold_declaration | quiet_awe |
+| 10 | The Thao Va Co Vu | The Gioi Hien Dai | preintermediate | surprising_fact | practical_momentum |
+| 18 | Cong Nghe Va AI | The Gioi Hien Dai | intermediate | metaphor_led | introspective_guide |
+| 20 | Moi Truong Va Ben Vung | The Gioi Hien Dai | intermediate | vivid_scenario | team_building_energy |
+
+**Tone distribution check:**
+- Description tones across 20 curriculums: provocative_question x3, bold_declaration x4, vivid_scenario x4, empathetic_observation x3, surprising_fact x3, metaphor_led x3 — max 20%, all <=30% ✓
+- No adjacent duplicates within any of the 5 series ✓
+- Farewell tones across 20 curriculums: warm_accountability x4, quiet_awe x4, practical_momentum x4, introspective_guide x4, team_building_energy x4 — evenly distributed (20% each) ✓
+- No adjacent farewell duplicates within any series ✓
+
+### 2. validate_content.py
+
+Preintermediate/Intermediate-specific content validator supporting two curriculum formats.
+
+**Interface:**
+```python
+def validate(content: dict, format: str) -> None:
+    """
+    Validates curriculum content JSON for vi-ja preintermediate/intermediate curriculums.
+
+    Args:
+        content: The curriculum content dict
+        format: One of "preintermediate" or "intermediate"
+
+    Raises:
+        ValueError with specific violation message on any failure.
+    """
+```
+
+**Format configurations:**
+
+| Format | Sessions | Vocab Words | Groups | Forbidden Activities | Required Activities |
+|--------|----------|-------------|--------|---------------------|---------------------|
+| `preintermediate` | 5 | 18 (3x6) | 3 | writingParagraph, vocabLevel3 | — |
+| `intermediate` | 5 | 18 (3x6) | 3 | — | vocabLevel3 in S4 only, writingParagraph in S5 only |
+
+**Validation checks:**
+1. Top-level structure: `title`, `description`, `preview.text`, `contentTypeTags: []`, `learningSessions`
+2. Session count = exactly 5 for both formats
+3. Each session has `title` and non-empty `activities` array
+4. Each activity has `activityType` (not `type`), `title`, `description`, `data` object
+5. Valid `activityType` values (from allowed set per format)
+6. `vocabList` is array of strings, field name is `vocabList` (not `words`) — NO lowercase enforcement (Japanese characters have no case)
+7. `viewFlashcards`/`speakFlashcards` in same session have identical `vocabList`
+8. `writingSentence` has `data.vocabList`, `data.items` with `prompt` and `targetVocab`
+9. `writingParagraph` (intermediate only) has `data.vocabList`, `data.instructions`, `data.prompts` (array with >=2 items)
+10. No strip-keys anywhere in JSON tree (mp3Url, illustrationSet, chapterBookmarks, segments, whiteboardItems, userReadingId, lessonUniqueId, curriculumTags, taskId, imageId)
+11. Total unique vocab count = 18 across all sessions
+12. **Preintermediate format**: no `writingParagraph` or `vocabLevel3` in ANY session
+13. **Intermediate format**: `vocabLevel3` appears ONLY in Session 4; `writingParagraph` appears ONLY in Session 5
+
+### 3. Individual Curriculum Scripts (create_*.py x 20)
+
+Each script is standalone and contains all hand-crafted content for one curriculum.
+
+**Common interface pattern:**
+```python
+# create_<topic>.py
+import sys
+import json
+import logging
+
+sys.path.insert(0, "/home/ubuntu/nspaceresearch/design-curriculums")
+sys.path.insert(0, "/home/ubuntu/nspaceresearch/design-curriculums/vi-ja-preintermediate-curriculums")
+from api_helpers import (
+    create_curriculum, add_to_series, set_display_order, set_price
+)
+from validate_content import validate
+
+SERIES_ID = "<series_id>"  # Filled after orchestrator runs
+DISPLAY_ORDER = <N>
+PRICE = 49
+
+def build_content() -> dict:
+    """Build the curriculum content dict with all hand-crafted text."""
+    return {
+        "title": "...",
+        "description": "...",
+        "preview": {"text": "..."},
+        "contentTypeTags": [],
+        "learningSessions": [...]
+    }
+
+def main():
+    content = build_content()
+    validate(content, format="preintermediate")  # or "intermediate"
+    curriculum_id = create_curriculum(content, "ja", "vi")
+    add_to_series(SERIES_ID, curriculum_id)
+    set_display_order(curriculum_id, DISPLAY_ORDER)
+    set_price(curriculum_id, PRICE)
+    print(f"Created: {curriculum_id}")
+
+if __name__ == "__main__":
+    main()
+```
+
+**Key constraints:**
+- All text content (introAudio scripts, reading passages, descriptions, previews, writing prompts) is hand-written per curriculum
+- No template functions or string interpolation for learner-facing text
+- The `build_content()` function returns a fully literal dict
+- Japanese vocabulary includes kanji with furigana in introAudio scripts
+- Vietnamese marketing text for descriptions/previews addressing adult learner aspirations at this level
+- Reading passages use kanji appropriate to the level (N5-N4 for preintermediate, N4-N3 for intermediate)
+
+
+### 4. Activity Templates
+
+#### Preintermediate (5 sessions, 18 words in 3 groups of 6, price 49)
+
+```
+Session 1 (Learning, "Phan 1"):
+  1. introAudio — welcome + topic intro (500-800 words Vietnamese)
+  2. introAudio — teach words group 1 with furigana, Vietnamese meaning, example sentences
+  3. viewFlashcards (group 1, 6 words)
+  4. speakFlashcards (group 1, 6 words)
+  5. vocabLevel1 (group 1)
+  6. vocabLevel2 (group 1)
+  7. introAudio — grammar/usage notes
+  8. reading — passage using group 1 words (150-250 chars, basic kanji with furigana)
+  9. speakReading
+  10. readAlong
+  11. writingSentence (3 items using group 1 words)
+
+Session 2 (Learning, "Phan 2"):
+  1. introAudio — recap group 1 + intro
+  2. introAudio — teach words group 2
+  3. viewFlashcards (group 2, 6 words)
+  4. speakFlashcards (group 2, 6 words)
+  5. vocabLevel1 (group 2)
+  6. vocabLevel2 (group 2)
+  7. introAudio — grammar/usage notes
+  8. reading — passage using group 2 words (150-250 chars)
+  9. speakReading
+  10. readAlong
+  11. writingSentence (3 items using group 2 words)
+
+Session 3 (Learning, "Phan 3"):
+  1. introAudio — recap groups 1-2 + intro
+  2. introAudio — teach words group 3
+  3. viewFlashcards (group 3, 6 words)
+  4. speakFlashcards (group 3, 6 words)
+  5. vocabLevel1 (group 3)
+  6. vocabLevel2 (group 3)
+  7. introAudio — grammar/usage notes
+  8. reading — passage using group 3 words (150-250 chars)
+  9. speakReading
+  10. readAlong
+  11. writingSentence (3 items using group 3 words)
+
+Session 4 (Review, "On tap"):
+  1. introAudio — review intro
+  2. viewFlashcards (all 18 words)
+  3. speakFlashcards (all 18 words)
+  4. vocabLevel1 (all 18 words)
+  5. vocabLevel2 (all 18 words)
+  6. writingSentence (4-5 items mixing all groups)
+
+Session 5 (Final Reading, "Doc tong hop"):
+  1. introAudio — full reading intro
+  2. reading — full article using all 18 words (400-600 chars)
+  3. speakReading
+  4. readAlong
+  5. introAudio — farewell with vocab review (400-600 words)
+```
+
+#### Intermediate (5 sessions, 18 words in 3 groups of 6, price 49)
+
+```
+Session 1 (Learning, "Phan 1"):
+  1. introAudio — welcome + topic intro (500-800 words Vietnamese)
+  2. introAudio — teach words group 1 with furigana, Vietnamese meaning, example sentences
+  3. viewFlashcards (group 1, 6 words)
+  4. speakFlashcards (group 1, 6 words)
+  5. vocabLevel1 (group 1)
+  6. vocabLevel2 (group 1)
+  7. introAudio — grammar/usage notes
+  8. reading — passage using group 1 words (200-350 chars, kanji with furigana for N4+ level)
+  9. speakReading
+  10. readAlong
+  11. writingSentence (3 items using group 1 words)
+
+Session 2 (Learning, "Phan 2"):
+  1. introAudio — recap group 1 + intro
+  2. introAudio — teach words group 2
+  3. viewFlashcards (group 2, 6 words)
+  4. speakFlashcards (group 2, 6 words)
+  5. vocabLevel1 (group 2)
+  6. vocabLevel2 (group 2)
+  7. introAudio — grammar/usage notes
+  8. reading — passage using group 2 words (200-350 chars)
+  9. speakReading
+  10. readAlong
+  11. writingSentence (3 items using group 2 words)
+
+Session 3 (Learning, "Phan 3"):
+  1. introAudio — recap groups 1-2 + intro
+  2. introAudio — teach words group 3
+  3. viewFlashcards (group 3, 6 words)
+  4. speakFlashcards (group 3, 6 words)
+  5. vocabLevel1 (group 3)
+  6. vocabLevel2 (group 3)
+  7. introAudio — grammar/usage notes
+  8. reading — passage using group 3 words (200-350 chars)
+  9. speakReading
+  10. readAlong
+  11. writingSentence (3 items using group 3 words)
+
+Session 4 (Review, "On tap"):
+  1. introAudio — review intro
+  2. viewFlashcards (all 18 words)
+  3. speakFlashcards (all 18 words)
+  4. vocabLevel1 (all 18 words)
+  5. vocabLevel2 (all 18 words)
+  6. vocabLevel3 (all 18 words)  <-- INTERMEDIATE ONLY
+  7. writingSentence (4-5 items mixing all groups)
+
+Session 5 (Final Reading, "Doc tong hop"):
+  1. introAudio — full reading intro
+  2. reading — full article using all 18 words (500-800 chars)
+  3. speakReading
+  4. readAlong
+  5. writingParagraph (using 6+ vocabulary words)  <-- INTERMEDIATE ONLY
+  6. introAudio — farewell with vocab review (400-600 words)
+```
+
+## Data Models
+
+### Curriculum Content JSON Structure (Preintermediate Example)
+
+```json
+{
+  "title": "Phong Van Xin Viec",
+  "description": "Multi-paragraph Vietnamese persuasive copy about job interviews in Japan...",
+  "preview": {
+    "text": "Vietnamese preview text (~150 words) with vocabulary listing..."
+  },
+  "contentTypeTags": [],
+  "learningSessions": [
+    {
+      "title": "Phan 1",
+      "activities": [
+        {
+          "activityType": "introAudio",
+          "title": "Chao mung ban den voi bai hoc Phong Van",
+          "description": "Gioi thieu chu de phong van xin viec tai Nhat",
+          "data": {
+            "text": "Xin chao ban! Hom nay chung ta se hoc ve chu de phong van xin viec tai Nhat Ban..."
+          }
+        },
+        {
+          "activityType": "introAudio",
+          "title": "Gioi thieu tu vung nhom 1",
+          "description": "Hoc 6 tu vung ve phong van xin viec",
+          "data": {
+            "text": "Tu dau tien la 履歴書 (rirekisho) - co nghia la so yeu ly lich..."
+          }
+        },
+        {
+          "activityType": "viewFlashcards",
+          "title": "Flashcards: Phong van xin viec",
+          "description": "Hoc 6 tu: 履歴書, 面接, 志望動機, 経験, 給料, 正社員",
+          "data": {
+            "vocabList": ["履歴書", "面接", "志望動機", "経験", "給料", "正社員"]
+          }
+        },
+        {
+          "activityType": "speakFlashcards",
+          "title": "Flashcards: Phong van xin viec",
+          "description": "Hoc 6 tu: 履歴書, 面接, 志望動機, 経験, 給料, 正社員",
+          "data": {
+            "vocabList": ["履歴書", "面接", "志望動機", "経験", "給料", "正社員"]
+          }
+        },
+        {
+          "activityType": "vocabLevel1",
+          "title": "Flashcards: Phong van xin viec",
+          "description": "Hoc 6 tu: 履歴書, 面接, 志望動機, 経験, 給料, 正社員",
+          "data": {
+            "vocabList": ["履歴書", "面接", "志望動機", "経験", "給料", "正社員"]
+          }
+        },
+        {
+          "activityType": "vocabLevel2",
+          "title": "Flashcards: Phong van xin viec",
+          "description": "Hoc 6 tu: 履歴書, 面接, 志望動機, 経験, 給料, 正社員",
+          "data": {
+            "vocabList": ["履歴書", "面接", "志望動機", "経験", "給料", "正社員"]
+          }
+        },
+        {
+          "activityType": "introAudio",
+          "title": "Ngu phap va cach dung",
+          "description": "Giai thich cach su dung tu vung trong ngu canh",
+          "data": {
+            "text": "Bay gio chung ta se tim hieu cach su dung nhung tu nay trong cau..."
+          }
+        },
+        {
+          "activityType": "reading",
+          "title": "Doc: Phong van xin viec",
+          "description": "田中さんは来週、面接があります。履歴書を準備して...",
+          "data": {
+            "text": "田中（たなか）さんは来週（らいしゅう）、面接（めんせつ）があります。履歴書（りれきしょ）を準備（じゅんび）して、志望動機（しぼうどうき）を考（かんが）えています。経験（けいけん）を活（い）かして、正社員（せいしゃいん）になりたいです。給料（きゅうりょう）も大切（たいせつ）ですが、やりがいのある仕事（しごと）を探（さが）しています。",
+            "vocabList": ["履歴書", "面接", "志望動機", "経験", "給料", "正社員"]
+          }
+        },
+        {
+          "activityType": "speakReading",
+          "title": "Doc: Phong van xin viec",
+          "description": "田中さんは来週、面接があります。履歴書を準備して...",
+          "data": {
+            "text": "田中（たなか）さんは来週（らいしゅう）、面接（めんせつ）があります。履歴書（りれきしょ）を準備（じゅんび）して、志望動機（しぼうどうき）を考（かんが）えています。経験（けいけん）を活（い）かして、正社員（せいしゃいん）になりたいです。給料（きゅうりょう）も大切（たいせつ）ですが、やりがいのある仕事（しごと）を探（さが）しています。"
+          }
+        },
+        {
+          "activityType": "readAlong",
+          "title": "Nghe: Phong van xin viec",
+          "description": "Nghe doan van vua doc va theo doi.",
+          "data": {
+            "text": "田中（たなか）さんは来週（らいしゅう）、面接（めんせつ）があります。履歴書（りれきしょ）を準備（じゅんび）して、志望動機（しぼうどうき）を考（かんが）えています。経験（けいけん）を活（い）かして、正社員（せいしゃいん）になりたいです。給料（きゅうりょう）も大切（たいせつ）ですが、やりがいのある仕事（しごと）を探（さが）しています。"
+          }
+        },
+        {
+          "activityType": "writingSentence",
+          "title": "Viet: Phong van xin viec",
+          "description": "Viet cau tieng Nhat ve phong van xin viec",
+          "data": {
+            "vocabList": ["履歴書", "面接", "志望動機"],
+            "items": [
+              {
+                "prompt": "Viet mot cau tieng Nhat dung tu '履歴書' (rirekisho - so yeu ly lich). Vi du: 履歴書（りれきしょ）を書（か）きました。(Toi da viet so yeu ly lich.) Hay thay '書きました' bang '送りました' (okurimashita - da gui) nhe!",
+                "targetVocab": "履歴書"
+              },
+              {
+                "prompt": "Viet mot cau tieng Nhat dung tu '面接' (mensetsu - phong van). Vi du: 明日（あした）、面接（めんせつ）があります。(Ngay mai toi co phong van.) Hay thay '明日' bang '来週' (raishuu - tuan sau) nhe!",
+                "targetVocab": "面接"
+              },
+              {
+                "prompt": "Viet mot cau tieng Nhat dung tu '志望動機' (shiboudouki - dong co ung tuyen). Vi du: 志望動機（しぼうどうき）を準備（じゅんび）しています。(Toi dang chuan bi dong co ung tuyen.) Hay thay '準備しています' bang '考えています' (kangaeteimasu - dang suy nghi) nhe!",
+                "targetVocab": "志望動機"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+
+### writingParagraph Structure (Intermediate Only, Session 5)
+
+```json
+{
+  "activityType": "writingParagraph",
+  "title": "Viet doan: Van hoa cong so",
+  "description": "Viet doan van tieng Nhat ve van hoa cong so Nhat Ban",
+  "data": {
+    "vocabList": ["敬語", "報告", "連絡", "相談", "飲み会", "根回し"],
+    "instructions": "Hay viet 3-5 cau tieng Nhat mo ta mot ngay lam viec dien hinh tai cong ty Nhat Ban. Su dung it nhat 4 tu vung da hoc trong bai. Ban co the viet ve cac hoat dong nhu bao cao (報告), lien lac (連絡), tham van (相談), hoac tiec cong ty (飲み会).",
+    "prompts": [
+      "Ban thuong lam gi dau tien khi den cong ty?",
+      "Ban giao tiep voi dong nghiep va cap tren nhu the nao?",
+      "Sau gio lam viec, ban va dong nghiep thuong lam gi?"
+    ]
+  }
+}
+```
+
+### API Call Parameters
+
+| API Endpoint | Key Parameters |
+|---|---|
+| `curriculum/create` | `firebaseIdToken`, `language: "ja"`, `userLanguage: "vi"`, `content: JSON.stringify(content)` |
+| `curriculum-series/addCurriculum` | `firebaseIdToken`, `curriculumSeriesId`, `curriculumId` |
+| `curriculum/setDisplayOrder` | `firebaseIdToken`, `id`, `displayOrder` |
+| `curriculum/setPrice` | `firebaseIdToken`, `id`, `price: 49` |
+| `curriculum-collection/create` | `firebaseIdToken`, `title`, `description` |
+| `curriculum-series/create` | `firebaseIdToken`, `title`, `description` |
+| `curriculum-collection/addSeriesToCollection` | `firebaseIdToken`, `curriculumCollectionId`, `curriculumSeriesId` |
+| `curriculum-series/setDisplayOrder` | `firebaseIdToken`, `id`, `displayOrder` |
+
+
+## Correctness Properties
+
+*A property is a characteristic or behavior that should hold true across all valid executions of a system — essentially, a formal statement about what the system should do. Properties serve as the bridge between human-readable specifications and machine-verifiable correctness guarantees.*
+
+The content validator (`validate_content.py`) is the primary component amenable to property-based testing. It is a pure function: takes a content dict and format string, returns None or raises ValueError. The input space is large (arbitrary JSON structures), and universal properties hold across all valid/invalid inputs.
+
+The curriculum creation scripts, orchestrator, and API interactions are integration-level concerns tested via database verification queries after execution.
+
+**Key difference from beginner validator properties:** This validator supports two formats (`preintermediate` and `intermediate`) with different rules. The intermediate format has REQUIRED activities (vocabLevel3 in Session 4, writingParagraph in Session 5) in addition to the structural checks. Both formats enforce exactly 5 sessions and 18 vocabulary words.
+
+### Property 1: Valid content passes validation
+
+*For any* well-formed curriculum content dict that matches its declared format (exactly 5 sessions, 18 total vocab words in 3 groups of 6, all required fields present, no forbidden activities for the format, correct placement of format-specific activities, no strip keys, vocabList as arrays of strings), calling `validate(content, format)` SHALL return without raising an exception.
+
+**Validates: Requirements 1.3, 1.4, 1.5, 11.1, 11.2, 11.3, 11.4**
+
+### Property 2: Forbidden activities are rejected for preintermediate format
+
+*For any* preintermediate curriculum content, if a `writingParagraph` or `vocabLevel3` activity is injected into any session, `validate(content, "preintermediate")` SHALL raise a ValueError identifying the forbidden activity.
+
+**Validates: Requirements 1.8, 1.9, 4.2, 11.10**
+
+### Property 3: Intermediate activity placement is enforced
+
+*For any* intermediate curriculum content, if `vocabLevel3` appears in any session other than Session 4, or if `writingParagraph` appears in any session other than Session 5, `validate(content, "intermediate")` SHALL raise a ValueError identifying the misplaced activity. Conversely, if `vocabLevel3` is missing from Session 4 or `writingParagraph` is missing from Session 5, validation SHALL also raise a ValueError.
+
+**Validates: Requirements 1.10, 1.11, 5.2, 5.3, 11.11**
+
+### Property 4: Strip keys are rejected anywhere in the JSON tree
+
+*For any* curriculum content dict and any strip key (mp3Url, illustrationSet, chapterBookmarks, segments, whiteboardItems, userReadingId, lessonUniqueId, curriculumTags, taskId, imageId), if that key is injected at any depth in the JSON tree, `validate()` SHALL raise a ValueError mentioning the strip key.
+
+**Validates: Requirements 1.6, 11.9**
+
+### Property 5: Activities missing required fields are rejected
+
+*For any* activity in any curriculum content, if any of the required fields (`activityType`, `title`, `description`, `data`) is missing or if `data` is not a dict, `validate()` SHALL raise a ValueError identifying the missing field and its location.
+
+**Validates: Requirements 10.1, 10.5, 11.3**
+
+### Property 6: Invalid activityType values are rejected
+
+*For any* activity with an `activityType` value not in the valid set (introAudio, viewFlashcards, speakFlashcards, vocabLevel1, vocabLevel2, vocabLevel3, reading, speakReading, readAlong, writingSentence, writingParagraph), `validate()` SHALL raise a ValueError.
+
+**Validates: Requirements 10.2, 11.4**
+
+### Property 7: vocabList format is enforced
+
+*For any* vocab activity (viewFlashcards, speakFlashcards, vocabLevel1, vocabLevel2, vocabLevel3), if `data.vocabList` is not an array, is empty, contains non-string elements, or uses the field name `words` instead of `vocabList`, `validate()` SHALL raise a ValueError. Note: lowercase is NOT enforced for Japanese vocabulary (kanji/hiragana/katakana have no case).
+
+**Validates: Requirements 10.3, 11.5**
+
+### Property 8: Flashcard vocabList consistency within sessions
+
+*For any* session containing both `viewFlashcards` and `speakFlashcards` activities, if their `data.vocabList` arrays differ, `validate()` SHALL raise a ValueError.
+
+**Validates: Requirements 10.4, 11.6**
+
+### Property 9: Writing activity structure is enforced
+
+*For any* `writingSentence` activity, if `data.vocabList` is missing, `data.items` is missing or empty, or any item lacks a non-empty `prompt` or `targetVocab`, `validate()` SHALL raise a ValueError. *For any* `writingParagraph` activity (intermediate only), if `data.vocabList` is missing, `data.instructions` is missing or empty, or `data.prompts` is missing or has fewer than 2 items, `validate()` SHALL raise a ValueError.
+
+**Validates: Requirements 10.6, 10.7, 11.7, 11.8**
+
+## Error Handling
+
+### Validator Errors
+
+The `validate_content.py` module raises `ValueError` with a specific message identifying:
+- The exact rule violated
+- The location in the JSON tree (e.g., "Session 2, Activity 3")
+- The expected vs. actual value
+- The format being validated against
+
+Each curriculum script calls `validate()` before any API call. If validation fails, the script aborts with the error message — no partial upload occurs.
+
+### API Call Errors
+
+Each curriculum script follows this error handling pattern:
+
+1. **Validation failure** — Script aborts immediately, prints the violation. No API calls made.
+2. **`curriculum/create` failure** — Script logs the error with curriculum title and exits. The curriculum is not partially created.
+3. **`add_to_series` failure** — Curriculum exists but is orphaned. Script logs the error. Developer must manually add to series or delete the curriculum.
+4. **`set_display_order` failure** — Curriculum exists in series but without explicit order. Script logs the error. Developer must manually set order.
+5. **`set_price` failure** — Curriculum exists with default price. Script logs the error. Developer must manually set price.
+
+The orchestrator follows the same pattern:
+1. **`create_collection` failure** — Abort. Nothing created.
+2. **`create_series` failure** — Log error, continue with remaining series. Developer must manually create the failed series.
+3. **`add_series_to_collection` failure** — Series exists but is orphaned. Log error, continue.
+4. **`set_display_order` failure** — Log error, continue. Developer must manually set order.
+
+### Duplicate Handling
+
+After each curriculum creation, the script logs the curriculum ID. The README documents all IDs. If a script is accidentally run twice, the developer runs the duplicate check query:
+
+```sql
+SELECT id, content->>'title', created_at FROM curriculum
+WHERE content->>'title' = '<title>' AND uid = 'zs5AMpVfqkcfDf8CJ9qrXdH58d73'
+AND uid NOT LIKE '%_deleted'
+ORDER BY created_at;
+```
+
+Keep the earliest, delete extras (remove from series first, then delete curriculum).
+
+## Testing Strategy
+
+### Property-Based Tests (validate_content.py)
+
+**Library:** [Hypothesis](https://hypothesis.readthedocs.io/) (Python PBT library)
+
+**Configuration:** Minimum 100 iterations per property test.
+
+**Tag format:** Each test is tagged with a comment: `# Feature: vi-ja-preintermediate-curriculums, Property N: <property_text>`
+
+The 9 correctness properties above are implemented as Hypothesis property tests in a `test_validate.py` file within `vi-ja-preintermediate-curriculums/`. Each property test generates random curriculum content structures using Hypothesis strategies and verifies the validator's behavior.
+
+**Generator strategies needed:**
+- `valid_curriculum(format)` — generates a structurally valid curriculum content dict for the given format (`preintermediate` or `intermediate`), with 5 sessions and 18 Japanese vocab words in 3 groups of 6
+- `random_activity(activity_type)` — generates a valid activity of the given type with all required fields
+- `random_vocab_list(n)` — generates a list of n random Japanese strings (hiragana, katakana, and kanji characters)
+- `random_strip_key()` — picks a random strip key from the set of 10 forbidden keys
+- `random_json_path()` — picks a random location in a content dict to inject a key
+- `valid_writing_sentence()` — generates a valid writingSentence activity with vocabList, items, prompt, targetVocab
+- `valid_writing_paragraph()` — generates a valid writingParagraph activity with vocabList, instructions, prompts (>=2)
+
+**Key generator notes:**
+- The `random_vocab_list` strategy generates strings from hiragana (U+3040-U+309F), katakana (U+30A0-U+30FF), and CJK Unified Ideographs (U+4E00-U+9FFF) Unicode ranges
+- The `valid_curriculum("intermediate")` strategy must include vocabLevel3 in Session 4 and writingParagraph in Session 5
+- The `valid_curriculum("preintermediate")` strategy must NOT include vocabLevel3 or writingParagraph in any session
+
+### Example-Based Tests
+
+- Verify no vocabulary overlap across the 20 curriculum scripts (Req 2.3)
+- Verify no vocabulary overlap with the 20 beginner vi-ja curriculums (Req 2.4)
+- Verify tone assignment table has no adjacent duplicates within each series (Req 6.5)
+- Verify no tone exceeds 30% of 20 descriptions (max 6 uses per tone) (Req 6.6)
+- Verify correct activity sequence templates for each format (Req 4.1, 5.1)
+- Verify writingSentence items have Vietnamese prompt text with furigana and targetVocab (Req 3.4)
+- Verify writingParagraph has instructions and >=2 prompts (Req 3.5, intermediate only)
+- Verify preintermediate reading passages are 150-250 chars per session (Req 3.2)
+- Verify intermediate reading passages are 200-350 chars per session (Req 3.3)
+
+### Integration Verification (Post-Execution)
+
+After all scripts run, verify via SQL queries:
+
+```sql
+-- Count all 20 vi-ja preintermediate/intermediate curriculums
+SELECT COUNT(*) FROM curriculum
+WHERE id IN (<list of 20 IDs>);
+
+-- Verify language pair
+SELECT id, content->>'title' as title, language, user_language
+FROM curriculum WHERE id IN (<list of 20 IDs>);
+
+-- Verify all prices are 49
+SELECT c.id, c.content->>'title' as title, c.price
+FROM curriculum c WHERE c.id IN (<list of 20 IDs>)
+ORDER BY c.display_order;
+
+-- Verify series membership and display orders
+SELECT cs.id as series_id, cs.title as series_title,
+       c.id as curriculum_id, c.content->>'title' as curriculum_title,
+       c.display_order, c.price
+FROM curriculum_series cs
+JOIN curriculum_series_items csi ON cs.id = csi.curriculum_series_id
+JOIN curriculum c ON csi.curriculum_id = c.id
+WHERE cs.id IN (<series_1_id>, <series_2_id>, <series_3_id>, <series_4_id>, <series_5_id>)
+ORDER BY cs.display_order, c.display_order;
+
+-- Verify no duplicates
+SELECT content->>'title' as title, COUNT(*)
+FROM curriculum
+WHERE uid = 'zs5AMpVfqkcfDf8CJ9qrXdH58d73'
+AND content->>'title' IN (<list of 20 titles>)
+AND uid NOT LIKE '%_deleted'
+GROUP BY content->>'title'
+HAVING COUNT(*) > 1;
+
+-- Verify collection -> series wiring
+SELECT cc.id as collection_id, cc.title as collection_title,
+       cs.id as series_id, cs.title as series_title
+FROM curriculum_collections cc
+JOIN curriculum_collection_series ccs ON cc.id = ccs.curriculum_collection_id
+JOIN curriculum_series cs ON ccs.curriculum_series_id = cs.id
+WHERE cc.title = 'Tieng Nhat Trung Cap';
+
+-- Verify level gap within each series (max 1 level gap)
+SELECT cs.title as series_title,
+       array_agg(DISTINCT c.content->>'difficulty') as levels
+FROM curriculum_series cs
+JOIN curriculum_series_items csi ON cs.id = csi.curriculum_series_id
+JOIN curriculum c ON csi.curriculum_id = c.id
+WHERE cs.id IN (<series_1_id>, <series_2_id>, <series_3_id>, <series_4_id>, <series_5_id>)
+GROUP BY cs.title;
+```
+
+### Smoke Tests
+
+- Verify each script file exists in `vi-ja-preintermediate-curriculums/`
+- Verify no script calls `setPublic` (Req 13.1)
+- Verify orchestrator creates exactly 1 collection and 5 series
+- Verify all 20 scripts set price to 49
