@@ -103,3 +103,15 @@ python strip-keys.py
 
 ## No Build/Test System
 There is no build step, test suite, or CI pipeline. Scripts are run directly with `python`.
+
+## Script Authoring — Write in Smaller Chunks
+
+Large `fs_write` operations on Python scripts (especially curriculum-creation scripts with embedded JSON content) frequently fail or produce malformed output. To prevent this:
+
+- **Initial creation**: use `fs_write` for only the script skeleton — imports, constants, helper functions, and a `main()` stub. Keep this under ~100 lines.
+- **Adding content**: use `fs_append` to add one logical section at a time (e.g., one session's activities, one curriculum's content blob, one helper function). Aim for ~50-150 lines per append.
+- **Editing existing content**: use `str_replace` for targeted edits rather than rewriting the whole file.
+- **Embedded JSON**: when a script contains a large JSON content blob, build it incrementally with `fs_append` calls per session/activity rather than one mega-write. Verify the file parses (`python -c "import ast; ast.parse(open('script.py').read())"`) after each chunk.
+- **Avoid heredocs and inline `python -c` for multi-line content** — they amplify quoting/escaping errors. Stick to `fs_write` + `fs_append` + `str_replace`.
+
+This applies to all `create_*.py`, `update_*.py`, and similar scripts in `learners/`, `original-novels/`, and ad-hoc curriculum work.

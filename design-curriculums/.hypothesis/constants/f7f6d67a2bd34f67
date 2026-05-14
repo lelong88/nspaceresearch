@@ -1,0 +1,4 @@
+# file: /home/ubuntu/nspaceresearch/design-curriculums/raising-boys-early-years-en-en/orchestrate_raising_boys.py
+# hypothesis_version: 6.151.6
+
+['  Curriculum_A id=', '  Curriculum_B id=', '  series_id=', ' title=', ' under series id=', "'", "''", ')', '; rows=', 'A', 'B', 'DATABASE_URL', 'PIPELINE SUCCESS', '[', '] post-upload FAIL: ', '] post-upload PASS', '__main__', 'content', 'create', 'curriculum/create', 'curriculum/getOne', 'curriculumId', 'curriculumIds', 'curriculumSeriesId', 'curriculum_id', 'description', 'displayOrder', 'en', 'id', 'introspective_guide', 'isPublic', 'language', 'metaphor_led', 'practical_momentum', 'provocative_question', 'seriesId', 'skip', 'title', 'uid', 'userLanguage', 'wired in Task 9.1', 'wired in Task 9.2']
