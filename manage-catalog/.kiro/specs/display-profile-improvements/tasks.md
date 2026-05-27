@@ -130,12 +130,12 @@ No code changes are involved — this is purely data operations against the exis
     - _Requirements: 6.4_
 
 - [ ] 7. Update Profile 6 (Young students)
-  - [-] 7.1 Read current display_order_override for profile 6
+  - [x] 7.1 Read current display_order_override for profile 6
     - GET `https://catalogapi.step.is/display-profiles/6`
     - Record the full current `display_order_override` object
     - _Requirements: 6.2_
 
-  - [~] 7.2 Compute new display_order_override for profile 6
+  - [x] 7.2 Compute new display_order_override for profile 6
     - Add French collections with young-student-priority ordering: bu0fz4rr: 1188, 4ke7s1i7: 1186, ad49khvn: 1185, vxuvod0y: 1184, uzs1jq8x: 1183
     - Differentiate existing flat 1200 values (fiction, stories, culture, intellectually stimulating collections higher)
     - Promote series: Curious Minds (db5930f6), Mind & Society (kxxkeo1f), The Science Shelf (xwznpgdr) to higher positions
@@ -143,12 +143,12 @@ No code changes are involved — this is purely data operations against the exis
     - Preserve all existing overrides not being modified
     - _Requirements: 1.1, 1.5, 3.1, 3.2, 3.3, 4.1, 4.8, 5.3, 5.4_
 
-  - [~] 7.3 Send PUT request for profile 6
+  - [x] 7.3 Send PUT request for profile 6
     - PUT `https://catalogapi.step.is/display-profiles/6` with body `{display_order_override: <computed payload>}`
     - Confirm 2xx response
     - _Requirements: 6.1, 6.2_
 
-  - [~] 7.4 Verify profile 6 update
+  - [x] 7.4 Verify profile 6 update
     - Query `display_profile_collections` view for profile_id=6
     - Confirm French collections appear with expected display_order values
     - Confirm curriculum overrides are populated and differentiated
@@ -156,49 +156,49 @@ No code changes are involved — this is purely data operations against the exis
     - _Requirements: 6.4_
 
 - [ ] 8. Update Profile 7 (Academics)
-  - [~] 8.1 Read current display_order_override for profile 7
+  - [x] 8.1 Read current display_order_override for profile 7
     - GET `https://catalogapi.step.is/display-profiles/7`
     - Record the full current `display_order_override` object
     - _Requirements: 6.2_
 
-  - [~] 8.2 Compute new display_order_override for profile 7
+  - [x] 8.2 Compute new display_order_override for profile 7
     - Add French collections with academic-priority ordering: ad49khvn: 1189, 4ke7s1i7: 1187, bu0fz4rr: 1185, uzs1jq8x: 1184, vxuvod0y: 1183
     - Differentiate existing flat 1200 values (science, research, philosophy, academic collections higher)
     - Preserve all existing overrides not being modified
     - _Requirements: 1.1, 1.5, 4.1, 4.9_
 
-  - [~] 8.3 Send PUT request for profile 7
+  - [x] 8.3 Send PUT request for profile 7
     - PUT `https://catalogapi.step.is/display-profiles/7` with body `{display_order_override: <computed payload>}`
     - Confirm 2xx response
     - _Requirements: 6.1, 6.2_
 
-  - [~] 8.4 Verify profile 7 update
+  - [x] 8.4 Verify profile 7 update
     - Query `display_profile_collections` view for profile_id=7
     - Confirm French collections appear with expected display_order values
     - Confirm differentiated ordering reflects academic audience priorities
     - _Requirements: 6.4_
 
-- [~] 9. Checkpoint — Verify profiles 5–7
+- [x] 9. Checkpoint — Verify profiles 5–7
   - Ensure all updates for profiles 5–7 are verified, ask the user if questions arise.
 
 - [ ] 10. Update Profile 8 (Children 6-10)
-  - [~] 10.1 Read current display_order_override for profile 8
+  - [x] 10.1 Read current display_order_override for profile 8
     - GET `https://catalogapi.step.is/display-profiles/8`
     - Record the full current `display_order_override` object
     - _Requirements: 6.2_
 
-  - [~] 10.2 Compute new display_order_override for profile 8
+  - [x] 10.2 Compute new display_order_override for profile 8
     - Add kids multi-language collections with values below existing Vietnamese kids: ls4gufq0: 1185, gjtcifmu: 1184, ugnufdje: 1183, vd22jc0b: 1182
     - Add French collections as hidden (all set to -1): ad49khvn: -1, uzs1jq8x: -1, bu0fz4rr: -1, vxuvod0y: -1, 4ke7s1i7: -1
     - Preserve all existing overrides not being modified
     - _Requirements: 1.3, 2.1, 2.3_
 
-  - [~] 10.3 Send PUT request for profile 8
+  - [x] 10.3 Send PUT request for profile 8
     - PUT `https://catalogapi.step.is/display-profiles/8` with body `{display_order_override: <computed payload>}`
     - Confirm 2xx response
     - _Requirements: 6.1, 6.2_
 
-  - [~] 10.4 Verify profile 8 update
+  - [x] 10.4 Verify profile 8 update
     - Query `display_profile_collections` view for profile_id=8
     - Confirm kids multi-language collections appear with correct positive display_order values
     - Confirm French collections are hidden (display_order < 0)
@@ -206,29 +206,29 @@ No code changes are involved — this is purely data operations against the exis
     - _Requirements: 6.4_
 
 - [ ] 11. Update Profile 9 (Kids + Beginner Mix)
-  - [~] 11.1 Read current display_order_override for profile 9
+  - [x] 11.1 Read current display_order_override for profile 9
     - GET `https://catalogapi.step.is/display-profiles/9`
     - Record the full current `display_order_override` object
     - _Requirements: 6.2_
 
-  - [~] 11.2 Compute new display_order_override for profile 9
+  - [x] 11.2 Compute new display_order_override for profile 9
     - Add kids multi-language collections between Vietnamese kids and beginner content: ls4gufq0: 1192, gjtcifmu: 1191, ugnufdje: 1190, vd22jc0b: 1189
     - Add French collections at lower tier: vxuvod0y: 1170, bu0fz4rr: 1168, uzs1jq8x: 1166, ad49khvn: 1164, 4ke7s1i7: 1165
     - Preserve all existing overrides not being modified
     - _Requirements: 1.4, 1.5, 2.2, 2.3_
 
-  - [~] 11.3 Send PUT request for profile 9
+  - [x] 11.3 Send PUT request for profile 9
     - PUT `https://catalogapi.step.is/display-profiles/9` with body `{display_order_override: <computed payload>}`
     - Confirm 2xx response
     - _Requirements: 6.1, 6.2_
 
-  - [~] 11.4 Verify profile 9 update
+  - [x] 11.4 Verify profile 9 update
     - Query `display_profile_collections` view for profile_id=9
     - Confirm kids multi-language collections appear between Vietnamese kids and beginner content
     - Confirm French collections appear at lower tier with correct values
     - _Requirements: 6.4_
 
-- [~] 12. Final checkpoint — Verify all 9 profiles
+- [x] 12. Final checkpoint — Verify all 9 profiles
   - Ensure all 9 profiles have been updated and verified successfully, ask the user if questions arise.
   - Optionally spot-check via GET `/catalog/:profileId` for a few profiles to confirm the resolved catalog view reflects changes.
 
